@@ -1,0 +1,692 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4. Integration &#8212; PHYS3820 Computational Physics</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5. Differentiation and Searching" href="../Chapter_5/Differentiation.html" />
+    <link rel="prev" title="3. Data Fitting and Interpolation" href="../Chapter_3/Data_Fitting.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">PHYS3820 Computational Physics</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../home.html">
+   About
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lectures
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_1/Gentle_Introduction.html">
+   1. Useful Introduction to Python, GitHub, and LaTex
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_2/Python_Basics.html">
+   2. Python Basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_3/Data_Fitting.html">
+   3. Data Fitting and Interpolation
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   4. Integration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_5/Differentiation.html">
+   5. Differentiation and Searching
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_6/ODEs.html">
+   6. Ordinary Differential Equations (ODEs)
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/Chapter_4/Integration.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/saturnaxis/Comp_Physics_I# The URL to your book's repository/main?urlpath=tree/_build/Chapter_4/Integration.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#quadrature-as-box-counting">
+   4.1. Quadrature as box counting
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#trapezoidal-rule">
+   4.2. Trapezoidal Rule
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simpson-s-rule">
+   4.3. Simpson’s Rule
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gaussian-quadrature">
+   4.4. Gaussian Quadrature
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#integration-error">
+   4.5. Integration Error
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#integration-by-stone-throwing">
+   4.6. Integration by Stone Throwing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#integrating-by-mean-value">
+   4.7. Integrating by Mean Value
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problems">
+   4.8. Problems
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="integration">
+<h1><span class="section-number">4. </span>Integration<a class="headerlink" href="#integration" title="Permalink to this headline">¶</a></h1>
+<p>Numerical integration is a fundamental skill in computational physics because it allows one to evaluate increasingly complex integrals with a high accuracy in seconds to minutes.  If you’ve ever tried to evaluate particularly nasty integrals, you notice that those can take pages of algebra, transformations, and still only get to an approximate form.  It is especially frustrating when one makes algebra mistakes and you have to do it over.  In this chapter, we will review basic integration methods that you’ve learned in Calculus and develop those methods in <em>python</em>.  After reading this chapter, check out some python packages that others have developed to make the process of numerical integration easier to access using <a class="reference external" href="https://github.com/nschloe/quadpy">quadpy</a>.</p>
+<div class="section" id="quadrature-as-box-counting">
+<h2><span class="section-number">4.1. </span>Quadrature as box counting<a class="headerlink" href="#quadrature-as-box-counting" title="Permalink to this headline">¶</a></h2>
+<p>The integration of a function usually requires some trickery, where you have to know which variable transformation to apply and when to apply it.  Due to the precise repetativeness of a computer, an integral can be evaluated in a straightforward manner.  You may recall that you first performed integrationby counting the number of boxes, or quadrilaterals, that you could place underneath a curve.  As a result, numerical integration is also called <em>quadrature</em> even when it comes to more complex methods.</p>
+<p>We’ll start our review with the Riemann definition of an integral, which is given as the limit of the sum over boxes of width <em>h</em>:</p>
+<p><span class="math notranslate nohighlight">\(\displaystyle \int_a^b f(x)dx = \lim_{h\rightarrow 0} \left[h \sum_{i=1}^{(b-a)/h} f(x_i) \right]\)</span>.</p>
+<p><img alt="Integration_Example" src="../_images/integral_example.png" /></p>
+<p>The numercial integral of a fuction <em>f(x)</em> is approximated as the equivalent of a finite sum of quadrilaterals with a height defined as <em>f(x)</em> and width <span class="math notranslate nohighlight">\(w_i\)</span> to get:</p>
+<p><span class="math notranslate nohighlight">\(\displaystyle \int_a^b f(x)dx \simeq \sum_{i=1}^{N} f(x_i)w_i\)</span>. (1)</p>
+<p>You will notice that this is similar to the Riemann definition, but the limit for an infintetesimial box size is removed and the upper limit for the summantion is redined as the number <span class="math notranslate nohighlight">\(N\)</span> of quadrilaterals.  Finally, each of the function values <span class="math notranslate nohighlight">\(f(x_i)\)</span> are weighted by <span class="math notranslate nohighlight">\(w_i\)</span>.  As we make <span class="math notranslate nohighlight">\(N\)</span> larger, the approximation will become more exact but this comes at a cost.  First, a computer holds numbers to a finite precision and some values in <span class="math notranslate nohighlight">\(N\)</span> won’t increase the accuracy of the integration.  Second, we’ll find that more calculations take more wall time and we may have to wait an extremely long time for the integration to finish.  Eventually we have to truncate the sum to get the “best” approximation and we have to remember that we are making a tradeoff.</p>
+<p>Something that you should <strong>never</strong> do is to attempt a numerical integration when the integrand contains a singularity <strong>without</strong> first removing the singularity by hand.  Some ways to remove the singularity is to assign intervals so that the singularity lies at an endpoints or by a change of variable:</p>
+<p><span class="math notranslate nohighlight">\(\displaystyle \int_{-1}^1 |x|f(x)dx = \int_{-1}^0 f(-x)dx + \int_0^1 f(x)dx\)</span>,</p>
+<p>or</p>
+<p><span class="math notranslate nohighlight">\(\displaystyle \int_0^1 x^{1/3}dx = \int_0^1 3y^3,\;\; (y=x^{1/3})\)</span>.</p>
+<p>On the other hand, you might have an integrand that changes very quickly/slowly and scaling the boxes according to the variation may be necessary.  There are several approches to scale the boxes for your integration and we’ll explore two of them in the following sections: Trapezoidal Rule and Simpson’s Rule that you may recall from Calculus.</p>
+</div>
+<div class="section" id="trapezoidal-rule">
+<h2><span class="section-number">4.2. </span>Trapezoidal Rule<a class="headerlink" href="#trapezoidal-rule" title="Permalink to this headline">¶</a></h2>
+<p>The trapezoid integration rule uses <span class="math notranslate nohighlight">\(f(x)\)</span> at <em>evenly</em> spaced values of <span class="math notranslate nohighlight">\(x\)</span>, with <span class="math notranslate nohighlight">\(N\)</span> points.  The first point <span class="math notranslate nohighlight">\(x_1\)</span> locates the left-side boundary and <span class="math notranslate nohighlight">\(x_N\)</span> locates the right-side boundary to form the integration region [<span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_N\)</span>] or [a,b].  The brackets indicate that the endpoints are included and then we can divide up the intergtation region into <span class="math notranslate nohighlight">\(N-1\)</span> intervals or chunks.  The interval width is defined as <span class="math notranslate nohighlight">\(h\)</span>:</p>
+<p><span class="math notranslate nohighlight">\(h = \frac{b-a}{N-1}\)</span></p>
+<p>and the location of each point along the interval is defined linearly because each interval has a fixed width.  Thus, we write the iterative formula for <span class="math notranslate nohighlight">\(x_i\)</span> as:</p>
+<p><span class="math notranslate nohighlight">\(x_i = a + (i-1)h,\)</span></p>
+<p>where we start our counting at <span class="math notranslate nohighlight">\(i=1\)</span>.  <strong>Does this equation return the left boundary when applying <span class="math notranslate nohighlight">\(i=1\)</span>?  What about the right boundary when <span class="math notranslate nohighlight">\(i=N\)</span>?</strong></p>
+<p><img alt="Trapezoid_Rule" src="../_images/Trap_rule.png" /></p>
+<p>The trapezoid rule takes each integration interval and constructs a trapezoid of width <span class="math notranslate nohighlight">\(h\)</span>.  Recall the area of a trapezoid is the average height of the two (long) parallel sides multiplied by the width.  To define the height for each side, we evaluate the function <span class="math notranslate nohighlight">\(f(x)\)</span> at boundary points for the given interval, <span class="math notranslate nohighlight">\(f(x_i)\)</span> and <span class="math notranslate nohighlight">\(f(x_{i+1})\)</span>.  The area of each such trapezoid is:</p>
+<p><span class="math notranslate nohighlight">\(\displaystyle \int_{x_i}^{x_{i+1}} f(x)dx \simeq \frac{f(x_i)+f(x_{i+1})}{2}h\)</span>.</p>
+<p>In terms of our standard integration formula (Eq. 1 in Section 3.1), the weights <span class="math notranslate nohighlight">\(w_i = 1/2\)</span>.  To apply the trapezoidal rule to the entire integration region [a,b], we simply add the contributions from each interval:</p>
+<p><span class="math notranslate nohighlight">\(\displaystyle \int_a^b f(x)dx \simeq \left[\frac{h}{2}a + \frac{h}{2}f(x_2)\right] + \left[\frac{h}{2}f(x_2) + \frac{h}{2}f(x_3)\right] + \cdots + \left[\frac{h}{2}f(x_{N-1}) + \frac{h}{2}b\right]\)</span>.</p>
+<p>You will notice that some interval points are counted twice as the end of one interval and as the beginning of the next, whereas the endpoints are just counted once.  We could now define all the weights for our standard function as:</p>
+<p><span class="math notranslate nohighlight">\(w_i = \left[\frac{h}{2},h,\cdots,h,\frac{h}{2} \right]\)</span>.</p>
+<p>These weights combine the double counted intervals (<span class="math notranslate nohighlight">\(h/2 + h/2 = h\)</span>).  Now let’s turn this mathematical rule into code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#TrapMethods;  Trapezoid integration of a function</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">#Define the boundary values [a,b] and the number of intervals N</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mi">4</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="c1">#f(x) is a function of x</span>
+    <span class="c1">#x is the independent variable</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; x, f(x) = </span><span class="si">%1.1f</span><span class="s2">, </span><span class="si">%1.1f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span> 
+
+<span class="k">def</span> <span class="nf">func_weight</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">h</span><span class="p">):</span> 
+    <span class="c1">#weights for the trapezoid rule</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">i</span><span class="o">==</span> <span class="n">N</span><span class="p">:</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="n">h</span><span class="o">/</span><span class="mf">2.</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="n">h</span>
+    <span class="k">return</span> <span class="n">weight</span>
+
+<span class="c1">#width of each interval</span>
+<span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">tot_sum</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+   <span class="n">x_i</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">h</span>
+   <span class="n">tot_sum</span> <span class="o">+=</span> <span class="n">func</span><span class="p">(</span><span class="n">x_i</span><span class="p">)</span><span class="o">*</span><span class="n">func_weight</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">h</span><span class="p">)</span> 
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39; Total sum = &#39;</span><span class="p">,</span> <span class="n">tot_sum</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Analytical sum = &quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mf">3.</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> x, f(x) = 0.0, 0.0
+ x, f(x) = 1.0, 1.0
+ x, f(x) = 2.0, 4.0
+ x, f(x) = 3.0, 9.0
+ Total sum =  9.5
+ Analytical sum =  9.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the code, we can see each of the elements of the trapezoid rule. Most importantly, you should notice that the standard integration formulat includes a summation <span class="math notranslate nohighlight">\(\Sigma\)</span> and in code that translates into a <em>for loop</em>.  Everything else maps directly to what you might expect.  The analytical sum is also calculated because the function <span class="math notranslate nohighlight">\(f(x) = x^2\)</span> and we know its integral is evaluated as <span class="math notranslate nohighlight">\(x^3/3\)</span> at the interval boundaries.  <strong>Why are the values not equal?</strong>  <strong>What happens if we increase the value of <span class="math notranslate nohighlight">\(N\)</span>?</strong></p>
+</div>
+<div class="section" id="simpson-s-rule">
+<h2><span class="section-number">4.3. </span>Simpson’s Rule<a class="headerlink" href="#simpson-s-rule" title="Permalink to this headline">¶</a></h2>
+<p>Simpson’s integration rule approximates the integrand <span class="math notranslate nohighlight">\(f(x)\)</span> by a parabola instead of a trapezoid:</p>
+<p><span class="math notranslate nohighlight">\(f(x) \simeq \alpha x^2 + \beta x + \gamma\)</span>,</p>
+<p>with equally spaced intervals and (<span class="math notranslate nohighlight">\(\alpha,\beta,\gamma\)</span>) are the to be determined weights.  We can calculate the area under the parabola for each interval as:</p>
+<p><span class="math notranslate nohighlight">\(\displaystyle \int_{x_i}^(x_i+h) (\alpha x^2 + \beta x + \gamma)dx = \frac{\alpha x^3}{3} + \frac{\beta x^2}{2} + \gamma x \biggr\rvert_{x_i}^{x_i+h}\)</span>.</p>
+<p>To determine the weights, let’s use the interval [-1,1] and the integral becomes:</p>
+<p><span class="math notranslate nohighlight">\(\displaystyle \int_{-1}^1 (\alpha x^2 + \beta x + \gamma)dx = \frac{2\alpha}{3} + 2\gamma\)</span>. (2)</p>
+<p>But we know that <span class="math notranslate nohighlight">\(f(0) = \gamma\)</span>, <span class="math notranslate nohighlight">\(f(1) = \alpha + \beta + \gamma\)</span>, and <span class="math notranslate nohighlight">\(f(-1) = \alpha - \beta + \gamma\)</span>.  The weight <span class="math notranslate nohighlight">\(\alpha\)</span> can be determined by <span class="math notranslate nohighlight">\(f(1)\)</span> + <span class="math notranslate nohighlight">\(f(-1)\)</span> because the <span class="math notranslate nohighlight">\(\beta\)</span> cancels and <span class="math notranslate nohighlight">\(\gamma\)</span> is known directly.  The weight <span class="math notranslate nohighlight">\(\beta\)</span> can be determined in a similar manner but through the difference to get the <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\gamma\)</span> to cancel.  Thus, we find:</p>
+<p><span class="math notranslate nohighlight">\(\alpha = \frac{f(1) + f(-1)}{2} - \gamma\)</span>, <span class="math notranslate nohighlight">\(\beta = \frac{f(1) - f(-1)}{2}\)</span>, <span class="math notranslate nohighlight">\(\gamma = f(0)\)</span>.</p>
+<p>Now, we can substitute into Equation 2 the values for the weights, but in terms of function evaluations over three points:</p>
+<p><span class="math notranslate nohighlight">\(\displaystyle \int_{-1}^1 (\alpha x^2 + \beta x + \gamma)dx = \frac{f(1)}{3}  + \frac{4f(0)}{3} + \frac{f(-1)}{3}\)</span>.</p>
+<p>Since three points were required, we generalize this solution to include the two endpoints of a given interval and the midpoint (which lies at <span class="math notranslate nohighlight">\(x_i + h/2\)</span>).  This can be written ast the following integral:</p>
+<p><span class="math notranslate nohighlight">\(\displaystyle \int_{x_i-h}^{x_i + h} f(x)dx = \int_{x_i}^{x_i+h/2} f(x) dx + \int_{x_i+h/2}^{x_i+h} f(x) dx = \frac{\alpha x^3}{3} + \frac{\beta x^2}{2} + \gamma x \biggr\rvert_{x_i}^{x_i+h/2} + \frac{\alpha x^3}{3} + \frac{\beta x^2}{2} + \gamma x \biggr\rvert_{x_i+h/2}^{x_i+h}\)</span></p>
+<p>or</p>
+<p><span class="math notranslate nohighlight">\(\displaystyle \int_{x_i-h}^{x_i + h} f(x)dx \simeq \frac{h}{6}f(x_{i}) + \frac{4h}{6}f(x_{i}+h/2) + \frac{h}{6}f(x_{i+1})\)</span>,</p>
+<p>where the first point <span class="math notranslate nohighlight">\(x_{i}\)</span> takes the place of -1 and the next point <span class="math notranslate nohighlight">\(x_{i+1}\)</span> takes the place of the +1.  Simpson’s rule requires the integration to be over <em>pairs of intervals</em> because it uses 3 points.  This implies that the total number of points <span class="math notranslate nohighlight">\(N\)</span> be odd and the total number of intervals <span class="math notranslate nohighlight">\(N-1\)</span> is even.  To apply Simpson’s rule over the entire integration region, we just add up all of the intervals.  Here, the points (<span class="math notranslate nohighlight">\(f(x_1)\)</span> and <span class="math notranslate nohighlight">\(f(x_N)\)</span>) are counted once, the points in between (<span class="math notranslate nohighlight">\(f(x_2),\ldots,f(x_{N-1})\)</span> are counted twice, and the midpoints <span class="math notranslate nohighlight">\(f((x_i + x_{i+1})/2)\)</span> are counted once to get:</p>
+<p><span class="math notranslate nohighlight">\(\displaystyle \int_a^b f(x)dx \simeq \left[ \frac{h}{6}f(x_{1}) + \frac{4h}{6}f\left(\frac{x_1+x_2}{2}\right) + \frac{h}{6}f(x_{2})\right] + \left[ \frac{h}{6}f(x_{2}) + \frac{4h}{6}f\left(\frac{x_2+x_3}{2}\right) + \frac{h}{6}f(x_{3})\right]  + \cdots + \left[ \frac{h}{6}f(x_{N-1}) +\frac{4h}{6}f\left(\frac{x_{N-1}+x_N}{2}\right)+ \frac{h}{6}f(x_{N})\right]\)</span></p>
+<p>or</p>
+<p><span class="math notranslate nohighlight">\(\displaystyle \int_a^b f(x)dx \simeq \frac{1}{2}\sum_{i=1}^{N-1} \frac{h}{3}\left[ f(x_{i}) + 4f\left(\frac{x_i+x_{i+1}}{2}\right) + f(x_{i+1})\right]\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#SimpMethods;  Simpson&#39;s integration of a function</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">#Define the boundary values [a,b] and the number of intervals N</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mi">4</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="c1">#f(x) is a function of x</span>
+    <span class="c1">#x is the independent variable</span>
+    <span class="c1">#print(&quot; x, f(x) = %1.1f, %1.1f&quot; % (x,x*x))</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span>
+
+<span class="c1">#width of each interval</span>
+<span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">tot_sum</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">):</span>
+   <span class="n">x_left</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">h</span>
+   <span class="n">x_right</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">h</span>
+   <span class="n">x_mid</span> <span class="o">=</span> <span class="n">x_left</span> <span class="o">+</span> <span class="n">h</span><span class="o">/</span><span class="mi">2</span>
+   <span class="n">tot_sum</span> <span class="o">+=</span> <span class="p">(</span><span class="n">h</span><span class="o">/</span><span class="mf">6.</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">x_left</span><span class="p">)</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">func</span><span class="p">(</span><span class="n">x_mid</span><span class="p">)</span><span class="o">+</span><span class="n">func</span><span class="p">(</span><span class="n">x_right</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39; Total sum = &#39;</span><span class="p">,</span> <span class="n">tot_sum</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Analytical sum = &quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mf">3.</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Total sum =  9.0
+ Analytical sum =  9.0
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="gaussian-quadrature">
+<h2><span class="section-number">4.4. </span>Gaussian Quadrature<a class="headerlink" href="#gaussian-quadrature" title="Permalink to this headline">¶</a></h2>
+<p>The Trapezoid Rule and Simpson’s Rule use equidistant points and weights, which is adequate for some cases.  But, we can generalize those methods by relaxing the requirement for equidistant points.  Recall that our standard integration formula is composed of a set of chosen points <span class="math notranslate nohighlight">\(x_i\)</span> and corresponding weights <span class="math notranslate nohighlight">\(w_i\)</span>.  There is not a law stating that the <span class="math notranslate nohighlight">\(x_i\)</span> points should be chosen a particular way.  In Gaussian quadrature methods,</p>
+<ul class="simple">
+<li><p>we choose a series of points from a complex function that can be represented as a series of polynomials (Legendre, Laguerre, etc.)</p></li>
+<li><p>the benefit is that these functions can be solved on the interval [-1,1] exactly</p></li>
+<li><p>perform a variable transformation to <strong>map</strong> the known solution onto the unknown solution [-1,1]–&gt;[a,b]</p></li>
+<li><p>the error is reduced because the approximation is more exact</p></li>
+</ul>
+<p>Let’s start with an example.  We want to select points and weights using only 2 points within the integration region.  From this goal, we write:</p>
+<p><span class="math notranslate nohighlight">\(\displaystyle \int_{-1}^1 f(x)dx = w_1f(x_1) + w_2f(x_2)\)</span>,</p>
+<p>where there will be some number of polynomials of degree (2n+1) and n=1.  We set up equations for all polynomials from degree 0 to (2n + 1)</p>
+<ul class="simple">
+<li><p>degree 0:  <span class="math notranslate nohighlight">\(f(x) = 1\)</span>;  <span class="math notranslate nohighlight">\(w_1 + w_2 = \displaystyle \int_{-1}^{1} 1dx = 2\)</span></p></li>
+<li><p>degree 1:  <span class="math notranslate nohighlight">\(f(x) = x\)</span>;  <span class="math notranslate nohighlight">\(w_1x_1 + w_2x_2 = \displaystyle \int_{-1}^{1} xdx = 0\)</span></p></li>
+<li><p>degree 2:  <span class="math notranslate nohighlight">\(f(x) = x^2\)</span>;  <span class="math notranslate nohighlight">\(w_1x_1^2 + w_2x_2^2 = \displaystyle \int_{-1}^{1} x^2dx = 2/3\)</span></p></li>
+<li><p>degree 3:  <span class="math notranslate nohighlight">\(f(x) = x^3\)</span>;  <span class="math notranslate nohighlight">\(w_1x_3^2 + w_2x_3^2 = \displaystyle \int_{-1}^{1} x^3dx = 0\)</span></p></li>
+</ul>
+<p>Now we have 4 equations and 4 unknowns.  Through some algebra, we can find that</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(w_1 = w_2 = 1\)</span> (not that surprising from degree 0)</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_1 = -1/\sqrt{3}\)</span> (from degree 2)</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_2 = 1/\sqrt{3}\)</span> (from degree 2; other root)</p></li>
+</ul>
+<p>This turns out to be the beginning of a known procedure using <a class="reference external" href="https://mathworld.wolfram.com/Legendre-GaussQuadrature.html">Legendre polynomials</a>. Now we have to apply a mapping.  The easiest map is from [-1,1]–&gt;[a,b] uniformly, which uses the midpoint = <span class="math notranslate nohighlight">\((a+b)/2\)</span>.  Thus, we can get the mapped points <span class="math notranslate nohighlight">\(x_i^\prime\)</span>, <span class="math notranslate nohighlight">\(w_i^\prime\)</span> through a linear transformation:</p>
+<p><span class="math notranslate nohighlight">\(x_i^\prime = \frac{b+a}{2} + \frac{b-a}{2}x_i\)</span>  and  <span class="math notranslate nohighlight">\(w_i^\prime = \frac{b-a}{2}w_i\)</span>.</p>
+<p>Other mappings can be found in the textbook: <em>Computational Physics - Landau, Paez, &amp; Bordeianu</em> in the GitHub.  Let’s turn this into some code and see how well it does.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#IntegGauss.py: Gaussian quadrature up to degree 4 points and weights</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">#Define the boundary values [a,b] and the degree N</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mi">3</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="c1">#function to be integrated</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span>
+
+<span class="k">def</span> <span class="nf">gauss</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="p">):</span>
+    <span class="c1">#given an interval [a,b] this function will return the scaled points x and weights w</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">N</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">3.</span><span class="p">)</span><span class="o">/</span><span class="mf">3.</span>
+        <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">N</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">15.</span><span class="p">)</span><span class="o">/</span><span class="mf">5.</span>
+        <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">8.</span><span class="o">/</span><span class="mf">9.</span>
+        <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="mf">5.</span><span class="o">/</span><span class="mf">9.</span>
+    <span class="k">elif</span> <span class="n">N</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">525.</span><span class="o">-</span><span class="mf">70.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">30.</span><span class="p">))</span><span class="o">/</span><span class="mf">35.</span>
+        <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">w</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">18.</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">30.</span><span class="p">))</span><span class="o">/</span><span class="mf">36.</span>
+        <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">525.</span><span class="o">+</span><span class="mf">70.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">30.</span><span class="p">))</span><span class="o">/</span><span class="mf">35.</span>
+        <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">18.</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">30.</span><span class="p">))</span><span class="o">/</span><span class="mf">36.</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
+    <span class="c1">#scale to [a,b]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">+</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span> <span class="o">+</span> <span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span><span class="o">*</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span><span class="n">w</span>
+
+
+<span class="n">x_scaled</span><span class="p">,</span> <span class="n">w_scaled</span> <span class="o">=</span> <span class="n">gauss</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="p">)</span> <span class="c1">#get points and weights</span>
+<span class="n">tot_sum</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">tot_sum</span> <span class="o">+=</span> <span class="n">w_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">func</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39; Total sum = &#39;</span><span class="p">,</span> <span class="n">tot_sum</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Analytical sum = &quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mf">3.</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0.          0.77459667 -0.77459667] [0.88888889 0.55555556 0.55555556]
+ Total sum =  9.0
+ Analytical sum =  9.0
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="integration-error">
+<h2><span class="section-number">4.5. </span>Integration Error<a class="headerlink" href="#integration-error" title="Permalink to this headline">¶</a></h2>
+<p>If you value your own time, then you should choose an integration rule that gives an accurate answer using the least number of integration points.  Simply, fewer integration steps implies that less work needs to be done by the computer and you obtain your result faster.  Additionally, you want an accurate answer and you must realize that we are obtaining estimates of the true answer.  Computers are able to store a finite set of numbers and this results in <em>errors</em>.  We obtain a crude estimate of the <em>approximation</em> or <em>algorithmic error <span class="math notranslate nohighlight">\(\varepsilon\)</span></em> and the <em>relative error <span class="math notranslate nohighlight">\(\epsilon\)</span></em> by expanding <span class="math notranslate nohighlight">\(f(x)\)</span> in a Taylor series around the midpoint of the integration interval.  The error is mulitplied by the number of intervals for the entire integration region [a,b].  This is straightforward for the Trapezoid and Simpson rules because use equidistant intervals.  This process yields:</p>
+<p><span class="math notranslate nohighlight">\(\varepsilon_{\rm Trap} = O\left(\frac{[b-a]^3}{12N^2}\right)f^{\prime\prime}\)</span> <a class="reference external" href="https://en.wikipedia.org/wiki/Trapezoidal_rule">Trapezoidal Rule</a></p>
+<p>and</p>
+<p><span class="math notranslate nohighlight">\(\varepsilon_{\rm Simp} \sim O\left(\frac{[b-a]^5}{N^4}\right)f^{\prime\prime\prime\prime}\)</span> <a class="reference external" href="https://en.wikipedia.org/wiki/Simpson%27s_rule">Simpsons Rule</a>,</p>
+<p>for the apprimation errors and the relative error is simply:</p>
+<p><span class="math notranslate nohighlight">\(\epsilon_{\rm Trap} = \varepsilon_{\rm Trap}/f^\prime\)</span>  and <span class="math notranslate nohighlight">\(\epsilon_{\rm Simp} = \varepsilon_{\rm Simp}/f^\prime\)</span>.</p>
+<p>A more sophsiticated integration rule leads to an error that decreases rapidly (due to the higher power of <span class="math notranslate nohighlight">\(N\)</span>) and is proportional to higher derivatives of <span class="math notranslate nohighlight">\(f\)</span>.  In most cases, we should expect Simpson’s rule to converge more rapidly than the Trapezoid rule.</p>
+<p>Another source of error is the <em>round-off</em> error, which we assume is random and can thus take the form <span class="math notranslate nohighlight">\(\epsilon_{\rm ro} \simeq \sqrt{N}\epsilon_m\)</span>.  The <span class="math notranslate nohighlight">\(\epsilon_m\)</span> represents machine precision, which is <span class="math notranslate nohighlight">\(\epsilon \sim 10^{-15}\)</span> for double precision (the standard for science).  You can find more on data types <a class="reference external" href="https://jakevdp.github.io/PythonDataScienceHandbook/02.01-understanding-data-types.html">here</a>.  Assuming double precision, we want to determin an <span class="math notranslate nohighlight">\(N\)</span> that minimizes the total error (round-off + approximation), <span class="math notranslate nohighlight">\(\epsilon_{\rm tot} \simeq \epsilon_{ro} + \varepsilon\)</span>.  This occurs when the approximation error (which depends on <span class="math notranslate nohighlight">\(N\)</span>) approaches the round-off error.  Through some clever scaling, we find that</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(N \sim 10^6\)</span> for the Trapezoid rule</p></li>
+<li><p><span class="math notranslate nohighlight">\(N \sim 2000\)</span> for Simpson’s rule.</p></li>
+</ul>
+<p>These results imply the following:</p>
+<ul class="simple">
+<li><p>Simpson’s rule is an improvement over the trapezoid rule</p></li>
+<li><p>Obtaining the best numerical approximation can be acheived with <span class="math notranslate nohighlight">\(N \lesssim 1000\)</span> instead of for <span class="math notranslate nohighlight">\(N \rightarrow \infty\)</span></p></li>
+</ul>
+</div>
+<div class="section" id="integration-by-stone-throwing">
+<h2><span class="section-number">4.6. </span>Integration by Stone Throwing<a class="headerlink" href="#integration-by-stone-throwing" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes you need to find the area of a shape with an irregular boundary.  The standard methods can be quite complex and there are simpler means of obtaining an approximate value.  Another context is when you want to perform multidimensional integrals.  These types of integrals are easily solved through a <em>sampling</em> technique with random numbers.</p>
+<p><img alt="Stone_throwing" src="../_images/stone_throwing.png" /></p>
+<p>Suppose you need to find the area of a pond, where most ponds are not regularly shaped due to weathering and erosion.  You can use the following algorithm:</p>
+<ol class="simple">
+<li><p>Walk off a box that completely encloses the pond and remove an pebbles lying on the ground within the box.</p></li>
+<li><p>Measure the lengths of the sides in natural units (feet or meters).  This tells you the area of the enclosing box <span class="math notranslate nohighlight">\(A_{\rm box}\)</span>.</p></li>
+<li><p>Grab a bunch of pebbles, count their number, and throw them up in the air in random directions. (Wear a hat!)</p></li>
+<li><p>Count the number of splashes in the pond <span class="math notranslate nohighlight">\(N_{\rm pond}\)</span> and the number of pebbles lying on the ground within your box <span class="math notranslate nohighlight">\(N_{\rm box}\)</span>.</p></li>
+<li><p>Assuming that you threw the pebbles randomly enough, the number of pebbles falling into the pond should be proportional to the area of the pond <span class="math notranslate nohighlight">\(A_{\rm pond}\)</span>.</p></li>
+</ol>
+<p>The fraction of pebbles that splash in the pond relative to the total number of pebbles tells you the area within a unit box.  Multiplying by the area of the box <span class="math notranslate nohighlight">\(A_{\rm box}\)</span> in the natural units, then allows you to find the area of the pond:</p>
+<p><span class="math notranslate nohighlight">\(A_{\rm pond} = \frac{N_{\rm pond}}{N_{\rm pond}+N_{\rm box}}A_{\rm box}\)</span>.</p>
+<p>Let’s use the sampling technique to perform a 2D integration to determine <span class="math notranslate nohighlight">\(\pi\)</span> (in code!) assuming a circular pond</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">stone_throw</span><span class="p">(</span><span class="n">trial_idx</span><span class="p">):</span>
+    <span class="c1">#algorithm of stone throwing</span>
+    <span class="c1">#performing n number  of trials to see convergence</span>
+    <span class="n">A_box</span> <span class="o">=</span> <span class="mi">4</span> <span class="c1">#area of the enclosing square (r = 1 or d = 2)</span>
+    <span class="n">N_pebbles</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1">#total number of pebbles</span>
+
+    <span class="n">N_pond</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#initial count of the pebbles</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N_pebbles</span><span class="p">):</span>
+        <span class="n">x_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">r_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x_samp</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">y_samp</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">r_samp</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">N_pond</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">A_pond</span><span class="p">[</span><span class="n">trial_idx</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">N_pond</span><span class="o">/</span><span class="n">N_pebbles</span><span class="p">)</span><span class="o">*</span><span class="n">A_box</span>
+
+<span class="n">N_trials</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">A_pond</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_trials</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N_trials</span><span class="p">):</span>
+    <span class="n">stone_throw</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A_pond</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N_trials</span><span class="p">),</span><span class="n">A_pond</span><span class="p">,</span><span class="s1">&#39;k.&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N_trials</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">2.8</span><span class="p">,</span><span class="mf">3.4</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Trial Number&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Estimate of $\pi$&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[3.08 3.28 3.   3.32 3.04 3.12 3.04 3.24 3.16 3.12]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Estimate of $\\pi$&#39;)
+</pre></div>
+</div>
+<img alt="../_images/Integration_10_2.png" src="../_images/Integration_10_2.png" />
+</div>
+</div>
+<p>We found a <em>very</em> approximate value for <span class="math notranslate nohighlight">\(\pi\)</span>.  Think about how we can improve the accuracy.</p>
+<ul class="simple">
+<li><p><strong>Will increasing the number of trials help?</strong></p></li>
+<li><p><strong>Would we want to increase the number of pebbles thrown?</strong></p></li>
+<li><p><strong>How could we find the number of pebbles needed to get 3 decimal places of precision?</strong></p></li>
+</ul>
+</div>
+<div class="section" id="integrating-by-mean-value">
+<h2><span class="section-number">4.7. </span>Integrating by Mean Value<a class="headerlink" href="#integrating-by-mean-value" title="Permalink to this headline">¶</a></h2>
+<p>In the previous section, we integrated using random values.  You might be thinking, how did that even work?  It is the standard Monte Carlo (random value) technique, which is based on the <em>mean value theorem</em> from Calculus.  Here’s the equation in case you’ve forgotten:</p>
+<p><span class="math notranslate nohighlight">\(I = \displaystyle \int_a^b f(x)dx = (b-a)&lt;f&gt;\)</span>.</p>
+<p>The theorem states: the value of the integral of some function <span class="math notranslate nohighlight">\(f(x)\)</span> over the interval from <span class="math notranslate nohighlight">\(a\)</span> to <span class="math notranslate nohighlight">\(b\)</span> equals the lenght of the interval <span class="math notranslate nohighlight">\((b-a)\)</span> multiplied by the mean value of the function <span class="math notranslate nohighlight">\(&lt;f&gt;\)</span> over that interval.  More simply, it states that the same area can exist under a complicated curve and within the simplest curve (a horizontal line).</p>
+<p><img alt="mean_value_visual" src="Chapter_4/mean-value-integrals-visual" /></p>
+<p>The integration algorithm uses Monte Carlo techniques to evaluate the mean, which can be written as a summation by:</p>
+<p><span class="math notranslate nohighlight">\(&lt;f&gt; \simeq \frac{1}{N} \displaystyle \sum_{i=1}^N f(x_i)\)</span>.</p>
+<p>This gives the very simple integration rule:</p>
+<p><span class="math notranslate nohighlight">\(\displaystyle \int_a^b f(x)dx \simeq \frac{b-a}{N} \sum_{i=1}^N f(x_i) = (b-a)&lt;f&gt;\)</span>.</p>
+<p>This looks like our standard algorithm (<span class="math notranslate nohighlight">\(\sum_i f(x_i)w_i\)</span>), where the points are chosen randomly and with uniform weights <span class="math notranslate nohighlight">\(w_i = (b-a)/N\)</span>.  This method is not very efficient (i.e., it can take a large N to converge), but it is simple.</p>
+</div>
+<div class="section" id="problems">
+<h2><span class="section-number">4.8. </span>Problems<a class="headerlink" href="#problems" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Complete the following problems in a Jupyter notebook, where you will save your results as an external file (*.png) as needed.</p></li>
+<li><p>Create a LaTex document with:</p>
+<ul>
+<li><p>an abstract summary</p></li>
+<li><p>sections for each problem that state the problem, summarize what you did, and display the results</p></li>
+<li><p>include a reference for each solution (this can be textbooks)</p></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><p>Evaluate the following integrals using the a) Trapezoid rule, b) Simpson’s Rule, and c) Gaussian quadrature.  Include a graph showing each function and shade the area.  Vary the number of intervals needed to give an ‘acceptable’ answer.  In your submitted work, describe your procedure for varying the intervals, how many were required for each method, and explain why each methods require more/less than the others.</p>
+<p>a. <span class="math notranslate nohighlight">\(\displaystyle \int_0^{\pi/2} \cos x dx\)</span></p>
+<p>b. <span class="math notranslate nohighlight">\(\displaystyle \int_1^3 1/x^2 dx\)</span></p>
+<p>c. <span class="math notranslate nohighlight">\(\displaystyle \int_2^4 x^2 + x + 1 dx\)</span></p>
+</li>
+<li><p>Write a Python program to study projectile motion without air resistance using Simpson’s rule.  Then apply your program to the following scenario:</p>
+<ul class="simple">
+<li><p>You are a pirate cannoneer and your Captain (<em>Hector Barbossa</em>) has ordered you to fire the cannon to begin the siege of Port Royal.  Your Captian wants a short battle, where the British armory is destroyed first and he can begin pillaging right away to find a big hat. Thus, you must make a direct hit on the first shot.  The cannon has a muzzle speed of about 200 m/s and the firing deck is 50 m above sea level.  The Captain has anchored 2000 m off shore relative to the fort walls for the initial battle.  The armory is located at sea level an additional 57 m beyond the fort walls.</p></li>
+</ul>
+<p>a.  At what angle (from the horizontal) must you fire the cannon to hit the armory?</p>
+<p>b.  What is the maximum height (from sea level) will the cannon fly?</p>
+<p>c.  Compare your results to expectations from theory (i.e., the kinematics you learned in pirate school).  Plot the trajectory (x,y), maximum height, and range determined from your program along with analytic values.</p>
+</li>
+</ol>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Chapter_4"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../Chapter_3/Data_Fitting.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">3. </span>Data Fitting and Interpolation</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../Chapter_5/Differentiation.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Differentiation and Searching</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Billy Quarles<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
