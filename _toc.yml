@@ -7,9 +7,9 @@ parts:
 - caption: Lectures
   numbered: true
   chapters:
-  - file: Chapter_1/Gentle_Introduction.ipynb
-  - file: Chapter_2/Python_Basics.ipynb
-  - file: Chapter_3/Data_Fitting.ipynb
-  - file: Chapter_4/Integration.ipynb
-  - file: Chapter_5/Differentiation.ipynb
-  - file: Chapter_6/ODEs.ipynb
+  - file: courseware/Chapter_1/Gentle_Introduction.ipynb
+  - file: courseware/Chapter_2/Python_Basics.ipynb
+  - file: courseware/Chapter_3/Data_Fitting.ipynb
+  - file: courseware/Chapter_4/Integration.ipynb
+  - file: courseware/Chapter_5/Differentiation.ipynb
+  - file: courseware/Chapter_6/ODEs.ipynb

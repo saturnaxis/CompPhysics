@@ -1,0 +1,967 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3. Data Fitting and Interpolation &#8212; PHYS3820 Computational Physics</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4. Integration" href="../Chapter_4/Integration.html" />
+    <link rel="prev" title="2. Python Basics" href="../Chapter_2/Python_Basics.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">PHYS3820 Computational Physics</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../home.html">
+   About
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lectures
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_1/Gentle_Introduction.html">
+   1. Useful Introduction to Python, GitHub, and LaTex
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_2/Python_Basics.html">
+   2. Python Basics
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   3. Data Fitting and Interpolation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_4/Integration.html">
+   4. Integration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_5/Differentiation.html">
+   5. Differentiation and Searching
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_6/ODEs.html">
+   6. Ordinary Differential Equations (ODEs)
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/courseware/Chapter_3/Data_Fitting.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/saturnaxis/PHYS3820_Notes# The URL to your book's repository/main?urlpath=tree/courseware/Chapter_3/Data_Fitting.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fitting-an-experimental-spectrum-problem">
+   3.1. Fitting an experimental spectrum (Problem)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#linear-interpolation">
+   3.2. Linear Interpolation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lagrange-interpolation">
+   3.3. Lagrange Interpolation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cubic-splines">
+   3.4. Cubic Splines
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-fitting">
+   3.5. Data Fitting
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#least-squares-fitting-linear-regression">
+     3.5.1. Least-squares Fitting: linear regression
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#least-squares-fitting-implementation">
+     3.5.2. Least-Squares Fitting: Implementation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#maximum-likelihood-estimation">
+     3.5.3. Maximum Likelihood Estimation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problems">
+   3.6. Problems
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="data-fitting-and-interpolation">
+<h1><span class="section-number">3. </span>Data Fitting and Interpolation<a class="headerlink" href="#data-fitting-and-interpolation" title="Permalink to this headline">¶</a></h1>
+<p>The scientific method is based on empiricism, which requires the collection of evidence (data) through an experiment to test a hypothesis.  After the data is collected a scientist needs to synthesize the result by comparing (fitting) the data to predictions made by existing theories or models.  Thus, data fitting is an art worthy by all scientists.  In this chapter, we will discuss two methods of interpolation (e.g., Lagrange and Cubic Splines), least squares fitting, and maximum likelihood estimation.</p>
+<div class="section" id="fitting-an-experimental-spectrum-problem">
+<h2><span class="section-number">3.1. </span>Fitting an experimental spectrum (Problem)<a class="headerlink" href="#fitting-an-experimental-spectrum-problem" title="Permalink to this headline">¶</a></h2>
+<p>The cross sections (in millibarns; mb) for the resonant scattering of a neutron from a nucleus (see Table 1) can be measured in terms of the energy with an associated experimental error.  Your problem is to determine the values for the cross sections at energy values lying between the measured values.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>i</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>6</p></th>
+<th class="head"><p>7</p></th>
+<th class="head"><p>8</p></th>
+<th class="head"><p>9</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(E_i\)</span> (MeV)</p></td>
+<td><p>0</p></td>
+<td><p>25</p></td>
+<td><p>50</p></td>
+<td><p>75</p></td>
+<td><p>100</p></td>
+<td><p>125</p></td>
+<td><p>150</p></td>
+<td><p>175</p></td>
+<td><p>200</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(g(E_i)\)</span> (mb)</p></td>
+<td><p>10.6</p></td>
+<td><p>16.0</p></td>
+<td><p>45.0</p></td>
+<td><p>83.5</p></td>
+<td><p>52.8</p></td>
+<td><p>19.9</p></td>
+<td><p>10.8</p></td>
+<td><p>8.25</p></td>
+<td><p>4.7</p></td>
+</tr>
+<tr class="row-even"><td><p>Error (mb)</p></td>
+<td><p>9.34</p></td>
+<td><p>17.9</p></td>
+<td><p>41.5</p></td>
+<td><p>85.5</p></td>
+<td><p>51.5</p></td>
+<td><p>21.5</p></td>
+<td><p>10.8</p></td>
+<td><p>6.29</p></td>
+<td><p>4.14</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 1</strong>: Experimental values for a scattering cross section, each with an absolute error <span class="math notranslate nohighlight">\(\pm \sigma_i\)</span>, as a function of energy.</p>
+<p>You can solve this problem in a number of ways, where the simplest is to numerically <em>interpolate</em> between the values of <span class="math notranslate nohighlight">\(g(E_i)\)</span>.  This is direct and easy, but does not account for the experimental noise in the data.  A more appropriate way to solve this problem is to find the <em>best fit</em> of a theoretical function to the data.  The best fit depends on a series of model parameters that are tweaked so that the distance between the experimental points and the model curve is minimized relative to the measurement uncertainty.  In the meantime, let’s see how this data looks graphically.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#plot_Table2_1.py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
+
+<span class="c1">#set default fontsize</span>
+<span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">})</span>
+
+<span class="n">aspect</span> <span class="o">=</span> <span class="mf">4.</span><span class="o">/</span><span class="mf">3.</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="s1">&#39;x-large&#39;</span>
+
+<span class="n">xvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">225</span><span class="p">,</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">yvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.6</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mf">83.5</span><span class="p">,</span><span class="mf">52.8</span><span class="p">,</span><span class="mf">19.9</span><span class="p">,</span><span class="mf">10.8</span><span class="p">,</span><span class="mf">8.25</span><span class="p">,</span><span class="mf">4.7</span><span class="p">])</span>
+<span class="n">yerror</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">9.34</span><span class="p">,</span><span class="mf">17.9</span><span class="p">,</span><span class="mf">41.5</span><span class="p">,</span><span class="mf">85.5</span><span class="p">,</span><span class="mf">51.5</span><span class="p">,</span><span class="mf">21.5</span><span class="p">,</span><span class="mf">10.8</span><span class="p">,</span><span class="mf">6.29</span><span class="p">,</span><span class="mf">4.14</span><span class="p">])</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">aspect</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+<span class="c1">#using the errorbar function from matplotlib</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span><span class="n">yvals</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerror</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">205</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xvals</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$E_i$ (MeV)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$g(E_i)$ (mb)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">,</span><span class="n">length</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span><span class="n">labelsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;neutron_scattering.png&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Data_Fitting_1_0.svg" src="../../_images/Data_Fitting_1_0.svg" /></div>
+</div>
+<p>In the above figure, one can see that the cross section peaks at 75 MeV, although there is a large measurement uncertainty.</p>
+<p>Interpolation and curve-fitting are powerful tools that let you treat tables of numbers as if they were analytic functions and <em>sometimes</em> allow you to deduce statistically meaningful constants or conclusions from measurements.  Data fitting can be either <em>global</em> or <em>local</em>, which describes whether or not a single function is used to represent the entire data set.  An incorrect global fit can introduce spurious features between the data points that are nonphysical.  Keep it local and view global interpolation with a critical eye.</p>
+</div>
+<div class="section" id="linear-interpolation">
+<h2><span class="section-number">3.2. </span>Linear Interpolation<a class="headerlink" href="#linear-interpolation" title="Permalink to this headline">¶</a></h2>
+<p>The easiest method to interpolate data is linearly.  In this section, we will derive the necessary equations and apply them at the end of Section 2.3 to see how a linear interpolation fares.  First, we must recall the equation of a line: <span class="math notranslate nohighlight">\(g(x) = a_o + a_1x\)</span>, which will be applied to two nearby points (<span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(x_{i+1}\)</span>).  As a result, we find the system of linear equations:</p>
+<p><span class="math notranslate nohighlight">\(g(x_i) = a_o + a_1x_i\)</span><br />
+and<br />
+<span class="math notranslate nohighlight">\(g(x_{i+1}) = a_o + a_1x_{i+1}\)</span>.</p>
+<p>We can combine all three equations (<span class="math notranslate nohighlight">\(g(x)\)</span>,<span class="math notranslate nohighlight">\(g(x_i)\)</span>,<span class="math notranslate nohighlight">\(g(x_{i+1})\)</span>) and solve them analytically (3 equations and 3 unknowns to eliminate the coefficients).  Here, we know <span class="math notranslate nohighlight">\(g(x_i)\)</span> and <span class="math notranslate nohighlight">\(g(x_{i+1})\)</span> from our table.  Thus, we find:</p>
+<p><span class="math notranslate nohighlight">\(g(x) = g(x_i) + \frac{x-x_i}{x_{i+1}-x_i}[g(x_{i+1})-g(x_i)]\)</span></p>
+<p>Now it’s time to code this up as a function for later.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">linear_interp</span><span class="p">(</span><span class="n">x_n</span><span class="p">,</span><span class="n">g_n</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+    <span class="c1">#generate value for linear interpolation function</span>
+    <span class="c1">#x_n = array containing independent values from table</span>
+    <span class="c1">#g_n = array containing dependent values from table</span>
+    <span class="c1">#x = value to evaluate</span>
+    <span class="n">inner_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span><span class="o">&gt;=</span><span class="n">x_n</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#search to find first point where x &gt; x_n (in table)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">inner_idx</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">inner_idx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">inner_idx</span> <span class="o">=</span> <span class="n">inner_idx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">outer_idx</span> <span class="o">=</span> <span class="n">inner_idx</span><span class="o">+</span><span class="mi">1</span>
+    <span class="c1">#print(inner_idx,outer_idx)</span>
+    <span class="k">if</span> <span class="n">inner_idx</span> <span class="o">!=</span> <span class="n">outer_idx</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">g_n</span><span class="p">[</span><span class="n">inner_idx</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">x_n</span><span class="p">[</span><span class="n">inner_idx</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">x_n</span><span class="p">[</span><span class="n">outer_idx</span><span class="p">]</span><span class="o">-</span><span class="n">x_n</span><span class="p">[</span><span class="n">inner_idx</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="n">g_n</span><span class="p">[</span><span class="n">outer_idx</span><span class="p">]</span><span class="o">-</span><span class="n">g_n</span><span class="p">[</span><span class="n">inner_idx</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="lagrange-interpolation">
+<h2><span class="section-number">3.3. </span>Lagrange Interpolation<a class="headerlink" href="#lagrange-interpolation" title="Permalink to this headline">¶</a></h2>
+<p>Consider Table 2.1 as ordered data that we wish to interpolate.  The energy <span class="math notranslate nohighlight">\(E_i\)</span> is the independent variable <span class="math notranslate nohighlight">\(x_i\)</span> and the cross section is the dependent variable <span class="math notranslate nohighlight">\(g(x_i)\)</span>.  We assume there exists a reasonable approximation representing <span class="math notranslate nohighlight">\(g(x)\)</span> to model between data points using a <span class="math notranslate nohighlight">\((n-1)\)</span>-degree polynomial over an interval <span class="math notranslate nohighlight">\(i\)</span>:</p>
+<p><span class="math notranslate nohighlight">\(g_i(x) \simeq a_0 + a_1 x + a_2 x^2 + \cdot + a_{n-1} x^{n-1},\; (x\simeq x_i).\)</span></p>
+<p>Because our fit is local, we do not assume that one <span class="math notranslate nohighlight">\(g(x)\)</span> can fit all the data in the table, where many sets of <span class="math notranslate nohighlight">\(a_i\)</span> exists for each region of the table.  This will include multiple low-degree polynomials that span the entire table.  With some care, the set of polynomials will be well behaved without introducing unwanted noise or discontinuties.</p>
+<p>Lagrange developed a closed-form interpolation formula that directly fits the <span class="math notranslate nohighlight">\((n-1)\)</span>-order polynomial (<span class="math notranslate nohighlight">\(g_i(x)\)</span>) to <span class="math notranslate nohighlight">\(n\)</span> values.  The formula is written as a sum of polynomials:</p>
+<p><span class="math notranslate nohighlight">\(g(x) \simeq g_1\lambda_1(x) + g_2\lambda_2(x) + \cdots + g_n\lambda_n(x),\)</span></p>
+<p>where</p>
+<p><span class="math notranslate nohighlight">\(\lambda_i(x) = \displaystyle\prod_{j=1; i \ne j}^n \frac{x-x_j}{x_i-x_j} = \frac{x-x_1}{x_i-x_1}\frac{x-x_2}{x_i-x_2}\cdots \frac{x-x_n}{x_i-x_n}\)</span>.</p>
+<p>Notice that for <span class="math notranslate nohighlight">\(n\)</span> points, the formula provides a <span class="math notranslate nohighlight">\((n-1)\)</span> degree polynomial.  Let’s work out an example before applying this to our problem.  Suppose you have <span class="math notranslate nohighlight">\(x = (0,1,2,4)\)</span> and <span class="math notranslate nohighlight">\(g = (-12,-12,-24,-60)\)</span>:</p>
+<p><span class="math notranslate nohighlight">\(\lambda_1(x) = \frac{(x-1)}{(0-1)}\frac{(x-2)}{(0-2)}\frac{(x-4)}{(0-4)} = -\frac{1}{8}(x-1)(x-2)(x-4)\)</span>,</p>
+<p><span class="math notranslate nohighlight">\(\lambda_2(x) = \frac{(x-0)}{(1-0)}\frac{(x-2)}{(1-2)}\frac{(x-4)}{(1-4)} = \frac{1}{3}x(x-2)(x-4)\)</span>,</p>
+<p><span class="math notranslate nohighlight">\(\lambda_3(x) = \frac{(x-0)}{(2-0)}\frac{(x-1)}{(2-1)}\frac{(x-4)}{(2-4)} = -\frac{1}{4}x(x-1)(x-4)\)</span>,</p>
+<p>and</p>
+<p><span class="math notranslate nohighlight">\(\lambda_4(x) = \frac{(x-0)}{(4-0)}\frac{(x-1)}{(4-1)}\frac{(x-2)}{(4-2)} = \frac{1}{24}x(x-1)(x-2)\)</span>,</p>
+<p>so that:</p>
+<p><span class="math notranslate nohighlight">\(g(x) = x^3 - 9x^2 + 8x -12.\)</span> (<em>Don’t get tied up in the algebra; this is a computational course.</em>)</p>
+<p>Notice that Lagrange interpolation makes no restriction that the points in the table be evenly spaced. As a check, it is also worth noting that the sum of the Lagrange multipliers equals one, <span class="math notranslate nohighlight">\(\sum_i^n \lambda_i = 1\)</span>.  The difference between the value of the polynomial evaluated as some <em>x</em> and that of the actual function is equal to the <em>remainder</em>,</p>
+<p><span class="math notranslate nohighlight">\(R_n \simeq \frac{(x-x_1)(x-x_2)\cdots(x-x_n)}{n!}g^{(n)(\zeta)}\)</span>,</p>
+<p>whre <span class="math notranslate nohighlight">\(\zeta\)</span> lies somewhere in the interpolation interval but is otherwise undetermined.  This shows that if (significant) high derivatives of <span class="math notranslate nohighlight">\(g(x)\)</span> exist then the data can’t be well approximated by a polynomial.</p>
+<p>It would be useful if we had a function to generate values from the associated polynomial so that we didn’t have to do it by hand.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Lagrange_poly_approx</span><span class="p">(</span><span class="n">x_n</span><span class="p">,</span><span class="n">g_n</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+    <span class="c1">#generate the Lagrange interpolation function</span>
+    <span class="c1">#x_n = array of independent values from table</span>
+    <span class="c1">#g_n = array of dependent values from table</span>
+    <span class="c1">#x = value to evaluate</span>
+    <span class="c1">#g = g(x); result of the interpolation</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_n</span><span class="p">)</span> <span class="c1">#determine n</span>
+    <span class="n">lam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span> 
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span><span class="n">j</span><span class="p">:</span>
+                <span class="n">lam</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*=</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">x_n</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">x_n</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">x_n</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="c1">#Lagrange multipliers</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">lam</span><span class="o">*</span><span class="n">g_n</span><span class="p">)</span>
+
+<span class="c1">#Test g(4) = 60; g(0.5) = -10.125</span>
+<span class="n">xvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">gvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span><span class="o">-</span><span class="mi">24</span><span class="p">,</span><span class="o">-</span><span class="mi">60</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;g(4) = &quot;</span><span class="p">,</span><span class="n">Lagrange_poly_approx</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span><span class="n">gvals</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;g(0.5) = &quot;</span><span class="p">,</span><span class="n">Lagrange_poly_approx</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span><span class="n">gvals</span><span class="p">,</span><span class="mf">0.5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>g(4) =  -60.0
+g(0.5) =  -10.125
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s go back to Table 2.1 and see how the Lagrange interpolation method works for our data using all 9 points.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">225</span><span class="p">,</span><span class="mi">25</span><span class="p">)</span> <span class="c1">#reset xvals to Table 2.1</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">aspect</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+<span class="c1">#using the scatter function from matplotlib</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span><span class="n">yvals</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="n">x_interp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">g_interp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_interp</span><span class="p">))</span>
+<span class="n">g_linear</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_interp</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x_interp</span><span class="p">)):</span>
+    <span class="n">g_interp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">Lagrange_poly_approx</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">yvals</span><span class="p">,</span> <span class="n">x_interp</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+    <span class="n">g_linear</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">linear_interp</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">yvals</span><span class="p">,</span> <span class="n">x_interp</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_interp</span><span class="p">,</span><span class="n">g_interp</span><span class="p">,</span><span class="s1">&#39;k--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_interp</span><span class="p">,</span><span class="n">g_linear</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">205</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xvals</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$E_i$ (MeV)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$g(E_i)$ (mb)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">,</span><span class="n">length</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span><span class="n">labelsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;neutron_scattering_interp.png&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Data_Fitting_9_0.svg" src="../../_images/Data_Fitting_9_0.svg" /></div>
+</div>
+<p>Notice that the Lagrange interpolation (dashed curve) works best near the middle and away from the end points. The linear interoplation (solid curve) goes throug more of the points, but it’s not very smooth.  A Theorist friend has predicted that the resonance energy (peak position) and full width at half max are 75 and 55 MeV, respectively.  <strong>How can we compare values?</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">half_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">g_interp</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span>
+<span class="n">FWHM_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">g_interp</span><span class="o">-</span><span class="n">half_max</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#search for values that satisfy the conditional |g-FWHM| &lt; 5</span>
+<span class="n">FWHM</span> <span class="o">=</span> <span class="n">x_interp</span><span class="p">[</span><span class="n">FWHM_idx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">-</span><span class="n">x_interp</span><span class="p">[</span><span class="n">FWHM_idx</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="c1">#excluded FWHM[0] because it is in the spurious region</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Resonance Energy: &quot;</span><span class="p">,</span><span class="n">x_interp</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">g_interp</span><span class="p">)],</span><span class="s2">&quot; FWHM: &quot;</span><span class="p">,</span><span class="n">FWHM</span><span class="p">)</span> <span class="c1">#argmax returns the index of the max value</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Resonance Energy:  77  FWHM:  60
+</pre></div>
+</div>
+</div>
+</div>
+<p>Our interpolation produced similar values (77 vs. 75; 60 vs. 55).</p>
+</div>
+<div class="section" id="cubic-splines">
+<h2><span class="section-number">3.4. </span>Cubic Splines<a class="headerlink" href="#cubic-splines" title="Permalink to this headline">¶</a></h2>
+<p>Recall that the Lagrange Interpolation method produces an (<span class="math notranslate nohighlight">\(n-1\)</span>) polynomial fit, where <span class="math notranslate nohighlight">\(n=4\)</span> produces a cubic polynomial.  Using a cubic polynomial, with additional constraints that the first and second derivatives are continuous between intervals, makes the spline fit particularly eye-pleasing.  If the interpolated function is a <em>potential</em>, you can take the derivative to obtain the force.  The process of matching polynomials and their derivatives leads to many simultaneous equations to be solved.  This is tedious work for humans, yet easy for computers and popular for calculations and graphics.</p>
+<p>The basic approximation of splines is the representation of the function <span class="math notranslate nohighlight">\(g(x)\)</span> in the subinterval <span class="math notranslate nohighlight">\([x_i,\:x_{i+1}]\)</span> with a cubic polynomial:</p>
+<p><span class="math notranslate nohighlight">\(g(x) \simeq g_i(x)\)</span>, for <span class="math notranslate nohighlight">\(x_i \leq x \leq x_{i+1}\)</span>,</p>
+<p><span class="math notranslate nohighlight">\(g_i(x) = g_i + g_i^\prime(x-x_i) + \frac{1}{2}g_i^{\prime\prime}(x-x_i)^2 + \frac{1}{6}g_i^{\prime\prime\prime}(x-x_i)^3\)</span>.</p>
+<p>This shows that the coefficients in the polynomial are the values of <span class="math notranslate nohighlight">\(g(x)\)</span> and its (first, second, and third) derivatives at the tabulated points.  Now we need to determine these derivatives in terms of the <span class="math notranslate nohighlight">\(N\)</span> tabulated <span class="math notranslate nohighlight">\(g_i\)</span> values.  As a result, we obtain the following boundary conditions:</p>
+<p>$g_i(x_{i+1}) = g_{i+1}(x_{i+1}),</p>
+<p>The <span class="math notranslate nohighlight">\(i\)</span>th spline as the end of its interval is equal to the <span class="math notranslate nohighlight">\((i+1)\)</span>th spline at the beginning of its interval.  For the derivatives, we have</p>
+<p><span class="math notranslate nohighlight">\(g_{x_i}^\prime(x_i) = g_i^\prime(x_i)\)</span> (first derivatives),</p>
+<p><span class="math notranslate nohighlight">\(g_{i-1}^{\prime\prime}(x_i) = g_i^{\prime\prime}(x_i)\)</span> (second derivatives), and</p>
+<p><span class="math notranslate nohighlight">\(g_i{\prime\prime\prime} \simeq \frac{g_{i+1}^{\prime\prime}-g_i^{\prime\prime}}{x_{i+1}-x_i}\)</span> (third derivatives).</p>
+<p>If this is unclear, then you are not alone.  It takes some work to go through all the steps.  We are not trying to re-invent the wheel and thus, we will use a library from <em>Scipy</em> to do the heavy lifting.  If you are still curious, then you can visit this <a class="reference external" href="https://en.wikiversity.org/wiki/Cubic_Spline_Interpolation">guide</a>.  Meanwhile, let’s see how to use the <strong>CubicSpine</strong> library</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">CubicSpline</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">aspect</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+<span class="c1">#using the scatter function from matplotlib</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span><span class="n">yvals</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+
+<span class="c1">#x_interp, g_interp, and g_linear are defined in the previous section </span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_interp</span><span class="p">,</span><span class="n">g_interp</span><span class="p">,</span><span class="s1">&#39;k--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_interp</span><span class="p">,</span><span class="n">g_linear</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="c1">#Cubic Spline function from scipy</span>
+<span class="n">g_spline</span> <span class="o">=</span> <span class="n">CubicSpline</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span><span class="n">yvals</span><span class="p">)</span> <span class="c1">#returns a function</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_interp</span><span class="p">,</span><span class="n">g_spline</span><span class="p">(</span><span class="n">x_interp</span><span class="p">),</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">205</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xvals</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$E_i$ (MeV)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$g(E_i)$ (mb)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">,</span><span class="n">length</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span><span class="n">labelsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;neutron_scattering_spline.png&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Data_Fitting_13_0.svg" src="../../_images/Data_Fitting_13_0.svg" /></div>
+</div>
+</div>
+<div class="section" id="data-fitting">
+<h2><span class="section-number">3.5. </span>Data Fitting<a class="headerlink" href="#data-fitting" title="Permalink to this headline">¶</a></h2>
+<p>A key skill for any scientist is to fit a model to data.  A “good fit” to experimental data can sometimes be difficult.  We will introduce the basics behind data fitting, where the field specific techniques will likely arise later in your career (academia or industry).  There are three main points to keep in mind:</p>
+<ol class="simple">
+<li><p>Experimental data has errors, then the “best fit” in a statistical sense should <strong>not</strong> pass through all the data points.</p></li>
+<li><p>The model (theory) must be appropriate to the data being fit.  Mismatches between the model and data can provide information (i.e., pick a different model).</p></li>
+<li><p>Only in the simplest case (linear least-squares fit) can we write down a closed-form solution.  Most realistic problems are solved by <em>trial-and-error</em> search procedures that involve statistical sampling.</p></li>
+</ol>
+<p>Suppose you have <span class="math notranslate nohighlight">\(N\)</span> data values of the independent variable <span class="math notranslate nohighlight">\(y\)</span> as a function of the dependent variable <span class="math notranslate nohighlight">\(x\)</span> (<span class="math notranslate nohighlight">\(x_i,y_i\pm\sigma_i\)</span>), where the <span class="math notranslate nohighlight">\(\pm \sigma_i\)</span> is the uncertainty in the <em>i</em>th value of <span class="math notranslate nohighlight">\(y\)</span>. Eventually, we will solve the problem where <span class="math notranslate nohighlight">\(y\)</span> represents the number of decays for Ba-137 (using data from Chapter 0) and <span class="math notranslate nohighlight">\(x_i\)</span> are the times.  In general, our goal is to determine how well a <em>model</em> (<span class="math notranslate nohighlight">\(y=g(x)\)</span>) can describe the data.  If we have a good reason that the correct model is identified, then the problem is finding the optimal parameters or constants for the model.  We assume that the model <span class="math notranslate nohighlight">\(g(x)\)</span> contains an additional dependance upon <span class="math notranslate nohighlight">\(M_p\)</span> paramters <span class="math notranslate nohighlight">\(a_m = \left(a_1, a_2, \cdots,a_{M_p}\right)\)</span>.  These parameters are physical parts of the model, such as the size of a box, mass of a partical, or depth of a potential well.  For our problem, we will use the exponential decay function:</p>
+<p><span class="math notranslate nohighlight">\(N(t) = N_o e^{-t/\tau}\)</span>,</p>
+<p>where the parameters are the lifetime <span class="math notranslate nohighlight">\(\tau\)</span> and the initial decay rate <span class="math notranslate nohighlight">\(dN(0)/dt\)</span>.  In general, we indicat this as <span class="math notranslate nohighlight">\(g(x) = g(x; a_m)\)</span>.  We use the chi-square <span class="math notranslate nohighlight">\(\chi^2\)</span> measure as a gauge of how well a model <span class="math notranslate nohighlight">\(g\)</span> reproduces the data:</p>
+<p><span class="math notranslate nohighlight">\(\chi^2 = \displaystyle\sum_{i=1}^N \frac{(y_i-g(x_i; a_m))^2}{\sigma_i^2}\)</span>,</p>
+<p>where the sum is over the <span class="math notranslate nohighlight">\(N\)</span> data values.  The definition is such that the minimal <span class="math notranslate nohighlight">\(\chi^2\)</span> (smaller values) are better fits.  Notice also that the 1/<span class="math notranslate nohighlight">\(\sigma_i^2\)</span> weights the measurements with larger errors so they contribute less to <span class="math notranslate nohighlight">\(\chi^2\)</span>.  If the errors are not given in the data set, then you can use the standard error estimate <span class="math notranslate nohighlight">\(\sigma_x = \sigma/\sqrt{N}\)</span> where <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviation.  If you are interested in other methods of error estimation, look at this introductory <a class="reference external" href="https://towardsdatascience.com/an-introduction-to-the-bootstrap-method-58bcb51b4d60">article</a> from <em><a class="reference external" href="http://towardsdatascience.com">towardsdatascience.com</a></em>.</p>
+<p><strong>Least-squares fitting</strong> refers to adjusting the model parameters until a minimum in <span class="math notranslate nohighlight">\(\chi^2\)</span> is found.  In other words, it is searching for a minimum <em>absolute error</em> <span class="math notranslate nohighlight">\((y_i-g(x_i; a_m))^2\)</span> between the data points <span class="math notranslate nohighlight">\(y_i\)</span> and the model <span class="math notranslate nohighlight">\(g(x_i; a_m)\)</span>.  Recall from <em>Calculus</em> that finding a minimum is taking the derivative and setting it equal to zero.  Therefore, we can express the derivative of <span class="math notranslate nohighlight">\(\chi^2\)</span> with respect to the model parameters <span class="math notranslate nohighlight">\(a_m\)</span> as:</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial [\chi^2]}{\partial a_m} = \displaystyle\sum_{i=1}^N\frac{[y_i-g(x_i)]}{\sigma_i^2}\frac{\partial g(x_i)}{\partial a_m} = 0\)</span>,</p>
+<p>where <span class="math notranslate nohighlight">\(i\)</span> refers to a loop over the data points and <span class="math notranslate nohighlight">\(a_m\)</span> corresponds to the list of model parameters <span class="math notranslate nohighlight">\(\left(a_1,\cdots,a_{M_p}\right)\)</span>.  Typically this results in a sufficiently complicated dependence on the model parameters <span class="math notranslate nohighlight">\(a_m\)</span> to produce a set of <strong>non-linear</strong> equations.  Thus, solutions are found by a <em>trial-and-error</em> search (i.e., test many possible solutions and use <span class="math notranslate nohighlight">\(\chi^2\)</span> to sort them).</p>
+<div class="section" id="least-squares-fitting-linear-regression">
+<h3><span class="section-number">3.5.1. </span>Least-squares Fitting: linear regression<a class="headerlink" href="#least-squares-fitting-linear-regression" title="Permalink to this headline">¶</a></h3>
+<p>Random errors can produce deviations between the model and the data points, where these errors are described by a Gaussian distribution.  As a heuristic, you know that your fit is good if the <span class="math notranslate nohighlight">\(\chi^2\)</span> is approximately equal to the number of degrees of freedom (<span class="math notranslate nohighlight">\(N-M_p\)</span>).</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\chi^2&lt;&lt; N-M_p\)</span>: it doesn’t mean that you have “great” model or really precise measurement; you probably have too many parameters (over-fitting) or large errors.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\chi^2 &gt;&gt; N-M_p\)</span>: the model may not be good, you may have underestimated your errors, or your errors have a bias (i.e., not random).</p></li>
+</ul>
+<p>Let’s start with a model that <em>linearly</em> depend on the model parameters:</p>
+<p><span class="math notranslate nohighlight">\(g(x; [a_1,a_2]) = a_1 + a_2x\)</span>.</p>
+<p>This is simply <em>linear regression</em>: there are <span class="math notranslate nohighlight">\(M_p = 2\)</span> parameters with a slope <span class="math notranslate nohighlight">\(a_2\)</span> and y-intercept <span class="math notranslate nohighlight">\(a_1\)</span>.  Eveny though there are only two parameters to determine, there still may be a large number <span class="math notranslate nohighlight">\(N\)</span> of data points.  A unique solution is not possible unless the number of data point is equal equal to or greater than the number of parameters (<span class="math notranslate nohighlight">\(N&gt;M_p\)</span>).  For this linear case, there are just two derivatives,</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial g(x_i)}{\partial a_1} = 1,\;\;\)</span> and <span class="math notranslate nohighlight">\(\frac{\partial g(x_i)}{\partial a_2} = x_i\)</span>,</p>
+<p>and after substitution, the <span class="math notranslate nohighlight">\(\chi^2\)</span> minimization equations can be solved:</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial[\chi^2]}{\partial a_1} = \displaystyle\sum_{i=1}^N \frac{[y_i-a_1-a_2x_i]}{\sigma_i^2} = 0\)</span>,</p>
+<p>and</p>
+<p><span class="math notranslate nohighlight">\(\frac{\partial[\chi^2]}{\partial a_2} = \displaystyle\sum_{i=1}^N \frac{[y_i-a_1-a_2x_i]}{\sigma_i^2}x_i = 0\)</span>.</p>
+<p>Let’s solve these equations for <span class="math notranslate nohighlight">\(a_1\)</span> and <span class="math notranslate nohighlight">\(a_2\)</span> using the average values (<span class="math notranslate nohighlight">\(\bar{x}\)</span>, <span class="math notranslate nohighlight">\(\bar{y}\)</span>):</p>
+<p><span class="math notranslate nohighlight">\(\bar{y}-a_1-a_2\bar{x} = 0 \rightarrow a_1 = \bar{y} - a_2\bar{x}\)</span>,</p>
+<p>and</p>
+<p><span class="math notranslate nohighlight">\(a_2 = \frac{\sum_i^N (x_i-\bar{x})(y_i-\bar{y})}{\sum_i^N (x_i-\bar{x})^2}\)</span>. (best fit slope)</p>
+<p>See this <a class="reference external" href="https://towardsdatascience.com/linear-regression-using-least-squares-a4c3456e8570">guide</a> for another approach.</p>
+</div>
+<div class="section" id="least-squares-fitting-implementation">
+<h3><span class="section-number">3.5.2. </span>Least-Squares Fitting: Implementation<a class="headerlink" href="#least-squares-fitting-implementation" title="Permalink to this headline">¶</a></h3>
+<p>Now, the theory behind least squares fitting needs to be interpreted and turned into code.  Part of this exercise will use the <em>curve_fit</em> library from scipy (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html">documentation</a>).  First, let’s import the Ba-137 data and plot it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;Ba137_new.txt&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">comments</span><span class="o">=</span><span class="s1">&#39;#&#39;</span><span class="p">,</span><span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_y</span><span class="p">)</span>
+<span class="c1">#yerr = np.std(data_y)/np.sqrt(N)</span>
+<span class="n">generate_data</span> <span class="o">=</span> <span class="s1">&#39;F&#39;</span>
+<span class="k">if</span> <span class="n">generate_data</span> <span class="o">==</span> <span class="s1">&#39;T&#39;</span><span class="p">:</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;Ba137_new.txt&quot;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;#Time (s), Counts</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">Count</span> <span class="o">=</span> <span class="mi">29281</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">data_x</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">/</span><span class="mf">153.6</span><span class="p">)</span>
+        <span class="n">rand_count</span> <span class="o">=</span> <span class="n">Count</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.05</span><span class="p">)</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%03i</span><span class="s2">, </span><span class="si">%5i</span><span class="s2">, </span><span class="si">%5i</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">data_x</span><span class="p">[</span><span class="n">r</span><span class="p">],</span><span class="n">rand_count</span><span class="p">,</span><span class="n">Count</span><span class="o">-</span><span class="n">rand_count</span><span class="p">))</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">aspect</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerr</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">,</span><span class="n">length</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span><span class="n">labelsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;Ba137.png&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Data_Fitting_15_0.svg" src="../../_images/Data_Fitting_15_0.svg" /></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">curve_fit</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">N_o</span><span class="p">,</span><span class="n">lam</span><span class="p">):</span>
+    <span class="c1">#model for radioactive decay</span>
+    <span class="c1">#t = time in sec</span>
+    <span class="c1">#N_o = Initial number of parent particles</span>
+    <span class="c1">#lam = half-life of Ba-137</span>
+    <span class="k">return</span> <span class="n">N_o</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">t</span><span class="o">/</span><span class="n">lam</span><span class="p">)</span>
+
+<span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;Ba137_new.txt&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">comments</span><span class="o">=</span><span class="s1">&#39;#&#39;</span><span class="p">,</span><span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_y</span><span class="p">)</span>
+
+<span class="c1">#Using the curve_fit function from scipy.optimize library</span>
+<span class="c1">#additional arguments can be found in the scipy.optimize documentation</span>
+<span class="n">popt</span><span class="p">,</span> <span class="n">pcov</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">func</span><span class="p">,</span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">sigma</span><span class="o">=</span><span class="n">yerr</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">aspect</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Least-squares Fit for $^</span><span class="si">{137}</span><span class="s2">$Ba Decay&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerr</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">func</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="mi">29375</span><span class="p">,</span><span class="mf">153.1</span><span class="p">),</span><span class="s1">&#39;b--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="s2">&quot;$N_o$ = </span><span class="si">%5i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">popt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;xx-large&#39;</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span><span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="s2">&quot;$\lambda$ = </span><span class="si">%3.1f</span><span class="s2"> s&quot;</span> <span class="o">%</span> <span class="n">popt</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;xx-large&#39;</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span><span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">,</span><span class="n">length</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span><span class="n">labelsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;Ba137_wModel.png&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Data_Fitting_16_0.svg" src="../../_images/Data_Fitting_16_0.svg" /></div>
+</div>
+<p>We used the <em>curve_fit</em> function from scipy.optimize to generate a best bit curve to the data.  The <em>curve_fit</em> function returns two object: (1) an array of best fit parameters and (2) a matrix estimating the covariance of the parameters.  <strong>What is the covariance?</strong>  Mathematically, it is the mean (or expectation) of the product of the deviations along 2 or more dimesntions.  Check out the <a class="reference external" href="https://en.wikipedia.org/wiki/Covariance">wikipedia</a> article for more details.</p>
+<p>Recall that the least-squares method is largely <em>trial-and-error</em> that uses the <span class="math notranslate nohighlight">\(\chi^2\)</span> function to sort out the best fit solutions.  Therefore, there are many solutions that <strong>fit</strong> and the best-fit parameters can be tuned against those solutions (i.e., the <span class="math notranslate nohighlight">\(N_o\)</span> can be tweaked and this changes the <span class="math notranslate nohighlight">\(\lambda\)</span>).  Suppose we have two parameters (X,Y), here is an example of some of the possiblities for the covariance:</p>
+<p><img alt="covariance" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Covariance_trends.svg/320px-Covariance_trends.svg.png" /></p>
+<p>The top plot shows a negative slope (or correlation)  in the covariance, where the bottom plot illustrates a positive slope.  The middle plot shows that the two parameters are uncorrelated (i.e., independent).  The <em>curve_fit</em> function returns a 2x2 matrix for the covariance of our decay model with a row and column for <span class="math notranslate nohighlight">\(N_o\)</span> and <span class="math notranslate nohighlight">\(\lambda\)</span>, resepectively.  The covariance of a parameter with itself is simply the estimated error in that parameter (e.g., Cov(X,X)=Var(X)=<span class="math notranslate nohighlight">\(\sigma^2_X\)</span>).  In this approach the error is assumed to be Gaussian, meaning that it symmetric in the <span class="math notranslate nohighlight">\(\pm \sigma_x\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#The pcov matrix</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pcov</span><span class="p">)</span>
+<span class="c1">#Notice that the off diagonal terms are identical and negative</span>
+
+<span class="c1">#Using the pcov matrix to calculate the best-fit parameters with errors</span>
+<span class="n">sigma_N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pcov</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">sigma_lam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pcov</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sigma_N = &quot;</span><span class="p">,</span><span class="n">sigma_N</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sigma_lam = &quot;</span><span class="p">,</span><span class="n">sigma_lam</span><span class="p">)</span>
+<span class="c1">#The reported error does **not** take significant figures into account (we must do that ourselves)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;N_o = </span><span class="si">%5d</span><span class="s2"> +/- </span><span class="si">%3d</span><span class="s2"> particles&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">popt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">sigma_N</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;lambda = </span><span class="si">%3.1f</span><span class="s2"> +/- </span><span class="si">%3.1f</span><span class="s2"> sec&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">popt</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">sigma_lam</span><span class="p">))</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">aspect</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Least-squares Fit for $^</span><span class="si">{137}</span><span class="s2">$Ba Decay&quot;</span><span class="p">)</span>
+
+
+<span class="c1">#plot 3-sigma (99.8%) sample of solutions</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">samp_N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">popt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">3</span><span class="o">*</span><span class="n">sigma_N</span><span class="p">)</span>
+    <span class="n">samp_lam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">popt</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="mi">3</span><span class="o">*</span><span class="n">sigma_lam</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">func</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">samp_N</span><span class="p">,</span><span class="n">samp_lam</span><span class="p">),</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="c1">#plot best-fit and data</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">func</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="o">*</span><span class="n">popt</span><span class="p">),</span><span class="s1">&#39;b--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerr</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="s2">&quot;$N_o$ = </span><span class="si">%5d</span><span class="s2"> +/- </span><span class="si">%3d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">popt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">sigma_N</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;xx-large&#39;</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span><span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="s2">&quot;$\lambda$ = </span><span class="si">%3.1f</span><span class="s2"> +/- </span><span class="si">%3.1f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">popt</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">sigma_lam</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;xx-large&#39;</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span><span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Counts&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">,</span><span class="n">length</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span><span class="n">labelsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;Ba137_wModel_err.png&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 4.44173825e+03 -1.95903568e+01]
+ [-1.95903568e+01  9.13808069e-02]]
+sigma_N =  66.64636709486956
+sigma_lam =  0.30229258492190014
+N_o = 29258 +/-  66 particles
+lambda = 153.6 +/- 0.3 sec
+</pre></div>
+</div>
+<img alt="../../_images/Data_Fitting_18_1.svg" src="../../_images/Data_Fitting_18_1.svg" /></div>
+</div>
+</div>
+<div class="section" id="maximum-likelihood-estimation">
+<h3><span class="section-number">3.5.3. </span>Maximum Likelihood Estimation<a class="headerlink" href="#maximum-likelihood-estimation" title="Permalink to this headline">¶</a></h3>
+<p>Another method of data fitting is to use maximum likelihood estimation (MLE).  This process is heavier on statistics, where I will show the basics.  The advantage of MLE is that you can better estimate the errors in the model parameters, especially when they are non-symmetric.  The good news is there is a python package called <em>emcee</em> or the <em>emcee hammer</em> (see the <a class="reference external" href="https://emcee.readthedocs.io/en/stable/">documentation</a>).  This package allows you to employ different sampling methods and has quickly become a common tool in research (in astronomy).  <strong>To import emcee: it needs to be installed into your python environment through ‘pip install emcee’ or ‘conda install -c conda-forge emcee’ in the terminal.</strong></p>
+<p>The Least-Squares method tries to solve the data fitting problem directly, where MLE takes a different approach.  MLE is concerned with the inverse problem: given the observed data <span class="math notranslate nohighlight">\(x = [x_i]_{i=1}^N\)</span> and a model, find the parameters that yield a probablility distribution function (pdf) that is <em>most likely</em> to represent the data.  The Likelihood function <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> is used to determine whether the trial parameters are likely to represent the data.  To sample the probability space more efficiently, the log-Likelihood is used and we can construct a Gaussian that is analagous to <span class="math notranslate nohighlight">\(\chi^2\)</span> by:</p>
+<p><span class="math notranslate nohighlight">\(\log \mathcal{L} = -\frac{1}{2}\displaystyle\sum_{i=1}^N \left[\frac{(y_i-g(x_i,a_m))^2}{\sigma_i^2} + \log(2\pi\sigma_i^2)\right]\)</span>,</p>
+<p>where <span class="math notranslate nohighlight">\(log\)</span> refers to the natural logarithm.  You will notice that this looks much like the <span class="math notranslate nohighlight">\(\chi^2\)</span>, but it contains an extra 1/2 factor and an additional term.  The second term comes from the normalization factor for a Gaussian pdf.  Besides the Likelihood function, there is the <em>prior</em> probability.  Priors are used when you have some prior knowledge about the data you are trying to model.  For example, using our data for Ba-137 we can reasonably suggest that the following condition: <span class="math notranslate nohighlight">\(25000 \leq N_o \leq 50000\)</span>.  We don’t know which value within the interval (25,000–50,000) is more probable and therefore we call this a <strong>uniform</strong> prior, where values outside the conditions are given a penalty.  We can do the same kind of estimation for <span class="math notranslate nohighlight">\(\lambda\)</span> to get: <span class="math notranslate nohighlight">\(75 \leq \lambda \leq 300\)</span>, since lambda is related to the half-life.  Now that we know about the Likelihood function and priors, let’s get coding.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">emcee</span>
+
+<span class="k">def</span> <span class="nf">log_prob</span><span class="p">(</span><span class="n">a_m</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">yerr</span><span class="p">):</span>
+    <span class="c1">#Log Likelihood function given a set of model parameters a_m</span>
+    <span class="c1">#x,y,yerr are arrays passed in as arguments (they are the same every time, only a_m changes)</span>
+    <span class="n">N_o</span><span class="p">,</span> <span class="n">lam</span> <span class="o">=</span> <span class="n">a_m</span> <span class="c1">#unpack the model parameters</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">N_o</span><span class="p">,</span><span class="n">lam</span><span class="p">)</span> <span class="c1">#evaluate the model using the guess for N_o, lam</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">model</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">yerr</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">yerr</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="c1">#Gaussian likelihood function</span>
+
+<span class="k">def</span> <span class="nf">log_prior</span><span class="p">(</span><span class="n">a_m</span><span class="p">):</span>
+    <span class="c1">#Log Prior probability function (usually uniform) of the model parameters: a_m</span>
+    <span class="n">N_o</span><span class="p">,</span> <span class="n">lam</span> <span class="o">=</span> <span class="n">a_m</span> <span class="c1">#upack the model parameters</span>
+    <span class="c1">#uniform priors; penalty if not in the interval</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mi">25000</span> <span class="o">&lt;=</span> <span class="n">N_o</span> <span class="o">&lt;=</span> <span class="mi">50000</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mi">75</span> <span class="o">&lt;=</span> <span class="n">lam</span> <span class="o">&lt;=</span> <span class="mi">300</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="k">return</span> <span class="mf">0.</span>
+
+<span class="k">def</span> <span class="nf">lnprob</span><span class="p">(</span><span class="n">a_m</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">yerr</span><span class="p">):</span>
+    <span class="c1">#Full probability function that combines the prior with the log likelihood</span>
+    <span class="c1">#a_m = model parameters</span>
+    <span class="c1">#x,y,yerr = time data, counts, and experimental errors on counts</span>
+    <span class="n">lp</span> <span class="o">=</span> <span class="n">log_prior</span><span class="p">(</span><span class="n">a_m</span><span class="p">)</span> <span class="c1">#get the log prior probability</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">lp</span><span class="p">):</span> <span class="c1">#check if the log_prior returned inf</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span> <span class="c1">#stop checking; guess different model parameters</span>
+    <span class="k">return</span> <span class="n">lp</span> <span class="o">+</span> <span class="n">log_prob</span><span class="p">(</span><span class="n">a_m</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">yerr</span><span class="p">)</span> <span class="c1">#return the probability to the sampler</span>
+
+
+<span class="c1">#emcee utilizes walkers which is like taking a bag full of guesses and evaluating them all at once</span>
+<span class="n">nwalkers</span> <span class="o">=</span> <span class="mi">32</span> <span class="c1">#you shouldn&#39;t increase this unless using a cluster</span>
+<span class="n">ndim</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1">#number of model parameters</span>
+
+<span class="n">init_state</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nwalkers</span><span class="p">):</span>
+    <span class="c1">#initial guess for the model parameters distributed among the walkers</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">27000</span><span class="p">,</span><span class="mi">100</span><span class="p">])</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">init_state</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+
+<span class="c1">#invoke the default sampler;  more details in the documentation</span>
+<span class="n">sampler</span> <span class="o">=</span> <span class="n">emcee</span><span class="o">.</span><span class="n">EnsembleSampler</span><span class="p">(</span><span class="n">nwalkers</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">lnprob</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span> <span class="n">data_y</span><span class="p">,</span> <span class="n">yerr</span><span class="p">))</span>
+<span class="n">sampler</span><span class="o">.</span><span class="n">run_mcmc</span><span class="p">(</span><span class="n">init_state</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">skip_initial_state_check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#run the sampler</span>
+
+<span class="c1">#discard the first 100 samples as burn-in and only take every 15th iteration</span>
+<span class="n">flat_samples</span> <span class="o">=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">get_chain</span><span class="p">(</span><span class="n">discard</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">thin</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/5000 [00:00&lt;?, ?it/s]C:\Users\biquarles\Anaconda3\lib\site-packages\emcee\moves\red_blue.py:99: RuntimeWarning: invalid value encountered in double_scalars
+  lnpdiff = f + nlp - state.log_prob[j]
+100%|██████████| 5000/5000 [00:03&lt;00:00, 1433.55it/s]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">corner</span>
+
+<span class="c1">#show the correlation between parameters</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;$N_o$&quot;</span><span class="p">,</span><span class="s2">&quot;$\lambda$&quot;</span><span class="p">]</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">corner</span><span class="o">.</span><span class="n">corner</span><span class="p">(</span><span class="n">flat_samples</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">truths</span><span class="o">=</span><span class="n">popt</span><span class="p">,</span><span class="n">quantiles</span><span class="o">=</span><span class="p">[</span><span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.84</span><span class="p">],</span><span class="n">show_titles</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;fontsize&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">},</span><span class="n">labelpad</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Data_Fitting_21_0.svg" src="../../_images/Data_Fitting_21_0.svg" /></div>
+</div>
+<p>In the above figure (created with <a class="reference external" href="https://corner.readthedocs.io/en/latest/index.html">corner</a>), we recover a result that is consistent with the Least-Squares approach (i.e., overlapping within the 1-sigma errors).  <strong>Note that this result is the raw output and you need to report values with the correct number of significant digits.</strong></p>
+</div>
+</div>
+<div class="section" id="problems">
+<h2><span class="section-number">3.6. </span>Problems<a class="headerlink" href="#problems" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Complete the following problems in a Jupyter notebook, where you will save your results as an external file (*.png).</p></li>
+<li><p>Create a LaTex document with:</p>
+<ul>
+<li><p>an abstract summary</p></li>
+<li><p>sections for each problem that state the problem, summarize what you did, and display the results</p></li>
+<li><p>include a reference for each solution (this can be textbooks)</p></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><p>Consider the set of data points (x, y): {(.69, 4.60), (.12, 3.71), (.21, 3.95), (.63, 4.33), (.66, 4.82), (.53, 4.13), (.84, 5.26)}.<br />
+a) Find the line of least squares fit for this data.<br />
+b) Add 1 to the x-coordinate of each of the points and find the line of least squares fit for this modified data.<br />
+c) Add 1 to the y-coordinate of each of the original points and find the line of least squares fit for this modified data.</p></li>
+<li><p>Consider the following data points:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>t</p></th>
+<th class="text-align:center head"><p>y</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>0.25</p></td>
+<td class="text-align:center"><p>1.58</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>1.88</p></td>
+<td class="text-align:center"><p>6.35</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>0.56</p></td>
+<td class="text-align:center"><p>1.77</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>0.82</p></td>
+<td class="text-align:center"><p>2.18</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>1.92</p></td>
+<td class="text-align:center"><p>6.63</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>0.99</p></td>
+<td class="text-align:center"><p>2.11</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>1.15</p></td>
+<td class="text-align:center"><p>3.61</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>2.09</p></td>
+<td class="text-align:center"><p>8.91</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>1.47</p></td>
+<td class="text-align:center"><p>5.07</p></td>
+</tr>
+</tbody>
+</table>
+<p>Find a curve of the form: <span class="math notranslate nohighlight">\(y = a e^{b t}\)</span> that best fits this data.</p>
+</li>
+<li><p>Consider the following data points:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>t</p></th>
+<th class="text-align:center head"><p>y</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>0.25</p></td>
+<td class="text-align:center"><p>1.58</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>1.88</p></td>
+<td class="text-align:center"><p>5.35</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>0.56</p></td>
+<td class="text-align:center"><p>3.77</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>0.82</p></td>
+<td class="text-align:center"><p>4.18</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>1.92</p></td>
+<td class="text-align:center"><p>6.63</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>0.99</p></td>
+<td class="text-align:center"><p>4.11</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>1.15</p></td>
+<td class="text-align:center"><p>4.61</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>2.09</p></td>
+<td class="text-align:center"><p>5.41</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>1.47</p></td>
+<td class="text-align:center"><p>5.07</p></td>
+</tr>
+</tbody>
+</table>
+<p>corresponds to the measurement of two quantities that are known to satisfy a power relationship, <span class="math notranslate nohighlight">\(y = a x^k\)</span>.  Use the method of least squares to find the appropriate values for the constants <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(k\)</span>.  Graph the resulting curve along with the original data.</p>
+</li>
+</ol>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./courseware/Chapter_3"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../Chapter_2/Python_Basics.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">2. </span>Python Basics</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../Chapter_4/Integration.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Integration</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Billy Quarles<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
