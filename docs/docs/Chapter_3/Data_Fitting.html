@@ -51,7 +51,7 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://saturnaxis.github.io/PHYS3820_Notes/courseware/Chapter_3/Data_Fitting.html" />
+    <link rel="canonical" href="https://saturnaxis.github.io/PHYS3820_Notes/docs/Chapter_3/Data_Fitting.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -131,7 +131,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/courseware/Chapter_3/Data_Fitting.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/docs/Chapter_3/Data_Fitting.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -169,7 +169,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/saturnaxis/PHYS3820_Notes/main?urlpath=tree/courseware/Chapter_3/Data_Fitting.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/saturnaxis/PHYS3820_Notes/main?urlpath=tree/docs/Chapter_3/Data_Fitting.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../_static/images/logo_binder.svg"
@@ -177,7 +177,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/saturnaxis/PHYS3820_Notes/blob/main/courseware/Chapter_3/Data_Fitting.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/saturnaxis/PHYS3820_Notes/blob/main/docs/Chapter_3/Data_Fitting.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -346,7 +346,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Data_Fitting_1_0.svg" src="../../_images/Data_Fitting_1_0.svg" /></div>
+<img alt="../../_images/Data_Fitting_1_01.svg" src="../../_images/Data_Fitting_1_01.svg" /></div>
 </div>
 <p>In the above figure, one can see that the cross section peaks at 75 MeV, although there is a large measurement uncertainty.</p>
 <p>Interpolation and curve-fitting are powerful tools that let you treat tables of numbers as if they were analytic functions and <em>sometimes</em> allow you to deduce statistically meaningful constants or conclusions from measurements.  Data fitting can be either <em>global</em> or <em>local</em>, which describes whether or not a single function is used to represent the entire data set.  An incorrect global fit can introduce spurious features between the data points that are nonphysical.  Keep it local and view global interpolation with a critical eye.</p>
@@ -465,7 +465,7 @@ g(0.5) =  -10.125
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Data_Fitting_9_0.svg" src="../../_images/Data_Fitting_9_0.svg" /></div>
+<img alt="../../_images/Data_Fitting_9_01.svg" src="../../_images/Data_Fitting_9_01.svg" /></div>
 </div>
 <p>Notice that the Lagrange interpolation (dashed curve) works best near the middle and away from the end points. The linear interoplation (solid curve) goes throug more of the points, but it’s not very smooth.  A Theorist friend has predicted that the resonance energy (peak position) and full width at half max are 75 and 55 MeV, respectively.  <strong>How can we compare values?</strong></p>
 <div class="cell docutils container">
@@ -528,7 +528,7 @@ g(0.5) =  -10.125
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Data_Fitting_13_0.svg" src="../../_images/Data_Fitting_13_0.svg" /></div>
+<img alt="../../_images/Data_Fitting_13_01.svg" src="../../_images/Data_Fitting_13_01.svg" /></div>
 </div>
 </div>
 <div class="section" id="data-fitting">
@@ -602,7 +602,7 @@ g(0.5) =  -10.125
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Data_Fitting_15_0.svg" src="../../_images/Data_Fitting_15_0.svg" /></div>
+<img alt="../../_images/Data_Fitting_15_01.svg" src="../../_images/Data_Fitting_15_01.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -641,7 +641,7 @@ g(0.5) =  -10.125
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Data_Fitting_16_0.svg" src="../../_images/Data_Fitting_16_0.svg" /></div>
+<img alt="../../_images/Data_Fitting_16_01.svg" src="../../_images/Data_Fitting_16_01.svg" /></div>
 </div>
 <p>We used the <em>curve_fit</em> function from scipy.optimize to generate a best bit curve to the data.  The <em>curve_fit</em> function returns two object: (1) an array of best fit parameters and (2) a matrix estimating the covariance of the parameters.  <strong>What is the covariance?</strong>  Mathematically, it is the mean (or expectation) of the product of the deviations along 2 or more dimesntions.  Check out the <a class="reference external" href="https://en.wikipedia.org/wiki/Covariance">wikipedia</a> article for more details.</p>
 <p>Recall that the least-squares method is largely <em>trial-and-error</em> that uses the <span class="math notranslate nohighlight">\(\chi^2\)</span> function to sort out the best fit solutions.  Therefore, there are many solutions that <strong>fit</strong> and the best-fit parameters can be tuned against those solutions (i.e., the <span class="math notranslate nohighlight">\(N_o\)</span> can be tweaked and this changes the <span class="math notranslate nohighlight">\(\lambda\)</span>).  Suppose we have two parameters (X,Y), here is an example of some of the possiblities for the covariance:</p>
@@ -699,7 +699,7 @@ N_o = 29258 +/-  66 particles
 lambda = 153.6 +/- 0.3 sec
 </pre></div>
 </div>
-<img alt="../../_images/Data_Fitting_18_1.svg" src="../../_images/Data_Fitting_18_1.svg" /></div>
+<img alt="../../_images/Data_Fitting_18_11.svg" src="../../_images/Data_Fitting_18_11.svg" /></div>
 </div>
 </div>
 <div class="section" id="maximum-likelihood-estimation">
@@ -777,7 +777,7 @@ lambda = 153.6 +/- 0.3 sec
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Data_Fitting_21_0.svg" src="../../_images/Data_Fitting_21_0.svg" /></div>
+<img alt="../../_images/Data_Fitting_21_01.svg" src="../../_images/Data_Fitting_21_01.svg" /></div>
 </div>
 <p>In the above figure (created with <a class="reference external" href="https://corner.readthedocs.io/en/latest/index.html">corner</a>), we recover a result that is consistent with the Least-Squares approach (i.e., overlapping within the 1-sigma errors).  <strong>Note that this result is the raw output and you need to report values with the correct number of significant digits.</strong></p>
 </div>
@@ -894,7 +894,7 @@ c) Add 1 to the y-coordinate of each of the original points and find the line of
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./courseware/Chapter_3"
+            path: "./docs/Chapter_3"
         },
         predefinedOutput: true
     }

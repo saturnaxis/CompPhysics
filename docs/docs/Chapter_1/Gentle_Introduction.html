@@ -51,7 +51,7 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <link rel="canonical" href="https://saturnaxis.github.io/PHYS3820_Notes/courseware/Chapter_1/Gentle_Introduction.html" />
+    <link rel="canonical" href="https://saturnaxis.github.io/PHYS3820_Notes/docs/Chapter_1/Gentle_Introduction.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -131,7 +131,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/courseware/Chapter_1/Gentle_Introduction.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/docs/Chapter_1/Gentle_Introduction.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -169,7 +169,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/saturnaxis/PHYS3820_Notes/main?urlpath=tree/courseware/Chapter_1/Gentle_Introduction.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/saturnaxis/PHYS3820_Notes/main?urlpath=tree/docs/Chapter_1/Gentle_Introduction.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../_static/images/logo_binder.svg"
@@ -177,7 +177,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/saturnaxis/PHYS3820_Notes/blob/main/courseware/Chapter_1/Gentle_Introduction.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/saturnaxis/PHYS3820_Notes/blob/main/docs/Chapter_1/Gentle_Introduction.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -421,7 +421,7 @@
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x14a0e7a28e0&gt;]
 </pre></div>
 </div>
-<img alt="../../_images/Gentle_Introduction_8_1.png" src="../../_images/Gentle_Introduction_8_1.png" />
+<img alt="../../_images/Gentle_Introduction_8_11.png" src="../../_images/Gentle_Introduction_8_11.png" />
 </div>
 </div>
 <p>To plot our generated data, we simply used the plot function on the axes (the Axes class inherits the plot function from the matplotlib module).  The plot function used the x and y arrays to generate the points, but we also had to tell it that we wanted black points (‘k.’) with a markersize (ms) equal to 18 pts.</p>
@@ -445,7 +445,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Gentle_Introduction_12_0.png" src="../../_images/Gentle_Introduction_12_0.png" />
+<img alt="../../_images/Gentle_Introduction_12_01.png" src="../../_images/Gentle_Introduction_12_01.png" />
 </div>
 </div>
 <p>We can even change the x,y values to something more complicated.</p>
@@ -458,7 +458,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Gentle_Introduction_14_0.png" src="../../_images/Gentle_Introduction_14_0.png" />
+<img alt="../../_images/Gentle_Introduction_14_01.png" src="../../_images/Gentle_Introduction_14_01.png" />
 </div>
 </div>
 <p>There are many options within matplotlib, where you will find some more useful than others over time.  If in doubt, you can always check the <strong>matplotlib gallery</strong> (<a class="reference external" href="https://matplotlib.org/stable/gallery/index.html">https://matplotlib.org/stable/gallery/index.html</a>) or stackexchange (<a class="reference external" href="https://stackexchange.com/">https://stackexchange.com/</a>).  It is likely that someone has already run into your problem/customization and other people have provided a ‘possible’ solution (<em>not all solutions are good!</em>).  The last bit of customization for this section is to:</p>
@@ -542,7 +542,7 @@
 <blockquote>
 <div><p>Example 1: In electronics, Kirchhoff’s laws are used to solve for the currents through components in circuit networks. Applying these laws gives us systems of linear equations, which can then be expressed as matrix equations, such as:</p>
 </div></blockquote>
-<p><img alt="Kirchoff" src="../../_images/Kirchoff_matrix.png" /></p>
+<p><img alt="Kirchoff" src="../../_images/Kirchoff_matrix1.png" /></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([[</span><span class="o">-</span><span class="mi">13</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">11</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="o">-</span><span class="mi">15</span><span class="p">]])</span> <span class="c1">#matrix is an array of an array</span>
@@ -642,7 +642,7 @@
  &lt;matplotlib.axis.XTick at 0x2290758e6a0&gt;]
 </pre></div>
 </div>
-<img alt="../../_images/Gentle_Introduction_27_1.png" src="../../_images/Gentle_Introduction_27_1.png" />
+<img alt="../../_images/Gentle_Introduction_27_11.png" src="../../_images/Gentle_Introduction_27_11.png" />
 </div>
 </div>
 </div>
@@ -940,7 +940,7 @@
 <span class="math notranslate nohighlight">\(N = N_oe^{-\lambda t}\)</span>
 where <span class="math notranslate nohighlight">\(\lambda = \log(2)/\log(t_{1/2})\)</span>. Using the techniques you’ve learned in this notebook, load the data from file Ba137.txt into appropriately-named variables. Experiment with different values of <span class="math notranslate nohighlight">\(N_o\)</span> and <span class="math notranslate nohighlight">\(\lambda\)</span> to create a plot of the resulting equation on top of the data. What is your best estimate for <span class="math notranslate nohighlight">\(t_{1/2}\)</span>?</p></li>
 <li><p>The normal modes and angular frequencies of those modes for a linear system of four coupled oscillators of mass m, separated by springs of equal strength k, are given by the eigenvectors and eigenvalues of M, shown below.  Find the eigenfrequencies (Try <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linalg.eig.html#numpy.linalg.eig">linalg.eig</a> from numpy).</p>
-<p><img alt="Coupled_Oscillator" src="../../_images/Coupled_Oscillator_matrix.png" /></p>
+<p><img alt="Coupled_Oscillator" src="../../_images/Coupled_Oscillator_matrix1.png" /></p>
 </li>
 <li><p>Create a single plot that shows separate graphs of position, velocity, and acceleration for an object in free-fall. Your plot should have a single horizontal time axis and separate stacked graphs showing position, velocity, and acceleration each on their own vertical axis. The online matplotlib gallery will probably be helpful! Print the graph, with your name in the title.</p></li>
 </ol>
@@ -960,7 +960,7 @@ where <span class="math notranslate nohighlight">\(\lambda = \log(2)/\log(t_{1/2
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./courseware/Chapter_1"
+            path: "./docs/Chapter_1"
         },
         predefinedOutput: true
     }
