@@ -49,8 +49,8 @@ launch_buttons:
   colab_url: "" # The URL of Google Colab (https://colab.research.google.com)
 
 repository:
-  url: https://github.com/saturnaxis/Comp_Physics_I# The URL to your book's repository
-  path_to_book: "_build"  # A path to your book's folder, relative to the repository root.
+  url: https://github.com/saturnaxis/PHYS3820_Notes# The URL to your book's repository
+  path_to_book: ""  # A path to your book's folder, relative to the repository root.
   branch: main  # Which branch of the repository should be used when creating links
 
 #######################################################################################
@@ -64,7 +64,7 @@ html:
   #extra_footer              : "This page was created by <a href="http://www.atmos.albany.edu/facstaff/brose">Brian E. J. Rose</a> using <a href="https://jupyterbook.org">Jupyter Book</a>."  # Will be displayed underneath the footer.
   #google_analytics_id       : "UA-43758959-2"  # A GA id that can be used to track book views.
   home_page_in_navbar       : true  # Whether to include your home page in the left Navigation Bar
-  #baseurl                   : "https://brian-rose.github.io/ClimateLaboratoryBook/"  # The base URL where your book will be hosted. Used for creating image previews and social links. e.g.: https://mypage.com/mybook/
+  #baseurl                   : "https://saturnaxis.github.io/PHYS3820_Notes/"  # The base URL where your book will be hosted. Used for creating image previews and social links. e.g.: https://mypage.com/mybook/
   comments:
     hypothesis              : false
     utterances              : false
