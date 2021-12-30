@@ -7,41 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>3. Data Fitting and Interpolation &#8212; PHYS3820 Computational Physics</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     
       
 
     
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -50,9 +50,9 @@
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="4. Integration" href="../Chapter_4/Integration.html" />
     <link rel="prev" title="2. Python Basics" href="../Chapter_2/Python_Basics.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -74,33 +74,21 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+    <a class="navbar-brand text-wrap" href="../../index.html">
       
       
       
       <h1 class="site-logo" id="site-title">PHYS3820 Computational Physics</h1>
       
     </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../home.html">
-   About
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Preamble
- </span>
-</p>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../README.html">
+  <a class="reference internal" href="../../home.html">
    About
   </a>
  </li>
@@ -133,7 +121,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_5/Differentiation.html">
-   5. 4 Differentiation and Searching
+   5. Differentiation and Searching
   </a>
  </li>
  <li class="toctree-l1">
@@ -182,7 +170,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/Chapter_3/Data_Fitting.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/courseware/Chapter_3/Data_Fitting.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -207,10 +195,10 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/saturnaxis/Comp_Physics_I# The URL to your book's repository/main?urlpath=tree/_build/Chapter_3/Data_Fitting.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/saturnaxis/PHYS3820_Notes# The URL to your book's repository/main?urlpath=tree/courseware/Chapter_3/Data_Fitting.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
+                    src="../../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
         
         
@@ -379,7 +367,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Data_Fitting_1_0.svg" src="../_images/Data_Fitting_1_0.svg" /></div>
+<img alt="../../_images/Data_Fitting_1_0.svg" src="../../_images/Data_Fitting_1_0.svg" /></div>
 </div>
 <p>In the above figure, one can see that the cross section peaks at 75 MeV, although there is a large measurement uncertainty.</p>
 <p>Interpolation and curve-fitting are powerful tools that let you treat tables of numbers as if they were analytic functions and <em>sometimes</em> allow you to deduce statistically meaningful constants or conclusions from measurements.  Data fitting can be either <em>global</em> or <em>local</em>, which describes whether or not a single function is used to represent the entire data set.  An incorrect global fit can introduce spurious features between the data points that are nonphysical.  Keep it local and view global interpolation with a critical eye.</p>
@@ -498,7 +486,7 @@ g(0.5) =  -10.125
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Data_Fitting_9_0.svg" src="../_images/Data_Fitting_9_0.svg" /></div>
+<img alt="../../_images/Data_Fitting_9_0.svg" src="../../_images/Data_Fitting_9_0.svg" /></div>
 </div>
 <p>Notice that the Lagrange interpolation (dashed curve) works best near the middle and away from the end points. The linear interoplation (solid curve) goes throug more of the points, but it’s not very smooth.  A Theorist friend has predicted that the resonance energy (peak position) and full width at half max are 75 and 55 MeV, respectively.  <strong>How can we compare values?</strong></p>
 <div class="cell docutils container">
@@ -561,7 +549,7 @@ g(0.5) =  -10.125
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Data_Fitting_13_0.svg" src="../_images/Data_Fitting_13_0.svg" /></div>
+<img alt="../../_images/Data_Fitting_13_0.svg" src="../../_images/Data_Fitting_13_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="data-fitting">
@@ -635,7 +623,7 @@ g(0.5) =  -10.125
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Data_Fitting_15_0.svg" src="../_images/Data_Fitting_15_0.svg" /></div>
+<img alt="../../_images/Data_Fitting_15_0.svg" src="../../_images/Data_Fitting_15_0.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -674,7 +662,7 @@ g(0.5) =  -10.125
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Data_Fitting_16_0.svg" src="../_images/Data_Fitting_16_0.svg" /></div>
+<img alt="../../_images/Data_Fitting_16_0.svg" src="../../_images/Data_Fitting_16_0.svg" /></div>
 </div>
 <p>We used the <em>curve_fit</em> function from scipy.optimize to generate a best bit curve to the data.  The <em>curve_fit</em> function returns two object: (1) an array of best fit parameters and (2) a matrix estimating the covariance of the parameters.  <strong>What is the covariance?</strong>  Mathematically, it is the mean (or expectation) of the product of the deviations along 2 or more dimesntions.  Check out the <a class="reference external" href="https://en.wikipedia.org/wiki/Covariance">wikipedia</a> article for more details.</p>
 <p>Recall that the least-squares method is largely <em>trial-and-error</em> that uses the <span class="math notranslate nohighlight">\(\chi^2\)</span> function to sort out the best fit solutions.  Therefore, there are many solutions that <strong>fit</strong> and the best-fit parameters can be tuned against those solutions (i.e., the <span class="math notranslate nohighlight">\(N_o\)</span> can be tweaked and this changes the <span class="math notranslate nohighlight">\(\lambda\)</span>).  Suppose we have two parameters (X,Y), here is an example of some of the possiblities for the covariance:</p>
@@ -732,7 +720,7 @@ N_o = 29258 +/-  66 particles
 lambda = 153.6 +/- 0.3 sec
 </pre></div>
 </div>
-<img alt="../_images/Data_Fitting_18_1.svg" src="../_images/Data_Fitting_18_1.svg" /></div>
+<img alt="../../_images/Data_Fitting_18_1.svg" src="../../_images/Data_Fitting_18_1.svg" /></div>
 </div>
 </div>
 <div class="section" id="maximum-likelihood-estimation">
@@ -810,7 +798,7 @@ lambda = 153.6 +/- 0.3 sec
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Data_Fitting_21_0.svg" src="../_images/Data_Fitting_21_0.svg" /></div>
+<img alt="../../_images/Data_Fitting_21_0.svg" src="../../_images/Data_Fitting_21_0.svg" /></div>
 </div>
 <p>In the above figure (created with <a class="reference external" href="https://corner.readthedocs.io/en/latest/index.html">corner</a>), we recover a result that is consistent with the Least-Squares approach (i.e., overlapping within the 1-sigma errors).  <strong>Note that this result is the raw output and you need to report values with the correct number of significant digits.</strong></p>
 </div>
@@ -927,7 +915,7 @@ c) Add 1 to the y-coordinate of each of the original points and find the line of
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./Chapter_3"
+            path: "./courseware/Chapter_3"
         },
         predefinedOutput: true
     }
@@ -973,7 +961,7 @@ c) Add 1 to the y-coordinate of each of the original points and find the line of
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
   </body>
 </html>
