@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4. Integration &#8212; PHYS3820 Computational Physics</title>
+    <title>Integration &#8212; PHYS3820 Computational Physics</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -54,8 +54,6 @@
     <link rel="canonical" href="https://saturnaxis.github.io/PHYS3820_Notes/courseware/Chapter_4/Integration.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="5. Differentiation and Searching" href="../Chapter_5/Differentiation.html" />
-    <link rel="prev" title="3. Data Fitting and Interpolation" href="../Chapter_3/Data_Fitting.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -94,44 +92,6 @@
   </a>
  </li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Lectures
- </span>
-</p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_1/Gentle_Introduction.html">
-   1. Useful Introduction to Python, GitHub, and LaTex
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_2/Python_Basics.html">
-   2. Python Basics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_3/Data_Fitting.html">
-   3. Data Fitting and Interpolation
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   4. Integration
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_5/Differentiation.html">
-   5. Differentiation and Searching
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_6/ODEs.html">
-   6. Ordinary Differential Equations (ODEs)
-  </a>
- </li>
-</ul>
-
     </div>
 </nav> <!-- To handle the deprecated key -->
 
@@ -238,42 +198,42 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#quadrature-as-box-counting">
-   4.1. Quadrature as box counting
+   Quadrature as box counting
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#trapezoidal-rule">
-   4.2. Trapezoidal Rule
+   Trapezoidal Rule
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#simpson-s-rule">
-   4.3. Simpson’s Rule
+   Simpson’s Rule
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#gaussian-quadrature">
-   4.4. Gaussian Quadrature
+   Gaussian Quadrature
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#integration-error">
-   4.5. Integration Error
+   Integration Error
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#integration-by-stone-throwing">
-   4.6. Integration by Stone Throwing
+   Integration by Stone Throwing
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#integrating-by-mean-value">
-   4.7. Integrating by Mean Value
+   Integrating by Mean Value
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#problems">
-   4.8. Problems
+   Problems
   </a>
  </li>
 </ul>
@@ -288,10 +248,10 @@
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="integration">
-<h1><span class="section-number">4. </span>Integration<a class="headerlink" href="#integration" title="Permalink to this headline">¶</a></h1>
+<h1>Integration<a class="headerlink" href="#integration" title="Permalink to this headline">¶</a></h1>
 <p>Numerical integration is a fundamental skill in computational physics because it allows one to evaluate increasingly complex integrals with a high accuracy in seconds to minutes.  If you’ve ever tried to evaluate particularly nasty integrals, you notice that those can take pages of algebra, transformations, and still only get to an approximate form.  It is especially frustrating when one makes algebra mistakes and you have to do it over.  In this chapter, we will review basic integration methods that you’ve learned in Calculus and develop those methods in <em>python</em>.  After reading this chapter, check out some python packages that others have developed to make the process of numerical integration easier to access using <a class="reference external" href="https://github.com/nschloe/quadpy">quadpy</a>.</p>
 <div class="section" id="quadrature-as-box-counting">
-<h2><span class="section-number">4.1. </span>Quadrature as box counting<a class="headerlink" href="#quadrature-as-box-counting" title="Permalink to this headline">¶</a></h2>
+<h2>Quadrature as box counting<a class="headerlink" href="#quadrature-as-box-counting" title="Permalink to this headline">¶</a></h2>
 <p>The integration of a function usually requires some trickery, where you have to know which variable transformation to apply and when to apply it.  Due to the precise repetativeness of a computer, an integral can be evaluated in a straightforward manner.  You may recall that you first performed integrationby counting the number of boxes, or quadrilaterals, that you could place underneath a curve.  As a result, numerical integration is also called <em>quadrature</em> even when it comes to more complex methods.</p>
 <p>We’ll start our review with the Riemann definition of an integral, which is given as the limit of the sum over boxes of width <em>h</em>:</p>
 <p><span class="math notranslate nohighlight">\(\displaystyle \int_a^b f(x)dx = \lim_{h\rightarrow 0} \left[h \sum_{i=1}^{(b-a)/h} f(x_i) \right]\)</span>.</p>
@@ -306,7 +266,7 @@
 <p>On the other hand, you might have an integrand that changes very quickly/slowly and scaling the boxes according to the variation may be necessary.  There are several approches to scale the boxes for your integration and we’ll explore two of them in the following sections: Trapezoidal Rule and Simpson’s Rule that you may recall from Calculus.</p>
 </div>
 <div class="section" id="trapezoidal-rule">
-<h2><span class="section-number">4.2. </span>Trapezoidal Rule<a class="headerlink" href="#trapezoidal-rule" title="Permalink to this headline">¶</a></h2>
+<h2>Trapezoidal Rule<a class="headerlink" href="#trapezoidal-rule" title="Permalink to this headline">¶</a></h2>
 <p>The trapezoid integration rule uses <span class="math notranslate nohighlight">\(f(x)\)</span> at <em>evenly</em> spaced values of <span class="math notranslate nohighlight">\(x\)</span>, with <span class="math notranslate nohighlight">\(N\)</span> points.  The first point <span class="math notranslate nohighlight">\(x_1\)</span> locates the left-side boundary and <span class="math notranslate nohighlight">\(x_N\)</span> locates the right-side boundary to form the integration region [<span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_N\)</span>] or [a,b].  The brackets indicate that the endpoints are included and then we can divide up the intergtation region into <span class="math notranslate nohighlight">\(N-1\)</span> intervals or chunks.  The interval width is defined as <span class="math notranslate nohighlight">\(h\)</span>:</p>
 <p><span class="math notranslate nohighlight">\(h = \frac{b-a}{N-1}\)</span></p>
 <p>and the location of each point along the interval is defined linearly because each interval has a fixed width.  Thus, we write the iterative formula for <span class="math notranslate nohighlight">\(x_i\)</span> as:</p>
@@ -369,7 +329,7 @@
 <p>In the code, we can see each of the elements of the trapezoid rule. Most importantly, you should notice that the standard integration formulat includes a summation <span class="math notranslate nohighlight">\(\Sigma\)</span> and in code that translates into a <em>for loop</em>.  Everything else maps directly to what you might expect.  The analytical sum is also calculated because the function <span class="math notranslate nohighlight">\(f(x) = x^2\)</span> and we know its integral is evaluated as <span class="math notranslate nohighlight">\(x^3/3\)</span> at the interval boundaries.  <strong>Why are the values not equal?</strong>  <strong>What happens if we increase the value of <span class="math notranslate nohighlight">\(N\)</span>?</strong></p>
 </div>
 <div class="section" id="simpson-s-rule">
-<h2><span class="section-number">4.3. </span>Simpson’s Rule<a class="headerlink" href="#simpson-s-rule" title="Permalink to this headline">¶</a></h2>
+<h2>Simpson’s Rule<a class="headerlink" href="#simpson-s-rule" title="Permalink to this headline">¶</a></h2>
 <p>Simpson’s integration rule approximates the integrand <span class="math notranslate nohighlight">\(f(x)\)</span> by a parabola instead of a trapezoid:</p>
 <p><span class="math notranslate nohighlight">\(f(x) \simeq \alpha x^2 + \beta x + \gamma\)</span>,</p>
 <p>with equally spaced intervals and (<span class="math notranslate nohighlight">\(\alpha,\beta,\gamma\)</span>) are the to be determined weights.  We can calculate the area under the parabola for each interval as:</p>
@@ -426,7 +386,7 @@
 </div>
 </div>
 <div class="section" id="gaussian-quadrature">
-<h2><span class="section-number">4.4. </span>Gaussian Quadrature<a class="headerlink" href="#gaussian-quadrature" title="Permalink to this headline">¶</a></h2>
+<h2>Gaussian Quadrature<a class="headerlink" href="#gaussian-quadrature" title="Permalink to this headline">¶</a></h2>
 <p>The Trapezoid Rule and Simpson’s Rule use equidistant points and weights, which is adequate for some cases.  But, we can generalize those methods by relaxing the requirement for equidistant points.  Recall that our standard integration formula is composed of a set of chosen points <span class="math notranslate nohighlight">\(x_i\)</span> and corresponding weights <span class="math notranslate nohighlight">\(w_i\)</span>.  There is not a law stating that the <span class="math notranslate nohighlight">\(x_i\)</span> points should be chosen a particular way.  In Gaussian quadrature methods,</p>
 <ul class="simple">
 <li><p>we choose a series of points from a complex function that can be represented as a series of polynomials (Legendre, Laguerre, etc.)</p></li>
@@ -512,7 +472,7 @@
 </div>
 </div>
 <div class="section" id="integration-error">
-<h2><span class="section-number">4.5. </span>Integration Error<a class="headerlink" href="#integration-error" title="Permalink to this headline">¶</a></h2>
+<h2>Integration Error<a class="headerlink" href="#integration-error" title="Permalink to this headline">¶</a></h2>
 <p>If you value your own time, then you should choose an integration rule that gives an accurate answer using the least number of integration points.  Simply, fewer integration steps implies that less work needs to be done by the computer and you obtain your result faster.  Additionally, you want an accurate answer and you must realize that we are obtaining estimates of the true answer.  Computers are able to store a finite set of numbers and this results in <em>errors</em>.  We obtain a crude estimate of the <em>approximation</em> or <em>algorithmic error <span class="math notranslate nohighlight">\(\varepsilon\)</span></em> and the <em>relative error <span class="math notranslate nohighlight">\(\epsilon\)</span></em> by expanding <span class="math notranslate nohighlight">\(f(x)\)</span> in a Taylor series around the midpoint of the integration interval.  The error is mulitplied by the number of intervals for the entire integration region [a,b].  This is straightforward for the Trapezoid and Simpson rules because use equidistant intervals.  This process yields:</p>
 <p><span class="math notranslate nohighlight">\(\varepsilon_{\rm Trap} = O\left(\frac{[b-a]^3}{12N^2}\right)f^{\prime\prime}\)</span> <a class="reference external" href="https://en.wikipedia.org/wiki/Trapezoidal_rule">Trapezoidal Rule</a></p>
 <p>and</p>
@@ -532,7 +492,7 @@
 </ul>
 </div>
 <div class="section" id="integration-by-stone-throwing">
-<h2><span class="section-number">4.6. </span>Integration by Stone Throwing<a class="headerlink" href="#integration-by-stone-throwing" title="Permalink to this headline">¶</a></h2>
+<h2>Integration by Stone Throwing<a class="headerlink" href="#integration-by-stone-throwing" title="Permalink to this headline">¶</a></h2>
 <p>Sometimes you need to find the area of a shape with an irregular boundary.  The standard methods can be quite complex and there are simpler means of obtaining an approximate value.  Another context is when you want to perform multidimensional integrals.  These types of integrals are easily solved through a <em>sampling</em> technique with random numbers.</p>
 <p><img alt="Stone_throwing" src="../../_images/stone_throwing.png" /></p>
 <p>Suppose you need to find the area of a pond, where most ponds are not regularly shaped due to weathering and erosion.  You can use the following algorithm:</p>
@@ -605,7 +565,7 @@
 </ul>
 </div>
 <div class="section" id="integrating-by-mean-value">
-<h2><span class="section-number">4.7. </span>Integrating by Mean Value<a class="headerlink" href="#integrating-by-mean-value" title="Permalink to this headline">¶</a></h2>
+<h2>Integrating by Mean Value<a class="headerlink" href="#integrating-by-mean-value" title="Permalink to this headline">¶</a></h2>
 <p>In the previous section, we integrated using random values.  You might be thinking, how did that even work?  It is the standard Monte Carlo (random value) technique, which is based on the <em>mean value theorem</em> from Calculus.  Here’s the equation in case you’ve forgotten:</p>
 <p><span class="math notranslate nohighlight">\(I = \displaystyle \int_a^b f(x)dx = (b-a)&lt;f&gt;\)</span>.</p>
 <p>The theorem states: the value of the integral of some function <span class="math notranslate nohighlight">\(f(x)\)</span> over the interval from <span class="math notranslate nohighlight">\(a\)</span> to <span class="math notranslate nohighlight">\(b\)</span> equals the lenght of the interval <span class="math notranslate nohighlight">\((b-a)\)</span> multiplied by the mean value of the function <span class="math notranslate nohighlight">\(&lt;f&gt;\)</span> over that interval.  More simply, it states that the same area can exist under a complicated curve and within the simplest curve (a horizontal line).</p>
@@ -617,7 +577,7 @@
 <p>This looks like our standard algorithm (<span class="math notranslate nohighlight">\(\sum_i f(x_i)w_i\)</span>), where the points are chosen randomly and with uniform weights <span class="math notranslate nohighlight">\(w_i = (b-a)/N\)</span>.  This method is not very efficient (i.e., it can take a large N to converge), but it is simple.</p>
 </div>
 <div class="section" id="problems">
-<h2><span class="section-number">4.8. </span>Problems<a class="headerlink" href="#problems" title="Permalink to this headline">¶</a></h2>
+<h2>Problems<a class="headerlink" href="#problems" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Complete the following problems in a Jupyter notebook, where you will save your results as an external file (*.png) as needed.</p></li>
 <li><p>Create a LaTex document with:</p>
@@ -670,21 +630,7 @@
               
         
             <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../Chapter_3/Data_Fitting.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">3. </span>Data Fitting and Interpolation</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="../Chapter_5/Differentiation.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">5. </span>Differentiation and Searching</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
+<div class='prev-next-area'>
 </div>
         
         </div>
