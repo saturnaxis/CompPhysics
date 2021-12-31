@@ -363,7 +363,7 @@
 <ul class="simple">
 <li><p>What is Python?</p></li>
 <li><p>Why should I use it?</p></li>
-<li><p>Is it venemous?</p></li>
+<li><p>Is it venomous?</p></li>
 <li><p>Why am I talking to myself?</p></li>
 </ul>
 <p>In this chapter, you are going to learn the answers to some of these questions and develop some basic skills.  These skills will be useful in later chapters and will form a springboard so that you can dive into the ocean that is Computational Physics.  The first thing that you may need is motivation, which lies in the history of scientific computing.</p>
@@ -438,11 +438,11 @@
 </div>
 </div>
 </div>
-<p>The first line uses the ‘arange’ function from numpy, where we use ‘np’ as a shortcut label.  The ‘arange’ function takes in up to 3 values as input: starting value, stopping value, and step size to generate a numpy array with an interated sequence:</p>
+<p>The first line uses the ‘arange’ function from numpy, where we use ‘np’ as a shortcut label.  The ‘arange’ function takes in up to 3 values as input: starting value, stopping value, and step size to generate a numpy array with an iterated sequence:</p>
 <blockquote>
 <div><p>x = np.array([1. , 1.5, 2. , 2.5, 3. , 3.5, 4. , 4.5])</p>
 </div></blockquote>
-<p>Note that the generated values are floats (i.e., real numbers) and the final value of the array is 4.5 and <strong>not</strong> 5.0.  Python generators typically exclude the end point.  If we wanted to use integers (i.e., whole numbers) instead, then we could have used the ‘range’ function from pure Python without refferring to the numpy module and excluded the step size as input (e.g., range(0,5)).</p>
+<p>Note that the generated values are floats (i.e., real numbers) and the final value of the array is 4.5 and <strong>not</strong> 5.0.  Python generators typically exclude the end point.  If we wanted to use integers (i.e., whole numbers) instead, then we could have used the ‘range’ function from pure Python without referring to the numpy module and excluded the step size as input (e.g., range(0,5)).</p>
 <p>The second line generates another numpy array using the values stored in ‘x’.  More precisely, it makes a temporary copy of ‘x’, where it performs a multiplication by 3 and addition of 2 to each element of the copied array.  Finally, the temporary copied array is stored as a variable called ‘y’.</p>
 <blockquote>
 <div><p>y = np.array([ 5. ,  6.5,  8. ,  9.5, 11. , 12.5, 14. , 15.5])</p>
@@ -527,7 +527,7 @@
 <li><p>add a legend</p>
 <ul class="simple">
 <li><p>add the keyword ‘label’ to the plot command and set equal to a string</p></li>
-<li><p>ax.legend(loc=’upper right’,fonstize=20)</p></li>
+<li><p>ax.legend(loc=’upper right’,fontsize=20)</p></li>
 </ul>
 </li>
 </ol>
@@ -715,12 +715,12 @@
 </div>
 <div class="section" id="make-and-commit-changes">
 <h3><span class="section-number">1.4.3. </span>Make and commit changes<a class="headerlink" href="#make-and-commit-changes" title="Permalink to this headline">¶</a></h3>
-<p>After creating your <em>readme-edits</em> branch, you should now be on the code-view for that branch.  Let’s make some edits and see what happens.  Saved changes on GitHub are called commits.  Each commit also contains a description explaining why a particular change was made.  This is particurly useful for developing code over large periods of time or within groups.  Let’s make some changes to the <strong><a class="reference external" href="http://README.md">README.md</a></strong> file and commit those to the repo:</p>
+<p>After creating your <em>readme-edits</em> branch, you should now be on the code-view for that branch.  Let’s make some edits and see what happens.  Saved changes on GitHub are called commits.  Each commit also contains a description explaining why a particular change was made.  This is particularly useful for developing code over large periods of time or within groups.  Let’s make some changes to the <strong><a class="reference external" href="http://README.md">README.md</a></strong> file and commit those to the repo:</p>
 <ul class="simple">
 <li><p>Click the <strong><a class="reference external" href="http://README.md">README.md</a></strong> file.</p></li>
 <li><p>Click the pencil icon in the upper right corner to edit.</p></li>
 <li><p>In the editor, write a bit about yourself.  What are your research interests?</p></li>
-<li><p>Write a commite message that describes your changes (e.g., “I’m super awesome because I can make changes to my very own GitHub repo!”)</p></li>
+<li><p>Write a commit message that describes your changes (e.g., “I’m super awesome because I can make changes to my very own GitHub repo!”)</p></li>
 <li><p>Click the <strong>Commit changes</strong> button.</p></li>
 </ul>
 <p>The changes are now saved to the <code class="docutils literal notranslate"><span class="pre">readme-edits</span></code> branch, so now this branch is different than the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch*.</p>
@@ -751,7 +751,7 @@
 <ul class="simple">
 <li><p>Clone your repository to your local path (File –&gt; Clone repository).</p></li>
 <li><p>Open your repo from your local path and edit your files.</p></li>
-<li><p>After saving your files in the local path, the changes will appear in GitHub Desktop (simliar to a pull request).</p></li>
+<li><p>After saving your files in the local path, the changes will appear in GitHub Desktop (similar to a pull request).</p></li>
 <li><p>Add a description of the changes and click commit to the <em>main</em> branch (blue button)</p></li>
 <li><p>Click the <strong>Push origin</strong> button (update all your changes back to the web version of GitHub)</p></li>
 </ul>
@@ -759,7 +759,7 @@
 </div>
 <div class="section" id="latex-preparing-your-work">
 <h2><span class="section-number">1.5. </span>LaTex (Preparing your work)<a class="headerlink" href="#latex-preparing-your-work" title="Permalink to this headline">¶</a></h2>
-<p>In the past, scientists had to learn two skills: scientific inquiry and typesetting.  However, mathematicians developed a typesetting software, LaTex, that was more programattic, which made it easier to typeset equations within a document.  In this course, you will need to communicate your results to others (especially your instructor), where you will use LaTex.  To make it easier, we will use the online platform <strong>Overleaf</strong>.  Similar to the guide for GitHub, it is assumed that you have successfully created an Overleaf account.  Note that Overleaf provides its own guides that can be found <a class="reference external" href="https://www.overleaf.com/learn/how-to/Creating_a_document_in_Overleaf">here</a>.</p>
+<p>In the past, scientists had to learn two skills: scientific inquiry and typesetting.  However, mathematicians developed a typesetting software, LaTex, that was more programmatic, which made it easier to typeset equations within a document.  In this course, you will need to communicate your results to others (especially your instructor), where you will use LaTex.  To make it easier, we will use the online platform <strong>Overleaf</strong>.  Similar to the guide for GitHub, it is assumed that you have successfully created an Overleaf account.  Note that Overleaf provides its own guides that can be found <a class="reference external" href="https://www.overleaf.com/learn/how-to/Creating_a_document_in_Overleaf">here</a>.</p>
 <div class="section" id="creating-a-project">
 <h3><span class="section-number">1.5.1. </span>Creating a project<a class="headerlink" href="#creating-a-project" title="Permalink to this headline">¶</a></h3>
 <p>Creating a project in Overleaf can be accomplished in <strong>two</strong> ways: 1) start a project from scratch or 2) start a project from a template.  To start a project from scratch:</p>
@@ -931,8 +931,8 @@
 </div>
 <div class="section" id="the-back-matter">
 <h3><span class="section-number">1.5.5. </span>The Back Matter<a class="headerlink" href="#the-back-matter" title="Permalink to this headline">¶</a></h3>
-<p>The back matter contains supplementary information to the body (e.g., acknowledgments, references, appendices).  The acknowledgments (<strong>note the spelling</strong>) is an environment so it needs a \begin{acknowledgments} and an \end{ackowledgments}, where this section is where you would thank particular individuals/institutions that aided in the completion of the project (e.g., converstations, resources, proofing).</p>
-<p>An appendix is started with the <code class="docutils literal notranslate"><span class="pre">\appendix</span></code> command, which behaves much like the body but includes supplementary material (e.g., a derivation of an equation, how a new method was verified) and it’s labeled with letters (A,B,C,…).  For you, this is where you can put the code that you generate using the \verbatim environment.  Addtional guides on how to include code in Latex can be found <a class="reference external" href="https://www.overleaf.com/learn/latex/Code_listing">here</a>.</p>
+<p>The back matter contains supplementary information to the body (e.g., acknowledgments, references, appendices).  The acknowledgments (<strong>note the spelling</strong>) is an environment so it needs a \begin{acknowledgments} and an \end{ackowledgments}, where this section is where you would thank particular individuals/institutions that aided in the completion of the project (e.g., conversations, resources, proofing).</p>
+<p>An appendix is started with the <code class="docutils literal notranslate"><span class="pre">\appendix</span></code> command, which behaves much like the body but includes supplementary material (e.g., a derivation of an equation, how a new method was verified) and it’s labeled with letters (A,B,C,…).  For you, this is where you can put the code that you generate using the \verbatim environment.  Additional guides on how to include code in Latex can be found <a class="reference external" href="https://www.overleaf.com/learn/latex/Code_listing">here</a>.</p>
 <p>In addition to the ease of generating equations, LaTex is preferred because it makes referencing easier too with BibTex.  At the end of your document, references are included by telling LaTex the referencing style (e.g., apsrev4-2.bst for <em>Physical Review</em>) and a database of references (e.g., references.bib) through supplemental files.  You must include the following for the references:</p>
 <blockquote>
 <div><p>\bibliographystyle{style_filename.bst}</p>
@@ -951,7 +951,7 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>where the <code class="docutils literal notranslate"><span class="pre">Berman1983</span></code> is a label used for the inline citation command within the body (e.g., \cite{Berman1983}).  The quotation marks for each field tell BibTex not to change the formatting (i.e., captialization).  There are different types of environments that correspond to different references (e.g., ARTICLE, BOOK, INPROCEEDINGS, etc.).  Remember that environments require an opening { and closing }.</p>
+<p>where the <code class="docutils literal notranslate"><span class="pre">Berman1983</span></code> is a label used for the inline citation command within the body (e.g., \cite{Berman1983}).  The quotation marks for each field tell BibTex not to change the formatting (i.e., capitalization).  There are different types of environments that correspond to different references (e.g., ARTICLE, BOOK, INPROCEEDINGS, etc.).  Remember that environments require an opening { and closing }.</p>
 <p>The inline citations have more variations within Astronomy because that community uses the author (year) referencing style, while Physical review uses a [number] style.  In this course, you will use the latter.</p>
 </div>
 </div>
@@ -974,7 +974,7 @@
 </li>
 <li><p>The file Ba137.txt contains two columns. The first is counts from a Geiger counter, and the second is time in seconds.</p>
 <p>a. Make a useful graph of this data.</p>
-<p>b. If this data follows an exponential curve, then plotting the natural log of the data (or plotting the raw data on a logrithmic scale) will result in a straight line. Determine whether this is the case, and explain your conclusion with an appropriate graph.</p>
+<p>b. If this data follows an exponential curve, then plotting the natural log of the data (or plotting the raw data on a logarithmic scale) will result in a straight line. Determine whether this is the case, and explain your conclusion with an appropriate graph.</p>
 </li>
 <li><p>The data in the file Ba137.txt is actual data from a radioactive decay experiment; the first column is the number of decays <span class="math notranslate nohighlight">\(N\)</span>, the second is the time <span class="math notranslate nohighlight">\(t\)</span> in seconds. We’d like to know the half-life <span class="math notranslate nohighlight">\(t_{1/2}\)</span> of <span class="math notranslate nohighlight">\(^{137}\)</span>Ba. It should follow the decay equation
 <span class="math notranslate nohighlight">\(N = N_oe^{-\lambda t}\)</span>
