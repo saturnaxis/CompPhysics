@@ -1,304 +1,407 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>5. Differentiation and Searching &#8212; PHYS3820 Computational Physics</title>
-    
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_5/Differentiation';</script>
     <link rel="canonical" href="https://saturnaxis.github.io/PHYS3820_Notes/Chapter_5/Differentiation.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="6. Ordinary Differential Equations (ODEs)" href="../Chapter_6/ODEs.html" />
     <link rel="prev" title="4. Integration" href="../Chapter_4/Integration.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
 
-    <div class="container-xl">
-      <div class="row">
-          
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-        <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
-      
-      
-      
-      <h1 class="site-logo" id="site-title">PHYS3820 Computational Physics</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../home.html">
-   About
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Lectures
- </span>
-</p>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../home.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">PHYS3820 Computational Physics</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../home.html">
+                    About
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lectures</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_1/Gentle_Introduction.html">
-   1. Useful Introduction to Python, GitHub, and LaTex
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_2/Python_Basics.html">
-   2. Python Basics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_3/Data_Fitting.html">
-   3. Data Fitting and Interpolation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_4/Integration.html">
-   4. Integration
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   5. Differentiation and Searching
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_6/ODEs.html">
-   6. Ordinary Differential Equations (ODEs)
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter_1/Gentle_Introduction.html">1. Useful Introduction to Python, GitHub, and LaTex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter_2/Python_Basics.html">2. Python Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter_3/Data_Fitting.html">3. Data Fitting and Interpolation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter_4/Integration.html">4. Integration</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Differentiation and Searching</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter_6/ODEs.html">6. Ordinary Differential Equations (ODEs)</a></li>
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/Chapter_5/Differentiation.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+</nav></div>
     </div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
-            <!-- Source interaction buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/saturnaxis/PHYS3820_Notes"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
+      </div>
+      
+      <main id="main-content" class="bd-main">
         
         
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
     </div>
-</div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
 
-            <!-- Full screen (wrap in <a> to have style consistency -->
+<div class="article-header-buttons">
 
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
 
-            <!-- Launch buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/saturnaxis/PHYS3820_Notes/main?urlpath=tree/Chapter_5/Differentiation.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/saturnaxis/PHYS3820_Notes/blob/main/Chapter_5/Differentiation.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
 
-        </div>
 
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#numerical-differentiation">
-   5.1. Numerical differentiation
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#forward-difference">
-     5.1.1. Forward difference
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#central-difference">
-     5.1.2. Central difference
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#extrapolated-difference">
-     5.1.3. Extrapolated difference
-    </a>
-   </li>
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/saturnaxis/PHYS3820_Notes/main?urlpath=tree/Chapter_5/Differentiation.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/saturnaxis/PHYS3820_Notes/blob/main/Chapter_5/Differentiation.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#second-derivatives">
-   5.2. Second Derivatives
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#root-via-bisection">
-   5.3. Root Via Bisection
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#newton-raphson-searching">
-   5.4. Newton-Raphson searching
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#problems">
-   5.5. Problems
-  </a>
- </li>
-</ul>
+</div>
 
+
+
+<a href="https://github.com/saturnaxis/PHYS3820_Notes" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Chapter_5/Differentiation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Differentiation and Searching</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-differentiation">5.1. Numerical differentiation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-difference">5.1.1. Forward difference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#central-difference">5.1.2. Central difference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extrapolated-difference">5.1.3. Extrapolated difference</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#second-derivatives">5.2. Second Derivatives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-via-bisection">5.3. Root Via Bisection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#newton-raphson-searching">5.4. Newton-Raphson searching</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problems">5.5. Problems</a></li>
+</ul>
             </nav>
         </div>
     </div>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
+
+              
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="differentiation-and-searching">
-<h1><span class="section-number">5. </span>Differentiation and Searching<a class="headerlink" href="#differentiation-and-searching" title="Permalink to this headline">¶</a></h1>
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="differentiation-and-searching">
+<h1><span class="section-number">5. </span>Differentiation and Searching<a class="headerlink" href="#differentiation-and-searching" title="Permalink to this heading">#</a></h1>
 <p><a class="reference external" href="https://personal.math.ubc.ca/~pwalls/math-python/differentiation/differentiation/">Numerical differentiation</a> in really straightforward, where we will evaluate the forward, central, and extrapolated-difference methods.  Another tool is trial-and-error searching which can be used in root-finding, minimization, and is widely used to solve problems where analytic solutions do not exist or are impractical.</p>
-<div class="section" id="numerical-differentiation">
-<h2><span class="section-number">5.1. </span>Numerical differentiation<a class="headerlink" href="#numerical-differentiation" title="Permalink to this headline">¶</a></h2>
+<section id="numerical-differentiation">
+<h2><span class="section-number">5.1. </span>Numerical differentiation<a class="headerlink" href="#numerical-differentiation" title="Permalink to this heading">#</a></h2>
 <p>Before implementing a numerical method for differentiation, let’s review some basics from Introductory Calculus.  The elementary definition was</p>
 <p><span class="math notranslate nohighlight">\(\frac{dy(t)}{dt} = \displaystyle \lim_{h\rightarrow 0}\frac{y(t+h)-y(t)}{h}\)</span>,</p>
 <p>but this is impractical to implement in a computer.  The denominator is approaching zero and the finite machine precision causes oscillations in the solution.  Therefore we implement a series of approximations to obtain a practical solution.</p>
-<div class="section" id="forward-difference">
-<h3><span class="section-number">5.1.1. </span>Forward difference<a class="headerlink" href="#forward-difference" title="Permalink to this headline">¶</a></h3>
+<section id="forward-difference">
+<h3><span class="section-number">5.1.1. </span>Forward difference<a class="headerlink" href="#forward-difference" title="Permalink to this heading">#</a></h3>
 <p>The most direct method for numerical differentiation starts by expanding a function in a Taylor series to obtain its value a small step <em>h</em> away:</p>
 <p><span class="math notranslate nohighlight">\(y(t+h) = y(t) + h\frac{dy(t)}{dt} + \frac{h^2}{2!}\frac{d^2y(t)}{dt^2} + \frac{h^3}{3!}\frac{d^3y(t)}{dt^3} + \cdots\)</span>.</p>
 <p>We obtain a <em>forward-difference</em> derivative by using the approximation in the elementary definition for <span class="math notranslate nohighlight">\(y^\prime(t)\)</span>:</p>
@@ -308,9 +411,9 @@
 <p>You can think of this approximation as using two points to represent the function by a straight line between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(x+h\)</span>.  The approximation has an error proportional to <span class="math notranslate nohighlight">\(h\)</span> (the slope of the line).  Therefore, we can make the approximation error smaller by taking smaller steps (decreasing <span class="math notranslate nohighlight">\(h\)</span>), yet there will be some round-off error that is present from the subtraction in the <em>forward-difference</em> derivative.  To see how this algorithm works, let <span class="math notranslate nohighlight">\(y(t) = a + bt^2\)</span>, where the exact derivative is <span class="math notranslate nohighlight">\(y^\prime = 2bt\)</span> and the computed derivative is:</p>
 <p><span class="math notranslate nohighlight">\(\frac{dy(t)}{dt}\biggr\rvert_{fd} \simeq \frac{y(t+h)-y(t)}{h} = \frac{a+b(t+h)^2 - a - bt^2}{h} = \frac{2bth + bh^2}{h} = 2bt + bh\)</span>.</p>
 <p>This approximation is only good for small <em>h</em>, where the <span class="math notranslate nohighlight">\(bh \ll 1\)</span>.  Implementing the <em>forward-difference</em> algorithm in python is super easy.  Simply use the <em>diff</em> function from <strong>numpy</strong>.  Suppose you have an array of <em>N</em> values in <em>y</em>, then <em>np.diff(y)</em> returns an array with length <em>N-1</em> containing the consecutive differences (i.e., y[1]-y[0], y[2]-y[1], …).  If the values are sampled at regular intervals in the <em>t</em> array, then <span class="math notranslate nohighlight">\(y^\prime(t)\)</span> = np.diff(y)/(t[1]-t[0]).</p>
-</div>
-<div class="section" id="central-difference">
-<h3><span class="section-number">5.1.2. </span>Central difference<a class="headerlink" href="#central-difference" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="central-difference">
+<h3><span class="section-number">5.1.2. </span>Central difference<a class="headerlink" href="#central-difference" title="Permalink to this heading">#</a></h3>
 <p>An improved approximation uses the principles from the Taylor series (i.e., expand relative to a central point).  Now, rather than making a single step of <em>h</em> forward, we form a <em>central difference</em> by stepping forward a half-step and backward a half-step:</p>
 <p><span class="math notranslate nohighlight">\(\frac{dy(t)}{dt}\biggr\rvert_{cd} = \frac{y(t+h/2)-y(t-h/2)}{h}\)</span>.</p>
 <p>We estimate the error by substituting the Taylor series for <span class="math notranslate nohighlight">\(y(t\pm h/2)\)</span>.  <strong>Do you think this will result in a better approximation? Why?</strong> By substitution, we find:</p>
@@ -322,31 +425,31 @@
 <p>The important difference between the <em>forward-difference</em> and <em>central-difference</em> algorithms is that the <em>central-difference</em> algorithm cancels the terms with an even power of <em>h</em> in from each of the Taylor series.  This makes the leading-order error of <em>central-difference</em> accurate to <span class="math notranslate nohighlight">\(h^2\)</span>, while the <em>forward-difference</em> is only accurate to order <em>h</em>.  Returning to our parabola example (<span class="math notranslate nohighlight">\(y(t) = a + bt^2\)</span>), we see that the <em>central-difference</em> gives the exact derivative independent of <span class="math notranslate nohighlight">\(h\)</span>:</p>
 <p><span class="math notranslate nohighlight">\(\frac{dy(t)}{dt}\biggr\rvert_{cd} \simeq \frac{y(t+h/2)-y(t-h/2)}{h} = \frac{a+b(t+h/2)^2 - a - b(t-h/2)^2}{h} = \frac{2bth}{h} = 2bt\)</span>.</p>
 <p>The <strong>numpy</strong> module has a special function called <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.gradient.html">gradient</a> that performs a second order central differences method on the input array and requires the stepsize <em>h</em> as an argument.  From an array with <em>N</em> elements <span class="math notranslate nohighlight">\(y(t)\)</span>, it returns an array of <em>N</em> elements for <span class="math notranslate nohighlight">\(y^\prime(t)\)</span>.</p>
-</div>
-<div class="section" id="extrapolated-difference">
-<h3><span class="section-number">5.1.3. </span>Extrapolated difference<a class="headerlink" href="#extrapolated-difference" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="extrapolated-difference">
+<h3><span class="section-number">5.1.3. </span>Extrapolated difference<a class="headerlink" href="#extrapolated-difference" title="Permalink to this heading">#</a></h3>
 <p>You may have noticed that different differentiation rules will keep a different number of terms in a Taylor series expansion, which also provides an expression for the error.  We can reduce the error further by combining several algorithms together so that the summed errors extrapolate to zero.  For example, we could employ two <em>central-difference</em> algorithms as a linear combination, where the first algorithm takes half-steps and the second takes quarter-steps.  Let’s look at the quarter-step approximation (<span class="math notranslate nohighlight">\(h\rightarrow h/2\)</span>):</p>
 <p><span class="math notranslate nohighlight">\(\frac{dy(t)}{dt}\biggr\rvert_{cd}^{h/4} = \frac{y(t+h/4)-y(t-h/4)}{h/2} = y^\prime(t) + \frac{h^2}{96}y^{\prime\prime\prime}(t) + O(h^4)\)</span>.</p>
 <p>The quarter-step derivative produces a factor of 1/96 instead of the 1/24 on the second order term.  If we want to cancel this term, we realize that 96 = 4*24 and so we perform the following subtraction to get:</p>
 <p><span class="math notranslate nohighlight">\(4\frac{dy(t)}{dt}\biggr\rvert_{cd}^{h/4} - \frac{dy(t)}{dt}\biggr\rvert_{cd}^{h/2} = 4y^\prime(t) + \frac{h^2}{24}y^{\prime\prime\prime}(t) - y^\prime(t) - \frac{h^2}{24}y^{\prime\prime\prime}(t) = 3 y^\prime(t) + O(h^4)\)</span></p>
 <p>Thus, we find for the <em>extrapolated-difference</em> the following:</p>
 <p><span class="math notranslate nohighlight">\(\frac{dy(t)}{dt}\biggr\rvert_{ed} = \frac{4}{3}\frac{dy(t)}{dt}\biggr\rvert_{cd}^{h/4} - \frac{1}{3}\frac{dy(t)}{dt}\biggr\rvert_{cd}^{h/2} \simeq y^\prime(t) + O(h^4)\)</span></p>
-</div>
-</div>
-<div class="section" id="second-derivatives">
-<h2><span class="section-number">5.2. </span>Second Derivatives<a class="headerlink" href="#second-derivatives" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="second-derivatives">
+<h2><span class="section-number">5.2. </span>Second Derivatives<a class="headerlink" href="#second-derivatives" title="Permalink to this heading">#</a></h2>
 <p>Many problems in physics involve a second derivative, or acceleration.  One of the most important equations is Newton’s second law that tells us that a force <span class="math notranslate nohighlight">\(F\)</span> and acceleration <span class="math notranslate nohighlight">\(a\)</span> are linearly related:</p>
 <p><span class="math notranslate nohighlight">\(F = ma = m\frac{d^2y}{dt^2}\)</span>,</p>
 <p>where <span class="math notranslate nohighlight">\(m\)</span> is a particle’s mass and the acceleration can be expressed as the second derivative of a function <span class="math notranslate nohighlight">\(y(t)\)</span>.  If we can determine the acceleration, then we can determine the force.  Using the <em>central-difference</em> method for the first derivative, we have:</p>
 <p><span class="math notranslate nohighlight">\(\frac{dy(t)}(dt) \simeq \frac{y(t+h/2)-y(t-h/2)}{h}\)</span>,</p>
 <p>which gives the derivative at t by moving forward and backward from t by a half-step <span class="math notranslate nohighlight">\(h/2\)</span>.  We take the second derivative by applying the same operation again as follows:</p>
 <p><span class="math notranslate nohighlight">\(\frac{d^2y(t)}{dt^2} \simeq \frac{y^\prime(t+h/2)-y^\prime(t-h/2)}{h} \simeq \frac{[y(t+h)-y(t)]-[y(t)-y(t-h)]}{h^2} = \frac{y(t+h)-2y(t)+y(t-h)}{h^2}\)</span></p>
-</div>
-<div class="section" id="root-via-bisection">
-<h2><span class="section-number">5.3. </span>Root Via Bisection<a class="headerlink" href="#root-via-bisection" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="root-via-bisection">
+<h2><span class="section-number">5.3. </span>Root Via Bisection<a class="headerlink" href="#root-via-bisection" title="Permalink to this heading">#</a></h2>
 <p>Trial-and-error root finding looks for a value of <span class="math notranslate nohighlight">\(x\)</span> at which <span class="math notranslate nohighlight">\(f(x)=0\)</span>, where the <span class="math notranslate nohighlight">\(f(x)\)</span> can be polynomials or a transcendental function (e.g., <span class="math notranslate nohighlight">\(10\sin x = 3x^3 \rightarrow 10\sin x - 3x^3 = 0\)</span>).  The search procedure starts with a guess for <span class="math notranslate nohighlight">\(x\)</span>, substitutes that guess into <span class="math notranslate nohighlight">\(f(x)\)</span> (i.e., the trial), and sees how far from zero the evaluated function is (i.e., the error).  the program then revises the guess <span class="math notranslate nohighlight">\(x\)</span> based on the error and then substitutes the revised guess into <span class="math notranslate nohighlight">\(f(x)\)</span> again.  The procedure continues until <span class="math notranslate nohighlight">\(f(x)\simeq 0\)</span> or to some desired level of precision.  Sometimes the procedure is stopped once it appears progress is not being made.</p>
 <p>The most elementary trial-and-error technique is the <em>bisection algorithm</em>.  It is reliable, but slow.  If you know some interval in which <span class="math notranslate nohighlight">\(f(x)\)</span> changes sign, then the <a class="reference external" href="https://personal.math.ubc.ca/~pwalls/math-python/roots-optimization/bisection/">bisection algorithm</a> is the way to go.  The basis of the bisection algorithm is that we start with two values of <span class="math notranslate nohighlight">\(x\)</span> between which a zero occurs (i.e., the bounds).  Let us say that <span class="math notranslate nohighlight">\(f(x)\)</span> is negative at <span class="math notranslate nohighlight">\(a\)</span> and positive at <span class="math notranslate nohighlight">\(b\)</span>.  Thus we start with the interval <span class="math notranslate nohighlight">\(a\geq x \geq b\)</span> within which we know a zero occurs.  Then we evaluate each of these tasks for a given iteration:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Calculate <span class="math notranslate nohighlight">\(c\)</span>, the midpoint of the interval, <span class="math notranslate nohighlight">\(c = \frac{a+b}{2}\)</span>.</p></li>
 <li><p>Evaluate the function at the midpoint, <span class="math notranslate nohighlight">\(f(c)\)</span>.</p></li>
 <li><p>If convergence is satisfactory (i.e., <span class="math notranslate nohighlight">\(|f(c)|\simeq 0\)</span>), return c and stop iterating.</p></li>
@@ -438,12 +541,12 @@ scipy method =  8.592785275230199
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;1D finite well solution&#39;)
 </pre></div>
 </div>
-<img alt="../_images/Differentiation_7_2.png" src="../_images/Differentiation_7_2.png" />
+<img alt="../_images/d64c8b9f0a40ca7d2fff96e6561c2044f55c1977e001bdee86513a1e7bb024bc.png" src="../_images/d64c8b9f0a40ca7d2fff96e6561c2044f55c1977e001bdee86513a1e7bb024bc.png" />
 </div>
 </div>
-</div>
-<div class="section" id="newton-raphson-searching">
-<h2><span class="section-number">5.4. </span>Newton-Raphson searching<a class="headerlink" href="#newton-raphson-searching" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="newton-raphson-searching">
+<h2><span class="section-number">5.4. </span>Newton-Raphson searching<a class="headerlink" href="#newton-raphson-searching" title="Permalink to this heading">#</a></h2>
 <p>The Newton-Raphson (NR) algorithm is another way to find roots, but it is much quicker than the bisection method.  The NR method is equivalent to drawing a straight line <span class="math notranslate nohighlight">\(f(x)\simeq mx + b\)</span> to a curve at an <span class="math notranslate nohighlight">\(x\)</span> value for which <span class="math notranslate nohighlight">\(f(x) \simeq 0\)</span>.  Then it uses the intercept of the line with the <span class="math notranslate nohighlight">\(x\)</span> axis at <span class="math notranslate nohighlight">\(-b/m\)</span> as an improved guess for the root.  If the “curve” were a straight line, then the answer would be exact.  Otherwise, it is a good approximation if the guess is close enough to the root for $f(x) to be nearly linear.</p>
 <p>As an <a class="reference external" href="https://personal.math.ubc.ca/~pwalls/math-python/roots-optimization/newton/">iteration</a> scheme, we need to start with a guess <span class="math notranslate nohighlight">\(x_o\)</span>, then find a correction to the guess <span class="math notranslate nohighlight">\(\Delta x\)</span>, and finally formulate a new guess <span class="math notranslate nohighlight">\(x = x_o + \Delta x\)</span>.  Recall that the equation of a line can be formulated in terms of a Taylor series, keeping on the first two terms:</p>
 <p><span class="math notranslate nohighlight">\(f(x) \simeq f(x_o) + \frac{df}{dx}\biggr\rvert_{x_o}\Delta x\)</span>.</p>
@@ -451,9 +554,9 @@ scipy method =  8.592785275230199
 <p><span class="math notranslate nohighlight">\(f(x_o) + \frac{df}{dx}\biggr\rvert_{x_o}\Delta x = 0\)</span></p>
 <p><span class="math notranslate nohighlight">\(\Delta x = -\frac{f(x_o)}{df/dx\rvert_{x_o}}\)</span>.</p>
 <p>Notice that the NR method requires the calculation of the first derivative <span class="math notranslate nohighlight">\(df/dx\)</span> at each guess.  In many cases you may have an analytic expression for the derivative and can build it into the algorithm.  However, it is simpler to use a numerical <em>forward-difference</em> approximation to the derivative.  While a central-difference approximation would be more accurate, it would require addition function evaluations and the overall process would take longer to run.</p>
-</div>
-<div class="section" id="problems">
-<h2><span class="section-number">5.5. </span>Problems<a class="headerlink" href="#problems" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="problems">
+<h2><span class="section-number">5.5. </span>Problems<a class="headerlink" href="#problems" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Complete the following problems in a Jupyter notebook, where you will save your results as an external file (*.png) as needed.</p></li>
 <li><p>Create a LaTex document with:</p>
@@ -464,12 +567,12 @@ scipy method =  8.592785275230199
 </ul>
 </li>
 </ul>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Write a program to calculate sin(x) and cos(x).  Calculate and plot the numerical derivatives using a) forward-difference, b) central-difference, and c) the analytical derivative.</p></li>
 <li><p>Write a function to implement the Newton-Raphson method.  Apply it to the 1D Quantum well example and compare it to the bisection method.  Also compare your implementation to the function from <em>scipy.optimize</em>.</p></li>
 </ol>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -483,7 +586,7 @@ scipy method =  8.592785275230199
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./Chapter_5"
         },
         predefinedOutput: true
@@ -491,46 +594,114 @@ scipy method =  8.592785275230199
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-        
-            <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../Chapter_4/Integration.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">4. </span>Integration</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../Chapter_4/Integration.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Integration</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="../Chapter_6/ODEs.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="../Chapter_6/ODEs.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title"><span class="section-number">6. </span>Ordinary Differential Equations (ODEs)</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-        
-        </div>
-    </div>
-    <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Billy Quarles<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
-</main>
-
-
       </div>
-    </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+</div>
 
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-differentiation">5.1. Numerical differentiation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-difference">5.1.1. Forward difference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#central-difference">5.1.2. Central difference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extrapolated-difference">5.1.3. Extrapolated difference</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#second-derivatives">5.2. Second Derivatives</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#root-via-bisection">5.3. Root Via Bisection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#newton-raphson-searching">5.4. Newton-Raphson searching</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problems">5.5. Problems</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Billy Quarles
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2021.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
