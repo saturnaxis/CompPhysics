@@ -35,6 +35,10 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mycss.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -49,6 +53,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/tabs.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -64,7 +69,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_3/Data_Fitting';</script>
-    <link rel="canonical" href="https://saturnaxis.github.io/PHYS3820_Notes/Chapter_3/Data_Fitting.html" />
+    <link rel="canonical" href="https://saturnaxis.github.io/CompPhysics/Chapter_3/Data_Fitting.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4. Integration" href="../Chapter_4/Integration.html" />
@@ -215,7 +220,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/saturnaxis/PHYS3820_Notes/main?urlpath=tree/Chapter_3/Data_Fitting.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/saturnaxis/CompPhysics/main?urlpath=tree/Chapter_3/Data_Fitting.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onBinder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -233,7 +238,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://colab.research.google.com/github/saturnaxis/PHYS3820_Notes/blob/main/Chapter_3/Data_Fitting.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/saturnaxis/CompPhysics/blob/main/Chapter_3/Data_Fitting.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -248,12 +253,30 @@ const thebe_selector_output = ".output, .cell_output"
 </a>
 </li>
       
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
   </ul>
 </div>
 
 
 
-<a href="https://github.com/saturnaxis/PHYS3820_Notes" target="_blank"
+<a href="https://github.com/saturnaxis/CompPhysics" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -485,7 +508,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f9724c50ce704d49ea03f4760a3894b41c405dc1d88e5bfd097433113bec43f2.svg" src="../_images/f9724c50ce704d49ea03f4760a3894b41c405dc1d88e5bfd097433113bec43f2.svg" /></div>
+<img alt="../_images/46414b06ad470d0ce0a3b16cf072650f0b49cf64d780a1c8d3de0c23657d4927.png" src="../_images/46414b06ad470d0ce0a3b16cf072650f0b49cf64d780a1c8d3de0c23657d4927.png" />
+</div>
 </div>
 <p>In the above figure, one can see that the cross section peaks at 75 MeV, although there is a large measurement uncertainty.</p>
 <p>Interpolation and curve-fitting are powerful tools that let you treat tables of numbers as if they were analytic functions and <em>sometimes</em> allow you to deduce statistically meaningful constants or conclusions from measurements.  Data fitting can be either <em>global</em> or <em>local</em>, which describes whether or not a single function is used to represent the entire data set.  An incorrect global fit can introduce spurious features between the data points that are nonphysical.  Keep it local and view global interpolation with a critical eye.</p>
@@ -604,7 +628,8 @@ g(0.5) =  -10.125
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b88c01409cffea598cfe9796d5b0831e33d2ac5c7803c9275d97038dc147617e.svg" src="../_images/b88c01409cffea598cfe9796d5b0831e33d2ac5c7803c9275d97038dc147617e.svg" /></div>
+<img alt="../_images/c4c12acccb9c56cebf065a8021bfbdb7c79b23171c329b41e3d5a3d1d673824c.png" src="../_images/c4c12acccb9c56cebf065a8021bfbdb7c79b23171c329b41e3d5a3d1d673824c.png" />
+</div>
 </div>
 <p>Notice that the Lagrange interpolation (dashed curve) works best near the middle and away from the end points. The linear interpolation (solid curve) goes through more of the points, but it’s not very smooth.  A Theorist friend has predicted that the resonance energy (peak position) and full width at half max are 75 and 55 MeV, respectively.  <strong>How can we compare values?</strong></p>
 <div class="cell docutils container">
@@ -667,7 +692,8 @@ g(0.5) =  -10.125
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5fe33faa0f355b51dd6143df2b052fd7ff2dbc9aa9860a1defcd67d61ce7f7ae.svg" src="../_images/5fe33faa0f355b51dd6143df2b052fd7ff2dbc9aa9860a1defcd67d61ce7f7ae.svg" /></div>
+<img alt="../_images/33830cf8b938483ceb4f735135aff9003f181f913fc2bc44c6bc8909b26ba7c4.png" src="../_images/33830cf8b938483ceb4f735135aff9003f181f913fc2bc44c6bc8909b26ba7c4.png" />
+</div>
 </div>
 </section>
 <section id="data-fitting">
@@ -682,7 +708,7 @@ g(0.5) =  -10.125
 <p><span class="math notranslate nohighlight">\(N(t) = N_o e^{-t/\tau}\)</span>,</p>
 <p>where the parameters are the lifetime <span class="math notranslate nohighlight">\(\tau\)</span> and the initial decay rate <span class="math notranslate nohighlight">\(dN(0)/dt\)</span>.  In general, we indicate this as <span class="math notranslate nohighlight">\(g(x) = g(x; a_m)\)</span>.  We use the chi-square <span class="math notranslate nohighlight">\(\chi^2\)</span> measure as a gauge of how well a model <span class="math notranslate nohighlight">\(g\)</span> reproduces the data:</p>
 <p><span class="math notranslate nohighlight">\(\chi^2 = \displaystyle\sum_{i=1}^N \frac{(y_i-g(x_i; a_m))^2}{\sigma_i^2}\)</span>,</p>
-<p>where the sum is over the <span class="math notranslate nohighlight">\(N\)</span> data values.  The definition is such that the minimal <span class="math notranslate nohighlight">\(\chi^2\)</span> (smaller values) are better fits.  Notice also that the 1/<span class="math notranslate nohighlight">\(\sigma_i^2\)</span> weights the measurements with larger errors so they contribute less to <span class="math notranslate nohighlight">\(\chi^2\)</span>.  If the errors are not given in the data set, then you can use the standard error estimate <span class="math notranslate nohighlight">\(\sigma_x = \sigma/\sqrt{N}\)</span> where <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviation.  If you are interested in other methods of error estimation, look at this introductory <a class="reference external" href="https://towardsdatascience.com/an-introduction-to-the-bootstrap-method-58bcb51b4d60">article</a> from <em><a class="reference external" href="http://towardsdatascience.com">towardsdatascience.com</a></em>.</p>
+<p>where the sum is over the <span class="math notranslate nohighlight">\(N\)</span> data values.  The definition is such that the minimal <span class="math notranslate nohighlight">\(\chi^2\)</span> (smaller values) are better fits.  Notice also that the 1/<span class="math notranslate nohighlight">\(\sigma_i^2\)</span> weights the measurements with larger errors so they contribute less to <span class="math notranslate nohighlight">\(\chi^2\)</span>.  If the errors are not given in the data set, then you can use the standard error estimate <span class="math notranslate nohighlight">\(\sigma_x = \sigma/\sqrt{N}\)</span> where <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviation.  If you are interested in other methods of error estimation, look at this introductory <a class="reference external" href="https://towardsdatascience.com/an-introduction-to-the-bootstrap-method-58bcb51b4d60">article</a> from <em>towardsdatascience.com</em>.</p>
 <p><strong>Least-squares fitting</strong> refers to adjusting the model parameters until a minimum in <span class="math notranslate nohighlight">\(\chi^2\)</span> is found.  In other words, it is searching for a minimum <em>absolute error</em> <span class="math notranslate nohighlight">\((y_i-g(x_i; a_m))^2\)</span> between the data points <span class="math notranslate nohighlight">\(y_i\)</span> and the model <span class="math notranslate nohighlight">\(g(x_i; a_m)\)</span>.  Recall from <em>Calculus</em> that finding a minimum is taking the derivative and setting it equal to zero.  Therefore, we can express the derivative of <span class="math notranslate nohighlight">\(\chi^2\)</span> with respect to the model parameters <span class="math notranslate nohighlight">\(a_m\)</span> as:</p>
 <p><span class="math notranslate nohighlight">\(\frac{\partial [\chi^2]}{\partial a_m} = \displaystyle\sum_{i=1}^N\frac{[y_i-g(x_i)]}{\sigma_i^2}\frac{\partial g(x_i)}{\partial a_m} = 0\)</span>,</p>
 <p>where <span class="math notranslate nohighlight">\(i\)</span> refers to a loop over the data points and <span class="math notranslate nohighlight">\(a_m\)</span> corresponds to the list of model parameters <span class="math notranslate nohighlight">\(\left(a_1,\cdots,a_{M_p}\right)\)</span>.  Typically this results in a sufficiently complicated dependence on the model parameters <span class="math notranslate nohighlight">\(a_m\)</span> to produce a set of <strong>non-linear</strong> equations.  Thus, solutions are found by a <em>trial-and-error</em> search (i.e., test many possible solutions and use <span class="math notranslate nohighlight">\(\chi^2\)</span> to sort them).</p>
@@ -741,7 +767,41 @@ g(0.5) =  -10.125
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/074ebe1da24fb8e5ef210130f91f38049fd9f5ed5b63ddb5d53e250f8293abe6.svg" src="../_images/074ebe1da24fb8e5ef210130f91f38049fd9f5ed5b63ddb5d53e250f8293abe6.svg" /></div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="nn">Input In [7],</span> in <span class="ni">&lt;cell line: 17&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">aspect</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">17</span> <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerr</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
+
+<span class="nn">File ~/anaconda3/lib/python3.9/site-packages/matplotlib/__init__.py:1433,</span> in <span class="ni">_preprocess_data.&lt;locals&gt;.inner</span><span class="nt">(ax, data, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1430</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1431</span> <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1432</span>     <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1433</span>         <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="n">sanitize_sequence</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1435</span>     <span class="n">bound</span> <span class="o">=</span> <span class="n">new_sig</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1436</span>     <span class="n">auto_label</span> <span class="o">=</span> <span class="p">(</span><span class="n">bound</span><span class="o">.</span><span class="n">arguments</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label_namer</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1437</span>                   <span class="ow">or</span> <span class="n">bound</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label_namer</span><span class="p">))</span>
+
+<span class="nn">File ~/anaconda3/lib/python3.9/site-packages/matplotlib/axes/_axes.py:3601,</span> in <span class="ni">Axes.errorbar</span><span class="nt">(self, x, y, yerr, xerr, fmt, ecolor, elinewidth, capsize, barsabove, lolims, uplims, xlolims, xuplims, errorevery, capthick, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3598</span> <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Default in case of nan</span>
+<span class="g g-Whitespace">   </span><span class="mi">3599</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="o">-</span><span class="n">err</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">res</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="n">err</span><span class="p">))):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3600</span>     <span class="c1"># like err&lt;0, but also works for timedelta and nan.</span>
+<span class="ne">-&gt; </span><span class="mi">3601</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">3602</span>         <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">dep_axis</span><span class="si">}</span><span class="s2">err&#39; must not contain negative values&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3603</span> <span class="c1"># This is like</span>
+<span class="g g-Whitespace">   </span><span class="mi">3604</span> <span class="c1">#     elow, ehigh = np.broadcast_to(...)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3605</span> <span class="c1">#     return dep - elow * ~lolims, dep + ehigh * ~uplims</span>
+<span class="g g-Whitespace">   </span><span class="mi">3606</span> <span class="c1"># except that broadcast_to would strip units.</span>
+<span class="g g-Whitespace">   </span><span class="mi">3607</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">dep</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">row_stack</span><span class="p">([</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">lolims</span><span class="p">),</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">uplims</span><span class="p">])</span> <span class="o">*</span> <span class="n">err</span>
+
+<span class="ne">ValueError</span>: &#39;yerr&#39; must not contain negative values
+</pre></div>
+</div>
+<img alt="../_images/a7b9a5361782fba13156f721f590b2131f0cbeec35572338d127da57944121e0.png" src="../_images/a7b9a5361782fba13156f721f590b2131f0cbeec35572338d127da57944121e0.png" />
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -780,7 +840,41 @@ g(0.5) =  -10.125
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4b11ac8027209f89d7230d94232d1e0b22e60d126a382a529c92bf8645b907c7.svg" src="../_images/4b11ac8027209f89d7230d94232d1e0b22e60d126a382a529c92bf8645b907c7.svg" /></div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="nn">Input In [8],</span> in <span class="ni">&lt;cell line: 20&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Least-squares Fit for $^</span><span class="si">{137}</span><span class="s2">$Ba Decay&quot;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">20</span> <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerr</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">func</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="mi">29375</span><span class="p">,</span><span class="mf">153.1</span><span class="p">),</span><span class="s1">&#39;b--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="s2">&quot;$N_o$ = </span><span class="si">%5i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">popt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;xx-large&#39;</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span><span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+
+<span class="nn">File ~/anaconda3/lib/python3.9/site-packages/matplotlib/__init__.py:1433,</span> in <span class="ni">_preprocess_data.&lt;locals&gt;.inner</span><span class="nt">(ax, data, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1430</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1431</span> <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1432</span>     <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1433</span>         <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="n">sanitize_sequence</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1435</span>     <span class="n">bound</span> <span class="o">=</span> <span class="n">new_sig</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1436</span>     <span class="n">auto_label</span> <span class="o">=</span> <span class="p">(</span><span class="n">bound</span><span class="o">.</span><span class="n">arguments</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label_namer</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1437</span>                   <span class="ow">or</span> <span class="n">bound</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label_namer</span><span class="p">))</span>
+
+<span class="nn">File ~/anaconda3/lib/python3.9/site-packages/matplotlib/axes/_axes.py:3601,</span> in <span class="ni">Axes.errorbar</span><span class="nt">(self, x, y, yerr, xerr, fmt, ecolor, elinewidth, capsize, barsabove, lolims, uplims, xlolims, xuplims, errorevery, capthick, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3598</span> <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Default in case of nan</span>
+<span class="g g-Whitespace">   </span><span class="mi">3599</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="o">-</span><span class="n">err</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">res</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="n">err</span><span class="p">))):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3600</span>     <span class="c1"># like err&lt;0, but also works for timedelta and nan.</span>
+<span class="ne">-&gt; </span><span class="mi">3601</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">3602</span>         <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">dep_axis</span><span class="si">}</span><span class="s2">err&#39; must not contain negative values&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3603</span> <span class="c1"># This is like</span>
+<span class="g g-Whitespace">   </span><span class="mi">3604</span> <span class="c1">#     elow, ehigh = np.broadcast_to(...)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3605</span> <span class="c1">#     return dep - elow * ~lolims, dep + ehigh * ~uplims</span>
+<span class="g g-Whitespace">   </span><span class="mi">3606</span> <span class="c1"># except that broadcast_to would strip units.</span>
+<span class="g g-Whitespace">   </span><span class="mi">3607</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">dep</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">row_stack</span><span class="p">([</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">lolims</span><span class="p">),</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">uplims</span><span class="p">])</span> <span class="o">*</span> <span class="n">err</span>
+
+<span class="ne">ValueError</span>: &#39;yerr&#39; must not contain negative values
+</pre></div>
+</div>
+<img alt="../_images/4c5751244330e16fc0d327c2078490d004a8cdcad204c325c4b3d7b52fb33931.png" src="../_images/4c5751244330e16fc0d327c2078490d004a8cdcad204c325c4b3d7b52fb33931.png" />
+</div>
 </div>
 <p>We used the <em>curve_fit</em> function from scipy.optimize to generate a best bit curve to the data.  The <em>curve_fit</em> function returns two object: (1) an array of best fit parameters and (2) a matrix estimating the covariance of the parameters.  <strong>What is the covariance?</strong>  Mathematically, it is the mean (or expectation) of the product of the deviations along 2 or more dimensions.  Check out the <a class="reference external" href="https://en.wikipedia.org/wiki/Covariance">wikipedia</a> article for more details.</p>
 <p>Recall that the least-squares method is largely <em>trial-and-error</em> that uses the <span class="math notranslate nohighlight">\(\chi^2\)</span> function to sort out the best fit solutions.  Therefore, there are many solutions that <strong>fit</strong> and the best-fit parameters can be tuned against those solutions (i.e., the <span class="math notranslate nohighlight">\(N_o\)</span> can be tweaked and this changes the <span class="math notranslate nohighlight">\(\lambda\)</span>).  Suppose we have two parameters (X,Y), here is an example of some of the possibilities for the covariance:</p>
@@ -830,15 +924,49 @@ g(0.5) =  -10.125
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 4.44173825e+03 -1.95903568e+01]
- [-1.95903568e+01  9.13808069e-02]]
-sigma_N =  66.64636709486956
-sigma_lam =  0.30229258492190014
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 4.44173831e+03 -1.95903577e+01]
+ [-1.95903577e+01  9.13808141e-02]]
+sigma_N =  66.64636753495589
+sigma_lam =  0.30229259690448534
 N_o = 29258 +/-  66 particles
 lambda = 153.6 +/- 0.3 sec
 </pre></div>
 </div>
-<img alt="../_images/6e2891bfc6a755f52fc2ae693e1478989cb9a38555ab7a0a79308296c4718e09.svg" src="../_images/6e2891bfc6a755f52fc2ae693e1478989cb9a38555ab7a0a79308296c4718e09.svg" /></div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="nn">Input In [9],</span> in <span class="ni">&lt;cell line: 28&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="c1">#plot best-fit and data</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">func</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="o">*</span><span class="n">popt</span><span class="p">),</span><span class="s1">&#39;b--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">28</span> <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerr</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="s2">&quot;$N_o$ = </span><span class="si">%5d</span><span class="s2"> +/- </span><span class="si">%3d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">popt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">sigma_N</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;xx-large&#39;</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span><span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="s2">&quot;$\lambda$ = </span><span class="si">%3.1f</span><span class="s2"> +/- </span><span class="si">%3.1f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">popt</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">sigma_lam</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;xx-large&#39;</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span><span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+
+<span class="nn">File ~/anaconda3/lib/python3.9/site-packages/matplotlib/__init__.py:1433,</span> in <span class="ni">_preprocess_data.&lt;locals&gt;.inner</span><span class="nt">(ax, data, *args, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1430</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1431</span> <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1432</span>     <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1433</span>         <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="n">sanitize_sequence</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1435</span>     <span class="n">bound</span> <span class="o">=</span> <span class="n">new_sig</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1436</span>     <span class="n">auto_label</span> <span class="o">=</span> <span class="p">(</span><span class="n">bound</span><span class="o">.</span><span class="n">arguments</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label_namer</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1437</span>                   <span class="ow">or</span> <span class="n">bound</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label_namer</span><span class="p">))</span>
+
+<span class="nn">File ~/anaconda3/lib/python3.9/site-packages/matplotlib/axes/_axes.py:3601,</span> in <span class="ni">Axes.errorbar</span><span class="nt">(self, x, y, yerr, xerr, fmt, ecolor, elinewidth, capsize, barsabove, lolims, uplims, xlolims, xuplims, errorevery, capthick, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3598</span> <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Default in case of nan</span>
+<span class="g g-Whitespace">   </span><span class="mi">3599</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="o">-</span><span class="n">err</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">res</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="n">err</span><span class="p">))):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3600</span>     <span class="c1"># like err&lt;0, but also works for timedelta and nan.</span>
+<span class="ne">-&gt; </span><span class="mi">3601</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">3602</span>         <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">dep_axis</span><span class="si">}</span><span class="s2">err&#39; must not contain negative values&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3603</span> <span class="c1"># This is like</span>
+<span class="g g-Whitespace">   </span><span class="mi">3604</span> <span class="c1">#     elow, ehigh = np.broadcast_to(...)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3605</span> <span class="c1">#     return dep - elow * ~lolims, dep + ehigh * ~uplims</span>
+<span class="g g-Whitespace">   </span><span class="mi">3606</span> <span class="c1"># except that broadcast_to would strip units.</span>
+<span class="g g-Whitespace">   </span><span class="mi">3607</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">dep</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">row_stack</span><span class="p">([</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">lolims</span><span class="p">),</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">uplims</span><span class="p">])</span> <span class="o">*</span> <span class="n">err</span>
+
+<span class="ne">ValueError</span>: &#39;yerr&#39; must not contain negative values
+</pre></div>
+</div>
+<img alt="../_images/e65ca42570bc3d4eee26bf709d91fcfce2ebf69a7bb50af78fb0fe796fbf58b7.png" src="../_images/e65ca42570bc3d4eee26bf709d91fcfce2ebf69a7bb50af78fb0fe796fbf58b7.png" />
+</div>
 </div>
 </section>
 <section id="maximum-likelihood-estimation">
@@ -898,9 +1026,166 @@ lambda = 153.6 +/- 0.3 sec
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|          | 0/5000 [00:00&lt;?, ?it/s]C:\Users\biquarles\Anaconda3\lib\site-packages\emcee\moves\red_blue.py:99: RuntimeWarning: invalid value encountered in double_scalars
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|                                                                                                                                  | 0/5000 [00:00&lt;?, ?it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/saturnaxis/anaconda3/lib/python3.9/site-packages/emcee/moves/red_blue.py:99: RuntimeWarning: invalid value encountered in double_scalars
   lnpdiff = f + nlp - state.log_prob[j]
-100%|██████████| 5000/5000 [00:03&lt;00:00, 1433.55it/s]
+
+  2%|██▏                                                                                                                     | 92/5000 [00:00&lt;00:05, 914.87it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  4%|████▍                                                                                                                  | 189/5000 [00:00&lt;00:05, 942.74it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  6%|██████▊                                                                                                                | 284/5000 [00:00&lt;00:05, 943.09it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  8%|█████████                                                                                                              | 379/5000 [00:00&lt;00:05, 913.15it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  9%|███████████▏                                                                                                           | 471/5000 [00:00&lt;00:05, 876.80it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 12%|█████████████▊                                                                                                         | 581/5000 [00:00&lt;00:04, 948.59it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 14%|████████████████▎                                                                                                      | 687/5000 [00:00&lt;00:04, 983.82it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 16%|██████████████████▋                                                                                                   | 794/5000 [00:00&lt;00:04, 1008.83it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 18%|█████████████████████▎                                                                                                 | 896/5000 [00:00&lt;00:04, 937.87it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 20%|███████████████████████▌                                                                                               | 991/5000 [00:01&lt;00:04, 908.19it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 22%|█████████████████████████▉                                                                                            | 1100/5000 [00:01&lt;00:04, 958.64it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 24%|████████████████████████████▎                                                                                         | 1200/5000 [00:01&lt;00:03, 968.46it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 26%|██████████████████████████████▋                                                                                       | 1298/5000 [00:01&lt;00:03, 936.32it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 28%|████████████████████████████████▊                                                                                     | 1393/5000 [00:01&lt;00:04, 890.73it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 30%|██████████████████████████████████▉                                                                                   | 1483/5000 [00:01&lt;00:04, 868.60it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 31%|█████████████████████████████████████                                                                                 | 1571/5000 [00:01&lt;00:03, 869.57it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 33%|███████████████████████████████████████▏                                                                              | 1659/5000 [00:01&lt;00:03, 848.03it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 35%|█████████████████████████████████████████▎                                                                            | 1748/5000 [00:01&lt;00:03, 857.42it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 37%|███████████████████████████████████████████▍                                                                          | 1843/5000 [00:02&lt;00:03, 881.60it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 39%|█████████████████████████████████████████████▊                                                                        | 1941/5000 [00:02&lt;00:03, 910.00it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 41%|████████████████████████████████████████████████▍                                                                     | 2051/5000 [00:02&lt;00:03, 963.61it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 43%|██████████████████████████████████████████████████▉                                                                   | 2159/5000 [00:02&lt;00:02, 997.76it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 45%|█████████████████████████████████████████████████████▎                                                                | 2260/5000 [00:02&lt;00:03, 879.63it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 47%|███████████████████████████████████████████████████████▍                                                              | 2351/5000 [00:02&lt;00:03, 845.56it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 49%|█████████████████████████████████████████████████████████▌                                                            | 2438/5000 [00:02&lt;00:03, 821.81it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|███████████████████████████████████████████████████████████▌                                                          | 2522/5000 [00:02&lt;00:03, 807.84it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 52%|█████████████████████████████████████████████████████████████▍                                                        | 2604/5000 [00:02&lt;00:02, 806.84it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 54%|███████████████████████████████████████████████████████████████▍                                                      | 2686/5000 [00:03&lt;00:02, 778.55it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 56%|█████████████████████████████████████████████████████████████████▌                                                    | 2779/5000 [00:03&lt;00:02, 818.16it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 58%|███████████████████████████████████████████████████████████████████▊                                                  | 2876/5000 [00:03&lt;00:02, 858.72it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 59%|█████████████████████████████████████████████████████████████████████▉                                                | 2963/5000 [00:03&lt;00:02, 846.29it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 61%|████████████████████████████████████████████████████████████████████████▎                                             | 3062/5000 [00:03&lt;00:02, 885.34it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 63%|██████████████████████████████████████████████████████████████████████████▌                                           | 3162/5000 [00:03&lt;00:02, 916.69it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 65%|████████████████████████████████████████████████████████████████████████████▊                                         | 3255/5000 [00:03&lt;00:01, 887.07it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 67%|██████████████████████████████████████████████████████████████████████████████▉                                       | 3345/5000 [00:03&lt;00:01, 882.47it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 69%|█████████████████████████████████████████████████████████████████████████████████▏                                    | 3439/5000 [00:03&lt;00:01, 897.89it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 71%|███████████████████████████████████████████████████████████████████████████████████▌                                  | 3543/5000 [00:03&lt;00:01, 937.19it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 73%|██████████████████████████████████████████████████████████████████████████████████████                                | 3648/5000 [00:04&lt;00:01, 968.02it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 75%|███████████████████████████████████████████████████████████████████████████████████████▉                             | 3759/5000 [00:04&lt;00:01, 1008.23it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 77%|██████████████████████████████████████████████████████████████████████████████████████████▌                          | 3868/5000 [00:04&lt;00:01, 1030.54it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 80%|█████████████████████████████████████████████████████████████████████████████████████████████▏                       | 3982/5000 [00:04&lt;00:00, 1061.63it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 82%|███████████████████████████████████████████████████████████████████████████████████████████████▋                     | 4089/5000 [00:04&lt;00:00, 1062.73it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 84%|██████████████████████████████████████████████████████████████████████████████████████████████████▎                  | 4200/5000 [00:04&lt;00:00, 1073.35it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 86%|████████████████████████████████████████████████████████████████████████████████████████████████████▊                | 4308/5000 [00:04&lt;00:00, 1055.87it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 88%|████████████████████████████████████████████████████████████████████████████████████████████████████████▏             | 4414/5000 [00:04&lt;00:00, 992.70it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 90%|█████████████████████████████████████████████████████████████████████████████████████████████████████████▉           | 4525/5000 [00:04&lt;00:00, 1024.72it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 93%|████████████████████████████████████████████████████████████████████████████████████████████████████████████▍        | 4636/5000 [00:04&lt;00:00, 1048.66it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 95%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████▉      | 4742/5000 [00:05&lt;00:00, 994.36it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 97%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████▎   | 4843/5000 [00:05&lt;00:00, 939.60it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 99%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▌ | 4939/5000 [00:05&lt;00:00, 938.85it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5000/5000 [00:05&lt;00:00, 926.64it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -916,7 +1201,8 @@ lambda = 153.6 +/- 0.3 sec
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5755d51ebd95d880a3e37b1b446af3fbc5f1782c27806243c3cbaa3b9788c3b9.svg" src="../_images/5755d51ebd95d880a3e37b1b446af3fbc5f1782c27806243c3cbaa3b9788c3b9.svg" /></div>
+<img alt="../_images/9460a32dbf55584ef4160b6b90ebbacfe53acf58da5b576e0ec44e3fd6a0bfc4.png" src="../_images/9460a32dbf55584ef4160b6b90ebbacfe53acf58da5b576e0ec44e3fd6a0bfc4.png" />
+</div>
 </div>
 <p>In the above figure (created with <a class="reference external" href="https://corner.readthedocs.io/en/latest/index.html">corner</a>), we recover a result that is consistent with the Least-Squares approach (i.e., overlapping within the 1-sigma errors).  <strong>Note that this result is the raw output and you need to report values with the correct number of significant digits.</strong></p>
 </section>
@@ -1024,8 +1310,8 @@ c) Add 1 to the y-coordinate of each of the original points and find the line of
     {
         requestKernel: true,
         binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
+            repo: "saturnaxis/CompPhysics",
+            ref: "main",
         },
         codeMirrorConfig: {
             theme: "abcdef",
@@ -1121,7 +1407,7 @@ By Billy Quarles
     
   <p class="copyright">
     
-      © Copyright 2021.
+      © Copyright 2023.
       <br/>
     
   </p>

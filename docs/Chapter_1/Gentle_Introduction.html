@@ -35,6 +35,10 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mycss.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -49,6 +53,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/tabs.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -64,7 +69,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_1/Gentle_Introduction';</script>
-    <link rel="canonical" href="https://saturnaxis.github.io/PHYS3820_Notes/Chapter_1/Gentle_Introduction.html" />
+    <link rel="canonical" href="https://saturnaxis.github.io/CompPhysics/Chapter_1/Gentle_Introduction.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="2. Python Basics" href="../Chapter_2/Python_Basics.html" />
@@ -215,7 +220,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/saturnaxis/PHYS3820_Notes/main?urlpath=tree/Chapter_1/Gentle_Introduction.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/saturnaxis/CompPhysics/main?urlpath=tree/Chapter_1/Gentle_Introduction.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onBinder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -233,7 +238,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://colab.research.google.com/github/saturnaxis/PHYS3820_Notes/blob/main/Chapter_1/Gentle_Introduction.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/saturnaxis/CompPhysics/blob/main/Chapter_1/Gentle_Introduction.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -248,12 +253,30 @@ const thebe_selector_output = ".output, .cell_output"
 </a>
 </li>
       
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
   </ul>
 </div>
 
 
 
-<a href="https://github.com/saturnaxis/PHYS3820_Notes" target="_blank"
+<a href="https://github.com/saturnaxis/CompPhysics" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -620,7 +643,7 @@ document.write(`
 <img alt="../_images/6e3784eaa6df8c783ef60e37e91e980e93d1524e8959790f4f9e324b655ea5dd.png" src="../_images/6e3784eaa6df8c783ef60e37e91e980e93d1524e8959790f4f9e324b655ea5dd.png" />
 </div>
 </div>
-<p>Figures can be saved to file using the <code class="docutils literal notranslate"><span class="pre">savefig</span></code> function, which takes the filename as an argument.  Additional keyword arguments (kwargs) can be applied that alter the display of the figure (e.g., dpi = 300 sets the dots per inch to 300).</p>
+<p>Figures can be saved to file using the <code class="docutils literal notranslate"><span class="pre">savefig</span></code> function, which takes the filename as an argument.  Additional keyword arguments (kwargs) can be applied that alter the display of the figure (e.g., <code class="docutils literal notranslate"><span class="pre">dpi</span> <span class="pre">=</span> <span class="pre">300</span></code> sets the dots per inch to 300).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;SHO.png&quot;</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
@@ -628,10 +651,14 @@ document.write(`
 </div>
 </div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Files saved locally while using Google Colab are deleted once the runtime environment is reclaimed. See this <a class="reference external" href="https://stackoverflow.com/questions/48376580/google-colab-how-to-read-data-from-my-google-drive">response on stackoverflow</a> for ways to mount and save to your Google Drive.</p>
+</div>
 </section>
 <section id="modules-to-solve-problems">
 <h3><span class="section-number">1.3.2. </span>Modules to solve problems<a class="headerlink" href="#modules-to-solve-problems" title="Permalink to this heading">#</a></h3>
-<p>There are many modules within modules, where object-oriented notation is used to access them.  For example, you can generate a random number between 0–1 using the rand() function within the random module within the numpy module (i.e., np.random.rand()).</p>
+<p>There are many modules within modules, where object-oriented notation is used to access them.  For example, you can generate a random number between <span class="math notranslate nohighlight">\(0--1\)</span> using the <code class="docutils literal notranslate"><span class="pre">rand</span></code> function from the <code class="docutils literal notranslate"><span class="pre">random</span></code> module within the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> module (i.e., <code class="docutils literal notranslate"><span class="pre">np.random.rand()</span></code>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>
@@ -639,19 +666,40 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.48560347494007683
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9120015824279287
 </pre></div>
 </div>
 </div>
 </div>
-<p>Another extremely useful library for physicists is the linear algebra package in numpy. This package provides very fast routines for calculating anything having to do with matrices: eigenvalues, eigenvectors, solutions of systems of linear equations, and so on.</p>
-<blockquote>
-<div><p>Example 1: In electronics, Kirchhoff’s laws are used to solve for the currents through components in circuit networks. Applying these laws gives us systems of linear equations, which can then be expressed as matrix equations, such as:</p>
-</div></blockquote>
-<p><img alt="Kirchoff" src="../_images/Kirchoff_matrix.png" /></p>
+<p>Another extremely useful library for physicists is the linear algebra package in <code class="docutils literal notranslate"><span class="pre">numpy</span></code>. This package provides very fast routines for calculating anything having to do with matrices: eigenvalues, eigenvectors, solutions of systems of linear equations, and so on.</p>
+<div class="exercise orange admonition" id="Chapter_1/Gentle_Introduction-exercise-0">
+
+<p class="admonition-title"><span class="caption-number">Exercise 1.1 </span></p>
+<section id="exercise-content">
+<p>In electronics, <a class="reference external" href="https://en.wikipedia.org/wiki/Kirchhoff%27s_circuit_laws">Kirchhoff’s circuit laws</a> are used to solve for the currents through components in circuit networks. Applying these laws gives us systems of linear equations, which can then be expressed as matrix equations, such as:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\begin{bmatrix}
+-13 &amp; 2 &amp; 4 \\
+2 &amp; -11 &amp; 6 \\
+4 &amp; 6 &amp; 15
+\end{bmatrix}
+\begin{bmatrix}
+I_A \\
+I_B \\
+I_C \\
+\end{bmatrix} &amp;=
+\begin{bmatrix}
+5 \\
+-10 \\
+5 \\
+\end{bmatrix}
+\end{align*}\]</div>
+</section>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([[</span><span class="o">-</span><span class="mi">13</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">11</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="o">-</span><span class="mi">15</span><span class="p">]])</span> <span class="c1">#matrix is an array of an array</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">([[</span><span class="o">-</span><span class="mi">13</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">11</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="o">-</span><span class="mi">15</span><span class="p">]])</span> <span class="c1">#matrix is an array of an array or [[x11,x12,x13],[x21,x22,x23],[x31,x32,x33]]</span>
 <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
 <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">)</span>
 </pre></div>
@@ -666,7 +714,8 @@ document.write(`
 </section>
 <section id="reading-and-writing-data-from-a-file">
 <h3><span class="section-number">1.3.3. </span>Reading and writing data from a file<a class="headerlink" href="#reading-and-writing-data-from-a-file" title="Permalink to this heading">#</a></h3>
-<p>Python allows for many forms of input.  There are commands to request user input manually via the terminal window, where this can be a direct request or by command line arguments.  For computational physics, it is likely that you want to know how the output of a program changes with slightly different inputs or to visualize a data set.  At this point manual input is impractical and cumbersome.  In this section, you will learn how to read and write to data files so that you can save your work for later or prepare it for others to use.  Files are created using the open() function that takes a filename and a mode as input.  Here’s a table detailing the different modes available to the open() function.</p>
+<p>Python allows for many forms of input.  There are commands to request user input manually via the terminal window, where this can be a direct request or by command line arguments.  For computational physics, it is likely that you want to know how the output of a program changes with slightly different inputs or to visualize a data set.  At this point manual input is impractical and cumbersome.  In this section, you will learn how to read and write to data files so that you can save your work for later or prepare it for others to use.</p>
+<p>Files are created using the open() function that takes a filename and a mode as input.  Here’s a table detailing the different modes available to the open() function.</p>
 <table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Character</p></th>
@@ -698,9 +747,11 @@ document.write(`
 </tbody>
 </table>
 <p>Let’s generate some data using the equation for a simple pendulum:</p>
-<p><span class="math notranslate nohighlight">\(\ddot{\theta} = \sqrt{\frac{g}{l}} \theta\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[ \ddot{\theta} = \frac{d^2\theta}{dt^2}= \sqrt{\frac{g}{l}} \theta, \]</div>
 <p>which has the solution</p>
-<p><span class="math notranslate nohighlight">\(\theta(t) = \theta_{max} \sin \left(\sqrt{\frac{g}{l}} t \right)\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[ \theta(t) = \theta_{max} \sin \left(\sqrt{\frac{g}{l}} t \right), \]</div>
 <p>where <span class="math notranslate nohighlight">\(g\)</span> represents the acceleration due to gravity, <span class="math notranslate nohighlight">\(l\)</span> is the length, and <span class="math notranslate nohighlight">\(t\)</span> is the time.  Now let’s define some variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -709,8 +760,14 @@ document.write(`
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">10.5</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)</span> <span class="c1">#10 seconds with 0.5 sec increments</span>
 <span class="n">theta_max</span> <span class="o">=</span> <span class="mi">45</span> <span class="c1">#maximum amplitude in degrees</span>
 <span class="n">fname</span> <span class="o">=</span> <span class="s2">&quot;Simple_Pendulum.txt&quot;</span>
-
-<span class="n">theta</span> <span class="o">=</span> <span class="n">theta_max</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">g</span><span class="o">/</span><span class="n">l</span><span class="p">)</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The above variables setup the problem, where we want to evaluate the a <span class="math notranslate nohighlight">\(1\ {\rm m}\)</span> long pendulum for <span class="math notranslate nohighlight">\(10\ {\rm sec}\)</span> with a maximum angle of <span class="math notranslate nohighlight">\(45^\circ\)</span>.  The output of the model will be stored in a text file named <code class="docutils literal notranslate"><span class="pre">Simple_Pendulum</span></code>.  It is often easier to replace a <code class="docutils literal notranslate"><span class="pre">space</span></code> with an underscore <code class="docutils literal notranslate"><span class="pre">_</span></code> to avoid problems later.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">theta</span> <span class="o">=</span> <span class="n">theta_max</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">g</span><span class="o">/</span><span class="n">l</span><span class="p">)</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
 <span class="n">out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="c1">#create a text file and open it for writing</span>
 <span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;#time (s), theta (deg)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="c1">#write a header</span>
 
@@ -721,7 +778,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p>The data is written to “Simple_Pendulum.txt”, which exists in the same directory as this Jupyter notebook.  In practice, you may want to include an absolute path in the filename.  Using our code from before, we will read the data from the file.  Notice that we formatted the header with a # symbol and the lines are comma delimited.  We are going to take advantage of this using the ‘genfromtxt’ function from numpy.</p>
+<p>The data is written to <code class="docutils literal notranslate"><span class="pre">Simple_Pendulum.txt</span></code>, which exists in the same directory as this Jupyter notebook.  In practice, you may want to include an absolute path in the filename.  Using our code from before, we will read the data from the file.  Notice that we formatted the header with a <code class="docutils literal notranslate"><span class="pre">#</span></code> symbol and the lines are comma delimited.  We are going to take advantage of this using the <code class="docutils literal notranslate"><span class="pre">genfromtxt</span></code> function from numpy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;Simple_Pendulum.txt&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">comments</span><span class="o">=</span><span class="s1">&#39;#&#39;</span><span class="p">,</span><span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -735,27 +792,19 @@ document.write(`
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Amplitude (deg)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">,</span><span class="n">length</span> <span class="o">=</span> <span class="mf">12.0</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">2</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.axis.XTick at 0x2290755bf10&gt;,
- &lt;matplotlib.axis.XTick at 0x2290755bee0&gt;,
- &lt;matplotlib.axis.XTick at 0x2290756fa60&gt;,
- &lt;matplotlib.axis.XTick at 0x2290756cc40&gt;,
- &lt;matplotlib.axis.XTick at 0x2290758e190&gt;,
- &lt;matplotlib.axis.XTick at 0x2290758e6a0&gt;]
-</pre></div>
-</div>
-<img alt="../_images/97ff5fb9e0a534d6086fbb8b44e2740b7d7486bc957b8709f8d67f0adade1501.png" src="../_images/97ff5fb9e0a534d6086fbb8b44e2740b7d7486bc957b8709f8d67f0adade1501.png" />
+<img alt="../_images/77743aad31606d5b030dc45c4e60679db7d672e428a77bbc854a3385eee3127c.png" src="../_images/77743aad31606d5b030dc45c4e60679db7d672e428a77bbc854a3385eee3127c.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="github">
 <h2><span class="section-number">1.4. </span>GitHub<a class="headerlink" href="#github" title="Permalink to this heading">#</a></h2>
-<p>GitHub is a platform used by many disciplines to make code easier to develop, track, store, and share.  The platform provides a series of <a class="reference external" href="https://guides.github.com/">guides</a> that introduce new users through common practices on GitHub.  In this section, we will focus on the <a class="reference external" href="https://guides.github.com/activities/hello-world/">Hello World</a> guide.  Throughout the course, you will develop scripts to perform different tasks and a good way to organize your work is through a GitHub repository.  Repositories are free to create (as long as they are &lt; 50 MB) and can serve as a useful place to backup your code.  To start this guide, you will need to have a <a class="reference external" href="http://GitHub.com">GitHub.com</a> account already created.</p>
+<p>GitHub is a platform used by many disciplines to make code easier to develop, track, store, and share.  The platform provides a series of <a class="reference external" href="https://guides.github.com/">guides</a> that introduce new users through common practices on GitHub.  In this section, we will focus on the <a class="reference external" href="https://guides.github.com/activities/hello-world/">Hello World</a> guide.  Throughout the course, you will develop scripts to perform different tasks and a good way to organize your work is through a GitHub repository.  Repositories are free to create (as long as they are &lt; 50 MB) and can serve as a useful place to backup your code.  To start this guide, you will need to have a GitHub.com account already created.</p>
 <section id="create-a-repository-repo">
 <h3><span class="section-number">1.4.1. </span>Create a repository (<strong>repo</strong>)<a class="headerlink" href="#create-a-repository-repo" title="Permalink to this heading">#</a></h3>
 <p>A repository (or repo) can contain any kind of code (python, C++, Fortran, etc), spreadsheets, data files, Jupyter notebooks, and most types of files that you can think of. To create a repository:</p>
@@ -781,9 +830,9 @@ document.write(`
 </section>
 <section id="make-and-commit-changes">
 <h3><span class="section-number">1.4.3. </span>Make and commit changes<a class="headerlink" href="#make-and-commit-changes" title="Permalink to this heading">#</a></h3>
-<p>After creating your <em>readme-edits</em> branch, you should now be on the code-view for that branch.  Let’s make some edits and see what happens.  Saved changes on GitHub are called commits.  Each commit also contains a description explaining why a particular change was made.  This is particularly useful for developing code over large periods of time or within groups.  Let’s make some changes to the <strong><a class="reference external" href="http://README.md">README.md</a></strong> file and commit those to the repo:</p>
+<p>After creating your <em>readme-edits</em> branch, you should now be on the code-view for that branch.  Let’s make some edits and see what happens.  Saved changes on GitHub are called commits.  Each commit also contains a description explaining why a particular change was made.  This is particularly useful for developing code over large periods of time or within groups.  Let’s make some changes to the <strong>README.md</strong> file and commit those to the repo:</p>
 <ul class="simple">
-<li><p>Click the <strong><a class="reference external" href="http://README.md">README.md</a></strong> file.</p></li>
+<li><p>Click the <strong>README.md</strong> file.</p></li>
 <li><p>Click the pencil icon in the upper right corner to edit.</p></li>
 <li><p>In the editor, write a bit about yourself.  What are your research interests?</p></li>
 <li><p>Write a commit message that describes your changes (e.g., “I’m super awesome because I can make changes to my very own GitHub repo!”)</p></li>
@@ -825,7 +874,7 @@ document.write(`
 </section>
 <section id="latex-preparing-your-work">
 <h2><span class="section-number">1.5. </span>LaTex (Preparing your work)<a class="headerlink" href="#latex-preparing-your-work" title="Permalink to this heading">#</a></h2>
-<p>In the past, scientists had to learn two skills: scientific inquiry and typesetting.  However, mathematicians developed a typesetting software, LaTex, that was more programmatic, which made it easier to typeset equations within a document.  In this course, you will need to communicate your results to others (especially your instructor), where you will use LaTex.  To make it easier, we will use the online platform <strong>Overleaf</strong>.  Similar to the guide for GitHub, it is assumed that you have successfully created an Overleaf account.  Note that Overleaf provides its own guides that can be found <a class="reference external" href="https://www.overleaf.com/learn/how-to/Creating_a_document_in_Overleaf">here</a>.</p>
+<p>In the past, scientists had to learn two skills: scientific inquiry and typesetting.  However, mathematicians developed a typesetting software, <span class="math notranslate nohighlight">\(\LaTeX\)</span>, that was more programmatic, which made it easier to typeset equations within a document.  In this course, you will need to communicate your results to others (especially your instructor), where you will use <span class="math notranslate nohighlight">\(\LaTeX\)</span>.  To make it easier, we will use the online platform <strong>Overleaf</strong>.  Similar to the guide for GitHub, it is assumed that you have successfully created an Overleaf account.  Note that Overleaf provides its own guides that can be found <a class="reference external" href="https://www.overleaf.com/learn/how-to/Creating_a_document_in_Overleaf">here</a>.</p>
 <section id="creating-a-project">
 <h3><span class="section-number">1.5.1. </span>Creating a project<a class="headerlink" href="#creating-a-project" title="Permalink to this heading">#</a></h3>
 <p>Creating a project in Overleaf can be accomplished in <strong>two</strong> ways: 1) start a project from scratch or 2) start a project from a template.  To start a project from scratch:</p>
@@ -846,179 +895,137 @@ document.write(`
 </section>
 <section id="your-1st-document">
 <h3><span class="section-number">1.5.2. </span>Your 1st Document<a class="headerlink" href="#your-1st-document" title="Permalink to this heading">#</a></h3>
-<p>Open the blank project that you created in the previous section.  In this project, we will create a simple working example (look <a class="reference external" href="https://www.overleaf.com/learn/latex/Creating_a_document_in_LaTeX">here</a>).  A LaTex document contains some <em>front</em> matter, a <em>body</em>, and some <em>back</em> matter.  The front matter tells the LaTex compiler what kind of document you are trying to create, how should the document be formatted <em>globally</em>.  The body will have the text, figures, and tables in a manner similar to most word processors.  The back matter will tell the LaTex compiler how to format references or setup an Appendix.</p>
+<p>Open the blank project that you created in the previous section.  In this project, we will create a simple working example (look <a class="reference external" href="https://www.overleaf.com/learn/latex/Creating_a_document_in_LaTeX">here</a>).  A <span class="math notranslate nohighlight">\(\LaTeX\)</span> document contains some <em>front</em> matter, a <em>body</em>, and some <em>back</em> matter.  The front matter tells the LaTex compiler what kind of document you are trying to create, how should the document be formatted <em>globally</em>.  The body will have the text, figures, and tables in a manner similar to most word processors.  The back matter will tell the LaTex compiler how to format references or setup an Appendix.</p>
 <p>Here’s a simple working example:</p>
-<blockquote>
-<div><p>\documentclass{article}</p>
-</div></blockquote>
-<blockquote>
-<div><p>\begin{document}</p>
-</div></blockquote>
-<blockquote>
-<div><p>First document. This is a simple example, with no extra parameters or packages included.</p>
-</div></blockquote>
-<blockquote>
-<div><p>\end{document}</p>
-</div></blockquote>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\documentclass</span><span class="nb">{</span>article<span class="nb">}</span>
+
+<span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
+
+First document. This is a simple example, with no extra parameters or packages included.
+
+<span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
+</pre></div>
+</div>
 <p>This example will create an <strong>article</strong> document, adds the text, and compiles it as a <em>pdf</em> file in the right window.</p>
 </section>
 <section id="the-front-matter">
 <h3><span class="section-number">1.5.3. </span>The Front Matter<a class="headerlink" href="#the-front-matter" title="Permalink to this heading">#</a></h3>
-<p>The <em>front</em> matter is everything before the <em>&gt;\begin{document}</em> line.  Here, we will replace the <em>\documentclass{article}</em> with the following:</p>
-<blockquote>
-<div><p>\documentclass[12pt, letterpaper]{article}</p>
-</div></blockquote>
-<blockquote>
-<div><p>\usepackage[margin=1.0in]{geometry}</p>
-</div></blockquote>
-<blockquote>
-<div><p>\usepackage[utf8]{inputenc}</p>
-<p>\title{First document}</p>
-</div></blockquote>
-<blockquote>
-<div><p>\author{Your Name \thanks{funded by the Overleaf team}}</p>
-</div></blockquote>
-<blockquote>
-<div><p>\date{\today}</p>
-</div></blockquote>
+<p>The <em>front</em> matter is everything before the <code class="docutils literal notranslate"><span class="pre">\begin{document}</span></code> line.  Here, we will replace the <code class="docutils literal notranslate"><span class="pre">\documentclass{article}</span></code> with the following:</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\documentclass</span><span class="na">[12pt, letterpaper]</span><span class="nb">{</span>article<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="na">[margin=1.0in]</span><span class="nb">{</span>geometry<span class="nb">}</span>
+<span class="k">\usepackage</span><span class="na">[utf8]</span><span class="nb">{</span>inputenc<span class="nb">}</span>
+
+<span class="k">\title</span><span class="nb">{</span>First document<span class="nb">}</span>
+
+<span class="k">\author</span><span class="nb">{</span>Your Name <span class="k">\thanks</span><span class="nb">{</span>funded by the Overleaf team<span class="nb">}}</span>
+
+<span class="k">\date</span><span class="nb">{</span><span class="k">\today</span><span class="nb">}</span>
+</pre></div>
+</div>
 <p>Here’s an explanation of what we just added:</p>
-<blockquote>
-<div><p>\documentclass[12pt, letterpaper]{article}</p>
-</div></blockquote>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\documentclass</span><span class="na">[12pt, letterpaper]</span><span class="nb">{</span>article<span class="nb">}</span>
+</pre></div>
+</div>
 <p>This defines the type of document with some additional parameters inside brackets that are comma-separated can be passed to the command. The extra parameters set the font size (12pt) and the paper size (letterpaper). Note that Overleaf uses a European LaTeX distribution, which produces documents in A4 size by default, so letterpaper is important.  Another important parameter that can be passed to the \documentclass command is twocolumn if you want your text in a two-column format and twoside for two-side paper sheet printing.</p>
-<blockquote>
-<div><p>\usepackage[margin=1.0in]{geometry}</p>
-</div></blockquote>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\usepackage</span><span class="na">[margin=1.0in]</span><span class="nb">{</span>geometry<span class="nb">}</span>
+</pre></div>
+</div>
 <p>This defines the page margins.  Everything you submit should have 1 inch margins.  More detail about paper size, orientation, and margins can be found <a class="reference external" href="https://www.overleaf.com/learn/latex/Page_size_and_margins">here</a></p>
-<blockquote>
-<div><p>\usepackage[utf8]{inputenc}</p>
-</div></blockquote>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\usepackage</span><span class="na">[utf8]</span><span class="nb">{</span>inputenc<span class="nb">}</span>
+</pre></div>
+</div>
 <p>This is the encoding for the document to allow special characters beyond ASCII to be used in the text. It can be omitted or changed to another encoding but utf-8 is recommended.</p>
-<p>The next three lines are self-descriptive.  But you will need the <em>\maketitle</em> <strong>after</strong> the \begin{document} for those items to appear.</p>
+<p>The next three lines are self-descriptive.  But you will need the <code class="docutils literal notranslate"><span class="pre">\maketitle</span></code> <strong>after</strong> the <code class="docutils literal notranslate"><span class="pre">\begin{document}</span></code> for those items to appear.</p>
 </section>
 <section id="the-body">
 <h3><span class="section-number">1.5.4. </span>The Body<a class="headerlink" href="#the-body" title="Permalink to this heading">#</a></h3>
-<p>The body is similar to what you would find in a normal word processor.  The first element to add to the body is the <em>abstract</em>.  An abstract informs the reader what will follow in the rest of the document.  For your class projects, this will be a &lt;250 word summary of your work.  In your class assignments, you can write a summary of what you learned so that when <em>future</em> you comes back to it, it will hopefully make sense.  To create an abstract:</p>
-<blockquote>
-<div><p>\begin{abstract}</p>
-</div></blockquote>
-<blockquote>
-<div><p>This is a simple paragraph at the beginning of the document. A brief introduction to the main subject.</p>
-</div></blockquote>
-<blockquote>
-<div><p>\end{abstract}</p>
-</div></blockquote>
-<p>you must create an abstract environment.  Environments (e.g., abstract, figure, table, equation) always have a \begin and an \end statement to tell the LaTex compiler that it needs to do something different here and for how long.</p>
-<p>There are other elements that in the body that <strong>don’t</strong> need an environment because they are self explanatory to the compiler when to stop.  For example, you can organize the body using sections, subsections, subsubsections, etc.  Although an environment is not required, you do need a <code class="docutils literal notranslate"><span class="pre">\</span></code> to tell the compiler that it isn’t really text either.</p>
-<blockquote>
-<div><p>\section{Introduction}</p>
-</div></blockquote>
-<blockquote>
-<div><p>\section{Methods}</p>
-</div></blockquote>
-<blockquote>
-<div><p>\subsection{Newton’s 1st Law}</p>
-</div></blockquote>
-<blockquote>
-<div><p>\subsubsection{Einstein’s Theory of General Relativity}</p>
-</div></blockquote>
-<blockquote>
-<div><p>\section{Results}</p>
-</div></blockquote>
+<p>The body is similar to what you would find in a normal word processor.  The first element to add to the body is the <em>abstract</em>.  An abstract informs the reader what will follow in the rest of the document.  For your class projects, this will be a <span class="math notranslate nohighlight">\(&lt;250\)</span> word summary of your work.  In your class assignments, you can write a summary of what you learned so that when <em>future</em> you comes back to it, it will hopefully make sense.  To create an abstract:</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>abstract<span class="nb">}</span>
+This is a simple paragraph at the beginning of the document. A brief introduction to the main subject.
+<span class="k">\end</span><span class="nb">{</span>abstract<span class="nb">}</span>
+</pre></div>
+</div>
+<p>You must create an abstract environment.  Environments (e.g., abstract, figure, table, equation) always have a <code class="docutils literal notranslate"><span class="pre">\begin</span></code> and an <code class="docutils literal notranslate"><span class="pre">\end</span></code> statement to tell the <span class="math notranslate nohighlight">\(\LaTeX\)</span> compiler that it needs to do something different here and for how long.</p>
+<p>There are other elements that in the body that <strong>don’t</strong> need an environment because they are self-explanatory to the compiler when to stop.  For example, you can organize the body using sections, subsections, subsubsections, etc.  Although an environment is not required, you do need a <code class="docutils literal notranslate"><span class="pre">\</span></code> to tell the compiler that it isn’t really text either.</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\section</span><span class="nb">{</span>Introduction<span class="nb">}</span>
+
+<span class="k">\section</span><span class="nb">{</span>Methods<span class="nb">}</span>
+
+<span class="k">\subsection</span><span class="nb">{</span>Newton&#39;s 1st Law<span class="nb">}</span>
+
+<span class="k">\subsubsection</span><span class="nb">{</span>Einstein&#39;s Theory of General Relativity<span class="nb">}</span>
+
+<span class="k">\section</span><span class="nb">{</span>Results<span class="nb">}</span>
+</pre></div>
+</div>
 <p>In the above examples:</p>
 <ul class="simple">
-<li><p>The first section is the Introduction and it will be enumerated starting from 1.  The LaTex compiler will know when the Introduction ends when it encounters the next \section command.</p></li>
+<li><p>The first section is the Introduction and it will be enumerated starting from 1.  The <span class="math notranslate nohighlight">\(\LaTeX\)</span> compiler will know when the Introduction ends when it encounters the next <code class="docutils literal notranslate"><span class="pre">\section</span></code> command.</p></li>
 <li><p>The second section called Methods (enumerated with 2) has a subsection called Newton’s 1st Law.  Subsections are then enumerated with a “.#”, where the above subsection is 2.1. Subsubsections will gain an additional “.#” so that it will numbered 2.1.1.</p></li>
 <li><p>The third section (enumerated with 3) tells the compiler to go back to the previous level in the tree.</p></li>
 </ul>
 <p>Between section commands, this is where the main text will appear. In contrast to a word processor (like Word), LaTex allows for inline commands.  The most common inline commands are:</p>
 <ul class="simple">
-<li><p>Enter math mode with $ signs.  Suppose you need the greek letter <span class="math notranslate nohighlight">\(\alpha\)</span>, then you can easily add it to your text by placing the \alpha between $ $.  This is less cumbersome than having to define a macro in Word.  Anything that you could do in an equation, can be done in math mode (e.g., \frac{1}{2}x^2 in between $ signs appears as <span class="math notranslate nohighlight">\(\frac{1}{2}x^2\)</span>)</p></li>
+<li><p>Enter math mode with <code class="docutils literal notranslate"><span class="pre">$</span></code> signs.  Suppose you need the greek letter <span class="math notranslate nohighlight">\(\alpha\)</span>, then you can easily add it to your text by placing the <code class="docutils literal notranslate"><span class="pre">\alpha</span></code> between <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">$</span></code>.  This is less cumbersome than having to define a macro in Word.  Anything that you could do in an equation, can be done in math mode (e.g., <code class="docutils literal notranslate"><span class="pre">\frac{1}{2}x^2</span></code> in between <code class="docutils literal notranslate"><span class="pre">$</span></code> signs appears as <span class="math notranslate nohighlight">\(\frac{1}{2}x^2\)</span>)</p></li>
 <li><p>Cite a reference.  This will be explained more later.</p></li>
-<li><p>Add a comment to the writer using %.  Everything on a line that comes after % will not appear in the pdf document, but can serve as a note for later.</p></li>
-<li><p>You can add text formatting for <strong>bold</strong>, <em>italics</em>, or <span class="math notranslate nohighlight">\(\texttt{texttype}\)</span> using: \textbf, \textit, or \texttt.</p></li>
+<li><p>Add a comment to the writer using <code class="docutils literal notranslate"><span class="pre">%</span></code>.  Everything on a line that comes after <code class="docutils literal notranslate"><span class="pre">%</span></code> will not appear in the pdf document, but can serve as a note for later.</p></li>
+<li><p>You can add text formatting for <strong>bold</strong>, <em>italics</em>, or <span class="math notranslate nohighlight">\(\texttt{texttype}\)</span> using: <code class="docutils literal notranslate"><span class="pre">\textbf</span></code>, <code class="docutils literal notranslate"><span class="pre">\textit</span></code>, or <code class="docutils literal notranslate"><span class="pre">\texttt</span></code>.</p></li>
 </ul>
 <p>Figures and tables are created using an environment (recall that this means begin and end statements).  For many of the extra features for figures, you will need to add <code class="docutils literal notranslate"><span class="pre">\usepackage{graphicx}</span></code> to the front matter. Figures and tables have similar structures as you can see in these basic examples:</p>
-<blockquote>
-<div><p>\begin{figure}[!h]</p>
-</div></blockquote>
-<blockquote>
-<div><p>\centering</p>
-</div></blockquote>
-<blockquote>
-<div><p>\includegraphics[width=\linewidth]{filename.png}</p>
-</div></blockquote>
-<blockquote>
-<div><p>\caption{This is the figure caption, which describes basic aspects of the figure to the reader. \label{fig:Fig1}}</p>
-</div></blockquote>
-<blockquote>
-<div><p>\end{figure}</p>
-</div></blockquote>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>figure<span class="nb">}</span>[!h]
+<span class="k">\centering</span>
+<span class="k">\includegraphics</span><span class="na">[width=\linewidth]</span><span class="nb">{</span>filename.png<span class="nb">}</span>
+<span class="k">\caption</span><span class="nb">{</span>This is the figure caption, which describes basic aspects of the figure to the reader. <span class="k">\label</span><span class="nb">{</span>fig:Fig1<span class="nb">}}</span>
+<span class="k">\end</span><span class="nb">{</span>figure<span class="nb">}</span>
+</pre></div>
+</div>
 <p>and</p>
-<blockquote>
-<div><p>\begin{table}[!h]</p>
-</div></blockquote>
-<blockquote>
-<div><p>\centering</p>
-</div></blockquote>
-<blockquote>
-<div><p>\begin{tabular}{c|c|c}</p>
-</div></blockquote>
-<blockquote>
-<div><p>\hline</p>
-</div></blockquote>
-<blockquote>
-<div><p>cell11 &amp; cell12 &amp; cell13 \ \</p>
-</div></blockquote>
-<blockquote>
-<div><p>cell21 &amp; cell22 &amp; cell23 \ \</p>
-</div></blockquote>
-<blockquote>
-<div><p>cell31 &amp; cell32 &amp; cell33</p>
-</div></blockquote>
-<blockquote>
-<div><p>\end{tabular}</p>
-</div></blockquote>
-<blockquote>
-<div><p>caption{This is a table caption, which describes the basic apsects of the table or gives the table a title.  \label{tab:Tab1}}</p>
-</div></blockquote>
-<blockquote>
-<div><p>\end{table}</p>
-</div></blockquote>
-<p>The figure and table environment have a [] after the begin statement, where positioning arguments are placed (e.g., !=override default, h=here, t=top of page, b=bottom of page).  This is followed by \centering, which tells the LaTeX compiler to place the figure/table in the center of the page (&lt;——center——-&gt;).  The figure environment relies on the <code class="docutils literal notranslate"><span class="pre">\includegraphics</span></code> command from the graphicx package, which this has a [] for arguments that tell the LaTeX compiler how to scale the figure.  In the above example, the figure is scaled so that the width of the figure spans an entire line.  The {} after \includegraphics holds the filename of the image (e.g., <code class="docutils literal notranslate"><span class="pre">filename.png</span></code>), where LaTex can handle many filetypes (e.g., png, jpg, and pdf are the most common).  The table environment is different in that it holds <em>tabular</em> environment within <em>table</em> environment.  The tabular environment has arguments {} that tell the LateX compiler:</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\begin</span><span class="nb">{</span>table<span class="nb">}</span>[!h]
+<span class="k">\centering</span>
+<span class="k">\begin</span><span class="nb">{</span>tabular<span class="nb">}{</span>c|c|c<span class="nb">}</span>
+<span class="k">\hline</span>
+cell11 <span class="nb">&amp;</span> cell12 <span class="nb">&amp;</span> cell13 <span class="k">\ \</span>
+cell21 <span class="nb">&amp;</span> cell22 <span class="nb">&amp;</span> cell23 <span class="k">\ \</span>
+&gt;cell31 <span class="nb">&amp;</span> cell32 <span class="nb">&amp;</span> cell33 
+<span class="k">\end</span><span class="nb">{</span>tabular<span class="nb">}</span>
+caption<span class="nb">{</span>This is a table caption, which describes the basic aspects of the table or gives the table a title.  <span class="k">\label</span><span class="nb">{</span>tab:Tab1<span class="nb">}}</span>
+<span class="k">\end</span><span class="nb">{</span>table<span class="nb">}</span>
+</pre></div>
+</div>
+<p>The figure and table environment have a <code class="docutils literal notranslate"><span class="pre">[]</span></code> after the begin statement, where positioning arguments are placed (e.g., <code class="docutils literal notranslate"><span class="pre">!</span></code>=override default, <code class="docutils literal notranslate"><span class="pre">h</span></code>=here, <code class="docutils literal notranslate"><span class="pre">t</span></code>=top of page, <code class="docutils literal notranslate"><span class="pre">b</span></code>=bottom of page).</p>
+<p>This is followed by <code class="docutils literal notranslate"><span class="pre">\centering</span></code>, which tells the <span class="math notranslate nohighlight">\(\LaTeX\)</span> compiler to place the figure/table in the center of the page (&lt;——center——-&gt;).  The <code class="docutils literal notranslate"><span class="pre">figure</span></code> environment relies on the <code class="docutils literal notranslate"><span class="pre">\includegraphics</span></code> command from the <code class="docutils literal notranslate"><span class="pre">graphicx</span></code> package, which this has a <code class="docutils literal notranslate"><span class="pre">[]</span></code> for arguments that tell the <span class="math notranslate nohighlight">\(\LaTeX\)</span> compiler how to scale the figure.</p>
+<p>In the above example, the figure is scaled so that the width of the figure spans an entire line.  The <code class="docutils literal notranslate"><span class="pre">{}</span></code> after <code class="docutils literal notranslate"><span class="pre">\includegraphics</span></code> holds the filename of the image (e.g., <code class="docutils literal notranslate"><span class="pre">filename.png</span></code>), where LaTex can handle many filetypes (e.g., png, jpg, and pdf are the most common).  The <code class="docutils literal notranslate"><span class="pre">table</span></code> environment is different in that it holds <code class="docutils literal notranslate"><span class="pre">tabular</span></code> environment within <code class="docutils literal notranslate"><span class="pre">table</span></code> environment.  The tabular environment has arguments <code class="docutils literal notranslate"><span class="pre">{}</span></code> that tell the <span class="math notranslate nohighlight">\(\LaTeX\)</span> compiler:</p>
 <ul class="simple">
 <li><p>the number of columns (implicitly),</p></li>
 <li><p>the alignment within columns (explicitly), and</p></li>
 <li><p>the borders between columns.</p></li>
 </ul>
-<p>The columns can be left (l), center (c), or (r) aligned, where the total number of these characters indicates the number of columns (3l’s = 3 columns left aligned).  The \hline command draws a horizontal line that spans the width of the table.  The data within the table is separated using the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> symbol and a row is terminated with <code class="docutils literal notranslate"><span class="pre">\\</span></code>.  The last row <strong>doesn’t</strong> need to be terminated with <code class="docutils literal notranslate"><span class="pre">\\</span></code> and the <code class="docutils literal notranslate"><span class="pre">\end{tabular}</span></code> must follow on the next line.</p>
-<p>Both figures and tables use the <em>caption</em> environment to hold the description and a <em>label</em> environment so that the figure/table can be dynamically referenced in the text (using <code class="docutils literal notranslate"><span class="pre">\ref{fig:Fig1}</span></code> or <code class="docutils literal notranslate"><span class="pre">\ref{tab:Tab1}</span></code>).  The beauty of LaTex is that the referencing system keeps track of the figure and table numbering so that if the order of tables are switched, then the numbering is updated with the next compilation.  Finally, both figures and tables <strong>require</strong> an \end statement.</p>
-<p>The LaTex compiler will abort or crash if a given environment does not have matching {} or begin/end statements.  This is usually indicated in the compilation log (upper right button <strong>View Logs</strong>).</p>
+<p>The columns can be left (<code class="docutils literal notranslate"><span class="pre">l</span></code>), center (<code class="docutils literal notranslate"><span class="pre">c</span></code>), or right (<code class="docutils literal notranslate"><span class="pre">r</span></code>) aligned, where the total number of these characters indicates the number of columns (<code class="docutils literal notranslate"><span class="pre">lll</span></code> = 3 columns left aligned).  The <code class="docutils literal notranslate"><span class="pre">\hline</span></code> command draws a horizontal line that spans the width of the table.  The data within the table is separated using the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> symbol and a row is terminated with <code class="docutils literal notranslate"><span class="pre">\\</span></code>.  The last row <strong>doesn’t</strong> need to be terminated with <code class="docutils literal notranslate"><span class="pre">\\</span></code> and the <code class="docutils literal notranslate"><span class="pre">\end{tabular}</span></code> must follow on the next line.</p>
+<p>Both figures and tables use the <code class="docutils literal notranslate"><span class="pre">caption</span></code> environment to hold the description and a <code class="docutils literal notranslate"><span class="pre">label</span></code> environment so that the figure/table can be dynamically referenced in the text (using <code class="docutils literal notranslate"><span class="pre">\ref{fig:Fig1}</span></code> or <code class="docutils literal notranslate"><span class="pre">\ref{tab:Tab1}</span></code>).  The beauty of <span class="math notranslate nohighlight">\(\LaTeX\)</span> is that the referencing system keeps track of the figure and table numbering so that if the order of tables are switched, then the numbering is updated with the next compilation.  Finally, both figures and tables <strong>require</strong> an <code class="docutils literal notranslate"><span class="pre">\end</span></code> statement.</p>
+<p>The <span class="math notranslate nohighlight">\(\LaTeX\)</span> compiler will abort or crash if a given environment does not have matching <code class="docutils literal notranslate"><span class="pre">{}</span></code> or <code class="docutils literal notranslate"><span class="pre">begin/end</span></code> statements.  This is usually indicated in the compilation log (upper right button <strong>View Logs</strong>).</p>
 </section>
 <section id="the-back-matter">
 <h3><span class="section-number">1.5.5. </span>The Back Matter<a class="headerlink" href="#the-back-matter" title="Permalink to this heading">#</a></h3>
-<p>The back matter contains supplementary information to the body (e.g., acknowledgments, references, appendices).  The acknowledgments (<strong>note the spelling</strong>) is an environment so it needs a \begin{acknowledgments} and an \end{ackowledgments}, where this section is where you would thank particular individuals/institutions that aided in the completion of the project (e.g., conversations, resources, proofing).</p>
-<p>An appendix is started with the <code class="docutils literal notranslate"><span class="pre">\appendix</span></code> command, which behaves much like the body but includes supplementary material (e.g., a derivation of an equation, how a new method was verified) and it’s labeled with letters (A,B,C,…).  For you, this is where you can put the code that you generate using the \verbatim environment.  Additional guides on how to include code in Latex can be found <a class="reference external" href="https://www.overleaf.com/learn/latex/Code_listing">here</a>.</p>
-<p>In addition to the ease of generating equations, LaTex is preferred because it makes referencing easier too with BibTex.  At the end of your document, references are included by telling LaTex the referencing style (e.g., apsrev4-2.bst for <em>Physical Review</em>) and a database of references (e.g., references.bib) through supplemental files.  You must include the following for the references:</p>
-<blockquote>
-<div><p>\bibliographystyle{style_filename.bst}</p>
-</div></blockquote>
-<blockquote>
-<div><p>\bibliography{reference_filename.bib}</p>
-</div></blockquote>
-<p>The reference database (*.bib file) will contain entries like the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@ARTICLE</span><span class="p">{</span><span class="n">Berman1983</span><span class="p">,</span>
-   <span class="n">author</span>       <span class="o">=</span> <span class="s2">&quot;Berman, Jr., G. P. and Izrailev, Jr., F. M.&quot;</span><span class="p">,</span>
-   <span class="n">title</span>        <span class="o">=</span> <span class="s2">&quot;Stability of nonlinear modes&quot;</span><span class="p">,</span>
-   <span class="n">journal</span>      <span class="o">=</span> <span class="s2">&quot;Physica D&quot;</span><span class="p">,</span>
-   <span class="n">volume</span>       <span class="o">=</span> <span class="s2">&quot;88&quot;</span><span class="p">,</span> 
-   <span class="n">pages</span>        <span class="o">=</span> <span class="s2">&quot;445&quot;</span><span class="p">,</span>
-   <span class="n">year</span>         <span class="o">=</span> <span class="s2">&quot;1983&quot;</span><span class="p">,</span>
-<span class="p">}</span>
+<p>The back matter contains supplementary information to the body (e.g., acknowledgments, references, appendices).  The acknowledgments (<strong>note the spelling</strong>) is an environment so it needs a <code class="docutils literal notranslate"><span class="pre">\begin{acknowledgments}</span></code> and an \end{acknowledgments}, where this section is where you would thank particular individuals/institutions that aided in the completion of the project (e.g., conversations, resources, proofing).</p>
+<p>An appendix is started with the <code class="docutils literal notranslate"><span class="pre">\appendix</span></code> command, which behaves much like the body but includes supplementary material (e.g., a derivation of an equation, how a new method was verified) and it’s labeled with letters (A,B,C,…).  For you, this is where you can put the code that you generate using the <code class="docutils literal notranslate"><span class="pre">\verbatim</span></code> environment.  Additional guides on how to include code in <span class="math notranslate nohighlight">\(\LaTeX\)</span> can be found <a class="reference external" href="https://www.overleaf.com/learn/latex/Code_listing">here</a>.</p>
+<p>In addition to the ease of generating equations, <span class="math notranslate nohighlight">\(\LaTeX\)</span> is preferred because it makes referencing easier too with <strong>BibTeX</strong>.  At the end of your document, references are included by telling <span class="math notranslate nohighlight">\(\LaTeX\)</span> the referencing style (e.g., <code class="docutils literal notranslate"><span class="pre">apsrev4-2.bst</span></code> for <em>Physical Review</em>) and a database of references (e.g., references.bib) through supplemental files.  You must include the following for the references:</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span><span class="k">\bibliographystyle</span><span class="nb">{</span>style<span class="nb">_</span>filename.bst<span class="nb">}</span>
+<span class="k">\bibliography</span><span class="nb">{</span>reference<span class="nb">_</span>filename.bib<span class="nb">}</span>
 </pre></div>
 </div>
-<p>where the <code class="docutils literal notranslate"><span class="pre">Berman1983</span></code> is a label used for the inline citation command within the body (e.g., \cite{Berman1983}).  The quotation marks for each field tell BibTex not to change the formatting (i.e., capitalization).  There are different types of environments that correspond to different references (e.g., ARTICLE, BOOK, INPROCEEDINGS, etc.).  Remember that environments require an opening { and closing }.</p>
-<p>The inline citations have more variations within Astronomy because that community uses the author (year) referencing style, while Physical review uses a [number] style.  In this course, you will use the latter.</p>
+<p>The reference database (*.bib file) will contain entries like the following:</p>
+<div class="highlight-latex notranslate"><div class="highlight"><pre><span></span>@ARTICLE<span class="nb">{</span>Berman1983,
+   author       = &quot;Berman, Jr., G. P. and Izrailev, Jr., F. M.&quot;,
+   title        = &quot;Stability of nonlinear modes&quot;,
+   journal      = &quot;Physica D&quot;,
+   volume       = &quot;88&quot;, 
+   pages        = &quot;445&quot;,
+   year         = &quot;1983&quot;,
+<span class="nb">}</span>
+</pre></div>
+</div>
+<p>where the <code class="docutils literal notranslate"><span class="pre">Berman1983</span></code> is a label used for the inline citation command within the body (e.g., \cite{Berman1983}).  The quotation marks for each field tell BibTeX not to change the formatting (i.e., capitalization).  There are different types of environments that correspond to different references (e.g., ARTICLE, BOOK, INPROCEEDINGS, etc.).  Remember that environments require an opening <code class="docutils literal notranslate"><span class="pre">{</span></code> and closing <code class="docutils literal notranslate"><span class="pre">}</span></code>.</p>
+<p>The inline citations have more variations within Astronomy because that community uses the <code class="docutils literal notranslate"><span class="pre">author</span> <span class="pre">(year)</span></code> referencing style, while Physical review uses a <code class="docutils literal notranslate"><span class="pre">[number]</span></code> style.  In this course, you will use the latter.</p>
 </section>
 </section>
 <section id="problems">
@@ -1057,8 +1064,8 @@ where <span class="math notranslate nohighlight">\(\lambda = \log(2)/\log(t_{1/2
     {
         requestKernel: true,
         binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
+            repo: "saturnaxis/CompPhysics",
+            ref: "main",
         },
         codeMirrorConfig: {
             theme: "abcdef",
@@ -1169,7 +1176,7 @@ By Billy Quarles
     
   <p class="copyright">
     
-      © Copyright 2021.
+      © Copyright 2023.
       <br/>
     
   </p>

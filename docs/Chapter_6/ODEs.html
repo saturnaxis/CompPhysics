@@ -35,6 +35,10 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mycss.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -49,6 +53,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/tabs.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -64,7 +69,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_6/ODEs';</script>
-    <link rel="canonical" href="https://saturnaxis.github.io/PHYS3820_Notes/Chapter_6/ODEs.html" />
+    <link rel="canonical" href="https://saturnaxis.github.io/CompPhysics/Chapter_6/ODEs.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="5. Differentiation and Searching" href="../Chapter_5/Differentiation.html" />
@@ -214,7 +219,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/saturnaxis/PHYS3820_Notes/main?urlpath=tree/Chapter_6/ODEs.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/saturnaxis/CompPhysics/main?urlpath=tree/Chapter_6/ODEs.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onBinder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -232,7 +237,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://colab.research.google.com/github/saturnaxis/PHYS3820_Notes/blob/main/Chapter_6/ODEs.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/saturnaxis/CompPhysics/blob/main/Chapter_6/ODEs.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -247,12 +252,30 @@ const thebe_selector_output = ".output, .cell_output"
 </a>
 </li>
       
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
   </ul>
 </div>
 
 
 
-<a href="https://github.com/saturnaxis/PHYS3820_Notes" target="_blank"
+<a href="https://github.com/saturnaxis/CompPhysics" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -514,10 +537,19 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;Time (s)&#39;)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [2],</span> in <span class="ni">&lt;cell line: 37&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">35</span>     <span class="k">return</span> <span class="n">yp</span>
+<span class="g g-Whitespace">     </span><span class="mi">37</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">38</span>     <span class="c1">#We obtain the j+1 state by feeding the j state to Euler</span>
+<span class="ne">---&gt; </span><span class="mi">39</span>     <span class="n">states_Euler</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">Euler</span><span class="p">(</span><span class="n">states</span><span class="p">[</span><span class="n">j</span><span class="p">,:],</span><span class="n">times</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="n">h</span><span class="p">,</span><span class="n">SHO</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">41</span> <span class="c1">#Now let&#39;s visualize our results</span>
+<span class="g g-Whitespace">     </span><span class="mi">43</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
+
+<span class="ne">NameError</span>: name &#39;states&#39; is not defined
 </pre></div>
 </div>
-<img alt="../_images/b669e516ce9e9698265345af15791843acc54e135b2f5cd27b9b8d25f1092f77.png" src="../_images/b669e516ce9e9698265345af15791843acc54e135b2f5cd27b9b8d25f1092f77.png" />
 </div>
 </div>
 <p>Notice that we defined our time step using the total time and the number of steps.  <strong>What do you think will happen we increase the time or decrease the number of steps?</strong>  <strong>Will the results be very different?</strong></p>
@@ -617,7 +649,7 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;Time (s)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/917760b3537fd4faba6ee6890c9949e033500ec87765f5f5334289292e3bf962.png" src="../_images/917760b3537fd4faba6ee6890c9949e033500ec87765f5f5334289292e3bf962.png" />
+<img alt="../_images/c96b939617fc1a01e4dead1f306d79f38343c062f4abe8917e3ecde953a0b000.png" src="../_images/c96b939617fc1a01e4dead1f306d79f38343c062f4abe8917e3ecde953a0b000.png" />
 </div>
 </div>
 <p>The above plots show the differences between <strong>Euler</strong> and <strong>rk4</strong>, where the solutions for the position are virtually identical, but the differences in velocity are more substantial.  The <strong>rk4</strong> is the more accurate and versatile of the two methods.  There are high-order methods with adaptive step sizes, which you can find in <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/integrate.html">scipy.integrate</a>.  Here is an example function</p>
@@ -703,7 +735,7 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;Time (s)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/965a502fa9f0ef1ff81c0ece2fce4326224e8201332409388e577fd703f309dc.png" src="../_images/965a502fa9f0ef1ff81c0ece2fce4326224e8201332409388e577fd703f309dc.png" />
+<img alt="../_images/81d4d96aa75f7d9507ba6af52abb59d5726b38fb4f13790579e04e3a51a08c7b.png" src="../_images/81d4d96aa75f7d9507ba6af52abb59d5726b38fb4f13790579e04e3a51a08c7b.png" />
 </div>
 </div>
 </section>
@@ -753,8 +785,8 @@ document.write(`
     {
         requestKernel: true,
         binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
+            repo: "saturnaxis/CompPhysics",
+            ref: "main",
         },
         codeMirrorConfig: {
             theme: "abcdef",
@@ -834,7 +866,7 @@ By Billy Quarles
     
   <p class="copyright">
     
-      © Copyright 2021.
+      © Copyright 2023.
       <br/>
     
   </p>

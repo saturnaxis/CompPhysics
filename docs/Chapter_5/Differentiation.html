@@ -35,6 +35,10 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mycss.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -49,6 +53,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/tabs.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -64,7 +69,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter_5/Differentiation';</script>
-    <link rel="canonical" href="https://saturnaxis.github.io/PHYS3820_Notes/Chapter_5/Differentiation.html" />
+    <link rel="canonical" href="https://saturnaxis.github.io/CompPhysics/Chapter_5/Differentiation.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="6. Ordinary Differential Equations (ODEs)" href="../Chapter_6/ODEs.html" />
@@ -215,7 +220,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://mybinder.org/v2/gh/saturnaxis/PHYS3820_Notes/main?urlpath=tree/Chapter_5/Differentiation.ipynb" target="_blank"
+      <li><a href="https://mybinder.org/v2/gh/saturnaxis/CompPhysics/main?urlpath=tree/Chapter_5/Differentiation.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onBinder"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -233,7 +238,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://colab.research.google.com/github/saturnaxis/PHYS3820_Notes/blob/main/Chapter_5/Differentiation.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/saturnaxis/CompPhysics/blob/main/Chapter_5/Differentiation.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch onColab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -248,12 +253,30 @@ const thebe_selector_output = ".output, .cell_output"
 </a>
 </li>
       
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
   </ul>
 </div>
 
 
 
-<a href="https://github.com/saturnaxis/PHYS3820_Notes" target="_blank"
+<a href="https://github.com/saturnaxis/CompPhysics" target="_blank"
    class="btn btn-sm btn-source-repository-button"
    title="Source repository"
    data-bs-placement="bottom" data-bs-toggle="tooltip"
@@ -534,14 +557,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>our method   =  8.59278527522984
-scipy method =  8.592785275230199
-</pre></div>
-</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;1D finite well solution&#39;)
 </pre></div>
 </div>
-<img alt="../_images/d64c8b9f0a40ca7d2fff96e6561c2044f55c1977e001bdee86513a1e7bb024bc.png" src="../_images/d64c8b9f0a40ca7d2fff96e6561c2044f55c1977e001bdee86513a1e7bb024bc.png" />
+<img alt="../_images/712e1c48b9f6d627a2f2a1eda38647561e3b375d8c600ada4a1e1e89b9717e72.png" src="../_images/712e1c48b9f6d627a2f2a1eda38647561e3b375d8c600ada4a1e1e89b9717e72.png" />
 </div>
 </div>
 </section>
@@ -578,8 +597,8 @@ scipy method =  8.592785275230199
     {
         requestKernel: true,
         binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
+            repo: "saturnaxis/CompPhysics",
+            ref: "main",
         },
         codeMirrorConfig: {
             theme: "abcdef",
@@ -674,7 +693,7 @@ By Billy Quarles
     
   <p class="copyright">
     
-      © Copyright 2021.
+      © Copyright 2023.
       <br/>
     
   </p>
