@@ -624,14 +624,14 @@ document.write(`
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;My first graph&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;SHO&#39;</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Angle (rad.)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Amplitude (ft/s)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">,</span><span class="n">length</span> <span class="o">=</span> <span class="mf">12.0</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">,</span><span class="n">length</span> <span class="o">=</span> <span class="mf">12.0</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span><span class="n">labelsize</span><span class="o">=</span><span class="s1">&#39;x-large&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mf">3.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s1">&#39;0&#39;</span><span class="p">,</span><span class="s1">&#39;$\pi$/2&#39;</span><span class="p">,</span><span class="s1">&#39;$\pi$&#39;</span><span class="p">,</span><span class="s1">&#39;$3\pi/2$&#39;</span><span class="p">,</span><span class="s1">&#39;2$\pi$&#39;</span><span class="p">])</span>
@@ -640,7 +640,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6e3784eaa6df8c783ef60e37e91e980e93d1524e8959790f4f9e324b655ea5dd.png" src="../_images/6e3784eaa6df8c783ef60e37e91e980e93d1524e8959790f4f9e324b655ea5dd.png" />
+<img alt="../_images/9bcd1ac9a1df26734b80cfb66ad17addf851828f1a8efafbbb2a861660b8c53e.png" src="../_images/9bcd1ac9a1df26734b80cfb66ad17addf851828f1a8efafbbb2a861660b8c53e.png" />
 </div>
 </div>
 <p>Figures can be saved to file using the <code class="docutils literal notranslate"><span class="pre">savefig</span></code> function, which takes the filename as an argument.  Additional keyword arguments (kwargs) can be applied that alter the display of the figure (e.g., <code class="docutils literal notranslate"><span class="pre">dpi</span> <span class="pre">=</span> <span class="pre">300</span></code> sets the dots per inch to 300).</p>
@@ -666,7 +666,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9120015824279287
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5381261101462614
 </pre></div>
 </div>
 </div>
@@ -804,7 +804,7 @@ I_C \\
 </section>
 <section id="github">
 <h2><span class="section-number">1.4. </span>GitHub<a class="headerlink" href="#github" title="Permalink to this heading">#</a></h2>
-<p>GitHub is a platform used by many disciplines to make code easier to develop, track, store, and share.  The platform provides a series of <a class="reference external" href="https://guides.github.com/">guides</a> that introduce new users through common practices on GitHub.  In this section, we will focus on the <a class="reference external" href="https://guides.github.com/activities/hello-world/">Hello World</a> guide.  Throughout the course, you will develop scripts to perform different tasks and a good way to organize your work is through a GitHub repository.  Repositories are free to create (as long as they are &lt; 50 MB) and can serve as a useful place to backup your code.  To start this guide, you will need to have a GitHub.com account already created.</p>
+<p>GitHub is a platform used by many disciplines to make code easier to develop, track, store, and share.  The platform provides a series of <a class="reference external" href="https://guides.github.com/">guides</a> that introduce new users through common practices on GitHub.  In this section, we will focus on the <a class="reference external" href="https://guides.github.com/activities/hello-world/">Hello World</a> guide.  Throughout the course, you will develop scripts to perform different tasks and a good way to organize your work is through a GitHub repository.  Repositories are free to create (as long as they are &lt; 50 MB) and can serve as a useful place to backup your code.  <strong>To start this guide, you will need to have a GitHub.com account already created.</strong></p>
 <section id="create-a-repository-repo">
 <h3><span class="section-number">1.4.1. </span>Create a repository (<strong>repo</strong>)<a class="headerlink" href="#create-a-repository-repo" title="Permalink to this heading">#</a></h3>
 <p>A repository (or repo) can contain any kind of code (python, C++, Fortran, etc), spreadsheets, data files, Jupyter notebooks, and most types of files that you can think of. To create a repository:</p>
@@ -1030,33 +1030,48 @@ caption<span class="nb">{</span>This is a table caption, which describes the bas
 </section>
 <section id="problems">
 <h2><span class="section-number">1.6. </span>Problems<a class="headerlink" href="#problems" title="Permalink to this heading">#</a></h2>
+<p>Complete the following problems in a Jupyter notebook, where you will save your results as an external file (*.png).</p>
+<p>Create a <span class="math notranslate nohighlight">\(\LaTeX\)</span> document with:</p>
 <ul class="simple">
-<li><p>Complete the following problems in a Jupyter notebook, where you will save your results as an external file (*.png).</p></li>
-<li><p>Create a LaTex document with:</p>
-<ul>
 <li><p>an abstract summary</p></li>
-<li><p>sections for each problem that state the problem, summarize what you did, and display the results</p></li>
+<li><p>sections for each problem that <strong>state</strong> the problem, <strong>explain</strong> your approach to solving the problem, and <strong>display</strong> the results</p></li>
 <li><p>include a reference for each solution (this can be textbooks)</p></li>
 </ul>
-</li>
+<div class="admonition-problem-1 admonition">
+<p class="admonition-title">Problem 1</p>
+<p><strong>Graph both of the following functions on a single figure, with a usefully sized scale.</strong></p>
+<p><strong>(a)</strong> <span class="math notranslate nohighlight">\(x^4e^{-2x}\)</span></p>
+<p><strong>(b)</strong> <span class="math notranslate nohighlight">\([x^2e^{-x}\sin(x^2)]^2\)</span></p>
+</div>
+<div class="admonition-problem-2 admonition">
+<p class="admonition-title">Problem 2</p>
+<p><strong>The file Ba137.txt (see the repository) contains two columns. The first is counts from a Geiger counter, and the second is time in seconds.</strong></p>
+<p><strong>(a)</strong> Make a useful graph of this data.</p>
+<p><strong>(b)</strong> If this data follows an exponential curve, then plotting the natural log of the data (or plotting the raw data on a logarithmic scale) will result in a straight line. Determine whether this is the case, and explain your conclusion with an appropriate graph.</p>
+</div>
+<div class="admonition-problem-3 admonition">
+<p class="admonition-title">Problem 3</p>
+<p><strong>The data in the file Ba137.txt is actual data from a radioactive decay experiment; the first column is the number of decays <span class="math notranslate nohighlight">\(N\)</span>, the second is the time <span class="math notranslate nohighlight">\(t\)</span> in seconds. We would like to know the half-life <span class="math notranslate nohighlight">\(t_{1/2}\)</span> of <span class="math notranslate nohighlight">\(^{137}{\rm Ba} using the decay equation \)</span>N = N_oe^{-\lambda t}<span class="math notranslate nohighlight">\(, where \)</span>\lambda = \log(2)/\log(t_{1/2})$.</strong></p>
+<p>Using the techniques you’ve learned in this notebook,</p>
+<ul class="simple">
+<li><p>load the data from file Ba137.txt into appropriately-named variables.</p></li>
+<li><p>Experiment with different values of <span class="math notranslate nohighlight">\(N_o\)</span> and <span class="math notranslate nohighlight">\(\lambda\)</span> to create a plot of the resulting equation on top of the data.</p></li>
 </ul>
-<ol class="arabic">
-<li><p>Graph both of the following functions on a single figure, with a usefully sized scale.</p>
-<p>a. <span class="math notranslate nohighlight">\(x^4e^{-2x}\)</span></p>
-<p>b. <span class="math notranslate nohighlight">\([x^2e^{-x}\sin(x^2)]^2\)</span></p>
-</li>
-<li><p>The file Ba137.txt contains two columns. The first is counts from a Geiger counter, and the second is time in seconds.</p>
-<p>a. Make a useful graph of this data.</p>
-<p>b. If this data follows an exponential curve, then plotting the natural log of the data (or plotting the raw data on a logarithmic scale) will result in a straight line. Determine whether this is the case, and explain your conclusion with an appropriate graph.</p>
-</li>
-<li><p>The data in the file Ba137.txt is actual data from a radioactive decay experiment; the first column is the number of decays <span class="math notranslate nohighlight">\(N\)</span>, the second is the time <span class="math notranslate nohighlight">\(t\)</span> in seconds. We’d like to know the half-life <span class="math notranslate nohighlight">\(t_{1/2}\)</span> of <span class="math notranslate nohighlight">\(^{137}\)</span>Ba. It should follow the decay equation
-<span class="math notranslate nohighlight">\(N = N_oe^{-\lambda t}\)</span>
-where <span class="math notranslate nohighlight">\(\lambda = \log(2)/\log(t_{1/2})\)</span>. Using the techniques you’ve learned in this notebook, load the data from file Ba137.txt into appropriately-named variables. Experiment with different values of <span class="math notranslate nohighlight">\(N_o\)</span> and <span class="math notranslate nohighlight">\(\lambda\)</span> to create a plot of the resulting equation on top of the data. What is your best estimate for <span class="math notranslate nohighlight">\(t_{1/2}\)</span>?</p></li>
-<li><p>The normal modes and angular frequencies of those modes for a linear system of four coupled oscillators of mass m, separated by springs of equal strength k, are given by the eigenvectors and eigenvalues of M, shown below.  Find the eigenfrequencies (Try <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linalg.eig.html#numpy.linalg.eig">linalg.eig</a> from numpy).</p>
-<p><img alt="Coupled_Oscillator" src="../_images/Coupled_Oscillator_matrix.png" /></p>
-</li>
-<li><p>Create a single plot that shows separate graphs of position, velocity, and acceleration for an object in free-fall. Your plot should have a single horizontal time axis and separate stacked graphs showing position, velocity, and acceleration each on their own vertical axis. The online matplotlib gallery will probably be helpful! Print the graph, with your name in the title.</p></li>
-</ol>
+<p><em>What is your best estimate for <span class="math notranslate nohighlight">\(t_{1/2}\)</span>?</em></p>
+</div>
+<div class="admonition-problem-4 admonition">
+<p class="admonition-title">Problem 4</p>
+<p><strong>The normal modes and angular frequencies of those modes for a linear system of four coupled oscillators of mass m, separated by springs of equal strength k, are given by the eigenvectors and eigenvalues of M, shown below.</strong>  Find the eigenfrequencies (Try <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linalg.eig.html#numpy.linalg.eig">linalg.eig</a> from numpy).</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>![Coupled_Oscillator](Coupled_Oscillator_matrix.png)
+</pre></div>
+</div>
+</div>
+<div class="admonition-problem-5 admonition">
+<p class="admonition-title">Problem 5</p>
+<p><strong>Create a single plot that shows separate graphs of position, velocity, and acceleration for an object in free-fall.</strong></p>
+<p>Your plot should have a single horizontal time axis and <em>separate stacked</em> graphs showing position, velocity, and acceleration each on their own vertical axis. The online <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> gallery will probably be helpful!</p>
+<p>Print the graph, with your name in the title.</p>
+</div>
 </section>
 </section>
 
