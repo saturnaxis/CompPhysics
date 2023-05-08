@@ -1,7 +1,7 @@
 # PHYS3820 Computational Physics
 
-Lecture notes for PHYS3820 Computational Physics at [Valdosta State University](https://www.valdosta.edu/phy/).  This course is designed using **Computational Physics
-With Python** by Ayars (2013) and **Computational Physics: Problem Solving with Computers** by Landau, Paez, & Bordeianu, where it will include summaries of the course material and code implementation/exercises.
+Lecture notes for PHYS3820 Computational Physics at [Valdosta State University](https://www.valdosta.edu/phy/).  This course is designed using [**Computational Physics
+With Python**](https://belglas.files.wordpress.com/2018/03/cpwp.pdf) by [Eric Ayars](https://www.csuchico.edu/physics/people/faculty/eric-ayars.shtml) (2013) and [**Computational Physics: Problem Solving with Computers**](https://www.google.com/books/edition/_/RBg-vgAACAAJ?hl=en&sa=X&ved=2ahUKEwjCoaKQgOb-AhWMlIkEHQyFCKIQ7_IDegQIBxAC) by Landau, Paez, & Bordeianu (2007), where it will include summaries of the course material and code implementation/exercises.
 
 **Course Description:** The course will serve as an introduction to scientific writing and computing, which includes basic computational skills (e.g., Python, GitHub, and LaTeX); Data fitting and interpolation; numerical integration and differentiation; and numerically solving ordinary differential equations (ODEs).  To this end, students will complete 3 projects, where the results in each of the first two projects will be presented as a "paper" in the style of Physical Review Letters (~2000 words).  The topics of these projects are:
 
