@@ -154,7 +154,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../home.html">
-                    About
+                    PHYS3820 Computational Physics
                 </a>
             </li>
         </ul>
@@ -421,8 +421,9 @@ document.write(`
 <p>The scientific method is based on empiricism, which requires the collection of evidence (data) through an experiment to test a hypothesis.  After the data is collected a scientist needs to synthesize the result by comparing (fitting) the data to predictions made by existing theories or models.  Thus, data fitting is an art worthy by all scientists.  In this chapter, we will discuss two methods of interpolation (e.g., Lagrange and Cubic Splines), least squares fitting, and maximum likelihood estimation.</p>
 <section id="fitting-an-experimental-spectrum-problem">
 <h2><span class="section-number">3.1. </span>Fitting an experimental spectrum (Problem)<a class="headerlink" href="#fitting-an-experimental-spectrum-problem" title="Permalink to this heading">#</a></h2>
-<p>The cross sections (in millibarns; mb) for the resonant scattering of a neutron from a nucleus (see Table 1) can be measured in terms of the energy with an associated experimental error.  Your problem is to determine the values for the cross sections at energy values lying between the measured values.</p>
-<table class="table">
+<p>The cross sections (in millibarns; mb) for the resonant scattering of a neutron from a nucleus (see Table <a class="reference internal" href="#cross-section-table"><span class="std std-numref">3.1</span></a>) can be measured in terms of the energy with an associated experimental error.  Your problem is to determine the values for the cross sections at energy values lying between the measured values.</p>
+<table class="table" id="cross-section-table">
+<caption><span class="caption-number">Table 3.1 </span><span class="caption-text">Experimental values for a scattering cross section, each with an absolute error <span class="math notranslate nohighlight">\(\pm \sigma_i\)</span>, as a function of energy.</span><a class="headerlink" href="#cross-section-table" title="Permalink to this table">#</a></caption>
 <thead>
 <tr class="row-odd"><th class="head"><p>i</p></th>
 <th class="head"><p>1</p></th>
@@ -472,7 +473,6 @@ document.write(`
 </tr>
 </tbody>
 </table>
-<p><strong>Table 1</strong>: Experimental values for a scattering cross section, each with an absolute error <span class="math notranslate nohighlight">\(\pm \sigma_i\)</span>, as a function of energy.</p>
 <p>You can solve this problem in a number of ways, where the simplest is to numerically <em>interpolate</em> between the values of <span class="math notranslate nohighlight">\(g(E_i)\)</span>.  This is direct and easy, but does not account for the experimental noise in the data.  A more appropriate way to solve this problem is to find the <em>best fit</em> of a theoretical function to the data.  The best fit depends on a series of model parameters that are tweaked so that the distance between the experimental points and the model curve is minimized relative to the measurement uncertainty.  In the meantime, let’s see how this data looks graphically.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -495,7 +495,7 @@ document.write(`
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
 
 <span class="c1">#using the errorbar function from matplotlib</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span><span class="n">yvals</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerror</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span><span class="n">yvals</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerror</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">205</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">xvals</span><span class="p">)</span>
@@ -508,7 +508,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/46414b06ad470d0ce0a3b16cf072650f0b49cf64d780a1c8d3de0c23657d4927.png" src="../_images/46414b06ad470d0ce0a3b16cf072650f0b49cf64d780a1c8d3de0c23657d4927.png" />
+<img alt="../_images/727f14850935231c15264842d9ad9b6baf3221d1723f4f2853938fe3cc58fa20.png" src="../_images/727f14850935231c15264842d9ad9b6baf3221d1723f4f2853938fe3cc58fa20.png" />
 </div>
 </div>
 <p>In the above figure, one can see that the cross section peaks at 75 MeV, although there is a large measurement uncertainty.</p>
@@ -516,12 +516,18 @@ document.write(`
 </section>
 <section id="linear-interpolation">
 <h2><span class="section-number">3.2. </span>Linear Interpolation<a class="headerlink" href="#linear-interpolation" title="Permalink to this heading">#</a></h2>
-<p>The easiest method to interpolate data is linearly.  In this section, we will derive the necessary equations and apply them at the end of Section 2.3 to see how a linear interpolation fares.  First, we must recall the equation of a line: <span class="math notranslate nohighlight">\(g(x) = a_o + a_1x\)</span>, which will be applied to two nearby points (<span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(x_{i+1}\)</span>).  As a result, we find the system of linear equations:</p>
-<p><span class="math notranslate nohighlight">\(g(x_i) = a_o + a_1x_i\)</span><br />
-and<br />
-<span class="math notranslate nohighlight">\(g(x_{i+1}) = a_o + a_1x_{i+1}\)</span>.</p>
-<p>We can combine all three equations (<span class="math notranslate nohighlight">\(g(x)\)</span>,<span class="math notranslate nohighlight">\(g(x_i)\)</span>,<span class="math notranslate nohighlight">\(g(x_{i+1})\)</span>) and solve them analytically (3 equations and 3 unknowns to eliminate the coefficients).  Here, we know <span class="math notranslate nohighlight">\(g(x_i)\)</span> and <span class="math notranslate nohighlight">\(g(x_{i+1})\)</span> from our table.  Thus, we find:</p>
-<p><span class="math notranslate nohighlight">\(g(x) = g(x_i) + \frac{x-x_i}{x_{i+1}-x_i}[g(x_{i+1})-g(x_i)]\)</span></p>
+<p>The easiest method to <a class="reference external" href="https://en.wikipedia.org/wiki/Interpolation">interpolate</a> data is linearly.  In this section, we will derive the necessary equations and apply them at the end of Section 2.3 to see how a linear interpolation fares.  First, we must recall the equation of a line: <span class="math notranslate nohighlight">\(g(x) = a_o + a_1x\)</span>, which will be applied to two nearby points (<span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(x_{i+1}\)</span>).  As a result, we find the system of linear equations:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0e971396-0b31-4a53-8407-3ebbedbc9d4b">
+<span class="eqno">(3.1)<a class="headerlink" href="#equation-0e971396-0b31-4a53-8407-3ebbedbc9d4b" title="Permalink to this equation">#</a></span>\[\begin{align}
+g(x) &amp;= a_o + a_1x, \\
+g(x_i) &amp;= a_o + a_1x_i, \\
+ g(x_{i+1}) &amp;= a_o + a_1x_{i+1}.
+\end{align}\]</div>
+<p>We can combine all three equations <span class="math notranslate nohighlight">\(\left[ g(x),\ g(x_i),\ g(x_{i+1}) \right]\)</span> and solve them analytically (3 equations and 3 unknowns to eliminate the coefficients).  Here, we know <span class="math notranslate nohighlight">\(g(x_i)\)</span> and <span class="math notranslate nohighlight">\(g(x_{i+1})\)</span> from our table.  Thus, we find:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-ddbebcf3-73f5-4212-8f5a-06b0ff1c33d1">
+<span class="eqno">(3.2)<a class="headerlink" href="#equation-ddbebcf3-73f5-4212-8f5a-06b0ff1c33d1" title="Permalink to this equation">#</a></span>\[\begin{align}
+g(x) = g(x_i) + \left(\frac{x-x_i}{x_{i+1}-x_i}\right) \left[g(x_{i+1})-g(x_i)\right]
+\end{align}\]</div>
 <p>Now it’s time to code this up as a function for later.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -546,24 +552,49 @@ and<br />
 </section>
 <section id="lagrange-interpolation">
 <h2><span class="section-number">3.3. </span>Lagrange Interpolation<a class="headerlink" href="#lagrange-interpolation" title="Permalink to this heading">#</a></h2>
-<p>Consider Table 2.1 as ordered data that we wish to interpolate.  The energy <span class="math notranslate nohighlight">\(E_i\)</span> is the independent variable <span class="math notranslate nohighlight">\(x_i\)</span> and the cross section is the dependent variable <span class="math notranslate nohighlight">\(g(x_i)\)</span>.  We assume there exists a reasonable approximation representing <span class="math notranslate nohighlight">\(g(x)\)</span> to model between data points using a <span class="math notranslate nohighlight">\((n-1)\)</span>-degree polynomial over an interval <span class="math notranslate nohighlight">\(i\)</span>:</p>
-<p><span class="math notranslate nohighlight">\(g_i(x) \simeq a_0 + a_1 x + a_2 x^2 + \cdot + a_{n-1} x^{n-1},\; (x\simeq x_i).\)</span></p>
-<p>Because our fit is local, we do not assume that one <span class="math notranslate nohighlight">\(g(x)\)</span> can fit all the data in the table, where many sets of <span class="math notranslate nohighlight">\(a_i\)</span> exists for each region of the table.  This will include multiple low-degree polynomials that span the entire table.  With some care, the set of polynomials will be well behaved without introducing unwanted noise or discontinuities.</p>
+<p>Consider Table <a class="reference internal" href="#cross-section-table"><span class="std std-numref">3.1</span></a> as ordered data that we wish to interpolate.  The energy <span class="math notranslate nohighlight">\(E_i\)</span> is the independent variable <span class="math notranslate nohighlight">\(x_i\)</span> and the cross section is the dependent variable <span class="math notranslate nohighlight">\(g(x_i)\)</span>.  We assume there exists a reasonable approximation representing <span class="math notranslate nohighlight">\(g(x)\)</span> to model between data points using a <span class="math notranslate nohighlight">\((n-1)\)</span>-degree polynomial over an interval <span class="math notranslate nohighlight">\(i\)</span>:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-de8bf411-d885-4d7c-b177-86328bff00c0">
+<span class="eqno">(3.3)<a class="headerlink" href="#equation-de8bf411-d885-4d7c-b177-86328bff00c0" title="Permalink to this equation">#</a></span>\[\begin{align}
+g_i(x) \simeq a_0 + a_1 x + a_2 x^2 + \cdot + a_{n-1} x^{n-1},\; (x\simeq x_i).
+\end{align}\]</div>
+<p>Because our fit is local, we do not assume that one <span class="math notranslate nohighlight">\(g(x)\)</span> can fit all the data in the table, where many sets of <span class="math notranslate nohighlight">\(a_i\)</span> exist for each region of the table.  This will include multiple low-degree polynomials that span the entire table.  With some care, the set of polynomials will be well-behaved without introducing unwanted noise or discontinuities.</p>
 <p>Lagrange developed a closed-form interpolation formula that directly fits the <span class="math notranslate nohighlight">\((n-1)\)</span>-order polynomial (<span class="math notranslate nohighlight">\(g_i(x)\)</span>) to <span class="math notranslate nohighlight">\(n\)</span> values.  The formula is written as a sum of polynomials:</p>
-<p><span class="math notranslate nohighlight">\(g(x) \simeq g_1\lambda_1(x) + g_2\lambda_2(x) + \cdots + g_n\lambda_n(x),\)</span></p>
+<div class="amsmath math notranslate nohighlight" id="equation-39b5df1e-6b09-4277-b20e-f83d81c0535c">
+<span class="eqno">(3.4)<a class="headerlink" href="#equation-39b5df1e-6b09-4277-b20e-f83d81c0535c" title="Permalink to this equation">#</a></span>\[\begin{align}
+g(x) \simeq g_1\lambda_1(x) + g_2\lambda_2(x) + \cdots + g_n\lambda_n(x),
+\end{align}\]</div>
 <p>where</p>
-<p><span class="math notranslate nohighlight">\(\lambda_i(x) = \displaystyle\prod_{j=1; i \ne j}^n \frac{x-x_j}{x_i-x_j} = \frac{x-x_1}{x_i-x_1}\frac{x-x_2}{x_i-x_2}\cdots \frac{x-x_n}{x_i-x_n}\)</span>.</p>
-<p>Notice that for <span class="math notranslate nohighlight">\(n\)</span> points, the formula provides a <span class="math notranslate nohighlight">\((n-1)\)</span> degree polynomial.  Let’s work out an example before applying this to our problem.  Suppose you have <span class="math notranslate nohighlight">\(x = (0,1,2,4)\)</span> and <span class="math notranslate nohighlight">\(g = (-12,-12,-24,-60)\)</span>:</p>
-<p><span class="math notranslate nohighlight">\(\lambda_1(x) = \frac{(x-1)}{(0-1)}\frac{(x-2)}{(0-2)}\frac{(x-4)}{(0-4)} = -\frac{1}{8}(x-1)(x-2)(x-4)\)</span>,</p>
-<p><span class="math notranslate nohighlight">\(\lambda_2(x) = \frac{(x-0)}{(1-0)}\frac{(x-2)}{(1-2)}\frac{(x-4)}{(1-4)} = \frac{1}{3}x(x-2)(x-4)\)</span>,</p>
-<p><span class="math notranslate nohighlight">\(\lambda_3(x) = \frac{(x-0)}{(2-0)}\frac{(x-1)}{(2-1)}\frac{(x-4)}{(2-4)} = -\frac{1}{4}x(x-1)(x-4)\)</span>,</p>
-<p>and</p>
-<p><span class="math notranslate nohighlight">\(\lambda_4(x) = \frac{(x-0)}{(4-0)}\frac{(x-1)}{(4-1)}\frac{(x-2)}{(4-2)} = \frac{1}{24}x(x-1)(x-2)\)</span>,</p>
+<div class="amsmath math notranslate nohighlight" id="equation-cbab6dde-45a3-4b91-8e9f-069b1929d510">
+<span class="eqno">(3.5)<a class="headerlink" href="#equation-cbab6dde-45a3-4b91-8e9f-069b1929d510" title="Permalink to this equation">#</a></span>\[\begin{align}
+\lambda_i(x) = \displaystyle\prod_{j=1; i \ne j}^n \frac{x-x_j}{x_i-x_j} = \frac{x-x_1}{x_i-x_1}\frac{x-x_2}{x_i-x_2}\cdots \frac{x-x_n}{x_i-x_n}.
+\end{align}\]</div>
+<p>Notice that for <span class="math notranslate nohighlight">\(n\)</span> points, the formula provides a <span class="math notranslate nohighlight">\((n-1)\)</span> degree polynomial.  Let’s work out an example before applying this to our problem.  Suppose you have</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+x &amp;= (0,\ 1,\ 2,\ 4), \\
+g &amp;= (-12,\ -12,\ -24,\ -60),
+\end{align*}\]</div>
+<p>then</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+\lambda_1(x) &amp;= \frac{(x-1)}{(0-1)}\frac{(x-2)}{(0-2)}\frac{(x-4)}{(0-4)} = -\frac{1}{8}(x-1)(x-2)(x-4), \\
+\lambda_2(x) &amp;= \frac{(x-0)}{(1-0)}\frac{(x-2)}{(1-2)}\frac{(x-4)}{(1-4)} = \frac{1}{3}x(x-2)(x-4), \\
+\lambda_3(x) &amp;= \frac{(x-0)}{(2-0)}\frac{(x-1)}{(2-1)}\frac{(x-4)}{(2-4)} = -\frac{1}{4}x(x-1)(x-4), \\
+\lambda_4(x) &amp;= \frac{(x-0)}{(4-0)}\frac{(x-1)}{(4-1)}\frac{(x-2)}{(4-2)} = \frac{1}{24}x(x-1)(x-2),
+\end{align*}\]</div>
 <p>so that:</p>
-<p><span class="math notranslate nohighlight">\(g(x) = x^3 - 9x^2 + 8x -12.\)</span> (<em>Don’t get tied up in the algebra; this is a computational course.</em>)</p>
-<p>Notice that Lagrange interpolation makes no restriction that the points in the table be evenly spaced. As a check, it is also worth noting that the sum of the Lagrange multipliers equals one, <span class="math notranslate nohighlight">\(\sum_i^n \lambda_i = 1\)</span>.  The difference between the value of the polynomial evaluated as some <em>x</em> and that of the actual function is equal to the <em>remainder</em>,</p>
-<p><span class="math notranslate nohighlight">\(R_n \simeq \frac{(x-x_1)(x-x_2)\cdots(x-x_n)}{n!}g^{(n)(\zeta)}\)</span>,</p>
-<p>where <span class="math notranslate nohighlight">\(\zeta\)</span> lies somewhere in the interpolation interval but is otherwise undetermined.  This shows that if (significant) high derivatives of <span class="math notranslate nohighlight">\(g(x)\)</span> exist then the data can’t be well approximated by a polynomial.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-75e8327d-3f9b-4a41-97e7-a46222fd5304">
+<span class="eqno">(3.6)<a class="headerlink" href="#equation-75e8327d-3f9b-4a41-97e7-a46222fd5304" title="Permalink to this equation">#</a></span>\[\begin{align}
+g(x) = x^3 - 9x^2 + 8x -12.
+\end{align}\]</div>
+<p><em>Don’t get tied up in the algebra; this is a computational course.</em></p>
+<p>Notice that Lagrange interpolation makes <em>no restriction</em> that the points in the table be evenly spaced. As a check, it is also worth noting that the sum of the Lagrange multipliers equals one,</p>
+<div class="math notranslate nohighlight">
+\[\sum_i^n \lambda_i = 1.\]</div>
+<p>The difference between the value of the polynomial evaluated as some <em>x</em> and that of the actual function is equal to the <em>remainder</em>,</p>
+<div class="math notranslate nohighlight">
+\[R_n \simeq \frac{(x-x_1)(x-x_2)\cdots(x-x_n)}{n!}g^{(n)(\zeta)},\]</div>
+<p>where <span class="math notranslate nohighlight">\(\zeta\)</span> lies somewhere in the interpolation interval but is otherwise undetermined.  This shows that if (significant) high derivatives of <span class="math notranslate nohighlight">\(g(x)\)</span> exist, then the data can’t be well approximated by a polynomial.</p>
 <p>It would be useful if we had a function to generate values from the associated polynomial so that we didn’t have to do it by hand.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -596,7 +627,7 @@ g(0.5) =  -10.125
 </div>
 </div>
 </div>
-<p>Let’s go back to Table 1 and see how the Lagrange interpolation method works for our data using all 9 points.</p>
+<p>Let’s go back to Table <a class="reference internal" href="#cross-section-table"><span class="std std-numref">3.1</span></a> and see how the Lagrange interpolation method works for our data using all 9 points.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">225</span><span class="p">,</span><span class="mi">25</span><span class="p">)</span> <span class="c1">#reset xvals to Table 2.1</span>
@@ -653,15 +684,22 @@ g(0.5) =  -10.125
 <h2><span class="section-number">3.4. </span>Cubic Splines<a class="headerlink" href="#cubic-splines" title="Permalink to this heading">#</a></h2>
 <p>Recall that the Lagrange Interpolation method produces an (<span class="math notranslate nohighlight">\(n-1\)</span>) polynomial fit, where <span class="math notranslate nohighlight">\(n=4\)</span> produces a cubic polynomial.  Using a cubic polynomial, with additional constraints that the first and second derivatives are continuous between intervals, makes the spline fit particularly eye-pleasing.  If the interpolated function is a <em>potential</em>, you can take the derivative to obtain the force.  The process of matching polynomials and their derivatives leads to many simultaneous equations to be solved.  This is tedious work for humans, yet easy for computers and popular for calculations and graphics.</p>
 <p>The basic approximation of splines is the representation of the function <span class="math notranslate nohighlight">\(g(x)\)</span> in the subinterval <span class="math notranslate nohighlight">\([x_i,\:x_{i+1}]\)</span> with a cubic polynomial:</p>
-<p><span class="math notranslate nohighlight">\(g(x) \simeq g_i(x)\)</span>, for <span class="math notranslate nohighlight">\(x_i \leq x \leq x_{i+1}\)</span>,</p>
-<p><span class="math notranslate nohighlight">\(g_i(x) = g_i + g_i^\prime(x-x_i) + \frac{1}{2}g_i^{\prime\prime}(x-x_i)^2 + \frac{1}{6}g_i^{\prime\prime\prime}(x-x_i)^3\)</span>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-33b7bb06-76f4-44c6-9aff-d089de83eeb0">
+<span class="eqno">(3.7)<a class="headerlink" href="#equation-33b7bb06-76f4-44c6-9aff-d089de83eeb0" title="Permalink to this equation">#</a></span>\[\begin{align}
+g(x) &amp;\simeq g_i(x),\ \text{for } x_i \leq x \leq x_{i+1}, \\
+g_i(x) &amp;= g_i + g_i^\prime(x-x_i) + \frac{1}{2}g_i^{\prime\prime}(x-x_i)^2 + \frac{1}{6}g_i^{\prime\prime\prime}(x-x_i)^3.
+\end{align}\]</div>
 <p>This shows that the coefficients in the polynomial are the values of <span class="math notranslate nohighlight">\(g(x)\)</span> and its (first, second, and third) derivatives at the tabulated points.  Now we need to determine these derivatives in terms of the <span class="math notranslate nohighlight">\(N\)</span> tabulated <span class="math notranslate nohighlight">\(g_i\)</span> values.  As a result, we obtain the following boundary conditions:</p>
-<p>$g_i(x_{i+1}) = g_{i+1}(x_{i+1}),</p>
-<p>The <span class="math notranslate nohighlight">\(i\)</span>th spline as the end of its interval is equal to the <span class="math notranslate nohighlight">\((i+1)\)</span>th spline at the beginning of its interval.  For the derivatives, we have</p>
-<p><span class="math notranslate nohighlight">\(g_{x_i}^\prime(x_i) = g_i^\prime(x_i)\)</span> (first derivatives),</p>
-<p><span class="math notranslate nohighlight">\(g_{i-1}^{\prime\prime}(x_i) = g_i^{\prime\prime}(x_i)\)</span> (second derivatives), and</p>
-<p><span class="math notranslate nohighlight">\(g_i{\prime\prime\prime} \simeq \frac{g_{i+1}^{\prime\prime}-g_i^{\prime\prime}}{x_{i+1}-x_i}\)</span> (third derivatives).</p>
-<p>If this is unclear, then you are not alone.  It takes some work to go through all the steps.  We are not trying to re-invent the wheel and thus, we will use a library from <em>scipy</em> to do the heavy lifting.  If you are still curious, then you can visit this <a class="reference external" href="https://en.wikiversity.org/wiki/Cubic_Spline_Interpolation">guide</a>.  Meanwhile, let’s see how to use the <strong>CubicSpine</strong> library</p>
+<div class="math notranslate nohighlight">
+\[g_i(x_{i+1}) = g_{i+1}(x_{i+1}),\]</div>
+<p>The <span class="math notranslate nohighlight">\(i{\rm th}\)</span> spline as the end of its interval is equal to the <span class="math notranslate nohighlight">\((i+1){\rm th}\)</span> spline at the beginning of its interval.  For the derivatives, we have</p>
+<div class="amsmath math notranslate nohighlight" id="equation-e0564f92-4bea-4ade-8a46-77b66125acf6">
+<span class="eqno">(3.8)<a class="headerlink" href="#equation-e0564f92-4bea-4ade-8a46-77b66125acf6" title="Permalink to this equation">#</a></span>\[\begin{align}
+g_{x_i}^\prime(x_i) &amp;= g_i^\prime(x_i),\qquad \text{(first derivatives)} \\
+g_{i-1}^{\prime\prime}(x_i) &amp;= g_i^{\prime\prime}(x_i),\qquad \text{(second derivatives)} \\
+g_i{\prime\prime\prime} &amp;\simeq \frac{g_{i+1}^{\prime\prime}-g_i^{\prime\prime}}{x_{i+1}-x_i}.\qquad \text{(third derivatives)}
+\end{align}\]</div>
+<p>If this is unclear, then you are not alone.  It takes some work to go through all the steps.  We are not trying to re-invent the wheel and thus, we will use a library from <code class="docutils literal notranslate"><span class="pre">scipy</span></code> to do the heavy lifting.  If you are still curious, then you can visit this <a class="reference external" href="https://en.wikiversity.org/wiki/Cubic_Spline_Interpolation">guide</a>.  Meanwhile, let’s see how to use the <code class="docutils literal notranslate"><span class="pre">CubicSpine</span></code> library.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">CubicSpline</span>
@@ -704,13 +742,21 @@ g(0.5) =  -10.125
 <li><p>The model (theory) must be appropriate to the data being fit.  Mismatches between the model and data can provide information (i.e., pick a different model).</p></li>
 <li><p>Only in the simplest case (linear least-squares fit) can we write down a closed-form solution.  Most realistic problems are solved by <em>trial-and-error</em> search procedures that involve statistical sampling.</p></li>
 </ol>
-<p>Suppose you have <span class="math notranslate nohighlight">\(N\)</span> data values of the independent variable <span class="math notranslate nohighlight">\(y\)</span> as a function of the dependent variable <span class="math notranslate nohighlight">\(x\)</span> (<span class="math notranslate nohighlight">\(x_i,y_i\pm\sigma_i\)</span>), where the <span class="math notranslate nohighlight">\(\pm \sigma_i\)</span> is the uncertainty in the <em>i</em>th value of <span class="math notranslate nohighlight">\(y\)</span>. Eventually, we will solve the problem where <span class="math notranslate nohighlight">\(y\)</span> represents the number of decays for Ba-137 (using data from Chapter 0) and <span class="math notranslate nohighlight">\(x_i\)</span> are the times.  In general, our goal is to determine how well a <em>model</em> (<span class="math notranslate nohighlight">\(y=g(x)\)</span>) can describe the data.  If we have a good reason that the correct model is identified, then the problem is finding the optimal parameters or constants for the model.  We assume that the model <span class="math notranslate nohighlight">\(g(x)\)</span> contains an additional dependance upon <span class="math notranslate nohighlight">\(M_p\)</span> parameters <span class="math notranslate nohighlight">\(a_m = \left(a_1, a_2, \cdots,a_{M_p}\right)\)</span>.  These parameters are physical parts of the model, such as the size of a box, mass of a particle, or depth of a potential well.  For our problem, we will use the exponential decay function:</p>
-<p><span class="math notranslate nohighlight">\(N(t) = N_o e^{-t/\tau}\)</span>,</p>
+<p>Suppose you have <span class="math notranslate nohighlight">\(N\)</span> data values of the independent variable <span class="math notranslate nohighlight">\(y\)</span> as a function of the dependent variable <span class="math notranslate nohighlight">\(x\)</span> (<span class="math notranslate nohighlight">\(x_i,y_i\pm\sigma_i\)</span>), where the <span class="math notranslate nohighlight">\(\pm \sigma_i\)</span> is the uncertainty in the <em>i</em>th value of <span class="math notranslate nohighlight">\(y\)</span>. Eventually, we will solve the problem where <span class="math notranslate nohighlight">\(y\)</span> represents the number of decays for Ba-137 (using data from Chapter 1) and <span class="math notranslate nohighlight">\(x_i\)</span> are the times.  In general, our goal is to determine how well a <em>model</em> (<span class="math notranslate nohighlight">\(y=g(x)\)</span>) can describe the data.  If we have a good reason that the correct model is identified, then the problem is finding the optimal parameters or constants for the model.</p>
+<p>We assume that the model <span class="math notranslate nohighlight">\(g(x)\)</span> contains an additional dependance upon <span class="math notranslate nohighlight">\(M_p\)</span> parameters <span class="math notranslate nohighlight">\(a_m = \left(a_1, a_2, \cdots,a_{M_p}\right)\)</span>.  These parameters are physical parts of the model, such as the size of a box, mass of a particle, or depth of a potential well.  For our problem, we will use the exponential decay function:</p>
+<div class="math notranslate nohighlight">
+\[ N(t) = N_o e^{-t/\tau}, \]</div>
 <p>where the parameters are the lifetime <span class="math notranslate nohighlight">\(\tau\)</span> and the initial decay rate <span class="math notranslate nohighlight">\(dN(0)/dt\)</span>.  In general, we indicate this as <span class="math notranslate nohighlight">\(g(x) = g(x; a_m)\)</span>.  We use the chi-square <span class="math notranslate nohighlight">\(\chi^2\)</span> measure as a gauge of how well a model <span class="math notranslate nohighlight">\(g\)</span> reproduces the data:</p>
-<p><span class="math notranslate nohighlight">\(\chi^2 = \displaystyle\sum_{i=1}^N \frac{(y_i-g(x_i; a_m))^2}{\sigma_i^2}\)</span>,</p>
+<div class="amsmath math notranslate nohighlight" id="equation-979c932c-1ad5-4f53-8960-66eb01057b64">
+<span class="eqno">(3.9)<a class="headerlink" href="#equation-979c932c-1ad5-4f53-8960-66eb01057b64" title="Permalink to this equation">#</a></span>\[\begin{align}
+\chi^2 = \sum_{i=1}^N \frac{(y_i-g(x_i; a_m))^2}{\sigma_i^2}, 
+\end{align}\]</div>
 <p>where the sum is over the <span class="math notranslate nohighlight">\(N\)</span> data values.  The definition is such that the minimal <span class="math notranslate nohighlight">\(\chi^2\)</span> (smaller values) are better fits.  Notice also that the 1/<span class="math notranslate nohighlight">\(\sigma_i^2\)</span> weights the measurements with larger errors so they contribute less to <span class="math notranslate nohighlight">\(\chi^2\)</span>.  If the errors are not given in the data set, then you can use the standard error estimate <span class="math notranslate nohighlight">\(\sigma_x = \sigma/\sqrt{N}\)</span> where <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviation.  If you are interested in other methods of error estimation, look at this introductory <a class="reference external" href="https://towardsdatascience.com/an-introduction-to-the-bootstrap-method-58bcb51b4d60">article</a> from <em>towardsdatascience.com</em>.</p>
 <p><strong>Least-squares fitting</strong> refers to adjusting the model parameters until a minimum in <span class="math notranslate nohighlight">\(\chi^2\)</span> is found.  In other words, it is searching for a minimum <em>absolute error</em> <span class="math notranslate nohighlight">\((y_i-g(x_i; a_m))^2\)</span> between the data points <span class="math notranslate nohighlight">\(y_i\)</span> and the model <span class="math notranslate nohighlight">\(g(x_i; a_m)\)</span>.  Recall from <em>Calculus</em> that finding a minimum is taking the derivative and setting it equal to zero.  Therefore, we can express the derivative of <span class="math notranslate nohighlight">\(\chi^2\)</span> with respect to the model parameters <span class="math notranslate nohighlight">\(a_m\)</span> as:</p>
-<p><span class="math notranslate nohighlight">\(\frac{\partial [\chi^2]}{\partial a_m} = \displaystyle\sum_{i=1}^N\frac{[y_i-g(x_i)]}{\sigma_i^2}\frac{\partial g(x_i)}{\partial a_m} = 0\)</span>,</p>
+<div class="amsmath math notranslate nohighlight" id="equation-68e10e7a-e08a-4c4b-bd59-cb986c5b123a">
+<span class="eqno">(3.10)<a class="headerlink" href="#equation-68e10e7a-e08a-4c4b-bd59-cb986c5b123a" title="Permalink to this equation">#</a></span>\[\begin{align}
+\frac{\partial [\chi^2]}{\partial a_m} = \displaystyle\sum_{i=1}^N\frac{[y_i-g(x_i)]}{\sigma_i^2}\frac{\partial g(x_i)}{\partial a_m} = 0,
+\end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(i\)</span> refers to a loop over the data points and <span class="math notranslate nohighlight">\(a_m\)</span> corresponds to the list of model parameters <span class="math notranslate nohighlight">\(\left(a_1,\cdots,a_{M_p}\right)\)</span>.  Typically this results in a sufficiently complicated dependence on the model parameters <span class="math notranslate nohighlight">\(a_m\)</span> to produce a set of <strong>non-linear</strong> equations.  Thus, solutions are found by a <em>trial-and-error</em> search (i.e., test many possible solutions and use <span class="math notranslate nohighlight">\(\chi^2\)</span> to sort them).</p>
 <section id="least-squares-fitting-linear-regression">
 <h3><span class="section-number">3.5.1. </span>Least-squares Fitting: linear regression<a class="headerlink" href="#least-squares-fitting-linear-regression" title="Permalink to this heading">#</a></h3>
@@ -720,22 +766,32 @@ g(0.5) =  -10.125
 <li><p><span class="math notranslate nohighlight">\(\chi^2 &gt;&gt; N-M_p\)</span>: the model may not be good, you may have underestimated your errors, or your errors have a bias (i.e., not random).</p></li>
 </ul>
 <p>Let’s start with a model that <em>linearly</em> depend on the model parameters:</p>
-<p><span class="math notranslate nohighlight">\(g(x; [a_1,a_2]) = a_1 + a_2x\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[ g(x; [a_1,a_2]) = a_1 + a_2x. \]</div>
 <p>This is simply <em>linear regression</em>: there are <span class="math notranslate nohighlight">\(M_p = 2\)</span> parameters with a slope <span class="math notranslate nohighlight">\(a_2\)</span> and y-intercept <span class="math notranslate nohighlight">\(a_1\)</span>.  Even though there are only two parameters to determine, there still may be a large number <span class="math notranslate nohighlight">\(N\)</span> of data points.  A unique solution is not possible unless the number of data point is equal equal to or greater than the number of parameters (<span class="math notranslate nohighlight">\(N&gt;M_p\)</span>).  For this linear case, there are just two derivatives,</p>
-<p><span class="math notranslate nohighlight">\(\frac{\partial g(x_i)}{\partial a_1} = 1,\;\;\)</span> and <span class="math notranslate nohighlight">\(\frac{\partial g(x_i)}{\partial a_2} = x_i\)</span>,</p>
+<div class="amsmath math notranslate nohighlight" id="equation-9e118b6e-8c03-45cf-b5ed-c87fd9b231a2">
+<span class="eqno">(3.11)<a class="headerlink" href="#equation-9e118b6e-8c03-45cf-b5ed-c87fd9b231a2" title="Permalink to this equation">#</a></span>\[\begin{align}
+\frac{\partial g(x_i)}{\partial a_1} &amp;= 1, \\
+\frac{\partial g(x_i)}{\partial a_2} &amp;= x_i, 
+\end{align}\]</div>
 <p>and after substitution, the <span class="math notranslate nohighlight">\(\chi^2\)</span> minimization equations can be solved:</p>
-<p><span class="math notranslate nohighlight">\(\frac{\partial[\chi^2]}{\partial a_1} = \displaystyle\sum_{i=1}^N \frac{[y_i-a_1-a_2x_i]}{\sigma_i^2} = 0\)</span>,</p>
-<p>and</p>
-<p><span class="math notranslate nohighlight">\(\frac{\partial[\chi^2]}{\partial a_2} = \displaystyle\sum_{i=1}^N \frac{[y_i-a_1-a_2x_i]}{\sigma_i^2}x_i = 0\)</span>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-b95d8d23-0d4c-43e6-86a5-1122e866dd31">
+<span class="eqno">(3.12)<a class="headerlink" href="#equation-b95d8d23-0d4c-43e6-86a5-1122e866dd31" title="Permalink to this equation">#</a></span>\[\begin{align}
+\frac{\partial[\chi^2]}{\partial a_1} &amp;= \sum_{i=1}^N \frac{[y_i-a_1-a_2x_i]}{\sigma_i^2} = 0, \\ 
+\frac{\partial[\chi^2]}{\partial a_2} &amp;= \displaystyle\sum_{i=1}^N \frac{[y_i-a_1-a_2x_i]}{\sigma_i^2}x_i = 0.
+\end{align}\]</div>
 <p>Let’s solve these equations for <span class="math notranslate nohighlight">\(a_1\)</span> and <span class="math notranslate nohighlight">\(a_2\)</span> using the average values (<span class="math notranslate nohighlight">\(\bar{x}\)</span>, <span class="math notranslate nohighlight">\(\bar{y}\)</span>):</p>
-<p><span class="math notranslate nohighlight">\(\bar{y}-a_1-a_2\bar{x} = 0 \rightarrow a_1 = \bar{y} - a_2\bar{x}\)</span>,</p>
-<p>and</p>
-<p><span class="math notranslate nohighlight">\(a_2 = \frac{\sum_i^N (x_i-\bar{x})(y_i-\bar{y})}{\sum_i^N (x_i-\bar{x})^2}\)</span>. (best fit slope)</p>
+<div class="amsmath math notranslate nohighlight" id="equation-18f97ffd-7bd9-40ac-8475-59f0626e9b27">
+<span class="eqno">(3.13)<a class="headerlink" href="#equation-18f97ffd-7bd9-40ac-8475-59f0626e9b27" title="Permalink to this equation">#</a></span>\[\begin{align}
+\bar{y}-a_1-a_2\bar{x} &amp;= 0, \\
+a_1 &amp;= \bar{y} - a_2\bar{x}, \\  
+a_2 &amp;= \frac{\sum_i^N (x_i-\bar{x})(y_i-\bar{y})}{\sum_i^N (x_i-\bar{x})^2}.\quad \text{(best fit slope)}
+\end{align}\]</div>
 <p>See this <a class="reference external" href="https://towardsdatascience.com/linear-regression-using-least-squares-a4c3456e8570">guide</a> for another approach.</p>
 </section>
 <section id="least-squares-fitting-implementation">
 <h3><span class="section-number">3.5.2. </span>Least-Squares Fitting: Implementation<a class="headerlink" href="#least-squares-fitting-implementation" title="Permalink to this heading">#</a></h3>
-<p>Now, the theory behind least squares fitting needs to be interpreted and turned into code.  Part of this exercise will use the <em>curve_fit</em> library from scipy (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html">documentation</a>).  First, let’s import the Ba-137 data and plot it.</p>
+<p>Now, the theory behind least squares fitting needs to be interpreted and turned into code.  Part of this exercise will use the <code class="docutils literal notranslate"><span class="pre">curve_fit</span></code> library from <code class="docutils literal notranslate"><span class="pre">scipy</span></code> (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html">documentation</a>).  First, let’s import the Ba-137 data and plot it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;Ba137_new.txt&quot;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">comments</span><span class="o">=</span><span class="s1">&#39;#&#39;</span><span class="p">,</span><span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -754,7 +810,7 @@ g(0.5) =  -10.125
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">aspect</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
 
-<span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerr</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">yerr</span><span class="p">),</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
@@ -767,40 +823,7 @@ g(0.5) =  -10.125
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="nn">Input In [7],</span> in <span class="ni">&lt;cell line: 17&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">aspect</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">17</span> <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerr</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">500</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="p">)</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.9/site-packages/matplotlib/__init__.py:1433,</span> in <span class="ni">_preprocess_data.&lt;locals&gt;.inner</span><span class="nt">(ax, data, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1430</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1431</span> <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1432</span>     <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1433</span>         <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="n">sanitize_sequence</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1435</span>     <span class="n">bound</span> <span class="o">=</span> <span class="n">new_sig</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1436</span>     <span class="n">auto_label</span> <span class="o">=</span> <span class="p">(</span><span class="n">bound</span><span class="o">.</span><span class="n">arguments</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label_namer</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1437</span>                   <span class="ow">or</span> <span class="n">bound</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label_namer</span><span class="p">))</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.9/site-packages/matplotlib/axes/_axes.py:3601,</span> in <span class="ni">Axes.errorbar</span><span class="nt">(self, x, y, yerr, xerr, fmt, ecolor, elinewidth, capsize, barsabove, lolims, uplims, xlolims, xuplims, errorevery, capthick, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3598</span> <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Default in case of nan</span>
-<span class="g g-Whitespace">   </span><span class="mi">3599</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="o">-</span><span class="n">err</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">res</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="n">err</span><span class="p">))):</span>
-<span class="g g-Whitespace">   </span><span class="mi">3600</span>     <span class="c1"># like err&lt;0, but also works for timedelta and nan.</span>
-<span class="ne">-&gt; </span><span class="mi">3601</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">3602</span>         <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">dep_axis</span><span class="si">}</span><span class="s2">err&#39; must not contain negative values&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3603</span> <span class="c1"># This is like</span>
-<span class="g g-Whitespace">   </span><span class="mi">3604</span> <span class="c1">#     elow, ehigh = np.broadcast_to(...)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3605</span> <span class="c1">#     return dep - elow * ~lolims, dep + ehigh * ~uplims</span>
-<span class="g g-Whitespace">   </span><span class="mi">3606</span> <span class="c1"># except that broadcast_to would strip units.</span>
-<span class="g g-Whitespace">   </span><span class="mi">3607</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">dep</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">row_stack</span><span class="p">([</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">lolims</span><span class="p">),</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">uplims</span><span class="p">])</span> <span class="o">*</span> <span class="n">err</span>
-
-<span class="ne">ValueError</span>: &#39;yerr&#39; must not contain negative values
-</pre></div>
-</div>
-<img alt="../_images/a7b9a5361782fba13156f721f590b2131f0cbeec35572338d127da57944121e0.png" src="../_images/a7b9a5361782fba13156f721f590b2131f0cbeec35572338d127da57944121e0.png" />
+<img alt="../_images/b107b3feb0d557d285dd769e02f933f4d5c5bfe4afca4d4ceae375fefc3eedac.png" src="../_images/b107b3feb0d557d285dd769e02f933f4d5c5bfe4afca4d4ceae375fefc3eedac.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -824,7 +847,7 @@ g(0.5) =  -10.125
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Least-squares Fit for $^</span><span class="si">{137}</span><span class="s2">$Ba Decay&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerr</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">yerr</span><span class="p">),</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">func</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="mi">29375</span><span class="p">,</span><span class="mf">153.1</span><span class="p">),</span><span class="s1">&#39;b--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="s2">&quot;$N_o$ = </span><span class="si">%5i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">popt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;xx-large&#39;</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span><span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
@@ -840,46 +863,18 @@ g(0.5) =  -10.125
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="nn">Input In [8],</span> in <span class="ni">&lt;cell line: 20&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Least-squares Fit for $^</span><span class="si">{137}</span><span class="s2">$Ba Decay&quot;</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">20</span> <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerr</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">func</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="mi">29375</span><span class="p">,</span><span class="mf">153.1</span><span class="p">),</span><span class="s1">&#39;b--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="s2">&quot;$N_o$ = </span><span class="si">%5i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">popt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;xx-large&#39;</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span><span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.9/site-packages/matplotlib/__init__.py:1433,</span> in <span class="ni">_preprocess_data.&lt;locals&gt;.inner</span><span class="nt">(ax, data, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1430</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1431</span> <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1432</span>     <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1433</span>         <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="n">sanitize_sequence</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1435</span>     <span class="n">bound</span> <span class="o">=</span> <span class="n">new_sig</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1436</span>     <span class="n">auto_label</span> <span class="o">=</span> <span class="p">(</span><span class="n">bound</span><span class="o">.</span><span class="n">arguments</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label_namer</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1437</span>                   <span class="ow">or</span> <span class="n">bound</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label_namer</span><span class="p">))</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.9/site-packages/matplotlib/axes/_axes.py:3601,</span> in <span class="ni">Axes.errorbar</span><span class="nt">(self, x, y, yerr, xerr, fmt, ecolor, elinewidth, capsize, barsabove, lolims, uplims, xlolims, xuplims, errorevery, capthick, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3598</span> <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Default in case of nan</span>
-<span class="g g-Whitespace">   </span><span class="mi">3599</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="o">-</span><span class="n">err</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">res</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="n">err</span><span class="p">))):</span>
-<span class="g g-Whitespace">   </span><span class="mi">3600</span>     <span class="c1"># like err&lt;0, but also works for timedelta and nan.</span>
-<span class="ne">-&gt; </span><span class="mi">3601</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">3602</span>         <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">dep_axis</span><span class="si">}</span><span class="s2">err&#39; must not contain negative values&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3603</span> <span class="c1"># This is like</span>
-<span class="g g-Whitespace">   </span><span class="mi">3604</span> <span class="c1">#     elow, ehigh = np.broadcast_to(...)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3605</span> <span class="c1">#     return dep - elow * ~lolims, dep + ehigh * ~uplims</span>
-<span class="g g-Whitespace">   </span><span class="mi">3606</span> <span class="c1"># except that broadcast_to would strip units.</span>
-<span class="g g-Whitespace">   </span><span class="mi">3607</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">dep</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">row_stack</span><span class="p">([</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">lolims</span><span class="p">),</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">uplims</span><span class="p">])</span> <span class="o">*</span> <span class="n">err</span>
-
-<span class="ne">ValueError</span>: &#39;yerr&#39; must not contain negative values
-</pre></div>
-</div>
-<img alt="../_images/4c5751244330e16fc0d327c2078490d004a8cdcad204c325c4b3d7b52fb33931.png" src="../_images/4c5751244330e16fc0d327c2078490d004a8cdcad204c325c4b3d7b52fb33931.png" />
+<img alt="../_images/76e97d65ace38d009c2c05d6ecb746a95c9939efadd12cb5ea66bbca7a937365.png" src="../_images/76e97d65ace38d009c2c05d6ecb746a95c9939efadd12cb5ea66bbca7a937365.png" />
 </div>
 </div>
-<p>We used the <em>curve_fit</em> function from scipy.optimize to generate a best bit curve to the data.  The <em>curve_fit</em> function returns two object: (1) an array of best fit parameters and (2) a matrix estimating the covariance of the parameters.  <strong>What is the covariance?</strong>  Mathematically, it is the mean (or expectation) of the product of the deviations along 2 or more dimensions.  Check out the <a class="reference external" href="https://en.wikipedia.org/wiki/Covariance">wikipedia</a> article for more details.</p>
+<p>We used the <code class="docutils literal notranslate"><span class="pre">curve_fit</span></code> function from <code class="docutils literal notranslate"><span class="pre">scipy.optimize</span></code> to generate a best bit curve to the data.  The <code class="docutils literal notranslate"><span class="pre">curve_fit</span></code> function returns two objects:</p>
+<ol class="arabic simple">
+<li><p>an array of best fit parameters and</p></li>
+<li><p>a matrix estimating the covariance of the parameters.</p></li>
+</ol>
+<p><strong>What is the covariance?</strong>  Mathematically, it is the mean (or expectation) of the product of the deviations along 2 or more dimensions.  Check out the <a class="reference external" href="https://en.wikipedia.org/wiki/Covariance">wikipedia</a> article for more details.</p>
 <p>Recall that the least-squares method is largely <em>trial-and-error</em> that uses the <span class="math notranslate nohighlight">\(\chi^2\)</span> function to sort out the best fit solutions.  Therefore, there are many solutions that <strong>fit</strong> and the best-fit parameters can be tuned against those solutions (i.e., the <span class="math notranslate nohighlight">\(N_o\)</span> can be tweaked and this changes the <span class="math notranslate nohighlight">\(\lambda\)</span>).  Suppose we have two parameters (X,Y), here is an example of some of the possibilities for the covariance:</p>
 <p><img alt="covariance" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Covariance_trends.svg/320px-Covariance_trends.svg.png" /></p>
-<p>The top plot shows a negative slope (or correlation)  in the covariance, where the bottom plot illustrates a positive slope.  The middle plot shows that the two parameters are uncorrelated (i.e., independent).  The <em>curve_fit</em> function returns a 2x2 matrix for the covariance of our decay model with a row and column for <span class="math notranslate nohighlight">\(N_o\)</span> and <span class="math notranslate nohighlight">\(\lambda\)</span>, respectively.  The covariance of a parameter with itself is simply the estimated error in that parameter (e.g., Cov(X,X)=Var(X)=<span class="math notranslate nohighlight">\(\sigma^2_X\)</span>).  In this approach the error is assumed to be Gaussian, meaning that it symmetric in the <span class="math notranslate nohighlight">\(\pm \sigma_x\)</span>.</p>
+<p>The top plot shows a negative slope (or correlation)  in the covariance, where the bottom plot illustrates a positive slope.  The middle plot shows that the two parameters are uncorrelated (i.e., independent).  The <code class="docutils literal notranslate"><span class="pre">curve_fit</span></code> function returns a 2x2 matrix for the covariance of our decay model with a row and column for <span class="math notranslate nohighlight">\(N_o\)</span> and <span class="math notranslate nohighlight">\(\lambda\)</span>, respectively.  The covariance of a parameter with itself is simply the estimated error in that parameter (e.g., Cov(X,X)=Var(X)=<span class="math notranslate nohighlight">\(\sigma^2_X\)</span>).  In this approach the error is assumed to be Gaussian, meaning that it symmetric in the <span class="math notranslate nohighlight">\(\pm \sigma_x\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#The pcov matrix</span>
@@ -909,7 +904,7 @@ g(0.5) =  -10.125
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">func</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">samp_N</span><span class="p">,</span><span class="n">samp_lam</span><span class="p">),</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="c1">#plot best-fit and data</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">func</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="o">*</span><span class="n">popt</span><span class="p">),</span><span class="s1">&#39;b--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerr</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">yerr</span><span class="p">),</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="s2">&quot;$N_o$ = </span><span class="si">%5d</span><span class="s2"> +/- </span><span class="si">%3d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">popt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">sigma_N</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;xx-large&#39;</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span><span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="s2">&quot;$\lambda$ = </span><span class="si">%3.1f</span><span class="s2"> +/- </span><span class="si">%3.1f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">popt</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">sigma_lam</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;xx-large&#39;</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span><span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
@@ -932,51 +927,22 @@ N_o = 29258 +/-  66 particles
 lambda = 153.6 +/- 0.3 sec
 </pre></div>
 </div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="nn">Input In [9],</span> in <span class="ni">&lt;cell line: 28&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="c1">#plot best-fit and data</span>
-<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">func</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="o">*</span><span class="n">popt</span><span class="p">),</span><span class="s1">&#39;b--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">28</span> <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span><span class="n">data_y</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">yerr</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="s2">&quot;$N_o$ = </span><span class="si">%5d</span><span class="s2"> +/- </span><span class="si">%3d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">popt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">sigma_N</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;xx-large&#39;</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span><span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="s2">&quot;$\lambda$ = </span><span class="si">%3.1f</span><span class="s2"> +/- </span><span class="si">%3.1f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">popt</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">sigma_lam</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;xx-large&#39;</span><span class="p">,</span><span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span><span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.9/site-packages/matplotlib/__init__.py:1433,</span> in <span class="ni">_preprocess_data.&lt;locals&gt;.inner</span><span class="nt">(ax, data, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1430</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1431</span> <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1432</span>     <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1433</span>         <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="n">sanitize_sequence</span><span class="p">,</span> <span class="n">args</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1435</span>     <span class="n">bound</span> <span class="o">=</span> <span class="n">new_sig</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1436</span>     <span class="n">auto_label</span> <span class="o">=</span> <span class="p">(</span><span class="n">bound</span><span class="o">.</span><span class="n">arguments</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label_namer</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1437</span>                   <span class="ow">or</span> <span class="n">bound</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label_namer</span><span class="p">))</span>
-
-<span class="nn">File ~/anaconda3/lib/python3.9/site-packages/matplotlib/axes/_axes.py:3601,</span> in <span class="ni">Axes.errorbar</span><span class="nt">(self, x, y, yerr, xerr, fmt, ecolor, elinewidth, capsize, barsabove, lolims, uplims, xlolims, xuplims, errorevery, capthick, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3598</span> <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># Default in case of nan</span>
-<span class="g g-Whitespace">   </span><span class="mi">3599</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="o">-</span><span class="n">err</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">res</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="n">err</span><span class="p">))):</span>
-<span class="g g-Whitespace">   </span><span class="mi">3600</span>     <span class="c1"># like err&lt;0, but also works for timedelta and nan.</span>
-<span class="ne">-&gt; </span><span class="mi">3601</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">3602</span>         <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">dep_axis</span><span class="si">}</span><span class="s2">err&#39; must not contain negative values&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3603</span> <span class="c1"># This is like</span>
-<span class="g g-Whitespace">   </span><span class="mi">3604</span> <span class="c1">#     elow, ehigh = np.broadcast_to(...)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3605</span> <span class="c1">#     return dep - elow * ~lolims, dep + ehigh * ~uplims</span>
-<span class="g g-Whitespace">   </span><span class="mi">3606</span> <span class="c1"># except that broadcast_to would strip units.</span>
-<span class="g g-Whitespace">   </span><span class="mi">3607</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">dep</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">row_stack</span><span class="p">([</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">lolims</span><span class="p">),</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">uplims</span><span class="p">])</span> <span class="o">*</span> <span class="n">err</span>
-
-<span class="ne">ValueError</span>: &#39;yerr&#39; must not contain negative values
-</pre></div>
-</div>
-<img alt="../_images/0a7e9ae35fc0276117ed603f1b1abe2ddd57a579af22ba0fb98952f8dabfe0c0.png" src="../_images/0a7e9ae35fc0276117ed603f1b1abe2ddd57a579af22ba0fb98952f8dabfe0c0.png" />
+<img alt="../_images/74280cc398b43d5796369fa6e0f6e02313dbc719a298f4a4ffb4b438ecd9604c.png" src="../_images/74280cc398b43d5796369fa6e0f6e02313dbc719a298f4a4ffb4b438ecd9604c.png" />
 </div>
 </div>
 </section>
 <section id="maximum-likelihood-estimation">
 <h3><span class="section-number">3.5.3. </span>Maximum Likelihood Estimation<a class="headerlink" href="#maximum-likelihood-estimation" title="Permalink to this heading">#</a></h3>
-<p>Another method of data fitting is to use maximum likelihood estimation (MLE).  This process is heavier on statistics, where I will show the basics.  The advantage of MLE is that you can better estimate the errors in the model parameters, especially when they are non-symmetric.  The good news is there is a python package called <em>emcee</em> or the <em>emcee hammer</em> (see the <a class="reference external" href="https://emcee.readthedocs.io/en/stable/">documentation</a>).  This package allows you to employ different sampling methods and has quickly become a common tool in research (in astronomy).  <strong>To import emcee: it needs to be installed into your python environment through ‘pip install emcee’ or ‘conda install -c conda-forge emcee’ in the terminal.</strong></p>
-<p>The Least-Squares method tries to solve the data fitting problem directly, where MLE takes a different approach.  MLE is concerned with the inverse problem: given the observed data <span class="math notranslate nohighlight">\(x = [x_i]_{i=1}^N\)</span> and a model, find the parameters that yield a probability distribution function (pdf) that is <em>most likely</em> to represent the data.  The Likelihood function <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> is used to determine whether the trial parameters are likely to represent the data.  To sample the probability space more efficiently, the log-Likelihood is used and we can construct a Gaussian that is analogous to <span class="math notranslate nohighlight">\(\chi^2\)</span> by:</p>
-<p><span class="math notranslate nohighlight">\(\log \mathcal{L} = -\frac{1}{2}\displaystyle\sum_{i=1}^N \left[\frac{(y_i-g(x_i,a_m))^2}{\sigma_i^2} + \log(2\pi\sigma_i^2)\right]\)</span>,</p>
-<p>where <span class="math notranslate nohighlight">\(log\)</span> refers to the natural logarithm.  You will notice that this looks much like the <span class="math notranslate nohighlight">\(\chi^2\)</span>, but it contains an extra 1/2 factor and an additional term.  The second term comes from the normalization factor for a Gaussian pdf.  Besides the Likelihood function, there is the <em>prior</em> probability.  Priors are used when you have some prior knowledge about the data you are trying to model.  For example, using our data for Ba-137 we can reasonably suggest that the following condition: <span class="math notranslate nohighlight">\(25000 \leq N_o \leq 50000\)</span>.  We don’t know which value within the interval (25,000–50,000) is more probable and therefore we call this a <strong>uniform</strong> prior, where values outside the conditions are given a penalty.  We can do the same kind of estimation for <span class="math notranslate nohighlight">\(\lambda\)</span> to get: <span class="math notranslate nohighlight">\(75 \leq \lambda \leq 300\)</span>, since lambda is related to the half-life.  Now that we know about the Likelihood function and priors, let’s get coding.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
+<p>Another method of data fitting is to use maximum likelihood estimation (MLE).  This process is heavier on statistics, where I will show the basics.  The advantage of MLE is that you can better estimate the errors in the model parameters, especially when they are non-symmetric.  The good news is there is a python package called <code class="docutils literal notranslate"><span class="pre">emcee</span></code> or the <em>emcee hammer</em> (see the <a class="reference external" href="https://emcee.readthedocs.io/en/stable/">documentation</a>).  This package allows you to employ different sampling methods and has quickly become a common tool in research (in astronomy).</p>
+<p><strong>To import emcee: it needs to be installed into your python environment through ‘pip install emcee’ or ‘conda install -c conda-forge emcee’ in the terminal.</strong>  To install python packages in Google Colab, simply add <code class="docutils literal notranslate"><span class="pre">!</span></code> to the front to get <code class="docutils literal notranslate"><span class="pre">!pip</span> <span class="pre">install</span> <span class="pre">emcee</span></code>.</p>
+<p>The Least-Squares method tries to solve the data fitting problem directly, where MLE takes a different approach.  MLE is concerned with the inverse problem: given the observed data <span class="math notranslate nohighlight">\(x = [x_i]_{i=1}^N\)</span> and a model, find the parameters that yield a probability distribution function (pdf) that is <em>most likely</em> to represent the data.  The Likelihood function <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> is used to determine whether the trial parameters are likely to represent the data.  To sample the probability space more efficiently, the log-likelihood is used and we can construct a Gaussian that is analogous to <span class="math notranslate nohighlight">\(\chi^2\)</span> by:</p>
+<div class="math notranslate nohighlight">
+\[ \log \mathcal{L} = -\frac{1}{2}\displaystyle\sum_{i=1}^N \left[\frac{(y_i-g(x_i,a_m))^2}{\sigma_i^2} + \log(2\pi\sigma_i^2)\right], \]</div>
+<p>where <span class="math notranslate nohighlight">\(log\)</span> refers to the natural logarithm.</p>
+<p>You will notice that this looks much like the <span class="math notranslate nohighlight">\(\chi^2\)</span>, but it contains an extra 1/2 factor and an additional term.  The second term comes from the normalization factor for a Gaussian pdf.</p>
+<p>Besides the Likelihood function, there is the <em>prior</em> probability.  Priors are used when you have some prior knowledge about the data you are trying to model.  For example, using our data for Ba-137 we can reasonably suggest that the following condition: <span class="math notranslate nohighlight">\(25000 \leq N_o \leq 50000\)</span>.  We don’t know which value within the interval (25,000–50,000) is more probable and therefore we call this a <strong>uniform</strong> prior, where values outside the conditions are given a penalty.  We can do the same kind of estimation for <span class="math notranslate nohighlight">\(\lambda\)</span> to get: <span class="math notranslate nohighlight">\(75 \leq \lambda \leq 300\)</span>, since <span class="math notranslate nohighlight">\(\lambda\)</span> is related to the half-life.  Now that we know about the Likelihood function and priors, let’s get coding.</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">emcee</span>
 
 <span class="k">def</span> <span class="nf">log_prob</span><span class="p">(</span><span class="n">a_m</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">yerr</span><span class="p">):</span>
@@ -1025,6 +991,11 @@ lambda = 153.6 +/- 0.3 sec
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|                                                                                                                                  | 0/5000 [00:00&lt;?, ?it/s]
 </pre></div>
@@ -1032,466 +1003,434 @@ lambda = 153.6 +/- 0.3 sec
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/saturnaxis/anaconda3/lib/python3.9/site-packages/emcee/moves/red_blue.py:99: RuntimeWarning: invalid value encountered in double_scalars
   lnpdiff = f + nlp - state.log_prob[j]
 
-  1%|▋                                                                                                                       | 28/5000 [00:00&lt;00:18, 269.43it/s]
+  1%|▉                                                                                                                       | 37/5000 [00:00&lt;00:13, 368.49it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  1%|█▎                                                                                                                      | 55/5000 [00:00&lt;00:20, 242.14it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  1%|█▊                                                                                                                      | 74/5000 [00:00&lt;00:13, 360.83it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  2%|█▉                                                                                                                      | 80/5000 [00:00&lt;00:20, 241.31it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  2%|██▋                                                                                                                    | 111/5000 [00:00&lt;00:13, 356.72it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  2%|██▌                                                                                                                    | 107/5000 [00:00&lt;00:19, 251.52it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  3%|███▍                                                                                                                   | 147/5000 [00:00&lt;00:13, 349.43it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  3%|███▎                                                                                                                   | 137/5000 [00:00&lt;00:18, 265.78it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  4%|████▎                                                                                                                  | 182/5000 [00:00&lt;00:13, 348.75it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  3%|███▉                                                                                                                   | 165/5000 [00:00&lt;00:18, 266.88it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  4%|█████▏                                                                                                                 | 217/5000 [00:00&lt;00:15, 299.59it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  4%|████▌                                                                                                                  | 194/5000 [00:00&lt;00:17, 272.30it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  5%|█████▉                                                                                                                 | 248/5000 [00:00&lt;00:17, 275.70it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  5%|█████▍                                                                                                                 | 227/5000 [00:00&lt;00:16, 289.33it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  6%|██████▌                                                                                                                | 277/5000 [00:00&lt;00:18, 254.60it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  5%|██████▏                                                                                                                | 259/5000 [00:00&lt;00:15, 297.37it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  6%|███████▏                                                                                                               | 304/5000 [00:01&lt;00:18, 248.21it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  6%|██████▉                                                                                                                | 290/5000 [00:01&lt;00:15, 300.30it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  7%|███████▊                                                                                                               | 330/5000 [00:01&lt;00:19, 238.72it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  6%|███████▋                                                                                                               | 321/5000 [00:01&lt;00:16, 285.75it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  7%|████████▍                                                                                                              | 355/5000 [00:01&lt;00:19, 236.03it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  7%|████████▍                                                                                                              | 353/5000 [00:01&lt;00:15, 294.15it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  8%|█████████                                                                                                              | 379/5000 [00:01&lt;00:19, 233.34it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  8%|█████████▏                                                                                                             | 384/5000 [00:01&lt;00:15, 298.29it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  8%|█████████▊                                                                                                             | 413/5000 [00:01&lt;00:17, 262.36it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  8%|█████████▉                                                                                                             | 417/5000 [00:01&lt;00:14, 307.40it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  9%|██████████▌                                                                                                            | 442/5000 [00:01&lt;00:16, 270.03it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  9%|██████████▋                                                                                                            | 451/5000 [00:01&lt;00:14, 313.42it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  9%|███████████▎                                                                                                           | 474/5000 [00:01&lt;00:16, 281.94it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 10%|███████████▍                                                                                                           | 483/5000 [00:01&lt;00:14, 314.18it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 10%|████████████                                                                                                           | 509/5000 [00:01&lt;00:14, 300.99it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 10%|████████████▎                                                                                                          | 517/5000 [00:01&lt;00:13, 320.97it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 11%|████████████▊                                                                                                          | 540/5000 [00:01&lt;00:15, 287.59it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 11%|█████████████                                                                                                          | 550/5000 [00:01&lt;00:13, 320.74it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 11%|█████████████▌                                                                                                         | 572/5000 [00:02&lt;00:14, 296.55it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 12%|█████████████▉                                                                                                         | 583/5000 [00:01&lt;00:13, 318.07it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 12%|██████████████▎                                                                                                        | 603/5000 [00:02&lt;00:14, 298.57it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 12%|██████████████▋                                                                                                        | 615/5000 [00:02&lt;00:15, 289.93it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 13%|███████████████▏                                                                                                       | 638/5000 [00:02&lt;00:13, 312.88it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 13%|███████████████▎                                                                                                       | 645/5000 [00:02&lt;00:15, 274.02it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 13%|████████████████                                                                                                       | 673/5000 [00:02&lt;00:13, 323.29it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 14%|████████████████▏                                                                                                      | 680/5000 [00:02&lt;00:14, 293.06it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 14%|████████████████▊                                                                                                      | 708/5000 [00:02&lt;00:13, 329.35it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 14%|████████████████▉                                                                                                      | 714/5000 [00:02&lt;00:14, 305.39it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 15%|█████████████████▋                                                                                                     | 744/5000 [00:02&lt;00:12, 337.34it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 15%|█████████████████▊                                                                                                     | 746/5000 [00:02&lt;00:13, 308.25it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 16%|██████████████████▌                                                                                                    | 781/5000 [00:02&lt;00:12, 344.50it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 16%|██████████████████▌                                                                                                    | 780/5000 [00:02&lt;00:13, 317.32it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 16%|███████████████████▍                                                                                                   | 816/5000 [00:02&lt;00:12, 344.67it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 16%|███████████████████▎                                                                                                   | 813/5000 [00:02&lt;00:13, 319.78it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 17%|████████████████████▎                                                                                                  | 851/5000 [00:02&lt;00:12, 338.16it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 17%|████████████████████▏                                                                                                  | 846/5000 [00:02&lt;00:13, 313.54it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 18%|█████████████████████                                                                                                  | 885/5000 [00:02&lt;00:13, 295.67it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 18%|████████████████████▉                                                                                                  | 878/5000 [00:03&lt;00:14, 275.06it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 18%|█████████████████████▊                                                                                                 | 916/5000 [00:03&lt;00:14, 282.39it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 18%|█████████████████████▌                                                                                                 | 907/5000 [00:03&lt;00:15, 269.38it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 19%|██████████████████████▋                                                                                                | 951/5000 [00:03&lt;00:13, 299.01it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 19%|██████████████████████▍                                                                                                | 941/5000 [00:03&lt;00:14, 287.24it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 20%|███████████████████████▍                                                                                               | 986/5000 [00:03&lt;00:12, 311.66it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 19%|███████████████████████                                                                                                | 971/5000 [00:03&lt;00:13, 289.02it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 20%|████████████████████████                                                                                              | 1022/5000 [00:03&lt;00:12, 323.56it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 20%|███████████████████████▋                                                                                              | 1002/5000 [00:03&lt;00:13, 292.56it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 21%|████████████████████████▉                                                                                             | 1055/5000 [00:03&lt;00:12, 324.95it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 21%|████████████████████████▍                                                                                             | 1034/5000 [00:03&lt;00:13, 299.19it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 22%|█████████████████████████▋                                                                                            | 1090/5000 [00:03&lt;00:11, 330.96it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 21%|█████████████████████████▏                                                                                            | 1066/5000 [00:03&lt;00:13, 302.30it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 22%|██████████████████████████▌                                                                                           | 1125/5000 [00:03&lt;00:11, 335.10it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 22%|█████████████████████████▉                                                                                            | 1097/5000 [00:03&lt;00:12, 303.89it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 23%|███████████████████████████▍                                                                                          | 1161/5000 [00:03&lt;00:11, 340.59it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 23%|██████████████████████████▋                                                                                           | 1132/5000 [00:03&lt;00:12, 316.52it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 24%|████████████████████████████▏                                                                                         | 1196/5000 [00:03&lt;00:11, 342.36it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 23%|███████████████████████████▌                                                                                          | 1167/5000 [00:03&lt;00:11, 325.23it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 25%|█████████████████████████████                                                                                         | 1232/5000 [00:04&lt;00:10, 345.46it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 24%|████████████████████████████▎                                                                                         | 1201/5000 [00:04&lt;00:11, 329.19it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 25%|█████████████████████████████▉                                                                                        | 1268/5000 [00:04&lt;00:10, 349.50it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 25%|█████████████████████████████                                                                                         | 1234/5000 [00:04&lt;00:11, 323.78it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 26%|██████████████████████████████▊                                                                                       | 1304/5000 [00:04&lt;00:10, 351.70it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 25%|█████████████████████████████▉                                                                                        | 1269/5000 [00:04&lt;00:11, 329.80it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 27%|███████████████████████████████▋                                                                                      | 1341/5000 [00:04&lt;00:10, 356.87it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 26%|██████████████████████████████▊                                                                                       | 1303/5000 [00:04&lt;00:12, 303.20it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 28%|████████████████████████████████▍                                                                                     | 1377/5000 [00:04&lt;00:10, 349.92it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 27%|███████████████████████████████▍                                                                                      | 1334/5000 [00:04&lt;00:13, 280.10it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 28%|█████████████████████████████████▎                                                                                    | 1413/5000 [00:04&lt;00:10, 346.33it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 27%|████████████████████████████████▏                                                                                     | 1365/5000 [00:04&lt;00:12, 287.62it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 29%|██████████████████████████████████▏                                                                                   | 1449/5000 [00:04&lt;00:10, 349.19it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 28%|████████████████████████████████▉                                                                                     | 1395/5000 [00:04&lt;00:12, 288.56it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 30%|███████████████████████████████████                                                                                   | 1484/5000 [00:04&lt;00:10, 348.76it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 29%|█████████████████████████████████▋                                                                                    | 1430/5000 [00:04&lt;00:11, 305.51it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 30%|███████████████████████████████████▊                                                                                  | 1519/5000 [00:04&lt;00:10, 347.62it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 29%|██████████████████████████████████▌                                                                                   | 1463/5000 [00:04&lt;00:11, 312.41it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 31%|████████████████████████████████████▊                                                                                 | 1560/5000 [00:04&lt;00:09, 365.28it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 30%|███████████████████████████████████▎                                                                                  | 1495/5000 [00:05&lt;00:11, 308.97it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 32%|█████████████████████████████████████▋                                                                                | 1597/5000 [00:05&lt;00:09, 361.15it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 31%|████████████████████████████████████                                                                                  | 1527/5000 [00:05&lt;00:11, 308.45it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 33%|██████████████████████████████████████▌                                                                               | 1634/5000 [00:05&lt;00:09, 351.56it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 31%|████████████████████████████████████▊                                                                                 | 1559/5000 [00:05&lt;00:11, 311.06it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 33%|███████████████████████████████████████▍                                                                              | 1670/5000 [00:05&lt;00:09, 351.00it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 32%|█████████████████████████████████████▌                                                                                | 1591/5000 [00:05&lt;00:11, 305.84it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 34%|████████████████████████████████████████▎                                                                             | 1706/5000 [00:05&lt;00:09, 347.59it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 32%|██████████████████████████████████████▎                                                                               | 1622/5000 [00:05&lt;00:11, 296.14it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 35%|█████████████████████████████████████████                                                                             | 1741/5000 [00:05&lt;00:09, 348.21it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 33%|███████████████████████████████████████                                                                               | 1655/5000 [00:05&lt;00:10, 305.36it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 36%|█████████████████████████████████████████▉                                                                            | 1776/5000 [00:05&lt;00:09, 342.23it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 34%|███████████████████████████████████████▊                                                                              | 1688/5000 [00:05&lt;00:10, 310.95it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 36%|██████████████████████████████████████████▊                                                                           | 1813/5000 [00:05&lt;00:09, 348.79it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 34%|████████████████████████████████████████▋                                                                             | 1722/5000 [00:05&lt;00:10, 319.37it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 37%|███████████████████████████████████████████▌                                                                          | 1848/5000 [00:05&lt;00:09, 347.91it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 35%|█████████████████████████████████████████▍                                                                            | 1757/5000 [00:05&lt;00:09, 326.25it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 38%|████████████████████████████████████████████▍                                                                         | 1883/5000 [00:05&lt;00:09, 341.53it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 36%|██████████████████████████████████████████▎                                                                           | 1791/5000 [00:05&lt;00:09, 327.14it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 38%|█████████████████████████████████████████████▎                                                                        | 1918/5000 [00:05&lt;00:09, 325.42it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 36%|███████████████████████████████████████████                                                                           | 1825/5000 [00:06&lt;00:09, 330.11it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 39%|██████████████████████████████████████████████                                                                        | 1951/5000 [00:06&lt;00:10, 281.73it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 37%|███████████████████████████████████████████▊                                                                          | 1859/5000 [00:06&lt;00:09, 323.56it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 40%|██████████████████████████████████████████████▊                                                                       | 1983/5000 [00:06&lt;00:10, 290.44it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 38%|████████████████████████████████████████████▋                                                                         | 1892/5000 [00:06&lt;00:09, 319.91it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 40%|███████████████████████████████████████████████▋                                                                      | 2019/5000 [00:06&lt;00:09, 307.03it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 38%|█████████████████████████████████████████████▍                                                                        | 1925/5000 [00:06&lt;00:09, 315.66it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 41%|████████████████████████████████████████████████▍                                                                     | 2055/5000 [00:06&lt;00:09, 321.20it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 39%|██████████████████████████████████████████████▏                                                                       | 1957/5000 [00:06&lt;00:09, 312.75it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 42%|█████████████████████████████████████████████████▎                                                                    | 2091/5000 [00:06&lt;00:08, 331.98it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 40%|██████████████████████████████████████████████▉                                                                       | 1991/5000 [00:06&lt;00:09, 319.12it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 43%|██████████████████████████████████████████████████▏                                                                   | 2126/5000 [00:06&lt;00:08, 334.96it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 40%|███████████████████████████████████████████████▋                                                                      | 2023/5000 [00:06&lt;00:09, 318.69it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 43%|██████████████████████████████████████████████████▉                                                                   | 2160/5000 [00:06&lt;00:08, 332.75it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 41%|████████████████████████████████████████████████▍                                                                     | 2055/5000 [00:06&lt;00:09, 317.58it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 44%|███████████████████████████████████████████████████▊                                                                  | 2194/5000 [00:06&lt;00:08, 331.37it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 42%|█████████████████████████████████████████████████▎                                                                    | 2087/5000 [00:06&lt;00:09, 311.47it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 45%|████████████████████████████████████████████████████▌                                                                 | 2228/5000 [00:06&lt;00:08, 315.16it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 42%|██████████████████████████████████████████████████                                                                    | 2120/5000 [00:06&lt;00:09, 314.86it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 45%|█████████████████████████████████████████████████████▍                                                                | 2264/5000 [00:07&lt;00:08, 326.01it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 43%|██████████████████████████████████████████████████▊                                                                   | 2152/5000 [00:07&lt;00:09, 295.65it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 46%|██████████████████████████████████████████████████████▎                                                               | 2299/5000 [00:07&lt;00:08, 331.65it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 44%|███████████████████████████████████████████████████▌                                                                  | 2184/5000 [00:07&lt;00:09, 302.15it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 47%|███████████████████████████████████████████████████████                                                               | 2334/5000 [00:07&lt;00:07, 336.87it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 44%|████████████████████████████████████████████████████▎                                                                 | 2216/5000 [00:07&lt;00:09, 304.46it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 47%|███████████████████████████████████████████████████████▉                                                              | 2371/5000 [00:07&lt;00:07, 342.45it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 45%|█████████████████████████████████████████████████████                                                                 | 2250/5000 [00:07&lt;00:08, 313.28it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 48%|████████████████████████████████████████████████████████▊                                                             | 2406/5000 [00:07&lt;00:07, 343.78it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 46%|█████████████████████████████████████████████████████▉                                                                | 2285/5000 [00:07&lt;00:08, 321.45it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 49%|█████████████████████████████████████████████████████████▋                                                            | 2442/5000 [00:07&lt;00:07, 347.34it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 46%|██████████████████████████████████████████████████████▊                                                               | 2321/5000 [00:07&lt;00:08, 329.85it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|██████████████████████████████████████████████████████████▌                                                           | 2479/5000 [00:07&lt;00:07, 352.11it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 47%|███████████████████████████████████████████████████████▌                                                              | 2355/5000 [00:07&lt;00:08, 321.80it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|███████████████████████████████████████████████████████████▎                                                          | 2515/5000 [00:07&lt;00:07, 350.01it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 48%|████████████████████████████████████████████████████████▍                                                             | 2389/5000 [00:07&lt;00:07, 326.97it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 51%|████████████████████████████████████████████████████████████▏                                                         | 2551/5000 [00:07&lt;00:07, 340.45it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 48%|█████████████████████████████████████████████████████████▏                                                            | 2422/5000 [00:07&lt;00:08, 320.37it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 52%|█████████████████████████████████████████████████████████████                                                         | 2587/5000 [00:08&lt;00:06, 345.17it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 49%|█████████████████████████████████████████████████████████▉                                                            | 2455/5000 [00:08&lt;00:07, 322.46it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 52%|█████████████████████████████████████████████████████████████▉                                                        | 2622/5000 [00:08&lt;00:06, 344.03it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|██████████████████████████████████████████████████████████▋                                                           | 2488/5000 [00:08&lt;00:07, 319.41it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 53%|██████████████████████████████████████████████████████████████▋                                                       | 2657/5000 [00:08&lt;00:06, 337.38it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|███████████████████████████████████████████████████████████▌                                                          | 2522/5000 [00:08&lt;00:07, 323.40it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 54%|███████████████████████████████████████████████████████████████▌                                                      | 2692/5000 [00:08&lt;00:06, 339.46it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 51%|████████████████████████████████████████████████████████████▎                                                         | 2556/5000 [00:08&lt;00:07, 326.01it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 55%|████████████████████████████████████████████████████████████████▎                                                     | 2726/5000 [00:08&lt;00:06, 339.10it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 52%|█████████████████████████████████████████████████████████████                                                         | 2589/5000 [00:08&lt;00:07, 318.37it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 55%|█████████████████████████████████████████████████████████████████▏                                                    | 2762/5000 [00:08&lt;00:06, 343.98it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 52%|█████████████████████████████████████████████████████████████▉                                                        | 2623/5000 [00:08&lt;00:07, 324.39it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 56%|██████████████████████████████████████████████████████████████████                                                    | 2799/5000 [00:08&lt;00:06, 348.21it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 53%|██████████████████████████████████████████████████████████████▋                                                       | 2656/5000 [00:08&lt;00:07, 317.11it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 57%|██████████████████████████████████████████████████████████████████▉                                                   | 2836/5000 [00:08&lt;00:06, 353.99it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 54%|███████████████████████████████████████████████████████████████▍                                                      | 2688/5000 [00:08&lt;00:07, 317.13it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 57%|███████████████████████████████████████████████████████████████████▊                                                  | 2872/5000 [00:08&lt;00:06, 348.95it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 54%|████████████████████████████████████████████████████████████████▏                                                     | 2722/5000 [00:08&lt;00:07, 322.04it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 58%|████████████████████████████████████████████████████████████████████▌                                                 | 2907/5000 [00:08&lt;00:06, 346.70it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 55%|█████████████████████████████████████████████████████████████████                                                     | 2755/5000 [00:08&lt;00:06, 320.78it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 59%|█████████████████████████████████████████████████████████████████████▍                                                | 2942/5000 [00:09&lt;00:05, 347.27it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 56%|█████████████████████████████████████████████████████████████████▊                                                    | 2788/5000 [00:09&lt;00:06, 321.11it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 60%|██████████████████████████████████████████████████████████████████████▎                                               | 2978/5000 [00:09&lt;00:05, 349.34it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 56%|██████████████████████████████████████████████████████████████████▌                                                   | 2822/5000 [00:09&lt;00:06, 323.89it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 60%|███████████████████████████████████████████████████████████████████████                                               | 3013/5000 [00:09&lt;00:05, 343.44it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 57%|███████████████████████████████████████████████████████████████████▍                                                  | 2855/5000 [00:09&lt;00:06, 319.19it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 61%|███████████████████████████████████████████████████████████████████████▉                                              | 3049/5000 [00:09&lt;00:05, 345.57it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 58%|████████████████████████████████████████████████████████████████████▏                                                 | 2888/5000 [00:09&lt;00:06, 320.27it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 62%|████████████████████████████████████████████████████████████████████████▊                                             | 3084/5000 [00:09&lt;00:05, 342.35it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 58%|████████████████████████████████████████████████████████████████████▉                                                 | 2921/5000 [00:09&lt;00:06, 321.08it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 62%|█████████████████████████████████████████████████████████████████████████▌                                            | 3119/5000 [00:09&lt;00:05, 344.54it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 59%|█████████████████████████████████████████████████████████████████████▋                                                | 2954/5000 [00:09&lt;00:06, 321.26it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 63%|██████████████████████████████████████████████████████████████████████████▍                                           | 3156/5000 [00:09&lt;00:05, 351.73it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 60%|██████████████████████████████████████████████████████████████████████▍                                               | 2987/5000 [00:09&lt;00:06, 319.54it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 64%|███████████████████████████████████████████████████████████████████████████▎                                          | 3192/5000 [00:09&lt;00:05, 349.45it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 60%|███████████████████████████████████████████████████████████████████████▏                                              | 3019/5000 [00:09&lt;00:06, 316.64it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 65%|████████████████████████████████████████████████████████████████████████████▏                                         | 3227/5000 [00:09&lt;00:05, 307.65it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 61%|████████████████████████████████████████████████████████████████████████                                              | 3054/5000 [00:09&lt;00:05, 324.43it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 65%|████████████████████████████████████████████████████████████████████████████▉                                         | 3259/5000 [00:10&lt;00:06, 283.67it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 62%|████████████████████████████████████████████████████████████████████████▊                                             | 3087/5000 [00:10&lt;00:06, 317.36it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 66%|█████████████████████████████████████████████████████████████████████████████▌                                        | 3289/5000 [00:10&lt;00:06, 275.16it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 62%|█████████████████████████████████████████████████████████████████████████▋                                            | 3120/5000 [00:10&lt;00:05, 320.22it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 66%|██████████████████████████████████████████████████████████████████████████████▎                                       | 3318/5000 [00:10&lt;00:06, 257.85it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 63%|██████████████████████████████████████████████████████████████████████████▍                                           | 3153/5000 [00:10&lt;00:05, 318.18it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 67%|██████████████████████████████████████████████████████████████████████████████▉                                       | 3345/5000 [00:10&lt;00:06, 251.99it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 64%|███████████████████████████████████████████████████████████████████████████▏                                          | 3187/5000 [00:10&lt;00:05, 322.41it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 67%|███████████████████████████████████████████████████████████████████████████████▌                                      | 3371/5000 [00:10&lt;00:07, 229.10it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 64%|███████████████████████████████████████████████████████████████████████████▉                                          | 3220/5000 [00:10&lt;00:05, 321.21it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 68%|████████████████████████████████████████████████████████████████████████████████                                      | 3395/5000 [00:10&lt;00:07, 214.85it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 65%|████████████████████████████████████████████████████████████████████████████▊                                         | 3253/5000 [00:10&lt;00:05, 316.20it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 69%|████████████████████████████████████████████████████████████████████████████████▉                                     | 3429/5000 [00:10&lt;00:06, 244.60it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 66%|█████████████████████████████████████████████████████████████████████████████▌                                        | 3286/5000 [00:10&lt;00:05, 318.92it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 69%|█████████████████████████████████████████████████████████████████████████████████▋                                    | 3463/5000 [00:10&lt;00:05, 268.82it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 66%|██████████████████████████████████████████████████████████████████████████████▎                                       | 3319/5000 [00:10&lt;00:05, 321.02it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 70%|██████████████████████████████████████████████████████████████████████████████████▌                                   | 3499/5000 [00:10&lt;00:05, 293.27it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 67%|███████████████████████████████████████████████████████████████████████████████                                       | 3352/5000 [00:10&lt;00:05, 322.27it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 71%|███████████████████████████████████████████████████████████████████████████████████▍                                  | 3537/5000 [00:11&lt;00:04, 316.66it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 68%|███████████████████████████████████████████████████████████████████████████████▉                                      | 3386/5000 [00:10&lt;00:04, 326.50it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 71%|████████████████████████████████████████████████████████████████████████████████████▎                                 | 3572/5000 [00:11&lt;00:04, 323.38it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 68%|████████████████████████████████████████████████████████████████████████████████▋                                     | 3420/5000 [00:11&lt;00:04, 328.18it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 72%|█████████████████████████████████████████████████████████████████████████████████████                                 | 3605/5000 [00:11&lt;00:04, 320.91it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 69%|█████████████████████████████████████████████████████████████████████████████████▍                                    | 3453/5000 [00:11&lt;00:04, 324.16it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 73%|█████████████████████████████████████████████████████████████████████████████████████▉                                | 3639/5000 [00:11&lt;00:04, 324.20it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 70%|██████████████████████████████████████████████████████████████████████████████████▎                                   | 3486/5000 [00:11&lt;00:04, 325.36it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 73%|██████████████████████████████████████████████████████████████████████████████████████▋                               | 3674/5000 [00:11&lt;00:04, 330.30it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 70%|███████████████████████████████████████████████████████████████████████████████████                                   | 3519/5000 [00:11&lt;00:04, 321.27it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 74%|███████████████████████████████████████████████████████████████████████████████████████▌                              | 3710/5000 [00:11&lt;00:03, 338.88it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 71%|███████████████████████████████████████████████████████████████████████████████████▊                                  | 3552/5000 [00:11&lt;00:04, 317.64it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 75%|████████████████████████████████████████████████████████████████████████████████████████▍                             | 3746/5000 [00:11&lt;00:03, 342.99it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 72%|████████████████████████████████████████████████████████████████████████████████████▌                                 | 3584/5000 [00:11&lt;00:04, 317.77it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 76%|█████████████████████████████████████████████████████████████████████████████████████████▏                            | 3781/5000 [00:11&lt;00:03, 318.98it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 72%|█████████████████████████████████████████████████████████████████████████████████████▎                                | 3616/5000 [00:11&lt;00:04, 316.12it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 76%|██████████████████████████████████████████████████████████████████████████████████████████                            | 3814/5000 [00:11&lt;00:03, 319.22it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 73%|██████████████████████████████████████████████████████████████████████████████████████                                | 3648/5000 [00:11&lt;00:04, 315.74it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 77%|██████████████████████████████████████████████████████████████████████████████████████████▊                           | 3848/5000 [00:12&lt;00:03, 322.69it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 74%|██████████████████████████████████████████████████████████████████████████████████████▊                               | 3680/5000 [00:11&lt;00:04, 314.35it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 78%|███████████████████████████████████████████████████████████████████████████████████████████▌                          | 3881/5000 [00:12&lt;00:03, 299.31it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 74%|███████████████████████████████████████████████████████████████████████████████████████▌                              | 3712/5000 [00:11&lt;00:04, 314.55it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 78%|████████████████████████████████████████████████████████████████████████████████████████████▎                         | 3913/5000 [00:12&lt;00:03, 303.02it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 75%|████████████████████████████████████████████████████████████████████████████████████████▍                             | 3745/5000 [00:12&lt;00:03, 316.37it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 79%|█████████████████████████████████████████████████████████████████████████████████████████████▏                        | 3948/5000 [00:12&lt;00:03, 315.20it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 76%|█████████████████████████████████████████████████████████████████████████████████████████▏                            | 3778/5000 [00:12&lt;00:03, 319.73it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 80%|█████████████████████████████████████████████████████████████████████████████████████████████▉                        | 3980/5000 [00:12&lt;00:03, 309.29it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 76%|█████████████████████████████████████████████████████████████████████████████████████████▉                            | 3810/5000 [00:12&lt;00:03, 308.70it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 80%|██████████████████████████████████████████████████████████████████████████████████████████████▋                       | 4012/5000 [00:12&lt;00:03, 275.64it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 77%|██████████████████████████████████████████████████████████████████████████████████████████▋                           | 3843/5000 [00:12&lt;00:03, 314.45it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 81%|███████████████████████████████████████████████████████████████████████████████████████████████▍                      | 4043/5000 [00:12&lt;00:03, 283.42it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 78%|███████████████████████████████████████████████████████████████████████████████████████████▍                          | 3877/5000 [00:12&lt;00:03, 319.51it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 81%|████████████████████████████████████████████████████████████████████████████████████████████████                      | 4072/5000 [00:12&lt;00:03, 282.36it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 78%|████████████████████████████████████████████████████████████████████████████████████████████▎                         | 3910/5000 [00:12&lt;00:03, 318.81it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 82%|████████████████████████████████████████████████████████████████████████████████████████████████▊                     | 4101/5000 [00:12&lt;00:03, 276.98it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 79%|█████████████████████████████████████████████████████████████████████████████████████████████▏                        | 3946/5000 [00:12&lt;00:03, 327.87it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 83%|█████████████████████████████████████████████████████████████████████████████████████████████████▌                    | 4134/5000 [00:13&lt;00:02, 290.59it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 80%|█████████████████████████████████████████████████████████████████████████████████████████████▉                        | 3979/5000 [00:12&lt;00:03, 322.61it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 83%|██████████████████████████████████████████████████████████████████████████████████████████████████▎                   | 4167/5000 [00:13&lt;00:02, 301.79it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 80%|██████████████████████████████████████████████████████████████████████████████████████████████▋                       | 4012/5000 [00:12&lt;00:03, 315.95it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 84%|███████████████████████████████████████████████████████████████████████████████████████████████████                   | 4198/5000 [00:13&lt;00:02, 300.14it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 81%|███████████████████████████████████████████████████████████████████████████████████████████████▍                      | 4044/5000 [00:13&lt;00:03, 313.88it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 85%|███████████████████████████████████████████████████████████████████████████████████████████████████▊                  | 4229/5000 [00:13&lt;00:02, 301.73it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 82%|████████████████████████████████████████████████████████████████████████████████████████████████▏                     | 4077/5000 [00:13&lt;00:02, 317.32it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 85%|████████████████████████████████████████████████████████████████████████████████████████████████████▌                 | 4261/5000 [00:13&lt;00:02, 302.96it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 82%|█████████████████████████████████████████████████████████████████████████████████████████████████                     | 4111/5000 [00:13&lt;00:02, 320.45it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 86%|█████████████████████████████████████████████████████████████████████████████████████████████████████▎                | 4294/5000 [00:13&lt;00:02, 309.57it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 83%|█████████████████████████████████████████████████████████████████████████████████████████████████▊                    | 4145/5000 [00:13&lt;00:02, 325.59it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 87%|██████████████████████████████████████████████████████████████████████████████████████████████████████▎               | 4335/5000 [00:13&lt;00:01, 338.94it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 84%|██████████████████████████████████████████████████████████████████████████████████████████████████▌                   | 4179/5000 [00:13&lt;00:02, 327.38it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 87%|███████████████████████████████████████████████████████████████████████████████████████████████████████▏              | 4372/5000 [00:13&lt;00:01, 346.21it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 84%|███████████████████████████████████████████████████████████████████████████████████████████████████▍                  | 4212/5000 [00:13&lt;00:02, 327.96it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 88%|████████████████████████████████████████████████████████████████████████████████████████████████████████▏             | 4416/5000 [00:13&lt;00:01, 371.68it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 85%|████████████████████████████████████████████████████████████████████████████████████████████████████▏                 | 4246/5000 [00:13&lt;00:02, 329.26it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 89%|█████████████████████████████████████████████████████████████████████████████████████████████████████████▌            | 4472/5000 [00:13&lt;00:01, 425.88it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 86%|████████████████████████████████████████████████████████████████████████████████████████████████████▉                 | 4279/5000 [00:13&lt;00:02, 321.88it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 91%|██████████████████████████████████████████████████████████████████████████████████████████████████████████▊           | 4526/5000 [00:14&lt;00:01, 456.44it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 86%|█████████████████████████████████████████████████████████████████████████████████████████████████████▊                | 4312/5000 [00:13&lt;00:02, 324.07it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 91%|███████████████████████████████████████████████████████████████████████████████████████████████████████████▉          | 4572/5000 [00:14&lt;00:01, 399.56it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 87%|██████████████████████████████████████████████████████████████████████████████████████████████████████▌               | 4345/5000 [00:13&lt;00:02, 321.01it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 92%|████████████████████████████████████████████████████████████████████████████████████████████████████████████▉         | 4614/5000 [00:14&lt;00:00, 397.28it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 88%|███████████████████████████████████████████████████████████████████████████████████████████████████████▎              | 4378/5000 [00:14&lt;00:01, 320.82it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 93%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████▏       | 4667/5000 [00:14&lt;00:00, 431.73it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 88%|████████████████████████████████████████████████████████████████████████████████████████████████████████              | 4411/5000 [00:14&lt;00:01, 321.40it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 94%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████▏      | 4712/5000 [00:14&lt;00:00, 406.83it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 89%|████████████████████████████████████████████████████████████████████████████████████████████████████████▉             | 4445/5000 [00:14&lt;00:01, 325.89it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 95%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████▏     | 4754/5000 [00:14&lt;00:00, 391.01it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 90%|█████████████████████████████████████████████████████████████████████████████████████████████████████████▋            | 4478/5000 [00:14&lt;00:01, 326.83it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 96%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████▏    | 4795/5000 [00:14&lt;00:00, 395.61it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 90%|██████████████████████████████████████████████████████████████████████████████████████████████████████████▍           | 4511/5000 [00:14&lt;00:01, 324.06it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 97%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████▏   | 4836/5000 [00:14&lt;00:00, 389.45it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 91%|███████████████████████████████████████████████████████████████████████████████████████████████████████████▎          | 4546/5000 [00:14&lt;00:01, 331.41it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 98%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████   | 4878/5000 [00:14&lt;00:00, 397.48it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 92%|████████████████████████████████████████████████████████████████████████████████████████████████████████████          | 4581/5000 [00:14&lt;00:01, 335.60it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 99%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████ | 4960/5000 [00:15&lt;00:00, 517.49it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 92%|████████████████████████████████████████████████████████████████████████████████████████████████████████████▉         | 4615/5000 [00:14&lt;00:01, 331.28it/s]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 93%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████▏       | 4668/5000 [00:14&lt;00:00, 387.11it/s]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 94%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████       | 4707/5000 [00:14&lt;00:00, 375.06it/s]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 95%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████▉      | 4745/5000 [00:15&lt;00:00, 342.83it/s]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 96%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████▊     | 4780/5000 [00:15&lt;00:00, 340.88it/s]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 96%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████▋    | 4815/5000 [00:15&lt;00:00, 318.47it/s]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 97%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████▍   | 4848/5000 [00:15&lt;00:00, 306.38it/s]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 98%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████▏  | 4881/5000 [00:15&lt;00:00, 310.67it/s]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 98%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████▉  | 4915/5000 [00:15&lt;00:00, 317.87it/s]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 99%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▊ | 4948/5000 [00:15&lt;00:00, 320.55it/s]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▌| 4984/5000 [00:15&lt;00:00, 329.60it/s]
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5000/5000 [00:15&lt;00:00, 314.12it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5000/5000 [00:15&lt;00:00, 330.57it/s]
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1504,7 +1443,7 @@ lambda = 153.6 +/- 0.3 sec
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e74ac9f5ebcebd416ea5e6ab6013ab404778307e3e8559cc201bf08f7cd2b307.png" src="../_images/e74ac9f5ebcebd416ea5e6ab6013ab404778307e3e8559cc201bf08f7cd2b307.png" />
+<img alt="../_images/af735290ebca92e9c6a918715043bbb8fb53e03078e78c51f749934fe3510430.png" src="../_images/af735290ebca92e9c6a918715043bbb8fb53e03078e78c51f749934fe3510430.png" />
 </div>
 </div>
 <p>In the above figure (created with <a class="reference external" href="https://corner.readthedocs.io/en/latest/index.html">corner</a>), we recover a result that is consistent with the Least-Squares approach (i.e., overlapping within the 1-sigma errors).  <strong>Note that this result is the raw output and you need to report values with the correct number of significant digits.</strong></p>
@@ -1512,100 +1451,65 @@ lambda = 153.6 +/- 0.3 sec
 </section>
 <section id="problems">
 <h2><span class="section-number">3.6. </span>Problems<a class="headerlink" href="#problems" title="Permalink to this heading">#</a></h2>
+<p>Complete the following problems in a Jupyter notebook, where you will save your results as an external file (*.png).</p>
+<p>Create a <span class="math notranslate nohighlight">\(\LaTeX\)</span> document with:</p>
 <ul class="simple">
-<li><p>Complete the following problems in a Jupyter notebook, where you will save your results as an external file (*.png).</p></li>
-<li><p>Create a LaTex document with:</p>
-<ul>
 <li><p>an abstract summary</p></li>
-<li><p>sections for each problem that state the problem, summarize what you did, and display the results</p></li>
+<li><p>sections for each problem that <strong>state</strong> the problem, <strong>explain</strong> your approach to solving the problem, and <strong>display</strong> the results</p></li>
 <li><p>include a reference for each solution (this can be textbooks)</p></li>
 </ul>
-</li>
-</ul>
-<ol class="arabic">
-<li><p>Consider the set of data points (x, y): {(.69, 4.60), (.12, 3.71), (.21, 3.95), (.63, 4.33), (.66, 4.82), (.53, 4.13), (.84, 5.26)}.<br />
-a) Find the line of least squares fit for this data.<br />
-b) Add 1 to the x-coordinate of each of the points and find the line of least squares fit for this modified data.<br />
-c) Add 1 to the y-coordinate of each of the original points and find the line of least squares fit for this modified data.</p></li>
-<li><p>Consider the following data points:</p>
+<div class="admonition-problem-1 admonition">
+<p class="admonition-title">Problem 1</p>
+<p><strong>Consider the set of data points</strong> (x, y): {(.69, 4.60), (.12, 3.71), (.21, 3.95), (.63, 4.33), (.66, 4.82), (.53, 4.13), (.84, 5.26)}.</p>
+<p><strong>(a)</strong> Find the line of least squares fit for this data.<br />
+<strong>(b)</strong> Add 1 to the x-coordinate of each of the points and find the line of least squares fit for this modified data.<br />
+<strong>(c)</strong> Add 1 to the y-coordinate of each of the original points and find the line of least squares fit for this modified data.</p>
+</div>
+<div class="admonition-problem-2 admonition">
+<p class="admonition-title">Problem 2</p>
+<p><strong>Consider the following data points:</strong></p>
 <table class="table">
 <thead>
-<tr class="row-odd"><th class="head text-center"><p>t</p></th>
-<th class="head text-center"><p>y</p></th>
+<tr class="row-odd"><th class="head"><p>t</p></th>
+<th class="head"><p>y</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-center"><p>0.25</p></td>
-<td class="text-center"><p>1.58</p></td>
+<tr class="row-even"><td><p>0.25</p></td>
+<td><p>1.58</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p>1.88</p></td>
-<td class="text-center"><p>6.35</p></td>
+<tr class="row-odd"><td><p>1.88</p></td>
+<td><p>6.35</p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p>0.56</p></td>
-<td class="text-center"><p>1.77</p></td>
+<tr class="row-even"><td><p>0.56</p></td>
+<td><p>1.77</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p>0.82</p></td>
-<td class="text-center"><p>2.18</p></td>
+<tr class="row-odd"><td><p>0.82</p></td>
+<td><p>2.18</p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p>1.92</p></td>
-<td class="text-center"><p>6.63</p></td>
+<tr class="row-even"><td><p>1.92</p></td>
+<td><p>6.63</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p>0.99</p></td>
-<td class="text-center"><p>2.11</p></td>
+<tr class="row-odd"><td><p>0.99</p></td>
+<td><p>2.11</p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p>1.15</p></td>
-<td class="text-center"><p>3.61</p></td>
+<tr class="row-even"><td><p>1.15</p></td>
+<td><p>3.61</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p>2.09</p></td>
-<td class="text-center"><p>8.91</p></td>
+<tr class="row-odd"><td><p>2.09</p></td>
+<td><p>8.91</p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p>1.47</p></td>
-<td class="text-center"><p>5.07</p></td>
-</tr>
-</tbody>
-</table>
-<p>Find a curve of the form: <span class="math notranslate nohighlight">\(y = a e^{b t}\)</span> that best fits this data.</p>
-</li>
-<li><p>Consider the following data points:</p>
-<table class="table">
-<thead>
-<tr class="row-odd"><th class="head text-center"><p>t</p></th>
-<th class="head text-center"><p>y</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-center"><p>0.25</p></td>
-<td class="text-center"><p>1.58</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p>1.88</p></td>
-<td class="text-center"><p>5.35</p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p>0.56</p></td>
-<td class="text-center"><p>3.77</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p>0.82</p></td>
-<td class="text-center"><p>4.18</p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p>1.92</p></td>
-<td class="text-center"><p>6.63</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p>0.99</p></td>
-<td class="text-center"><p>4.11</p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p>1.15</p></td>
-<td class="text-center"><p>4.61</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p>2.09</p></td>
-<td class="text-center"><p>5.41</p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p>1.47</p></td>
-<td class="text-center"><p>5.07</p></td>
+<tr class="row-even"><td><p>1.47</p></td>
+<td><p>5.07</p></td>
 </tr>
 </tbody>
 </table>
-<p>corresponds to the measurement of two quantities that are known to satisfy a power relationship, <span class="math notranslate nohighlight">\(y = a x^k\)</span>.  Use the method of least squares to find the appropriate values for the constants <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(k\)</span>.  Graph the resulting curve along with the original data.</p>
-</li>
-</ol>
+<p><strong>Find a curve of the form: <span class="math notranslate nohighlight">\(y = a e^{b t}\)</span> that best fits this data.</strong></p>
+</div>
+<div class="admonition-problem-3 admonition">
+<p class="admonition-title">Problem 3</p>
+<p><strong>Consider the data points from Problem 2 corresponds to the measurement of two quantities that are known to satisfy a power relationship, <span class="math notranslate nohighlight">\(y = a x^k\)</span>.</strong>  Use the method of least squares to find the appropriate values for the constants <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(k\)</span>.  Graph the resulting curve along with the original data.</p>
+</div>
 </section>
 </section>
 
