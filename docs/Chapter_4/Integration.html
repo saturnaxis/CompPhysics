@@ -415,36 +415,77 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="integration">
 <h1><span class="section-number">4. </span>Integration<a class="headerlink" href="#integration" title="Permalink to this heading">#</a></h1>
-<p>Numerical integration is a fundamental skill in computational physics because it allows one to evaluate increasingly complex integrals with a high accuracy in seconds to minutes.  If you’ve ever tried to evaluate particularly nasty integrals, you notice that those can take pages of algebra, transformations, and still only get to an approximate form.  It is especially frustrating when one makes algebra mistakes and you have to do it over.  In this chapter, we will review basic integration methods that you’ve learned in Calculus and develop those methods in <em>python</em>.  After reading this chapter, check out some python packages that others have developed to make the process of numerical integration easier to access using <a class="reference external" href="https://github.com/nschloe/quadpy">quadpy</a>.</p>
+<p>Numerical integration is a fundamental skill in computational physics because it allows one to evaluate increasingly complex integrals with a high accuracy <em>in seconds to minutes</em>.  If you’ve ever tried to evaluate particularly nasty integrals, you notice that those can take pages of algebra, transformations, and still only get to an approximate form.  It is especially frustrating when one makes algebraic mistakes and you have to do it over.  In this chapter, we will review basic integration methods that you’ve learned in Calculus and develop those methods in <strong>python</strong>.  After reading this chapter, check out some python packages that others have developed to make the process of numerical integration easier to access using <a class="reference external" href="https://github.com/nschloe/quadpy">quadpy</a>.</p>
 <section id="quadrature-as-box-counting">
 <h2><span class="section-number">4.1. </span>Quadrature as box counting<a class="headerlink" href="#quadrature-as-box-counting" title="Permalink to this heading">#</a></h2>
-<p>The integration of a function usually requires some trickery, where you have to know which variable transformation to apply and when to apply it.  Due to the precise repetitiveness of a computer, an integral can be evaluated in a straightforward manner.  You may recall that you first performed integration by counting the number of boxes, or quadrilaterals, that you could place underneath a curve.  As a result, numerical integration is also called <em>quadrature</em> even when it comes to more complex methods.</p>
+<p>The integration of a function usually requires some trickery, where you have to know which variable transformation to apply and when to apply it.  Due to the precise repetitiveness of a computer, an integral can be evaluated in a straightforward manner.  You may recall that you first performed integration by counting the number of boxes (or quadrilaterals) that you could place beneath a curve.  As a result, numerical integration is also called <em>quadrature</em> even when it comes to more complex methods.</p>
 <p>We’ll start our review with the Riemann definition of an integral, which is given as the limit of the sum over boxes of width <em>h</em>:</p>
-<p><span class="math notranslate nohighlight">\(\displaystyle \int_a^b f(x)dx = \lim_{h\rightarrow 0} \left[h \sum_{i=1}^{(b-a)/h} f(x_i) \right]\)</span>.</p>
-<p><img alt="Integration_Example" src="../_images/integral_example.png" /></p>
-<p>The numercial integral of a fuction <em>f(x)</em> is approximated as the equivalent of a finite sum of quadrilaterals with a height defined as <em>f(x)</em> and width <span class="math notranslate nohighlight">\(w_i\)</span> to get:</p>
-<p><span class="math notranslate nohighlight">\(\displaystyle \int_a^b f(x)dx \simeq \sum_{i=1}^{N} f(x_i)w_i\)</span>. (1)</p>
-<p>You will notice that this is similar to the Riemann definition, but the limit for an infinitesimal box size is removed and the upper limit for the summation is redefined as the number <span class="math notranslate nohighlight">\(N\)</span> of quadrilaterals.  Finally, each of the function values <span class="math notranslate nohighlight">\(f(x_i)\)</span> are weighted by <span class="math notranslate nohighlight">\(w_i\)</span>.  As we make <span class="math notranslate nohighlight">\(N\)</span> larger, the approximation will become more exact but this comes at a cost.  First, a computer holds numbers to a finite precision and some values in <span class="math notranslate nohighlight">\(N\)</span> won’t increase the accuracy of the integration.  Second, we’ll find that more calculations take more wall time and we may have to wait an extremely long time for the integration to finish.  Eventually we have to truncate the sum to get the “best” approximation and we have to remember that we are making a tradeoff.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-66616583-6eba-4550-94a9-5c33473ddf20">
+<span class="eqno">(4.1)<a class="headerlink" href="#equation-66616583-6eba-4550-94a9-5c33473ddf20" title="Permalink to this equation">#</a></span>\[\begin{align}
+\int_a^b f(x)dx = \lim_{h\rightarrow 0} \left[h \sum_{i=1}^{(b-a)/h} f(x_i) \right].
+\end{align}\]</div>
+<figure class="align-default" id="basic-integral-fig">
+<a class="reference internal image-reference" href="../_images/integral_example.png"><img alt="basic integral" src="../_images/integral_example.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.1 </span><span class="caption-text">Illustration of a basic integral with 4 subdivisions. Figure adapted from <a class="reference external" href="https://www.google.com/books/edition/_/RBg-vgAACAAJ?hl">Landau, Paez, &amp; Bordeianu (2007)</a>.</span><a class="headerlink" href="#basic-integral-fig" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The numerical integral of a function <span class="math notranslate nohighlight">\(f(x)\)</span> is approximated as the equivalent of a <em>finite</em> sum of quadrilaterals with a height defined as <span class="math notranslate nohighlight">\(f(x)\)</span> and width <span class="math notranslate nohighlight">\(w_i\)</span> to get:</p>
+<div class="math notranslate nohighlight" id="equation-integral-form">
+<span class="eqno">(4.2)<a class="headerlink" href="#equation-integral-form" title="Permalink to this equation">#</a></span>\[\int_a^b f(x)dx \simeq \sum_{i=1}^{N} f(x_i)w_i.\]</div>
+<p>You will notice that this is similar to the Riemann definition, but the limit for an infinitesimal box size is removed and the upper limit for the summation is redefined as the number <span class="math notranslate nohighlight">\(N\)</span> of quadrilaterals.  Each of the function values <span class="math notranslate nohighlight">\(f(x_i)\)</span> are weighted by <span class="math notranslate nohighlight">\(w_i\)</span>.  As we make <span class="math notranslate nohighlight">\(N\)</span> larger, the approximation will become more exact but this comes at a cost.</p>
+<ol class="arabic simple">
+<li><p>A computer holds numbers to a finite precision and some values in <span class="math notranslate nohighlight">\(N\)</span> won’t increase the accuracy of the integration.</p></li>
+<li><p>We’ll find that more calculations take more wall time (i.e., our time to do work) and we may have to wait an extremely long time for the integration to finish.</p></li>
+</ol>
+<p>Eventually we have to truncate the sum to get the “best” approximation, and we have to remember that we are making a tradeoff.</p>
 <p>Something that you should <strong>never</strong> do is to attempt a numerical integration when the integrand contains a singularity <strong>without</strong> first removing the singularity by hand.  Some ways to remove the singularity is to assign intervals so that the singularity lies at an endpoints or by a change of variable:</p>
-<p><span class="math notranslate nohighlight">\(\displaystyle \int_{-1}^1 |x|f(x)dx = \int_{-1}^0 f(-x)dx + \int_0^1 f(x)dx\)</span>,</p>
-<p>or</p>
-<p><span class="math notranslate nohighlight">\(\displaystyle \int_0^1 x^{1/3}dx = \int_0^1 3y^3,\;\; (y=x^{1/3})\)</span>.</p>
-<p>On the other hand, you might have an integrand that changes very quickly/slowly and scaling the boxes according to the variation may be necessary.  There are several approaches to scale the boxes for your integration and we’ll explore two of them in the following sections: Trapezoidal Rule and Simpson’s Rule that you may recall from Calculus.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-b0c8bea2-fe08-49e7-a4a5-bd6ebe60a818">
+<span class="eqno">(4.3)<a class="headerlink" href="#equation-b0c8bea2-fe08-49e7-a4a5-bd6ebe60a818" title="Permalink to this equation">#</a></span>\[\begin{align}
+\int_{-1}^1 |x|f(x)dx &amp;= \int_{-1}^0 f(-x)dx + \int_0^1 f(x)dx, \\
+\int_0^1 x^{1/3}dx &amp;= \int_0^1 3y^3,\;\; (y=x^{1/3}).
+\end{align}\]</div>
+<p>On the other hand, you might have an integrand that changes very quickly/slowly and scaling the boxes according to the variation may be necessary.  There are several approaches to scale the boxes for your integration and we’ll explore two of them in the following sections:</p>
+<ul class="simple">
+<li><p>Trapezoidal Rule, and</p></li>
+<li><p>Simpson’s Rule</p></li>
+</ul>
+<p>that you may recall from Calculus.</p>
 </section>
 <section id="trapezoidal-rule">
 <h2><span class="section-number">4.2. </span>Trapezoidal Rule<a class="headerlink" href="#trapezoidal-rule" title="Permalink to this heading">#</a></h2>
 <p>The trapezoid integration rule uses <span class="math notranslate nohighlight">\(f(x)\)</span> at <em>evenly</em> spaced values of <span class="math notranslate nohighlight">\(x\)</span>, with <span class="math notranslate nohighlight">\(N\)</span> points.  The first point <span class="math notranslate nohighlight">\(x_1\)</span> locates the left-side boundary and <span class="math notranslate nohighlight">\(x_N\)</span> locates the right-side boundary to form the integration region [<span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_N\)</span>] or [a,b].  The brackets indicate that the endpoints are included and then we can divide up the integration region into <span class="math notranslate nohighlight">\(N-1\)</span> intervals or chunks.  The interval width is defined as <span class="math notranslate nohighlight">\(h\)</span>:</p>
-<p><span class="math notranslate nohighlight">\(h = \frac{b-a}{N-1}\)</span></p>
+<div class="amsmath math notranslate nohighlight" id="equation-9f78d2bb-ddfc-4443-a39c-8160ea1cdbd9">
+<span class="eqno">(4.4)<a class="headerlink" href="#equation-9f78d2bb-ddfc-4443-a39c-8160ea1cdbd9" title="Permalink to this equation">#</a></span>\[\begin{align}
+h = \frac{b-a}{N-1}
+\end{align}\]</div>
 <p>and the location of each point along the interval is defined linearly because each interval has a fixed width.  Thus, we write the iterative formula for <span class="math notranslate nohighlight">\(x_i\)</span> as:</p>
-<p><span class="math notranslate nohighlight">\(x_i = a + (i-1)h,\)</span></p>
+<div class="amsmath math notranslate nohighlight" id="equation-7d310f19-7ea0-46e9-b12a-4c6e498f470b">
+<span class="eqno">(4.5)<a class="headerlink" href="#equation-7d310f19-7ea0-46e9-b12a-4c6e498f470b" title="Permalink to this equation">#</a></span>\[\begin{align}
+x_i = a + (i-1)h,
+\end{align}\]</div>
 <p>where we start our counting at <span class="math notranslate nohighlight">\(i=1\)</span>.  <strong>Does this equation return the left boundary when applying <span class="math notranslate nohighlight">\(i=1\)</span>?  What about the right boundary when <span class="math notranslate nohighlight">\(i=N\)</span>?</strong></p>
-<p><img alt="Trapezoid_Rule" src="../_images/Trap_rule.png" /></p>
+<figure class="align-default" id="trap-rule-fig">
+<a class="reference internal image-reference" href="../_images/Trap_rule.png"><img alt="Trapezoidal rule" src="../_images/Trap_rule.png" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.2 </span><span class="caption-text">Straight line sections are used to approximate the area under the curve via the trapezoidal rule. Figure adapted from <a class="reference external" href="https://www.google.com/books/edition/_/RBg-vgAACAAJ?hl">Landau, Paez, &amp; Bordeianu (2007)</a>.</span><a class="headerlink" href="#trap-rule-fig" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The trapezoid rule takes each integration interval and constructs a trapezoid of width <span class="math notranslate nohighlight">\(h\)</span>.  Recall the area of a trapezoid is the average height of the two (long) parallel sides multiplied by the width.  To define the height for each side, we evaluate the function <span class="math notranslate nohighlight">\(f(x)\)</span> at boundary points for the given interval, <span class="math notranslate nohighlight">\(f(x_i)\)</span> and <span class="math notranslate nohighlight">\(f(x_{i+1})\)</span>.  The area of each such trapezoid is:</p>
-<p><span class="math notranslate nohighlight">\(\displaystyle \int_{x_i}^{x_{i+1}} f(x)dx \simeq \frac{f(x_i)+f(x_{i+1})}{2}h\)</span>.</p>
-<p>In terms of our standard integration formula (Eq. 1 in Section 3.1), the weights <span class="math notranslate nohighlight">\(w_i = 1/2\)</span>.  To apply the trapezoidal rule to the entire integration region [a,b], we simply add the contributions from each interval:</p>
-<p><span class="math notranslate nohighlight">\(\displaystyle \int_a^b f(x)dx \simeq \left[\frac{h}{2}a + \frac{h}{2}f(x_2)\right] + \left[\frac{h}{2}f(x_2) + \frac{h}{2}f(x_3)\right] + \cdots + \left[\frac{h}{2}f(x_{N-1}) + \frac{h}{2}b\right]\)</span>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-679b941c-4871-4c89-87a7-5612d2a7e41c">
+<span class="eqno">(4.6)<a class="headerlink" href="#equation-679b941c-4871-4c89-87a7-5612d2a7e41c" title="Permalink to this equation">#</a></span>\[\begin{align}
+\int_{x_i}^{x_{i+1}} f(x)dx \simeq \frac{f(x_i)+f(x_{i+1})}{2}h.
+\end{align}\]</div>
+<p>In terms of our standard integration formula (Eq. <a class="reference internal" href="#equation-integral-form">(4.2)</a>), the weights <span class="math notranslate nohighlight">\(w_i = 1/2\)</span>.  To apply the trapezoidal rule to the entire integration region [a,b], we simply add the contributions from each interval:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-e482e171-d89e-4a20-9eaa-6ee616df0430">
+<span class="eqno">(4.7)<a class="headerlink" href="#equation-e482e171-d89e-4a20-9eaa-6ee616df0430" title="Permalink to this equation">#</a></span>\[\begin{align}
+\int_a^b f(x)dx \simeq \left[\frac{h}{2}a + \frac{h}{2}f(x_2)\right] + \left[\frac{h}{2}f(x_2) + \frac{h}{2}f(x_3)\right] + \cdots + \left[\frac{h}{2}f(x_{N-1}) + \frac{h}{2}b\right].
+\end{align}\]</div>
 <p>You will notice that some interval points are counted twice as the end of one interval and as the beginning of the next, whereas the endpoints are just counted once.  We could now define all the weights for our standard function as:</p>
-<p><span class="math notranslate nohighlight">\(w_i = \left[\frac{h}{2},h,\cdots,h,\frac{h}{2} \right]\)</span>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-241fca1a-4600-48ad-9488-665dac6f0535">
+<span class="eqno">(4.8)<a class="headerlink" href="#equation-241fca1a-4600-48ad-9488-665dac6f0535" title="Permalink to this equation">#</a></span>\[\begin{align}
+w_i = \left[\frac{h}{2},h,\cdots,h,\frac{h}{2} \right].
+\end{align}\]</div>
 <p>These weights combine the double counted intervals (<span class="math notranslate nohighlight">\(h/2 + h/2 = h\)</span>).  Now let’s turn this mathematical rule into code.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -477,7 +518,7 @@ document.write(`
    <span class="n">tot_sum</span> <span class="o">+=</span> <span class="n">func</span><span class="p">(</span><span class="n">x_i</span><span class="p">)</span><span class="o">*</span><span class="n">func_weight</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">h</span><span class="p">)</span> 
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; Total sum = &#39;</span><span class="p">,</span> <span class="n">tot_sum</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Analytical sum = &quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mf">3.</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Analytical sum = &quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mf">3.</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
@@ -492,28 +533,65 @@ document.write(`
 </div>
 </div>
 </div>
-<p>In the code, we can see each of the elements of the trapezoid rule. Most importantly, you should notice that the standard integration formula includes a summation <span class="math notranslate nohighlight">\(\Sigma\)</span> and in code that translates into a <em>for loop</em>.  Everything else maps directly to what you might expect.  The analytical sum is also calculated because the function <span class="math notranslate nohighlight">\(f(x) = x^2\)</span> and we know its integral is evaluated as <span class="math notranslate nohighlight">\(x^3/3\)</span> at the interval boundaries.  <strong>Why are the values not equal?</strong>  <strong>What happens if we increase the value of <span class="math notranslate nohighlight">\(N\)</span>?</strong></p>
+<p>In the code, we can see each of the elements of the trapezoid rule. Most importantly, you should notice that the standard integration formula includes a summation <span class="math notranslate nohighlight">\(\Sigma\)</span> and in code that translates into a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop.  Everything else maps directly to what you might expect.  The analytical sum is also calculated because the function <span class="math notranslate nohighlight">\(f(x) = x^2\)</span> and we know its integral is evaluated as <span class="math notranslate nohighlight">\(x^3/3\)</span> at the interval boundaries.  <strong>Why are the values not equal?</strong>  <strong>What happens if we increase the value of <span class="math notranslate nohighlight">\(N\)</span>?</strong></p>
 </section>
 <section id="simpson-s-rule">
 <h2><span class="section-number">4.3. </span>Simpson’s Rule<a class="headerlink" href="#simpson-s-rule" title="Permalink to this heading">#</a></h2>
 <p>Simpson’s integration rule approximates the integrand <span class="math notranslate nohighlight">\(f(x)\)</span> by a parabola instead of a trapezoid:</p>
-<p><span class="math notranslate nohighlight">\(f(x) \simeq \alpha x^2 + \beta x + \gamma\)</span>,</p>
-<p>with equally spaced intervals and (<span class="math notranslate nohighlight">\(\alpha,\beta,\gamma\)</span>) are the to be determined weights.  We can calculate the area under the parabola for each interval as:</p>
-<p><span class="math notranslate nohighlight">\(\displaystyle \int_{x_i}^(x_i+h) (\alpha x^2 + \beta x + \gamma)dx = \frac{\alpha x^3}{3} + \frac{\beta x^2}{2} + \gamma x \biggr\rvert_{x_i}^{x_i+h}\)</span>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-b806680c-05e1-4872-8866-e3f34fff95a8">
+<span class="eqno">(4.9)<a class="headerlink" href="#equation-b806680c-05e1-4872-8866-e3f34fff95a8" title="Permalink to this equation">#</a></span>\[\begin{align}
+f(x) \simeq \alpha x^2 + \beta x + \gamma,
+\end{align}\]</div>
+<p>with equally spaced intervals, where weights are <span class="math notranslate nohighlight">\(\alpha,\ \beta,\)</span> and  <span class="math notranslate nohighlight">\(\gamma\)</span>.  We can calculate the area under the parabola for each interval as:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2b4a45c1-0050-4402-a402-60686a18c857">
+<span class="eqno">(4.10)<a class="headerlink" href="#equation-2b4a45c1-0050-4402-a402-60686a18c857" title="Permalink to this equation">#</a></span>\[\begin{align}
+\int_{x_i}^{x_i+h} (\alpha x^2 + \beta x + \gamma)dx = \frac{\alpha x^3}{3} + \frac{\beta x^2}{2} + \gamma x \biggr\rvert_{x_i}^{x_i+h}.
+\end{align}\]</div>
 <p>To determine the weights, let’s use the interval [-1,1] and the integral becomes:</p>
-<p><span class="math notranslate nohighlight">\(\displaystyle \int_{-1}^1 (\alpha x^2 + \beta x + \gamma)dx = \frac{2\alpha}{3} + 2\gamma\)</span>. (2)</p>
-<p>But we know that <span class="math notranslate nohighlight">\(f(0) = \gamma\)</span>, <span class="math notranslate nohighlight">\(f(1) = \alpha + \beta + \gamma\)</span>, and <span class="math notranslate nohighlight">\(f(-1) = \alpha - \beta + \gamma\)</span>.  The weight <span class="math notranslate nohighlight">\(\alpha\)</span> can be determined by <span class="math notranslate nohighlight">\(f(1)\)</span> + <span class="math notranslate nohighlight">\(f(-1)\)</span> because the <span class="math notranslate nohighlight">\(\beta\)</span> cancels and <span class="math notranslate nohighlight">\(\gamma\)</span> is known directly.  The weight <span class="math notranslate nohighlight">\(\beta\)</span> can be determined in a similar manner but through the difference to get the <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\gamma\)</span> to cancel.  Thus, we find:</p>
-<p><span class="math notranslate nohighlight">\(\alpha = \frac{f(1) + f(-1)}{2} - \gamma\)</span>, <span class="math notranslate nohighlight">\(\beta = \frac{f(1) - f(-1)}{2}\)</span>, <span class="math notranslate nohighlight">\(\gamma = f(0)\)</span>.</p>
-<p>Now, we can substitute into Equation 2 the values for the weights, but in terms of function evaluations over three points:</p>
-<p><span class="math notranslate nohighlight">\(\displaystyle \int_{-1}^1 (\alpha x^2 + \beta x + \gamma)dx = \frac{f(1)}{3}  + \frac{4f(0)}{3} + \frac{f(-1)}{3}\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-simpson-int">
+<span class="eqno">(4.11)<a class="headerlink" href="#equation-simpson-int" title="Permalink to this equation">#</a></span>\[\int_{-1}^1 (\alpha x^2 + \beta x + \gamma)dx = \frac{2\alpha}{3} + 2\gamma. \]</div>
+<p>But we know that</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+f(0) &amp;= \gamma, \\
+f(1) &amp;= \alpha + \beta + \gamma, \\
+f(-1) &amp;= \alpha - \beta + \gamma. 
+\end{align*}\]</div>
+<p>The weight <span class="math notranslate nohighlight">\(\alpha\)</span> can be determined by <span class="math notranslate nohighlight">\(f(1) + f(-1)\)</span> because the <span class="math notranslate nohighlight">\(\beta\)</span> cancels and <span class="math notranslate nohighlight">\(\gamma\)</span> is known directly.  The weight <span class="math notranslate nohighlight">\(\beta\)</span> can be determined in a similar manner but through the difference to get the <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\gamma\)</span> to cancel.  Thus, we find:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2a61c373-65fb-42ca-8631-abc4fe7c2e86">
+<span class="eqno">(4.12)<a class="headerlink" href="#equation-2a61c373-65fb-42ca-8631-abc4fe7c2e86" title="Permalink to this equation">#</a></span>\[\begin{align}
+\alpha &amp;= \frac{f(1) + f(-1)}{2} - \gamma, \\
+\beta &amp;= \frac{f(1) - f(-1)}{2}, \\
+\gamma &amp;= f(0).
+\end{align}\]</div>
+<p>Now, we can substitute the values for the weights into Eq. <a class="reference internal" href="#equation-simpson-int">(4.11)</a>, but in terms of function evaluations over three points:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-c85cccb2-641a-4f39-abc0-0015f17d536b">
+<span class="eqno">(4.13)<a class="headerlink" href="#equation-c85cccb2-641a-4f39-abc0-0015f17d536b" title="Permalink to this equation">#</a></span>\[\begin{align}
+\int_{-1}^1 (\alpha x^2 + \beta x + \gamma)dx = \frac{f(1)}{3}  + \frac{4f(0)}{3} + \frac{f(-1)}{3}.
+\end{align}\]</div>
 <p>Since three points were required, we generalize this solution to include the two endpoints of a given interval and the midpoint (which lies at <span class="math notranslate nohighlight">\(x_i + h/2\)</span>).  This can be written ast the following integral:</p>
-<p><span class="math notranslate nohighlight">\(\displaystyle \int_{x_i-h}^{x_i + h} f(x)dx = \int_{x_i}^{x_i+h/2} f(x) dx + \int_{x_i+h/2}^{x_i+h} f(x) dx = \frac{\alpha x^3}{3} + \frac{\beta x^2}{2} + \gamma x \biggr\rvert_{x_i}^{x_i+h/2} + \frac{\alpha x^3}{3} + \frac{\beta x^2}{2} + \gamma x \biggr\rvert_{x_i+h/2}^{x_i+h}\)</span></p>
+<div class="amsmath math notranslate nohighlight" id="equation-b05444f6-118c-4512-ba5a-8fce99802342">
+<span class="eqno">(4.14)<a class="headerlink" href="#equation-b05444f6-118c-4512-ba5a-8fce99802342" title="Permalink to this equation">#</a></span>\[\begin{align}
+\int_{x_i-h}^{x_i + h} f(x)dx &amp;= \int_{x_i}^{x_i+h/2} f(x) dx + \int_{x_i+h/2}^{x_i+h} f(x) dx, \\
+&amp;= \frac{\alpha x^3}{3} + \frac{\beta x^2}{2} + \gamma x \biggr\rvert_{x_i}^{x_i+h/2} + \frac{\alpha x^3}{3} + \frac{\beta x^2}{2} + \gamma x \biggr\rvert_{x_i+h/2}^{x_i+h},
+\end{align}\]</div>
 <p>or</p>
-<p><span class="math notranslate nohighlight">\(\displaystyle \int_{x_i-h}^{x_i + h} f(x)dx \simeq \frac{h}{6}f(x_{i}) + \frac{4h}{6}f(x_{i}+h/2) + \frac{h}{6}f(x_{i+1})\)</span>,</p>
-<p>where the first point <span class="math notranslate nohighlight">\(x_{i}\)</span> takes the place of -1 and the next point <span class="math notranslate nohighlight">\(x_{i+1}\)</span> takes the place of the +1.  Simpson’s rule requires the integration to be over <em>pairs of intervals</em> because it uses 3 points.  This implies that the total number of points <span class="math notranslate nohighlight">\(N\)</span> be odd and the total number of intervals <span class="math notranslate nohighlight">\(N-1\)</span> is even.  To apply Simpson’s rule over the entire integration region, we just add up all of the intervals.  Here, the points (<span class="math notranslate nohighlight">\(f(x_1)\)</span> and <span class="math notranslate nohighlight">\(f(x_N)\)</span>) are counted once, the points in between (<span class="math notranslate nohighlight">\(f(x_2),\ldots,f(x_{N-1})\)</span> are counted twice, and the midpoints <span class="math notranslate nohighlight">\(f((x_i + x_{i+1})/2)\)</span> are counted once to get:</p>
-<p><span class="math notranslate nohighlight">\(\displaystyle \int_a^b f(x)dx \simeq \left[ \frac{h}{6}f(x_{1}) + \frac{4h}{6}f\left(\frac{x_1+x_2}{2}\right) + \frac{h}{6}f(x_{2})\right] + \left[ \frac{h}{6}f(x_{2}) + \frac{4h}{6}f\left(\frac{x_2+x_3}{2}\right) + \frac{h}{6}f(x_{3})\right]  + \cdots + \left[ \frac{h}{6}f(x_{N-1}) +\frac{4h}{6}f\left(\frac{x_{N-1}+x_N}{2}\right)+ \frac{h}{6}f(x_{N})\right]\)</span></p>
+<div class="amsmath math notranslate nohighlight" id="equation-59dfeffd-f442-46fa-915d-46cce9e2882c">
+<span class="eqno">(4.15)<a class="headerlink" href="#equation-59dfeffd-f442-46fa-915d-46cce9e2882c" title="Permalink to this equation">#</a></span>\[\begin{align}
+\int_{x_i-h}^{x_i + h} f(x)dx \simeq \frac{h}{6}f(x_{i}) + \frac{4h}{6}f(x_{i}+h/2) + \frac{h}{6}f(x_{i+1}),
+\end{align}\]</div>
+<p>where the first point <span class="math notranslate nohighlight">\(x_{i}\)</span> takes the place of <span class="math notranslate nohighlight">\(-1\)</span> and the next point <span class="math notranslate nohighlight">\(x_{i+1}\)</span> takes the place of the <span class="math notranslate nohighlight">\(+1\)</span>.</p>
+<p>Simpson’s rule requires the integration to be over <em>pairs of intervals</em> because it uses 3 points.  This implies that the <em>total number of points <span class="math notranslate nohighlight">\(N\)</span> be odd</em> and the <em>total number of intervals <span class="math notranslate nohighlight">\(N-1\)</span> is even</em>.  To apply Simpson’s rule over the entire integration region, we just add up all of the intervals.</p>
+<p>Here, the points (<span class="math notranslate nohighlight">\(f(x_1)\)</span> and <span class="math notranslate nohighlight">\(f(x_N)\)</span>) are counted once, the points in between <span class="math notranslate nohighlight">\((f(x_2),\ldots,f(x_{N-1})\)</span> are counted twice, and the midpoints <span class="math notranslate nohighlight">\(f((x_i + x_{i+1})/2)\)</span> are counted once to get:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-437ec635-d1d0-4b13-9c1e-64855a4e3c6b">
+<span class="eqno">(4.16)<a class="headerlink" href="#equation-437ec635-d1d0-4b13-9c1e-64855a4e3c6b" title="Permalink to this equation">#</a></span>\[\begin{align}
+\int_a^b f(x)dx \simeq \left[ \frac{h}{6}f(x_{1}) + \frac{4h}{6}f\left(\frac{x_1+x_2}{2}\right) + \frac{h}{6}f(x_{2})\right] + \left[ \frac{h}{6}f(x_{2}) + \frac{4h}{6}f\left(\frac{x_2+x_3}{2}\right) + \frac{h}{6}f(x_{3})\right]  + \cdots + \left[ \frac{h}{6}f(x_{N-1}) +\frac{4h}{6}f\left(\frac{x_{N-1}+x_N}{2}\right)+ \frac{h}{6}f(x_{N})\right]
+\end{align}\]</div>
 <p>or</p>
-<p><span class="math notranslate nohighlight">\(\displaystyle \int_a^b f(x)dx \simeq \frac{1}{2}\sum_{i=1}^{N-1} \frac{h}{3}\left[ f(x_{i}) + 4f\left(\frac{x_i+x_{i+1}}{2}\right) + f(x_{i+1})\right]\)</span></p>
+<div class="amsmath math notranslate nohighlight" id="equation-bf1bd71d-f4c6-4458-8385-ebc9ab86ac5d">
+<span class="eqno">(4.17)<a class="headerlink" href="#equation-bf1bd71d-f4c6-4458-8385-ebc9ab86ac5d" title="Permalink to this equation">#</a></span>\[\begin{align}
+\int_a^b f(x)dx \simeq \frac{1}{2}\sum_{i=1}^{N-1} \frac{h}{3}\left[ f(x_{i}) + 4f\left(\frac{x_i+x_{i+1}}{2}\right) + f(x_{i+1})\right].
+\end{align}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#SimpMethods;  Simpson&#39;s integration of a function</span>
@@ -539,7 +617,7 @@ document.write(`
    <span class="n">tot_sum</span> <span class="o">+=</span> <span class="p">(</span><span class="n">h</span><span class="o">/</span><span class="mf">6.</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">x_left</span><span class="p">)</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">func</span><span class="p">(</span><span class="n">x_mid</span><span class="p">)</span><span class="o">+</span><span class="n">func</span><span class="p">(</span><span class="n">x_right</span><span class="p">))</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; Total sum = &#39;</span><span class="p">,</span> <span class="n">tot_sum</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Analytical sum = &quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mf">3.</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Analytical sum = &quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mf">3.</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
@@ -553,31 +631,39 @@ document.write(`
 </section>
 <section id="gaussian-quadrature">
 <h2><span class="section-number">4.4. </span>Gaussian Quadrature<a class="headerlink" href="#gaussian-quadrature" title="Permalink to this heading">#</a></h2>
-<p>The Trapezoid Rule and Simpson’s Rule use equidistant points and weights, which is adequate for some cases.  But, we can generalize those methods by relaxing the requirement for equidistant points.  Recall that our standard integration formula is composed of a set of chosen points <span class="math notranslate nohighlight">\(x_i\)</span> and corresponding weights <span class="math notranslate nohighlight">\(w_i\)</span>.  There is not a law stating that the <span class="math notranslate nohighlight">\(x_i\)</span> points should be chosen a particular way.  In Gaussian quadrature methods,</p>
+<p>The Trapezoid Rule and Simpson’s Rule use equidistant points and weights, which is adequate for some cases.  But, we can generalize those methods by relaxing the requirement for equidistant points.  Recall that our standard integration formula is composed of a set of chosen points <span class="math notranslate nohighlight">\(x_i\)</span> and corresponding weights <span class="math notranslate nohighlight">\(w_i\)</span>.  There is <strong>not</strong> a law stating that the <span class="math notranslate nohighlight">\(x_i\)</span> points should be chosen a particular way.  In Gaussian quadrature methods,</p>
 <ul class="simple">
-<li><p>we choose a series of points from a complex function that can be represented as a series of polynomials (Legendre, Laguerre, etc.)</p></li>
-<li><p>the benefit is that these functions can be solved on the interval [-1,1] exactly</p></li>
-<li><p>perform a variable transformation to <strong>map</strong> the known solution onto the unknown solution [-1,1]–&gt;[a,b]</p></li>
-<li><p>the error is reduced because the approximation is more exact</p></li>
+<li><p>we choose a series of points from a complex function that can be represented as a series of polynomials (e.g., Legendre, Laguerre, etc.),</p></li>
+<li><p>the benefit is that these functions can be solved on the interval [-1,1] exactly,</p></li>
+<li><p>perform a variable transformation to <strong>map</strong> the known solution onto the unknown solution [-1,1]–&gt;[a,b],</p></li>
+<li><p>the error is reduced because the approximation is more exact.</p></li>
 </ul>
 <p>Let’s start with an example.  We want to select points and weights using only 2 points within the integration region.  From this goal, we write:</p>
-<p><span class="math notranslate nohighlight">\(\displaystyle \int_{-1}^1 f(x)dx = w_1f(x_1) + w_2f(x_2)\)</span>,</p>
-<p>where there will be some number of polynomials of degree (2n+1) and n=1.  We set up equations for all polynomials from degree 0 to (2n + 1)</p>
-<ul class="simple">
-<li><p>degree 0:  <span class="math notranslate nohighlight">\(f(x) = 1\)</span>;  <span class="math notranslate nohighlight">\(w_1 + w_2 = \displaystyle \int_{-1}^{1} 1dx = 2\)</span></p></li>
-<li><p>degree 1:  <span class="math notranslate nohighlight">\(f(x) = x\)</span>;  <span class="math notranslate nohighlight">\(w_1x_1 + w_2x_2 = \displaystyle \int_{-1}^{1} xdx = 0\)</span></p></li>
-<li><p>degree 2:  <span class="math notranslate nohighlight">\(f(x) = x^2\)</span>;  <span class="math notranslate nohighlight">\(w_1x_1^2 + w_2x_2^2 = \displaystyle \int_{-1}^{1} x^2dx = 2/3\)</span></p></li>
-<li><p>degree 3:  <span class="math notranslate nohighlight">\(f(x) = x^3\)</span>;  <span class="math notranslate nohighlight">\(w_1x_3^2 + w_2x_3^2 = \displaystyle \int_{-1}^{1} x^3dx = 0\)</span></p></li>
-</ul>
+<div class="amsmath math notranslate nohighlight" id="equation-200a77d3-5a8e-4508-be67-70a729d89710">
+<span class="eqno">(4.18)<a class="headerlink" href="#equation-200a77d3-5a8e-4508-be67-70a729d89710" title="Permalink to this equation">#</a></span>\[\begin{align}
+\int_{-1}^1 f(x)dx = w_1f(x_1) + w_2f(x_2),
+\end{align}\]</div>
+<p>where there will be some number of polynomials of degree <span class="math notranslate nohighlight">\((2n+1)\)</span> and <span class="math notranslate nohighlight">\(n=1\)</span>.  We set up equations for all polynomials from degree <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\((2n + 1)\)</span></p>
+<div class="amsmath math notranslate nohighlight" id="equation-b3417cef-d103-4c2e-84d4-f1a9b5d0aeae">
+<span class="eqno">(4.19)<a class="headerlink" href="#equation-b3417cef-d103-4c2e-84d4-f1a9b5d0aeae" title="Permalink to this equation">#</a></span>\[\begin{align}
+\text{degree 0:} &amp;\quad f(x) = 1;&amp;  w_1 + w_2 = \int_{-1}^{1} 1dx = 2, \\
+\text{degree 1:} &amp;\quad f(x) = x;&amp;  w_1x_1 + w_2x_2 = \int_{-1}^{1} xdx = 0, \\
+\text{degree 2:} &amp;\quad f(x) = x^2;&amp; w_1x_1^2 + w_2x_2^2 = \int_{-1}^{1} x^2dx = 2/3, \\
+\text{degree 3:} &amp;\quad f(x) = x^3;&amp; w_1x_3^2 + w_2x_3^2 = \int_{-1}^{1} x^3dx = 0.
+\end{align}\]</div>
 <p>Now we have 4 equations and 4 unknowns.  Through some algebra, we can find that</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(w_1 = w_2 = 1\)</span> (not that surprising from degree 0)</p></li>
 <li><p><span class="math notranslate nohighlight">\(x_1 = -1/\sqrt{3}\)</span> (from degree 2)</p></li>
 <li><p><span class="math notranslate nohighlight">\(x_2 = 1/\sqrt{3}\)</span> (from degree 2; other root)</p></li>
 </ul>
-<p>This turns out to be the beginning of a known procedure using <a class="reference external" href="https://mathworld.wolfram.com/Legendre-GaussQuadrature.html">Legendre polynomials</a>. Now we have to apply a mapping.  The easiest map is from [-1,1]–&gt;[a,b] uniformly, which uses the midpoint = <span class="math notranslate nohighlight">\((a+b)/2\)</span>.  Thus, we can get the mapped points <span class="math notranslate nohighlight">\(x_i^\prime\)</span>, <span class="math notranslate nohighlight">\(w_i^\prime\)</span> through a linear transformation:</p>
-<p><span class="math notranslate nohighlight">\(x_i^\prime = \frac{b+a}{2} + \frac{b-a}{2}x_i\)</span>  and  <span class="math notranslate nohighlight">\(w_i^\prime = \frac{b-a}{2}w_i\)</span>.</p>
-<p>Other mappings can be found in the textbook: <em>Computational Physics - Landau, Paez, &amp; Bordeianu</em>.  Let’s turn this into some code and see how well it does.</p>
+<p>This is the beginning of a known procedure using <a class="reference external" href="https://mathworld.wolfram.com/Legendre-GaussQuadrature.html">Legendre polynomials</a>. Now we have to apply a mapping.  The easiest map is from [-1,1]–&gt;[a,b] uniformly, which uses the midpoint = <span class="math notranslate nohighlight">\((a+b)/2\)</span>.  Thus, we can get the mapped points <span class="math notranslate nohighlight">\(x_i^\prime\)</span>, <span class="math notranslate nohighlight">\(w_i^\prime\)</span> through a linear transformation:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-b968bdf3-5700-4845-bde9-0e6376c4e5be">
+<span class="eqno">(4.20)<a class="headerlink" href="#equation-b968bdf3-5700-4845-bde9-0e6376c4e5be" title="Permalink to this equation">#</a></span>\[\begin{align}
+x_i^\prime &amp;= \frac{b+a}{2} + \frac{b-a}{2}x_i, \\
+w_i^\prime &amp;= \frac{b-a}{2}w_i.
+\end{align}\]</div>
+<p>Other mappings can be found in the textbook: <a class="reference external" href="https://www.google.com/books/edition/_/RBg-vgAACAAJ?hl"><strong>Computational Physics: Problem Solving with Computers</strong></a>.  Let’s turn this into some code and see how well it does.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#IntegGauss.py: Gaussian quadrature up to degree 4 points and weights</span>
@@ -624,7 +710,7 @@ document.write(`
     <span class="n">tot_sum</span> <span class="o">+=</span> <span class="n">w_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">func</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; Total sum = &#39;</span><span class="p">,</span> <span class="n">tot_sum</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Analytical sum = &quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mf">3.</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Analytical sum = &quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mf">3.</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
@@ -639,14 +725,21 @@ document.write(`
 </section>
 <section id="integration-error">
 <h2><span class="section-number">4.5. </span>Integration Error<a class="headerlink" href="#integration-error" title="Permalink to this heading">#</a></h2>
-<p>If you value your own time, then you should choose an integration rule that gives an accurate answer using the least number of integration points.  Simply, fewer integration steps implies that less work needs to be done by the computer and you obtain your result faster.  Additionally, you want an accurate answer and you must realize that we are obtaining estimates of the true answer.  Computers are able to store a finite set of numbers and this results in <em>errors</em>.  We obtain a crude estimate of the <em>approximation</em> or <em>algorithmic error <span class="math notranslate nohighlight">\(\varepsilon\)</span></em> and the <em>relative error <span class="math notranslate nohighlight">\(\epsilon\)</span></em> by expanding <span class="math notranslate nohighlight">\(f(x)\)</span> in a Taylor series around the midpoint of the integration interval.  The error is multiplied by the number of intervals for the entire integration region [a,b].  This is straightforward for the Trapezoid and Simpson rules because use equidistant intervals.  This process yields:</p>
-<p><span class="math notranslate nohighlight">\(\varepsilon_{\rm Trap} = O\left(\frac{[b-a]^3}{12N^2}\right)f^{\prime\prime}\)</span> <a class="reference external" href="https://en.wikipedia.org/wiki/Trapezoidal_rule">Trapezoidal Rule</a></p>
-<p>and</p>
-<p><span class="math notranslate nohighlight">\(\varepsilon_{\rm Simp} \sim O\left(\frac{[b-a]^5}{N^4}\right)f^{\prime\prime\prime\prime}\)</span> <a class="reference external" href="https://en.wikipedia.org/wiki/Simpson%27s_rule">Simpsons Rule</a>,</p>
+<p>If you value your own time, then you should choose an integration rule that gives an accurate answer using the least number of integration points.  Simply, fewer integration steps implies that less work needs to be done by the computer and you obtain your result faster.  Additionally, you want an accurate answer and you must realize that we are obtaining estimates of the true answer.  Computers are able to store a finite set of numbers and this results in <em>errors</em>.  We obtain a crude estimate of the <em>approximation</em> or <em>algorithmic error <span class="math notranslate nohighlight">\(\varepsilon\)</span></em> and the <em>relative error <span class="math notranslate nohighlight">\(\epsilon\)</span></em> by expanding <span class="math notranslate nohighlight">\(f(x)\)</span> in a Taylor series around the midpoint of the integration interval.  The error is multiplied by the number of intervals for the entire integration region [a,b].  This is straightforward for the <a class="reference external" href="https://en.wikipedia.org/wiki/Trapezoidal_rule">Trapezoid</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Simpson%27s_rule">Simpson</a> rules because use equidistant intervals.  This process yields:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-84c175f8-6d6e-41f7-9687-a24bdd0e3d44">
+<span class="eqno">(4.21)<a class="headerlink" href="#equation-84c175f8-6d6e-41f7-9687-a24bdd0e3d44" title="Permalink to this equation">#</a></span>\[\begin{align}
+\varepsilon_{\rm Trap} &amp;= O\left(\frac{[b-a]^3}{12N^2}\right)f^{\prime\prime},\qquad \text{(Trapezoidal Rule)} \\
+\varepsilon_{\rm Simp} &amp;\sim O\left(\frac{[b-a]^5}{N^4}\right)f^{\prime\prime\prime\prime}. \qquad \text{(Simpsons Rule)}
+\end{align}\]</div>
 <p>for the approximation errors and the relative error is simply:</p>
-<p><span class="math notranslate nohighlight">\(\epsilon_{\rm Trap} = \varepsilon_{\rm Trap}/f^\prime\)</span>  and <span class="math notranslate nohighlight">\(\epsilon_{\rm Simp} = \varepsilon_{\rm Simp}/f^\prime\)</span>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-b9039dbf-a8c0-44ed-8566-3a09e9ed37cd">
+<span class="eqno">(4.22)<a class="headerlink" href="#equation-b9039dbf-a8c0-44ed-8566-3a09e9ed37cd" title="Permalink to this equation">#</a></span>\[\begin{align}
+\epsilon_{\rm Trap} &amp;= \varepsilon_{\rm Trap}/f^\prime, \\
+\epsilon_{\rm Simp} &amp;= \varepsilon_{\rm Simp}/f^\prime.
+\end{align}\]</div>
 <p>A more sophisticated integration rule leads to an error that decreases rapidly (due to the higher power of <span class="math notranslate nohighlight">\(N\)</span>) and is proportional to higher derivatives of <span class="math notranslate nohighlight">\(f\)</span>.  In most cases, we should expect Simpson’s rule to converge more rapidly than the Trapezoid rule.</p>
-<p>Another source of error is the <em>round-off</em> error, which we assume is random and can thus take the form <span class="math notranslate nohighlight">\(\epsilon_{\rm ro} \simeq \sqrt{N}\epsilon_m\)</span>.  The <span class="math notranslate nohighlight">\(\epsilon_m\)</span> represents machine precision, which is <span class="math notranslate nohighlight">\(\epsilon \sim 10^{-15}\)</span> for double precision (the standard for science).  You can find more on data types <a class="reference external" href="https://jakevdp.github.io/PythonDataScienceHandbook/02.01-understanding-data-types.html">here</a>.  Assuming double precision, we want to determin an <span class="math notranslate nohighlight">\(N\)</span> that minimizes the total error (round-off + approximation), <span class="math notranslate nohighlight">\(\epsilon_{\rm tot} \simeq \epsilon_{ro} + \varepsilon\)</span>.  This occurs when the approximation error (which depends on <span class="math notranslate nohighlight">\(N\)</span>) approaches the round-off error.  Through some clever scaling, we find that</p>
+<p>Another source of error is the <em>round-off</em> error, which we assume is random and can thus take the form <span class="math notranslate nohighlight">\(\epsilon_{\rm ro} \simeq \sqrt{N}\epsilon_m\)</span>.  The <span class="math notranslate nohighlight">\(\epsilon_m\)</span> represents machine precision, which is <span class="math notranslate nohighlight">\(\epsilon \sim 10^{-15}\)</span> for double precision (the standard for science).  You can find more on data types <a class="reference external" href="https://jakevdp.github.io/PythonDataScienceHandbook/02.01-understanding-data-types.html">here</a>.</p>
+<p>Assuming double precision, we want to determine an <span class="math notranslate nohighlight">\(N\)</span> that minimizes the total error (round-off + approximation), <span class="math notranslate nohighlight">\(\epsilon_{\rm tot} \simeq \epsilon_{ro} + \varepsilon\)</span>.  This occurs when the approximation error (which depends on <span class="math notranslate nohighlight">\(N\)</span>) approaches the round-off error.  Through some clever scaling, we find that</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(N \sim 10^6\)</span> for the Trapezoid rule</p></li>
 <li><p><span class="math notranslate nohighlight">\(N \sim 2000\)</span> for Simpson’s rule.</p></li>
@@ -670,7 +763,10 @@ document.write(`
 <li><p>Assuming that you threw the pebbles randomly enough, the number of pebbles falling into the pond should be proportional to the area of the pond <span class="math notranslate nohighlight">\(A_{\rm pond}\)</span>.</p></li>
 </ol>
 <p>The fraction of pebbles that splash in the pond relative to the total number of pebbles tells you the area within a unit box.  Multiplying by the area of the box <span class="math notranslate nohighlight">\(A_{\rm box}\)</span> in the natural units, then allows you to find the area of the pond:</p>
-<p><span class="math notranslate nohighlight">\(A_{\rm pond} = \frac{N_{\rm pond}}{N_{\rm pond}+N_{\rm box}}A_{\rm box}\)</span>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-48eff65d-a2e8-4fb2-940d-723f03a6c6c4">
+<span class="eqno">(4.23)<a class="headerlink" href="#equation-48eff65d-a2e8-4fb2-940d-723f03a6c6c4" title="Permalink to this equation">#</a></span>\[\begin{align}
+A_{\rm pond} = \frac{N_{\rm pond}}{N_{\rm pond}+N_{\rm box}}A_{\rm box}.
+\end{align}\]</div>
 <p>Let’s use the sampling technique to perform a 2D integration to determine <span class="math notranslate nohighlight">\(\pi\)</span> (in code!) assuming a circular pond</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -709,18 +805,15 @@ document.write(`
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">2.8</span><span class="p">,</span><span class="mf">3.4</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Trial Number&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Estimate of $\pi$&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Estimate of $\pi$&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[3.08 3.28 3.   3.32 3.04 3.12 3.04 3.24 3.16 3.12]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[3.16 2.88 3.24 3.08 3.16 3.   3.56 3.   3.12 3.28]
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Estimate of $\\pi$&#39;)
-</pre></div>
-</div>
-<img alt="../_images/83624341b765a9ba612d14ff938e433ee0d0edad9c473da986c6ca05882d5515.png" src="../_images/83624341b765a9ba612d14ff938e433ee0d0edad9c473da986c6ca05882d5515.png" />
+<img alt="../_images/f8387957102f0e00c0eabefa4a18c1f2d8dce23c55f560314abb3b7093f4ca5e.png" src="../_images/f8387957102f0e00c0eabefa4a18c1f2d8dce23c55f560314abb3b7093f4ca5e.png" />
 </div>
 </div>
 <p>We found a <em>very</em> approximate value for <span class="math notranslate nohighlight">\(\pi\)</span>.  Think about how we can improve the accuracy.</p>
@@ -733,42 +826,50 @@ document.write(`
 <section id="integrating-by-mean-value">
 <h2><span class="section-number">4.7. </span>Integrating by Mean Value<a class="headerlink" href="#integrating-by-mean-value" title="Permalink to this heading">#</a></h2>
 <p>In the previous section, we integrated using random values.  You might be thinking, how did that even work?  It is the standard Monte Carlo (random value) technique, which is based on the <em>mean value theorem</em> from Calculus.  Here’s the equation in case you’ve forgotten:</p>
-<p><span class="math notranslate nohighlight">\(I = \displaystyle \int_a^b f(x)dx = (b-a)&lt;f&gt;\)</span>.</p>
-<p>The theorem states: the value of the integral of some function <span class="math notranslate nohighlight">\(f(x)\)</span> over the interval from <span class="math notranslate nohighlight">\(a\)</span> to <span class="math notranslate nohighlight">\(b\)</span> equals the length of the interval <span class="math notranslate nohighlight">\((b-a)\)</span> multiplied by the mean value of the function <span class="math notranslate nohighlight">\(&lt;f&gt;\)</span> over that interval.  More simply, it states that the same area can exist under a complicated curve and within the simplest curve (a horizontal line).</p>
-<p><img alt="mean_value_visual" src="Chapter_4/mean-value-integrals-visual" /></p>
+<div class="amsmath math notranslate nohighlight" id="equation-6d4d8ecf-ed4a-4167-84c7-68011c794c3b">
+<span class="eqno">(4.24)<a class="headerlink" href="#equation-6d4d8ecf-ed4a-4167-84c7-68011c794c3b" title="Permalink to this equation">#</a></span>\[\begin{align}
+I = \int_a^b f(x)dx = (b-a)\left&lt;f\right&gt;.
+\end{align}\]</div>
+<p>The theorem states: the value of the integral of some function <span class="math notranslate nohighlight">\(f(x)\)</span> over the interval from <span class="math notranslate nohighlight">\(a\)</span> to <span class="math notranslate nohighlight">\(b\)</span> equals the length of the interval <span class="math notranslate nohighlight">\((b-a)\)</span> multiplied by the mean value of the function <span class="math notranslate nohighlight">\(\left&lt;f\right&gt;\)</span> over that interval.  More simply, it states that the same area can exist under a complicated curve and within the simplest curve (a horizontal line).</p>
+<p><img alt="mean_value_visual" src="../_images/mean-value-integrals-visual.png" /></p>
 <p>The integration algorithm uses Monte Carlo techniques to evaluate the mean, which can be written as a summation by:</p>
-<p><span class="math notranslate nohighlight">\(&lt;f&gt; \simeq \frac{1}{N} \displaystyle \sum_{i=1}^N f(x_i)\)</span>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-d8037e0a-b8be-4f50-9452-1a061c4925aa">
+<span class="eqno">(4.25)<a class="headerlink" href="#equation-d8037e0a-b8be-4f50-9452-1a061c4925aa" title="Permalink to this equation">#</a></span>\[\begin{align}
+\left&lt;f\right&gt; \simeq \frac{1}{N} \sum_{i=1}^N f(x_i).
+\end{align}\]</div>
 <p>This gives the very simple integration rule:</p>
-<p><span class="math notranslate nohighlight">\(\displaystyle \int_a^b f(x)dx \simeq \frac{b-a}{N} \sum_{i=1}^N f(x_i) = (b-a)&lt;f&gt;\)</span>.</p>
-<p>This looks like our standard algorithm (<span class="math notranslate nohighlight">\(\sum_i f(x_i)w_i\)</span>), where the points are chosen randomly and with uniform weights <span class="math notranslate nohighlight">\(w_i = (b-a)/N\)</span>.  This method is not very efficient (i.e., it can take a large N to converge), but it is simple.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-aed84c82-7ae7-41c9-882f-b257cfd7f210">
+<span class="eqno">(4.26)<a class="headerlink" href="#equation-aed84c82-7ae7-41c9-882f-b257cfd7f210" title="Permalink to this equation">#</a></span>\[\begin{align} 
+\int_a^b f(x)dx \simeq \frac{b-a}{N} \sum_{i=1}^N f(x_i) = (b-a)\left&lt;f\right&gt;.
+\end{align}\]</div>
+<p>This looks like our standard algorithm <span class="math notranslate nohighlight">\((\sum_i f(x_i)w_i)\)</span>, where the points are chosen randomly and with uniform weights <span class="math notranslate nohighlight">\(w_i = (b-a)/N\)</span>.  This method is not very efficient (i.e., it can take a large N to converge), but it is simple.</p>
 </section>
 <section id="problems">
 <h2><span class="section-number">4.8. </span>Problems<a class="headerlink" href="#problems" title="Permalink to this heading">#</a></h2>
+<p>Complete the following problems in a Jupyter notebook, where you will save your results as an external file (*.png).</p>
+<p>Create a <span class="math notranslate nohighlight">\(\LaTeX\)</span> document with:</p>
 <ul class="simple">
-<li><p>Complete the following problems in a Jupyter notebook, where you will save your results as an external file (*.png) as needed.</p></li>
-<li><p>Create a LaTex document with:</p>
-<ul>
 <li><p>an abstract summary</p></li>
-<li><p>sections for each problem that state the problem, summarize what you did, and display the results</p></li>
+<li><p>sections for each problem that <strong>state</strong> the problem, <strong>explain</strong> your approach to solving the problem, and <strong>display</strong> the results</p></li>
 <li><p>include a reference for each solution (this can be textbooks)</p></li>
 </ul>
-</li>
-</ul>
-<ol class="arabic">
-<li><p>Evaluate the following integrals using the a) Trapezoid rule, b) Simpson’s Rule, and c) Gaussian quadrature.  Include a graph showing each function and shade the area.  Vary the number of intervals needed to give an ‘acceptable’ answer.  In your submitted work, describe your procedure for varying the intervals, how many were required for each method, and explain why each methods require more/less than the others.</p>
-<p>a. <span class="math notranslate nohighlight">\(\displaystyle \int_0^{\pi/2} \cos x dx\)</span></p>
-<p>b. <span class="math notranslate nohighlight">\(\displaystyle \int_1^3 1/x^2 dx\)</span></p>
-<p>c. <span class="math notranslate nohighlight">\(\displaystyle \int_2^4 x^2 + x + 1 dx\)</span></p>
-</li>
-<li><p>Write a Python program to study projectile motion without air resistance using Simpson’s rule.  Then apply your program to the following scenario:</p>
-<ul class="simple">
-<li><p>You are a pirate cannoneer and your Captain (<em>Hector Barbossa</em>) has ordered you to fire the cannon to begin the siege of Port Royal.  Your Captain wants a short battle, where the British armory is destroyed first and he can begin pillaging right away to find a big hat. Thus, you must make a direct hit on the first shot.  The cannon has a muzzle speed of about 200 m/s and the firing deck is 50 m above sea level.  The Captain has anchored 2000 m off shore relative to the fort walls for the initial battle.  The armory is located at sea level an additional 57 m beyond the fort walls.</p></li>
-</ul>
-<p>a.  At what angle (from the horizontal) must you fire the cannon to hit the armory?</p>
-<p>b.  What is the maximum height (from sea level) will the cannon fly?</p>
-<p>c.  Compare your results to expectations from theory (i.e., the kinematics you learned in pirate school).  Plot the trajectory (x,y), maximum height, and range determined from your program along with analytic values.</p>
-</li>
+<div class="admonition-problem-1 admonition">
+<p class="admonition-title">Problem 1</p>
+<p><strong>Evaluate the following integrals using the a) Trapezoid rule, b) Simpson’s Rule, and c) Gaussian quadrature.</strong>  Include a graph showing each function and shade the area.  Vary the number of intervals needed to give an ‘acceptable’ answer.  In your submitted work, describe your procedure for varying the intervals, create a table summarizing how many intervals were required for each method, and explain why each method(s) require more/less than the others.</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\displaystyle \int_0^{\pi/2} \cos x dx\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\displaystyle \int_1^3 1/x^2 dx\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\displaystyle \int_2^4 x^2 + x + 1 dx\)</span></p></li>
 </ol>
+</div>
+<div class="admonition-problem-2 admonition">
+<p class="admonition-title">Problem 2</p>
+<p><strong>Write a Python program to study projectile motion without air resistance using Simpson’s rule.</strong>  Then apply your program to the following scenario:</p>
+<p>You are a pirate cannoneer and your Captain (<em>Hector Barbossa</em>) has ordered you to fire the cannon to begin the siege of Port Royal.  Your Captain wants a short battle, where the British armory is destroyed first and he can begin pillaging right away to find a big hat. Thus, you must make a direct hit on the first shot.  The cannon has a muzzle speed of about 200 m/s and the firing deck is 50 m above sea level.  The Captain has anchored 2000 m off shore relative to the fort walls for the initial battle.  The armory is located at sea level an additional 57 m beyond the fort walls.</p>
+<p><strong>(a)</strong>  At what angle (from the horizontal) must you fire the cannon to hit the armory?</p>
+<p><strong>(b)</strong>  What is the maximum height (from sea level) will the cannon fly?</p>
+<p><strong>(c)</strong>  Compare your results to expectations from theory (i.e., the kinematics you learned in pirate school).  Plot the trajectory (x,y), maximum height, and range determined from your program along with analytic values.</p>
+</div>
 </section>
 </section>
 
