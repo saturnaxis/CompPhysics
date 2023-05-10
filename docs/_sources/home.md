@@ -21,9 +21,9 @@ The final project will be assigned by the instructor at midterm on one of the fo
 will consist of a longer (3000 words) paper detailing the project, and a 15 minute oral (slide) presentation explaining the project to our peers.
 
 ## Other Useful links
-- An awesome [list of resources](https://github.com/jonathansick/awesome-astronomy) for professional astronomers 
-- [Astrobetter](https://www.astrobetter.com/): Tips and Tricks for Professional Astronomers 
-- [Astrobites](https://astrobites.org/): astro-ph reader's digest 
+- [Landau Computational Physics Course](https://www.youtube.com/playlist?list=PLnWQ_pnPVzmJnp794rQXIcwJIjwy7Nb2U)
+- Peter Young's [course](https://young.physics.ucsc.edu/115/) at UCSC
+- [Computational Physics](https://farside.ph.utexas.edu/teaching/329/329.pdf) by Richard Fitzpatrick at UT Austin
 - [Arxiv:astro-ph](https://arxiv.org/archive/astro-ph) preprint server 
 
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
