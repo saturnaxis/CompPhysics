@@ -412,24 +412,24 @@ document.write(`
 <h1><span class="section-number">6. </span>Ordinary Differential Equations (ODEs)<a class="headerlink" href="#ordinary-differential-equations-odes" title="Permalink to this heading">#</a></h1>
 <p>If you give an object (e.g., large wooden rabbit) some initial velocity <span class="math notranslate nohighlight">\(v\)</span> over a castle wall, then you will note that the vertical component of velocity gradually decreases.  Eventually, the vertical velocity component changes direction and the object (or wooden rabbit) impacts the ground with a speed roughly equal to the speed it had when it left.</p>
 <p>This example probably reminds you of the kinematics that you learned in your introductory physics course.  Resurrecting that prior knowledge wil assist you to develop intuitions to setup and solve ordinary differential equations (ODEs) numerically.  Through kinematics, we define an acceleration <span class="math notranslate nohighlight">\(\vec{a}\)</span> as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-81b33d8e-0cf8-43aa-80e2-96e555b61632">
-<span class="eqno">(6.1)<a class="headerlink" href="#equation-81b33d8e-0cf8-43aa-80e2-96e555b61632" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-e9037eb3-da51-4913-94ca-462cf1c6c732">
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-e9037eb3-da51-4913-94ca-462cf1c6c732" title="Permalink to this equation">#</a></span>\[\begin{align}
 \vec{a} = \frac{d\vec{v}}{dt},
 \end{align}\]</div>
 <p>or</p>
-<div class="amsmath math notranslate nohighlight" id="equation-bde72c0e-48aa-4001-a28d-4dfd4e118d71">
-<span class="eqno">(6.2)<a class="headerlink" href="#equation-bde72c0e-48aa-4001-a28d-4dfd4e118d71" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-0dc7b852-4a5f-40a5-8b23-b3e4c345227c">
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-0dc7b852-4a5f-40a5-8b23-b3e4c345227c" title="Permalink to this equation">#</a></span>\[\begin{align}
 d\vec{v} = \vec{a} dt, 
 \end{align}\]</div>
 <p>with finite steps <span class="math notranslate nohighlight">\(d \rightarrow \Delta\)</span>.</p>
 <p>However, we can perform a <a class="reference external" href="https://en.wikipedia.org/wiki/Galilean_transformation">Galilean transformation</a> to make this result more general, which incorporates the initial velocity <span class="math notranslate nohighlight">\(v_o\)</span> and then we can estimate the new velocity (given that we can calculate <span class="math notranslate nohighlight">\(a\)</span>).  Mathematically, this is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-fbfef560-2bb4-471d-8b47-39423098db5f">
-<span class="eqno">(6.3)<a class="headerlink" href="#equation-fbfef560-2bb4-471d-8b47-39423098db5f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-05bbd550-9dec-468f-bae1-9f1e87ee8d1e">
+<span class="eqno">(6.3)<a class="headerlink" href="#equation-05bbd550-9dec-468f-bae1-9f1e87ee8d1e" title="Permalink to this equation">#</a></span>\[\begin{align}
 \vec{v} = \vec{v}_o + \vec{a}\Delta t.
 \end{align}\]</div>
 <p>Eventually, we’ll want to change this into code.  This is much easier if we write the above equation as a <a class="reference external" href="https://en.wikipedia.org/wiki/Recurrence_relation">recurrence relation</a>, where the next value can be determined by the previous one:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f2aede0e-7224-430a-90d1-1fe34a04ce4c">
-<span class="eqno">(6.4)<a class="headerlink" href="#equation-f2aede0e-7224-430a-90d1-1fe34a04ce4c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-6230e965-94dc-44a4-bbf5-02c577217417">
+<span class="eqno">(6.4)<a class="headerlink" href="#equation-6230e965-94dc-44a4-bbf5-02c577217417" title="Permalink to this equation">#</a></span>\[\begin{align}
 \vec{v}_{i+1} = \vec{v}_i + \frac{d\vec{v}}{dt}\Delta t.
 \end{align}\]</div>
 <div class="admonition note">
@@ -437,15 +437,15 @@ d\vec{v} = \vec{a} dt,
 <p>The index <span class="math notranslate nohighlight">\(i\)</span> denotes the next value of a quantity <em>in time</em>.  The components of individual vectors are indexed using <span class="math notranslate nohighlight">\(j\)</span>.</p>
 </div>
 <p>Vector quantities are useful for us humans, but can be difficult for a computer to execute.  Thus, we define the position of the projectile along each direction <span class="math notranslate nohighlight">\(x_j\)</span> in a position vector <span class="math notranslate nohighlight">\(\vec{x}\)</span> and using the corresponding definition for velocity <span class="math notranslate nohighlight">\(v_j = dx_j/dt\)</span> with the velocity vector <span class="math notranslate nohighlight">\(\vec{v}\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9bc54eed-3148-4e38-953f-de40b1b9aaa6">
-<span class="eqno">(6.5)<a class="headerlink" href="#equation-9bc54eed-3148-4e38-953f-de40b1b9aaa6" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b5dd6b14-e0a1-4e01-8ad3-db8fe66eae0b">
+<span class="eqno">(6.5)<a class="headerlink" href="#equation-b5dd6b14-e0a1-4e01-8ad3-db8fe66eae0b" title="Permalink to this equation">#</a></span>\[\begin{align}
 \vec{x} &amp;= \{x_1,\ x_2,\ x_3 \} = \{ x,\ y,\ z \}, \\
 \vec{v} &amp;= \{v_1,\ v_2,\ v_3 \} = \{ v_x,\ v_y,\ v_z \}, \\
 x_{i+1} &amp;= x_i + v_i \Delta t.
 \end{align}\]</div>
 <p>This method does not give an exact result with a large <span class="math notranslate nohighlight">\(\Delta t\)</span>, but for a small enough <span class="math notranslate nohighlight">\(\Delta t\)</span> it’s close.  We can generalize further to define a state <span class="math notranslate nohighlight">\(\mathbf{y}=[\vec{x},\vec{v}]\)</span> and use a single relation as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-cfa257d8-599f-4f56-b364-c51a3fdafd57">
-<span class="eqno">(6.6)<a class="headerlink" href="#equation-cfa257d8-599f-4f56-b364-c51a3fdafd57" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d04c317b-1552-4f5f-b3da-308f50e9975d">
+<span class="eqno">(6.6)<a class="headerlink" href="#equation-d04c317b-1552-4f5f-b3da-308f50e9975d" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{y} &amp;= [\vec{x},\ \vec{v}], \\
 \mathbf{y}_{i+1} &amp;= [\vec{x}_i,\vec{v}_i] + \frac{d}{dt}[\vec{x}_i,\vec{v}_i]\Delta t.
 \end{align}\]</div>
@@ -453,19 +453,19 @@ x_{i+1} &amp;= x_i + v_i \Delta t.
 <h2><span class="section-number">6.1. </span>Euler’s method<a class="headerlink" href="#euler-s-method" title="Permalink to this heading">#</a></h2>
 <p>The method we’ve described is called <em>Euler’s method</em> and it is a good first step in solving ODEs.  Let’s consider a picture of how it works.  Starting from an initial point <span class="math notranslate nohighlight">\((t_o,x_o)\)</span>, we estimate the slope of <span class="math notranslate nohighlight">\(x(t)\)</span> between the current point and a time step <span class="math notranslate nohighlight">\(\Delta t\)</span> forward to find the approximate value of <span class="math notranslate nohighlight">\(x_1\)</span>.  Because we used a recurrence relation, these steps can be repeated to find each step <span class="math notranslate nohighlight">\(x_i\)</span> in the series of <span class="math notranslate nohighlight">\(x_n\)</span>.</p>
 <p>The error through Euler’s method can be large, but you can reduce the error introduced in the approximation by decreasing the time step <span class="math notranslate nohighlight">\(\Delta t\)</span>.  Essentially, you are decreasing the interval for the function <span class="math notranslate nohighlight">\(x(t)\)</span> until it becomes approximately linear.  To determine the sensitivity of Euler’s method relative to the step size <span class="math notranslate nohighlight">\(\Delta t\)</span>, we perform a Taylor expansion of <span class="math notranslate nohighlight">\(x(t)\)</span> as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-59ba6e1c-ae3b-4627-ace8-8cc98a771f18">
-<span class="eqno">(6.7)<a class="headerlink" href="#equation-59ba6e1c-ae3b-4627-ace8-8cc98a771f18" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-37329539-64fb-4c6a-8692-29e25140bae2">
+<span class="eqno">(6.7)<a class="headerlink" href="#equation-37329539-64fb-4c6a-8692-29e25140bae2" title="Permalink to this equation">#</a></span>\[\begin{align}
 x(t+\Delta t) = x(t) + \frac{dx}{dt}\Delta t + \frac{d^2x}{dt^2}\frac{\Delta t^2}{2} + \cdots.
 \end{align}\]</div>
 <p>The first two terms on the right hand side are Euler’s method and the error in each step is on the order of <span class="math notranslate nohighlight">\(\Delta t^2\)</span>, since that’s the first term omitted in the Taylor series expansion.  However you accumulate error over the full time interval <span class="math notranslate nohighlight">\(\tau\)</span> with the number of steps <span class="math notranslate nohighlight">\(N = \tau/\Delta t\)</span>, which changes the total error to <span class="math notranslate nohighlight">\(\Delta t\)</span>.  Notice that decreasing the step size <span class="math notranslate nohighlight">\(\Delta t\)</span> improves your result linearly and Euler’s method only works on first-order differential equations.  This means that if we can re-cast higher order differential equations into a series of first-order differential equations, then we have a very general method.</p>
 <p>For example, let’s explore the case of a <strong>mass on a spring</strong>.  The force of a spring is <span class="math notranslate nohighlight">\(\vec{F}_{spr} = m\vec{a} = -k\vec{x}\)</span>, where <span class="math notranslate nohighlight">\(k\)</span> is a spring constant and <span class="math notranslate nohighlight">\(m\)</span> is the mass.  This is a second-order ODE, but we can re-write the equations like in the introductory section with the Galilean transformation.  This involves a new variable <span class="math notranslate nohighlight">\(\vec{v} = d\vec{x}/dt\)</span>.  We have the following:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-04841743-edf7-4f5f-8869-2690e45d5bd1">
-<span class="eqno">(6.8)<a class="headerlink" href="#equation-04841743-edf7-4f5f-8869-2690e45d5bd1" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-35ceae7f-3b1d-4316-92c8-9b77d87e1e98">
+<span class="eqno">(6.8)<a class="headerlink" href="#equation-35ceae7f-3b1d-4316-92c8-9b77d87e1e98" title="Permalink to this equation">#</a></span>\[\begin{align}
 \vec{a} = \frac{d{\vec{v}}}{dt} = -\frac{k}{m}\vec{x}\ \text{(original)}, 
 \end{align}\]</div>
 <p>which can be transformed as two coupled first-order differential equations</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a60e64d2-41b9-4b76-93cb-cc3fb5f9891b">
-<span class="eqno">(6.9)<a class="headerlink" href="#equation-a60e64d2-41b9-4b76-93cb-cc3fb5f9891b" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-63ec7f25-4845-4a96-834f-5a851bccdc74">
+<span class="eqno">(6.9)<a class="headerlink" href="#equation-63ec7f25-4845-4a96-834f-5a851bccdc74" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{d\vec{x}}{dt} &amp;= \vec{v}, \\
 \frac{d\vec{v}}{dt} &amp;= -\frac{k}{m}{x}.
 \end{align}\]</div>
@@ -495,25 +495,25 @@ x(t+\Delta t) = x(t) + \frac{dx}{dt}\Delta t + \frac{d^2x}{dt^2}\frac{\Delta t^2
 <section id="standard-method-for-solving-odes">
 <h2><span class="section-number">6.2. </span>Standard Method for Solving ODEs<a class="headerlink" href="#standard-method-for-solving-odes" title="Permalink to this heading">#</a></h2>
 <p>Here we develop a <em>standard model</em> for solving ODEs, which will be a blueprint for using different algorithms that have been developed.  This way it takes only a minimum amount of reprogramming to change between algorithms.  To start, consider the differential equation for a large wooden rabbit in free-fall with the <em>English pig-dogs</em> as the intended target:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-73a5cb76-6720-4871-b570-ecce1d7be76b">
-<span class="eqno">(6.10)<a class="headerlink" href="#equation-73a5cb76-6720-4871-b570-ecce1d7be76b" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a7a24695-b46f-4755-ab50-183120ee7ef4">
+<span class="eqno">(6.10)<a class="headerlink" href="#equation-a7a24695-b46f-4755-ab50-183120ee7ef4" title="Permalink to this equation">#</a></span>\[\begin{align}
 \ddot{x} = \frac{d^2}{dt^2} = -g,
 \end{align}\]</div>
 <p>where we’ve introduce the <em>dot</em> notation to make things a little easier when writing time derivatives and the above equation can be broken into two first-order equations:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e9a49988-cec6-4b01-a1b7-dc014e9ad7db">
-<span class="eqno">(6.11)<a class="headerlink" href="#equation-e9a49988-cec6-4b01-a1b7-dc014e9ad7db" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b6f5af6b-3d1d-49f9-af4e-dce276fbb6f0">
+<span class="eqno">(6.11)<a class="headerlink" href="#equation-b6f5af6b-3d1d-49f9-af4e-dce276fbb6f0" title="Permalink to this equation">#</a></span>\[\begin{align}
 \dot{x} &amp;= \frac{dx}{dt} = v, \\
 \dot{v} &amp;= \frac{dv}{dt} = -g.
 \end{align}\]</div>
 <p>The individual Euler solutions to those first-order equations are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1e5ab7d3-0072-46a8-baf3-c8e07dff7ef4">
-<span class="eqno">(6.12)<a class="headerlink" href="#equation-1e5ab7d3-0072-46a8-baf3-c8e07dff7ef4" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-dff5f235-ad22-4fe1-9a56-e59f7d53abdb">
+<span class="eqno">(6.12)<a class="headerlink" href="#equation-dff5f235-ad22-4fe1-9a56-e59f7d53abdb" title="Permalink to this equation">#</a></span>\[\begin{align}
 x_{i+1} &amp;= x_i + \dot{x}\Delta t, \\
 v_{i+1} &amp;= v_i + \dot{v}\Delta t.
 \end{align}\]</div>
 <p>There is a symmetry (which will help in producing code later) that lets you write them as a single vector equation:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2480429e-456c-4acd-b0ff-23949cbed466">
-<span class="eqno">(6.13)<a class="headerlink" href="#equation-2480429e-456c-4acd-b0ff-23949cbed466" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5bd16c71-59b7-4a2b-8880-459db2f1db3c">
+<span class="eqno">(6.13)<a class="headerlink" href="#equation-5bd16c71-59b7-4a2b-8880-459db2f1db3c" title="Permalink to this equation">#</a></span>\[\begin{align}
 y_{i+1} = y_i + \dot{y}\Delta t,
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(y = [x,v]\)</span> and <span class="math notranslate nohighlight">\(\dot{y} = [v,-g]\)</span>.  By writing the equations as vectors, we can better define the problem and change our thinking into one where <strong>states</strong> evolve.  Let’s turn this into code:</p>
@@ -614,38 +614,38 @@ y_{i+1} = y_i + \dot{y}\Delta t,
 <section id="runge-kutta-methods">
 <h2><span class="section-number">6.3. </span>Runge-Kutta Methods<a class="headerlink" href="#runge-kutta-methods" title="Permalink to this heading">#</a></h2>
 <p>The most popular and general technique of solving ODE’s is a set of methods called <em>Runge-Kutta</em> or <strong>rk</strong> methods.  The Runge-Kutta algorithms for integrating a differential equation are based upon the formal (exact) integral of a differential equation:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-19d4c799-53a0-44ce-9e87-f99ac31bde5d">
-<span class="eqno">(6.14)<a class="headerlink" href="#equation-19d4c799-53a0-44ce-9e87-f99ac31bde5d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7d0b0c1e-887e-441e-8277-fcf7ebcc9d42">
+<span class="eqno">(6.14)<a class="headerlink" href="#equation-7d0b0c1e-887e-441e-8277-fcf7ebcc9d42" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{dy}{dt} &amp;= f(t,y) \implies y(t) = \int f(t,y) dt, \\
 \Rightarrow y_{n+1} &amp;= y_n + \int_{t_n}^{t_{n+1}} f(t,y) dt.
 \end{align}\]</div>
 <p>To derive the second-order Runge-Kutta algorithm (<strong>rk2</strong>), we expand <span class="math notranslate nohighlight">\(f(t,y)\)</span> in a Taylor series about the <em>midpoint</em> of the integration interval and retain two terms:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a78cd467-5727-4618-aacc-287b15302e16">
-<span class="eqno">(6.15)<a class="headerlink" href="#equation-a78cd467-5727-4618-aacc-287b15302e16" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-451a5ba5-0312-4abc-9090-a171ff0f704c">
+<span class="eqno">(6.15)<a class="headerlink" href="#equation-451a5ba5-0312-4abc-9090-a171ff0f704c" title="Permalink to this equation">#</a></span>\[\begin{align}
 f(t,y) \simeq f(t_{n+1/2},y_{n+1/2}) + (t-t_{n+1/2})\frac{df}{dt}(t_{n+1/2}) + O(h^2).
 \end{align}\]</div>
 <p>Because <span class="math notranslate nohighlight">\((t-t_{n+1/2})\)</span> to any odd power is symmetric (equally positive and negative) over the interval <span class="math notranslate nohighlight">\(t_n\leq t \leq t_{n+1}\)</span>, the integral of the second term with <span class="math notranslate nohighlight">\((t-t_{n+1/2})\)</span> vanishes and we obtain our algorithm:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-054f7075-7d5c-4102-8e07-4a712d83b32e">
-<span class="eqno">(6.16)<a class="headerlink" href="#equation-054f7075-7d5c-4102-8e07-4a712d83b32e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7cd93edd-78fa-4ee0-b11d-fd2d37ddb461">
+<span class="eqno">(6.16)<a class="headerlink" href="#equation-7cd93edd-78fa-4ee0-b11d-fd2d37ddb461" title="Permalink to this equation">#</a></span>\[\begin{align}
 \int_{t_n}^{t_{n+1}} &amp;\simeq f(t_{n+1/2},y_{n+1/2})h + O(h^3), \\
 \implies y_{n+1} &amp;\simeq y_n + f(t_{n+1/2},y_{n+1/2})h + O(h^3).\qquad  \text{\bf (rk2)}
 \end{align}\]</div>
 <p>We should notice that while <strong>rk2</strong> contains the same number of terms as Euler’s rule, it obtains a higher level of precision by taking advantage of the cancellation of the <span class="math notranslate nohighlight">\(O(h)\)</span> terms (recall something similar happened when comparing Trapezoid to Simpson’s rule).  The price for improved precision is having to evaluate the derivative function and <span class="math notranslate nohighlight">\(y\)</span> at the middle of the time interval, <span class="math notranslate nohighlight">\(t = t_n + h/2\)</span>.</p>
 <p>But, we don’t have a function to evaluate at this point!  The way out of this quagmire is to ues Euler’s algorithm for the midpoint <span class="math notranslate nohighlight">\(y_{n+1/2}\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2723e9d1-5b75-4149-bfe7-61589ef2687a">
-<span class="eqno">(6.17)<a class="headerlink" href="#equation-2723e9d1-5b75-4149-bfe7-61589ef2687a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-25b9ae27-d9e7-4074-902e-20000e3b5491">
+<span class="eqno">(6.17)<a class="headerlink" href="#equation-25b9ae27-d9e7-4074-902e-20000e3b5491" title="Permalink to this equation">#</a></span>\[\begin{align}
 y_{n+1/2} \simeq y_n + \frac{h}{2}\frac{dy}{dt}=y_n + \frac{h}{2}f(t_n,y_n).
 \end{align}\]</div>
 <p>Combining the above expression with our equation for <strong>rk2</strong>, we get:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6895e4b7-0631-4033-95e4-16c0390801f7">
-<span class="eqno">(6.18)<a class="headerlink" href="#equation-6895e4b7-0631-4033-95e4-16c0390801f7" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-eba9e464-a5f2-4bb0-a34e-b94bd69c3550">
+<span class="eqno">(6.18)<a class="headerlink" href="#equation-eba9e464-a5f2-4bb0-a34e-b94bd69c3550" title="Permalink to this equation">#</a></span>\[\begin{align}
 y_{n+1} &amp;\simeq y_n + k_2, \qquad  \text{\bf (rk2)} \\
 k_2 &amp;= hf(t_n+h/2,y_n+k_1/2), \\
 k_1 &amp;= hf(t_n,y_n),
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(y\)</span> is a state vector (and hence <span class="math notranslate nohighlight">\(f(t,y)\)</span> is a state vector too).  The known derivative function <span class="math notranslate nohighlight">\(\frac{dy}{dt} = f(t,y)\)</span> is evaluated at the ends and the midpoint of the interval, but only the known initial value of the <span class="math notranslate nohighlight">\(y\)</span> is required.  This makes the algorithm self-starting.  Just like how we expanded our integration methods to consider more steps, we can do the same with <strong>rk2</strong> to get <strong>rk4</strong>.  Here is the algorithm for <strong>rk4</strong>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b56962d5-2bb9-40fb-a513-1d5f2dd7c924">
-<span class="eqno">(6.19)<a class="headerlink" href="#equation-b56962d5-2bb9-40fb-a513-1d5f2dd7c924" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-0f717d80-c7e1-47bb-a87f-cc584fa1fa3d">
+<span class="eqno">(6.19)<a class="headerlink" href="#equation-0f717d80-c7e1-47bb-a87f-cc584fa1fa3d" title="Permalink to this equation">#</a></span>\[\begin{align}
 &amp; &amp;y_{n+1} = y_n + \frac{1}{6}(k_1 + 2k_2 + 2k_3 + k_4), \\
 k_1 &amp;= hf(t_n,y_n), &amp;k_2 &amp;= hf(t_n+h/2,y_n+0.5k_1), \\
 k_3 &amp;= hf(t_n+h/2,y_n+0.5k_2), &amp;k_4 &amp;= hf(t_n+h,y_n+k_3).
@@ -842,8 +842,8 @@ k_3 &amp;= hf(t_n+h/2,y_n+0.5k_2), &amp;k_4 &amp;= hf(t_n+h,y_n+k_3).
 <div class="admonition-problem-3 admonition">
 <p class="admonition-title">Problem 3   </p>
 <p><strong>Write a Python program to evaluate the <a class="reference external" href="https://en.wikipedia.org/wiki/Lorenz_system">Lorenz system</a> using rk4</strong>.  The differential equations are:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a4f86226-1a0e-4404-965e-1a9d76ebfa41">
-<span class="eqno">(6.20)<a class="headerlink" href="#equation-a4f86226-1a0e-4404-965e-1a9d76ebfa41" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-dbe8d8d8-d547-4aa0-81bb-e6d7e65243cf">
+<span class="eqno">(6.20)<a class="headerlink" href="#equation-dbe8d8d8-d547-4aa0-81bb-e6d7e65243cf" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{dx}{dt} &amp;= \sigma(y-x), \\
 \frac{dy}{dt} &amp;= x(\rho-z) - y, \\
 \frac{dz}{dt} &amp;= xy - \beta z.
