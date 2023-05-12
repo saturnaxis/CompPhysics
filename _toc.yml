@@ -13,3 +13,4 @@ parts:
   - file: Chapter_4/Integration.ipynb
   - file: Chapter_5/Differentiation.ipynb
   - file: Chapter_6/ODEs.ipynb
+  - file: Chapter_7/Eigenvalues.ipynb
