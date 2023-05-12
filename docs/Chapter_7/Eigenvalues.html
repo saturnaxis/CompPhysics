@@ -415,7 +415,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-eigenvalues-in-arbitrary-potential">7.6. Quantum Eigenvalues in Arbitrary Potential</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nucleon-in-a-box">7.7. Nucleon in a box</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalues-via-ode-sovler-search">7.8. Eigenvalues via ODE Sovler + Search</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerov-algorithm-for-schodinger-ode">7.9. Numerov Algorithm for SchÖdinger ODE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerov-algorithm-for-schodinger-ode">7.9. Numerov Algorithm for Schödinger ODE</a></li>
 </ul>
             </nav>
         </div>
@@ -431,7 +431,7 @@ document.write(`
 <h1><span class="section-number">7. </span>Eigenvalue Problems<a class="headerlink" href="#eigenvalue-problems" title="Permalink to this heading">#</a></h1>
 <section id="matrix-computing">
 <h2><span class="section-number">7.1. </span>Matrix Computing<a class="headerlink" href="#matrix-computing" title="Permalink to this heading">#</a></h2>
-<p>Physical systems are often modled by systems of simultaneous equations written in matrix form.  Realistic models correspond to rather larger matrices, where it is important to use a good linear algebra library.  Computers are unusually good with matrix manipulations because those manipulations typically involve simple instructrions that can be iterate many times and algorithms exist to do this quite efficiently.  Subroutines for matrix copmuting are found in well-established scientific libraries (e.g., <code class="docutils literal notranslate"><span class="pre">scipy</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy</span></code>), where these subroutines are usually</p>
+<p>Physical systems are often modeled by systems of simultaneous equations written in matrix form.  Realistic models correspond to rather larger matrices, where it is important to use a good linear algebra library.  Computers are unusually good with matrix manipulations because those manipulations typically involve simple instructions that can be iterate many times and algorithms exist to do this quite efficiently.  Subroutines for matrix computing are found in well-established scientific libraries (e.g., <code class="docutils literal notranslate"><span class="pre">scipy</span></code> and <code class="docutils literal notranslate"><span class="pre">numpy</span></code>), where these subroutines are usually</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\({\sim}10\times\)</span> faster (or more) than the elementary methods found in linear algebra textbooks,</p></li>
 <li><p>designed to minimize the round-off error, and</p></li>
@@ -451,9 +451,9 @@ document.write(`
 <p>The most basic matrix problem is a system of linear equations:</p>
 <div class="math notranslate nohighlight" id="equation-linear-eqn">
 <span class="eqno">(7.1)<a class="headerlink" href="#equation-linear-eqn" title="Permalink to this equation">#</a></span>\[\mathbf{A}\mathbf{x} = \mathbf{b},\]</div>
-<p>which is defined by a known <span class="math notranslate nohighlight">\(N\times N\)</span> matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, an unknown vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> of length <span class="math notranslate nohighlight">\(N\)</span>, and a known vector <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> of length <span class="math notranslate nohighlight">\(N\)</span>.  The obvious way to solve this equation is to determine the inverse of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> (i.e., <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span>) and then multipy both sides to get:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f706943c-0a3f-46d6-92d6-47195984591f">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-f706943c-0a3f-46d6-92d6-47195984591f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<p>which is defined by a known <span class="math notranslate nohighlight">\(N\times N\)</span> matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, an unknown vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> of length <span class="math notranslate nohighlight">\(N\)</span>, and a known vector <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> of length <span class="math notranslate nohighlight">\(N\)</span>.  The obvious way to solve this equation is to determine the inverse of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> (i.e., <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span>) and then multiply both sides to get:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-7c917732-9350-4e8e-a928-05359c866222">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-7c917732-9350-4e8e-a928-05359c866222" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{A}^{-1}\mathbf{A} &amp;=  I_N,\qquad \text{(Identity property)}\\
 \mathbf{A}^{-1}\mathbf{A}\mathbf{x} &amp;= \mathbf{A}^{-1}\mathbf{b}, \\
 \mathbf{x} &amp;= \mathbf{A}^{-1}\mathbf{b}.
@@ -467,20 +467,20 @@ document.write(`
 <div class="math notranslate nohighlight" id="equation-eigenvalue-eqn">
 <span class="eqno">(7.3)<a class="headerlink" href="#equation-eigenvalue-eqn" title="Permalink to this equation">#</a></span>\[\mathbf{A}\mathbf{x} = \lambda \mathbf{x},\]</div>
 <p>which is similar to Eq. <a class="reference internal" href="#equation-linear-eqn">(7.1)</a>, but with an unknown parameter <span class="math notranslate nohighlight">\(\lambda\)</span>.  This form is called the <em>eigenvalue</em> problem.  It is harder to solve because solutions exist for only certain (if any) values of <span class="math notranslate nohighlight">\(\lambda\)</span>.  To find a solution, we use the identity matrix to rewrite it as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2c7d59be-aede-4427-b9b6-c7257582f0de">
-<span class="eqno">(7.4)<a class="headerlink" href="#equation-2c7d59be-aede-4427-b9b6-c7257582f0de" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-e97e9a10-12d7-490f-b9d5-220c21c38749">
+<span class="eqno">(7.4)<a class="headerlink" href="#equation-e97e9a10-12d7-490f-b9d5-220c21c38749" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{A}x - \lambda\mathbf{x} = 0, \\
 [\mathbf{A}-\lambda I_N ]\mathbf{x} = 0.
 \end{align}\]</div>
 <p>Multiplying by <span class="math notranslate nohighlight">\([\mathbf{A}-\lambda I_N ]^{-1}\)</span> yields the <em>trivial</em> solution <span class="math notranslate nohighlight">\(\mathbf{x} = 0\)</span>.  A more interesting solution implies the nonexistence of the inverse.  The inverse fails to exist when the determinant is zero, or</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e9d84b24-4af4-4bc7-b147-8d9bf4a2b7a8">
-<span class="eqno">(7.5)<a class="headerlink" href="#equation-e9d84b24-4af4-4bc7-b147-8d9bf4a2b7a8" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a251fe02-c30e-4721-8ace-df7db16ed0d1">
+<span class="eqno">(7.5)<a class="headerlink" href="#equation-a251fe02-c30e-4721-8ace-df7db16ed0d1" title="Permalink to this equation">#</a></span>\[\begin{align}
 \det{[\mathbf{A}-\lambda I_N]} = 0.
 \end{align}\]</div>
-<p>The values of <span class="math notranslate nohighlight">\(\lambda\)</span> that satisfy this <em>secular</em> equation are the eigenvalues of Eq. <a class="reference internal" href="#equation-eigenvalue-eqn">(7.3)</a>.  To solve this equation, you need a subroutine to calculate the determinat of a matrix, and then a search routine to find the zero (root).</p>
+<p>The values of <span class="math notranslate nohighlight">\(\lambda\)</span> that satisfy this <em>secular</em> equation are the eigenvalues of Eq. <a class="reference internal" href="#equation-eigenvalue-eqn">(7.3)</a>.  To solve this equation, you need a subroutine to calculate the determinant of a matrix, and then a search routine to find the zero (root).</p>
 <p>The traditional way to solve Eq. <a class="reference internal" href="#equation-eigenvalue-eqn">(7.3)</a> for both eigenvalues and eigenvectors is by <em>diagonalization</em>.  This is a process where a sequence of transformations (using a matrix <span class="math notranslate nohighlight">\(\mathbf{U}\)</span>) are continually operating on the original equation until one is found so that <span class="math notranslate nohighlight">\(\mathbf{U}\mathbf{A}\mathbf{U}^{-1} = \lambda I_N\)</span>.  Mathematically, this is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f883c61d-c261-46e9-a391-3137cd780d41">
-<span class="eqno">(7.6)<a class="headerlink" href="#equation-f883c61d-c261-46e9-a391-3137cd780d41" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-773d88d2-3e18-4205-a92b-1b128ead24aa">
+<span class="eqno">(7.6)<a class="headerlink" href="#equation-773d88d2-3e18-4205-a92b-1b128ead24aa" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{U}\mathbf{A}(\mathbf{U}^{-1}\mathbf{U})\mathbf{x} &amp;= \lambda \mathbf{U}\mathbf{x},\\
 (\mathbf{U}\mathbf{A}\mathbf{U}^{-1})(\mathbf{U}\mathbf{x}) &amp;= \lambda \mathbf{U}\mathbf{x}, \\
 \mathbf{U}\mathbf{A}\mathbf{U}^{-1} &amp;= \begin{pmatrix}
@@ -490,12 +490,12 @@ document.write(`
 0 &amp; \cdots &amp; &amp; \lambda_N^\prime 
 \end{pmatrix}.
 \end{align}\]</div>
-<p>The diagnoal values of <span class="math notranslate nohighlight">\(\mathbf{U}\mathbf{A}\mathbf{U}^{-1}\)</span> are the eignvalues with the eigenvectors</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f7676932-0502-41b2-b117-3a6d47cf2e47">
-<span class="eqno">(7.7)<a class="headerlink" href="#equation-f7676932-0502-41b2-b117-3a6d47cf2e47" title="Permalink to this equation">#</a></span>\[\begin{align}
+<p>The diagonal values of <span class="math notranslate nohighlight">\(\mathbf{U}\mathbf{A}\mathbf{U}^{-1}\)</span> are the eigenvalues with the eigenvectors</p>
+<div class="amsmath math notranslate nohighlight" id="equation-f5acf18b-1864-428b-9cff-cd1462191ca1">
+<span class="eqno">(7.7)<a class="headerlink" href="#equation-f5acf18b-1864-428b-9cff-cd1462191ca1" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{x}_i = \mathbf{U}^{-1}\hat{e}_i.
 \end{align}\]</div>
-<p>The eigenvectors are just the columns of the matrix <span class="math notranslate nohighlight">\(\mathbf{U}^{-1}\)</span>, where ther are a number of rountines of this type found in subroutine libraries.</p>
+<p>The eigenvectors are just the columns of the matrix <span class="math notranslate nohighlight">\(\mathbf{U}^{-1}\)</span>, where there are a number of routines of this type found in subroutine libraries.</p>
 </section>
 <section id="practical-matrix-computing">
 <h2><span class="section-number">7.3. </span>Practical Matrix Computing<a class="headerlink" href="#practical-matrix-computing" title="Permalink to this heading">#</a></h2>
@@ -516,7 +516,7 @@ document.write(`
 <h2><span class="section-number">7.8. </span>Eigenvalues via ODE Sovler + Search<a class="headerlink" href="#eigenvalues-via-ode-sovler-search" title="Permalink to this heading">#</a></h2>
 </section>
 <section id="numerov-algorithm-for-schodinger-ode">
-<h2><span class="section-number">7.9. </span>Numerov Algorithm for SchÖdinger ODE<a class="headerlink" href="#numerov-algorithm-for-schodinger-ode" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.9. </span>Numerov Algorithm for Schödinger ODE<a class="headerlink" href="#numerov-algorithm-for-schodinger-ode" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -586,7 +586,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-eigenvalues-in-arbitrary-potential">7.6. Quantum Eigenvalues in Arbitrary Potential</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nucleon-in-a-box">7.7. Nucleon in a box</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalues-via-ode-sovler-search">7.8. Eigenvalues via ODE Sovler + Search</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerov-algorithm-for-schodinger-ode">7.9. Numerov Algorithm for SchÖdinger ODE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerov-algorithm-for-schodinger-ode">7.9. Numerov Algorithm for Schödinger ODE</a></li>
 </ul>
   </nav></div>
 
