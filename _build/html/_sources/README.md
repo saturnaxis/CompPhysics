@@ -24,7 +24,10 @@ will consist of a longer (3000 word) paper detailing the project, and a 15 minut
 - [Landau Computational Physics Course](https://www.youtube.com/playlist?list=PLnWQ_pnPVzmJnp794rQXIcwJIjwy7Nb2U)
 - Peter Young's [course](https://young.physics.ucsc.edu/115/) at UCSC
 - [Computational Physics](https://farside.ph.utexas.edu/teaching/329/329.pdf) by Richard Fitzpatrick at UT Austin
-- [Arxiv:astro-ph](https://arxiv.org/archive/astro-ph) preprint server  
+- [Computational Mechanics](https://cooperrc.github.io/computational-mechanics/README.html) at UConn
+- [Epidemic modeling](https://simondobson.org/introduction-to-epidemics/index.html) from Simon Dobson at University of St. Andrews
+- [Jupyter guide to linear algebra](https://bvanderlei.github.io/jupyter-guide-to-linear-algebra/intro.html) by Ben Vanderlei at the University of the Fraser Valley
+- [Numerical methods for partial differential equations](https://aquaulb.github.io/book_solving_pde_mooc/solving_pde_mooc/notebooks/01_Introduction/01_00_Preface.html) by by Bernard Knaepen & Yelyzaveta Velizhanina at Universite Libre de Bruxelles
 
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
 
