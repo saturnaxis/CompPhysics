@@ -452,8 +452,8 @@ document.write(`
 <div class="math notranslate nohighlight" id="equation-linear-eqn">
 <span class="eqno">(7.1)<a class="headerlink" href="#equation-linear-eqn" title="Permalink to this equation">#</a></span>\[\mathbf{A}\mathbf{x} = \mathbf{b},\]</div>
 <p>which is defined by a known <span class="math notranslate nohighlight">\(N\times N\)</span> matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, an unknown vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> of length <span class="math notranslate nohighlight">\(N\)</span>, and a known vector <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> of length <span class="math notranslate nohighlight">\(N\)</span>.  The obvious way to solve this equation is to determine the inverse of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> (i.e., <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span>) and then multiply both sides to get:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7c917732-9350-4e8e-a928-05359c866222">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-7c917732-9350-4e8e-a928-05359c866222" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-08a5cf90-07ef-4438-9170-34f2e83f989a">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-08a5cf90-07ef-4438-9170-34f2e83f989a" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{A}^{-1}\mathbf{A} &amp;=  I_N,\qquad \text{(Identity property)}\\
 \mathbf{A}^{-1}\mathbf{A}\mathbf{x} &amp;= \mathbf{A}^{-1}\mathbf{b}, \\
 \mathbf{x} &amp;= \mathbf{A}^{-1}\mathbf{b}.
@@ -467,20 +467,20 @@ document.write(`
 <div class="math notranslate nohighlight" id="equation-eigenvalue-eqn">
 <span class="eqno">(7.3)<a class="headerlink" href="#equation-eigenvalue-eqn" title="Permalink to this equation">#</a></span>\[\mathbf{A}\mathbf{x} = \lambda \mathbf{x},\]</div>
 <p>which is similar to Eq. <a class="reference internal" href="#equation-linear-eqn">(7.1)</a>, but with an unknown parameter <span class="math notranslate nohighlight">\(\lambda\)</span>.  This form is called the <em>eigenvalue</em> problem.  It is harder to solve because solutions exist for only certain (if any) values of <span class="math notranslate nohighlight">\(\lambda\)</span>.  To find a solution, we use the identity matrix to rewrite it as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e97e9a10-12d7-490f-b9d5-220c21c38749">
-<span class="eqno">(7.4)<a class="headerlink" href="#equation-e97e9a10-12d7-490f-b9d5-220c21c38749" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-380d4d95-3e44-4e54-96c4-9f7ff7374361">
+<span class="eqno">(7.4)<a class="headerlink" href="#equation-380d4d95-3e44-4e54-96c4-9f7ff7374361" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{A}x - \lambda\mathbf{x} = 0, \\
 [\mathbf{A}-\lambda I_N ]\mathbf{x} = 0.
 \end{align}\]</div>
 <p>Multiplying by <span class="math notranslate nohighlight">\([\mathbf{A}-\lambda I_N ]^{-1}\)</span> yields the <em>trivial</em> solution <span class="math notranslate nohighlight">\(\mathbf{x} = 0\)</span>.  A more interesting solution implies the nonexistence of the inverse.  The inverse fails to exist when the determinant is zero, or</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a251fe02-c30e-4721-8ace-df7db16ed0d1">
-<span class="eqno">(7.5)<a class="headerlink" href="#equation-a251fe02-c30e-4721-8ace-df7db16ed0d1" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c336d8db-457e-4e62-9fd6-50a10b107d6d">
+<span class="eqno">(7.5)<a class="headerlink" href="#equation-c336d8db-457e-4e62-9fd6-50a10b107d6d" title="Permalink to this equation">#</a></span>\[\begin{align}
 \det{[\mathbf{A}-\lambda I_N]} = 0.
 \end{align}\]</div>
 <p>The values of <span class="math notranslate nohighlight">\(\lambda\)</span> that satisfy this <em>secular</em> equation are the eigenvalues of Eq. <a class="reference internal" href="#equation-eigenvalue-eqn">(7.3)</a>.  To solve this equation, you need a subroutine to calculate the determinant of a matrix, and then a search routine to find the zero (root).</p>
 <p>The traditional way to solve Eq. <a class="reference internal" href="#equation-eigenvalue-eqn">(7.3)</a> for both eigenvalues and eigenvectors is by <em>diagonalization</em>.  This is a process where a sequence of transformations (using a matrix <span class="math notranslate nohighlight">\(\mathbf{U}\)</span>) are continually operating on the original equation until one is found so that <span class="math notranslate nohighlight">\(\mathbf{U}\mathbf{A}\mathbf{U}^{-1} = \lambda I_N\)</span>.  Mathematically, this is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-773d88d2-3e18-4205-a92b-1b128ead24aa">
-<span class="eqno">(7.6)<a class="headerlink" href="#equation-773d88d2-3e18-4205-a92b-1b128ead24aa" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4f94cce0-7cc6-425a-8bc7-c45d67774094">
+<span class="eqno">(7.6)<a class="headerlink" href="#equation-4f94cce0-7cc6-425a-8bc7-c45d67774094" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{U}\mathbf{A}(\mathbf{U}^{-1}\mathbf{U})\mathbf{x} &amp;= \lambda \mathbf{U}\mathbf{x},\\
 (\mathbf{U}\mathbf{A}\mathbf{U}^{-1})(\mathbf{U}\mathbf{x}) &amp;= \lambda \mathbf{U}\mathbf{x}, \\
 \mathbf{U}\mathbf{A}\mathbf{U}^{-1} &amp;= \begin{pmatrix}
@@ -491,20 +491,294 @@ document.write(`
 \end{pmatrix}.
 \end{align}\]</div>
 <p>The diagonal values of <span class="math notranslate nohighlight">\(\mathbf{U}\mathbf{A}\mathbf{U}^{-1}\)</span> are the eigenvalues with the eigenvectors</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f5acf18b-1864-428b-9cff-cd1462191ca1">
-<span class="eqno">(7.7)<a class="headerlink" href="#equation-f5acf18b-1864-428b-9cff-cd1462191ca1" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-46dfa12a-7603-4afb-8429-5296d292620a">
+<span class="eqno">(7.7)<a class="headerlink" href="#equation-46dfa12a-7603-4afb-8429-5296d292620a" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{x}_i = \mathbf{U}^{-1}\hat{e}_i.
 \end{align}\]</div>
 <p>The eigenvectors are just the columns of the matrix <span class="math notranslate nohighlight">\(\mathbf{U}^{-1}\)</span>, where there are a number of routines of this type found in subroutine libraries.</p>
 </section>
 <section id="practical-matrix-computing">
 <h2><span class="section-number">7.3. </span>Practical Matrix Computing<a class="headerlink" href="#practical-matrix-computing" title="Permalink to this heading">#</a></h2>
+<p>Many scientific programming bugs arise from the improper use of arrays (e.g., <code class="docutils literal notranslate"><span class="pre">IndexError</span></code>).  Matrices are extensively used in scientific computing, where it can be difficult to keep track of maximum index or matrix dimensions.  Here are some things to consider:</p>
+<ul>
+<li><p><strong>Computers are finite</strong>: Large matrices require more memory, which can slow down your computation significantly.  For example, a 4D array containing 100 elements in each dimension can have <span class="math notranslate nohighlight">\((100)^4\)</span> <span class="math notranslate nohighlight">\(64-\text{byte}\)</span> words that occupy <span class="math notranslate nohighlight">\(\simeq 1\ {\rm GB}\)</span> of memory.</p></li>
+<li><p><strong>Processing time</strong>: Matrix operations (e.g., inversion) require <span class="math notranslate nohighlight">\({\sim}N^3\)</span> steps for a square matrix of dimension <span class="math notranslate nohighlight">\(N\)</span>.  Doubling the dimensions of a 2D square matrix leads to an <em>eightfold</em> increase in processing time.</p></li>
+<li><p><strong>Paging</strong>: When a program runs out of RAM (i.e., fast memory), the operating system can use disk space instead and is called <em>paging</em>.  The process of writing to the disk is a slow process, which you want to avoid.  If your program is near the memory limit at which paging occurs, even a slight increase in a matrix’s dimensions may lead to a <em>tenfold</em> increase in execution time.</p></li>
+<li><p><strong>Matrix storage</strong>:  Matrices can be represented as a multidimensional block of stored numbers that appear in a linear order.  A <span class="math notranslate nohighlight">\(3\times 3\)</span> matrix can be stored in</p>
+<ul>
+<li><p><strong>row-major order</strong>: <span class="math notranslate nohighlight">\([a_{11},a_{12},a_{13},a_{21},a_{22},a_{23},a_{31},a_{32},a_{33}]\)</span> (in Java or python), or</p></li>
+<li><p><strong>column-major order</strong>: <span class="math notranslate nohighlight">\([a_{11},a_{21},a_{31},a_{12},a_{22},a_{32},a_{13},a_{23},a_{33}]\)</span> (in Fortran).</p>
+<p>The element <span class="math notranslate nohighlight">\(a_{ij}\)</span> is represented by the <span class="math notranslate nohighlight">\(i\text{th}\)</span> row and <span class="math notranslate nohighlight">\(j\text{th}\)</span> column.  The row-major order traverses <em>across each row</em> (i.e., increases the column index <span class="math notranslate nohighlight">\(j\)</span>) before advancing to the next row (i.e., increases the row index <span class="math notranslate nohighlight">\(i\)</span>).  The column-major order traverses <em>down each column</em> before advancing to the next column.</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Subscript 0</strong>: In python, C, and Java the indexing of arrays begin with the value 0.  Fortran has recently modified its standard to match these other languages, but older codes will have a standard to start the indices at 1.</p>
+<p>Let <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">np.zeros((3,3))</span></code> represent a <span class="math notranslate nohighlight">\(3\times 3\)</span> matrix (in python) initialized with <span class="math notranslate nohighlight">\(0\)</span> for each element, where <span class="math notranslate nohighlight">\(a[0,0] = a_{11}\)</span>.  In Fortran, this element would be represented as <span class="math notranslate nohighlight">\(a(1,1) = a_{11}\)</span>.</p>
+</li>
+<li><p><strong>Physical and logical dimensions</strong>:  Some programming languages require you to issue commands (e.g., <code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">a[3][3]</span></code> or <code class="docutils literal notranslate"><span class="pre">zeros((3,3),</span> <span class="pre">Float))</span></code>) that tell the compiler how much memory it needs to set aside fo the array <code class="docutils literal notranslate"><span class="pre">a</span></code>.  This is called <em>physical memory</em>, where a matrix’s <em>logical size</em> is the amount of memory that your actually use to store numbers.</p>
+<p>Modern programming languages permit <em>dynamic memory allocation</em>, where you may use variables as the dimension of your arrays and read in the values of the variables at run time (i.e., after the program is compiled).  As a result the matrices will have the same physical and logical sizes.</p>
+<p>However, <code class="docutils literal notranslate"><span class="pre">Fortran77</span></code> requires the dimensions to be specified at <em>compile time</em>, which can allow the physical and logical sizes to differ.  As a result, some subroutines from a library may need to know both the physical and logical sizes of your arrays.</p>
+</li>
+<li><p><strong>Passing sizes to subprograms</strong>: This is needed when the logical and physical dimensions of arrays differ.  When using external libraries, you must watch that the sizes of your matrices do not exceed the bound that have been declared in the subprograms.  This may occur <em>without</em> an error message and can give you the <em>wrong answers</em>.  If you are running a python program that calls a Fortran subroutine, you will need to pass <em>pointers</em> (i.e., addresses in memory) to variables and not the actual values of the variables.</p></li>
+<li><p><strong>Equivalence, pointers, references manipulations</strong>: Computers used to have much more limited amounts of memory (see the <a class="reference external" href="https://en.wikipedia.org/wiki/Apollo_Guidance_Computer">Apollo Guidance Computer</a>), which forced programmers to conserve memory by having different variables occupy the <em>same</em> memory location.  This is not a problem as long as these variables were not being used at the same time.  Fortran does this through the <code class="docutils literal notranslate"><span class="pre">Common</span></code> and <code class="docutils literal notranslate"><span class="pre">Equivalence</span></code> statements, where other languages can acheive this through manipulations of pointers and references. However, this is not a good practice as the complexity of the program grows significantly.  Do not use them unless it is a matter of “life or death”!</p></li>
+<li><p><strong>Say what’s happening</strong>: You decrease programming errors by using self-explanatory labels for your indices (subscripts), and comments (i.e., stating what your variables mean and describing your storage schemes).</p></li>
+<li><p><strong>Tests</strong>: Always test a library routine on a small problem that your already known the answer to.  Then you’ll know if you are supplying it with the right arguments and have all the links working.</p></li>
+</ul>
 </section>
 <section id="linear-algebra-in-numpy">
 <h2><span class="section-number">7.4. </span>Linear Algebra in <code class="docutils literal notranslate"><span class="pre">numpy</span></code><a class="headerlink" href="#linear-algebra-in-numpy" title="Permalink to this heading">#</a></h2>
+<p>Python does not create what we normally think of as abstract matrices when we use 2D arrays. Fortunately there is the <code class="docutils literal notranslate"><span class="pre">LinearAlgebra</span></code> package that treats 2D arrays (a 1D array of 1D arrays) as abstract matrices, and also provides a simple interface.</p>
+<p>Consider the standard matrix equation (Eq. <a class="reference internal" href="#equation-linear-eqn">(7.1)</a>), where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is a <span class="math notranslate nohighlight">\(3\times 3\)</span> matrix, <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is a <span class="math notranslate nohighlight">\(3 \times 1\)</span> vector, and the program will figure out the dimensions of vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.  In python, we start with the <code class="docutils literal notranslate"><span class="pre">import</span></code> packages and verify our input with some <code class="docutils literal notranslate"><span class="pre">print</span></code> statements.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">22</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">42</span><span class="p">],[</span><span class="mi">55</span><span class="p">,</span><span class="mi">66</span><span class="p">,</span><span class="mi">100</span><span class="p">]])</span> <span class="c1"># Array of arrays</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A = &quot;</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;b = &quot;</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A =  [[  1   2   3]
+ [ 22  32  42]
+ [ 55  66 100]]
+b =  [1 2 3]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We now solve <span class="math notranslate nohighlight">\(\mathbf{A}\mathbf{x} = \mathbf{b}\)</span> using <code class="docutils literal notranslate"><span class="pre">solve</span></code> from <code class="docutils literal notranslate"><span class="pre">numpy.linalg</span></code>, and test how close <span class="math notranslate nohighlight">\(\mathbf{A}\mathbf{x}-\mathbf{b}\)</span> comes to a zero vector:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">solve</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="c1">#Does solution</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x = &quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Residual = &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="n">b</span> <span class="p">)</span> <span class="c1">#LHS - RHS</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x =  [-1.4057971  -0.1884058   0.92753623]
+Residual =  [ 2.22044605e-16  2.66453526e-15 -1.77635684e-15]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We solved the entire set of linear equations (by elimination) with just the single command <code class="docutils literal notranslate"><span class="pre">solve</span></code>, performed a matrix multiplication (i.e., dot product) with <code class="docutils literal notranslate"><span class="pre">np.dot</span></code>, did a matrix subtraction, and obtained a solution close to machine precision.</p>
+<p>A more direct way of solving Eq. <a class="reference internal" href="#equation-linear-eqn">(7.1)</a> is by calculating the inverse <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span>, and then finding the dot product of the RHS with the inverse, <span class="math notranslate nohighlight">\(\mathbf{x} = \mathbf{A}^{-1}\mathbf{b}\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">inv</span>
+
+<span class="n">A_inv</span> <span class="o">=</span> <span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="c1">#test inverse through identity property</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A^{-1}A = &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A_inv</span><span class="p">,</span><span class="n">A</span><span class="p">))</span>
+<span class="c1">#find solution using the inverse</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x = &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A_inv</span><span class="p">,</span><span class="n">b</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A^{-1}A =  [[ 1.00000000e+00 -4.30211422e-16 -1.08246745e-15]
+ [-1.94289029e-16  1.00000000e+00 -9.99200722e-16]
+ [ 9.71445147e-17  4.71844785e-16  1.00000000e+00]]
+x =  [-1.4057971  -0.1884058   0.92753623]
+</pre></div>
+</div>
+</div>
+</div>
+<p>We tested that <code class="docutils literal notranslate"><span class="pre">inv(A)</span></code> was true through the identity property, where <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\mathbf{A} = I_3\)</span>.  The result was accurate for the diagonal elements and near machine precision for the off-diagonal elements.  Then we used the inverse to solve the matrix equation directly, and found the same answer as before, within machine precision.</p>
+<p>Now, consider solving the eigenvalue equation (Eq. <a class="reference internal" href="#equation-eigenvalue-eqn">(7.3)</a>) as the principal-axes system for a cube (i.e., rotational motion).  This requires us to determine a coordinate system in which the <strong>inertia tensor</strong> is diagonal, or</p>
+<div class="amsmath math notranslate nohighlight" id="equation-f5071178-4691-47c7-9bc5-ffeb2802e9e7">
+<span class="eqno">(7.8)<a class="headerlink" href="#equation-f5071178-4691-47c7-9bc5-ffeb2802e9e7" title="Permalink to this equation">#</a></span>\[\begin{align}
+\mathbf{I}\omega = \lambda \omega,
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> represents the inertia matrix, <span class="math notranslate nohighlight">\(\omega\)</span> is an eigenvector, and <span class="math notranslate nohighlight">\(\lambda\)</span> is an eigenvalue.  This can be solved using the <code class="docutils literal notranslate"><span class="pre">eig</span></code> function from <code class="docutils literal notranslate"><span class="pre">numpy.linalg</span></code> given the inertia matrix as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-238e96e1-98bf-4bd2-aeb5-fe14ff479c71">
+<span class="eqno">(7.9)<a class="headerlink" href="#equation-238e96e1-98bf-4bd2-aeb5-fe14ff479c71" title="Permalink to this equation">#</a></span>\[\begin{align}
+\mathbf{I} = \begin{pmatrix}
+\frac{2}{3} &amp; -\frac{1}{4} &amp; -\frac{1}{4} \\
+-\frac{1}{4} &amp; \frac{2}{3} &amp; -\frac{1}{4} \\
+-\frac{1}{4} &amp; -\frac{1}{4} &amp; \frac{2}{3}
+\end{pmatrix}.
+\end{align}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">eig</span> 
+
+<span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">2.</span><span class="o">/</span><span class="mf">3.</span><span class="p">,</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span><span class="o">-</span><span class="mf">0.25</span><span class="p">],[</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span><span class="mf">2.</span><span class="o">/</span><span class="mf">3.</span><span class="p">,</span><span class="o">-</span><span class="mf">0.25</span><span class="p">],[</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span><span class="mf">2.</span><span class="o">/</span><span class="mf">3.</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I = &quot;</span><span class="p">,</span> <span class="n">I</span><span class="p">)</span> <span class="c1">#checking that I was input correctly</span>
+
+<span class="n">Es</span><span class="p">,</span> <span class="n">evectors</span> <span class="o">=</span> <span class="n">eig</span><span class="p">(</span><span class="n">I</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eigenvalues = &quot;</span><span class="p">,</span> <span class="n">Es</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Matrix of Eigenvectors = &quot;</span><span class="p">,</span> <span class="n">evectors</span><span class="p">)</span> <span class="c1">#Transpose is incorrectly printed in the textbook</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------------&quot;</span><span class="p">)</span>
+<span class="n">Vec</span> <span class="o">=</span> <span class="n">evectors</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># a single eigenvector to test RHS = LHS</span>
+<span class="n">LHS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">I</span><span class="p">,</span><span class="n">Vec</span><span class="p">)</span>
+<span class="n">RHS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Vec</span><span class="p">,</span><span class="n">Es</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LHS - RHS = &quot;</span><span class="p">,</span> <span class="n">LHS</span><span class="o">-</span><span class="n">RHS</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LHS = &quot;</span><span class="p">,</span> <span class="n">LHS</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;RHS = &quot;</span><span class="p">,</span> <span class="n">RHS</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>I =  [[ 0.66666667 -0.25       -0.25      ]
+ [-0.25        0.66666667 -0.25      ]
+ [-0.25       -0.25        0.66666667]]
+Eigenvalues =  [0.91666667 0.16666667 0.91666667]
+Matrix of Eigenvectors =  [[ 0.81649658 -0.57735027  0.43514263]
+ [-0.40824829 -0.57735027 -0.81589244]
+ [-0.40824829 -0.57735027  0.38074981]]
+--------------------
+LHS - RHS =  [ 1.11022302e-16 -5.55111512e-17 -1.11022302e-16]
+LHS =  [ 0.7484552 -0.3742276 -0.3742276]
+RHS =  [ 0.7484552 -0.3742276 -0.3742276]
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="testing-matrix-programs">
 <h2><span class="section-number">7.5. </span>Testing Matrix Programs<a class="headerlink" href="#testing-matrix-programs" title="Permalink to this heading">#</a></h2>
+<p>Here are some exercises to see how to solve matrix problems in general.</p>
+<ol class="arabic simple">
+<li><p>Find the numerical inverse of <span class="math notranslate nohighlight">\(\mathbf{A} = \begin{pmatrix} 4 &amp; -2 &amp; 1 \\ 3 &amp; 6 &amp; -4 \\ 2 &amp; 1 &amp; 8 \end{pmatrix}\)</span>.</p></li>
+</ol>
+<p>Note that the analytical solution can be determined using the <code class="docutils literal notranslate"><span class="pre">sympy</span></code> module, which is shown below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sym</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="n">sym</span><span class="o">.</span><span class="n">init_printing</span><span class="p">()</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">Matrix</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+<span class="n">display</span><span class="p">(</span><span class="s2">&quot;A^{-1} = &quot;</span><span class="p">,</span><span class="n">A</span><span class="o">.</span><span class="n">inv</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;A^{-1} = &#39;
+</pre></div>
+</div>
+<img alt="../_images/1b425e8c8a2be9abaa462776ba45ad784715776d61707b04d0b7b056806f4385.png" src="../_images/1b425e8c8a2be9abaa462776ba45ad784715776d61707b04d0b7b056806f4385.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">inv</span> 
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+<span class="n">inv_A</span> <span class="o">=</span> <span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A = &quot;</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A^{-1} = &quot;</span><span class="p">,</span> <span class="n">inv_A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;A^{-1}A = &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">inv_A</span><span class="p">,</span><span class="n">A</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------&quot;</span><span class="p">)</span>
+<span class="n">analytical_inv_A</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mf">263.</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">52</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">2</span><span class="p">],[</span><span class="o">-</span><span class="mi">32</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">19</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">30</span><span class="p">]])</span>
+<span class="n">error</span> <span class="o">=</span> <span class="n">analytical_inv_A</span> <span class="o">-</span> <span class="n">inv_A</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error in A^{-1} using analytical result = &quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A =  [[ 4 -2  1]
+ [ 3  6 -4]
+ [ 2  1  8]]
+-------
+A^{-1} =  [[ 0.19771863  0.06463878  0.00760456]
+ [-0.121673    0.11406844  0.07224335]
+ [-0.03422053 -0.03041825  0.11406844]]
+-------
+A^{-1}A =  [[ 1.00000000e+00 -3.46944695e-18  5.55111512e-17]
+ [ 2.77555756e-17  1.00000000e+00  2.22044605e-16]
+ [ 2.77555756e-17  0.00000000e+00  1.00000000e+00]]
+-------
+error in A^{-1} using analytical result =  [[ 0.00000000e+00  0.00000000e+00 -6.07153217e-18]
+ [ 0.00000000e+00  1.38777878e-17 -2.77555756e-17]
+ [ 0.00000000e+00  3.46944695e-18 -1.38777878e-17]]
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic" start="2">
+<li><p>Consider the same matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> as before, but now used to describe three simultaneous linear equations, <span class="math notranslate nohighlight">\(\mathbf{A}\mathbf{x} = \mathbf{b}\)</span>.  Here, <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is known and has three component vectors:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0ddae0a6-c828-48b4-8818-76603dce5e65">
+<span class="eqno">(7.10)<a class="headerlink" href="#equation-0ddae0a6-c828-48b4-8818-76603dce5e65" title="Permalink to this equation">#</a></span>\[\begin{align}
+   b_1 = \begin{pmatrix} 12 \\ 4 \\ 20 \end{pmatrix} &amp;\quad b_2 = \begin{pmatrix} -25 \\ -10 \\ -30 \end{pmatrix} &amp; b_3 = \begin{pmatrix} 32 \\ 22 \\ 40 \end{pmatrix}.
+   \end{align}\]</div>
+<p>Determine the three different <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> vectors for each component vector in <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">solve</span> 
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">30</span><span class="p">],</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">40</span><span class="p">]])</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x_</span><span class="si">%i</span><span class="s2"> = &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;[</span><span class="si">%i</span><span class="s2">, </span><span class="si">%i</span><span class="s2">, </span><span class="si">%i</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="n">i</span><span class="p">]))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x_</span><span class="si">%i</span><span class="s2"> = &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;[</span><span class="si">%1.3f</span><span class="s2">, </span><span class="si">%1.3f</span><span class="s2">, </span><span class="si">%1.3f</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="n">i</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x_1 =  [1, -2, 4]
+x_2 =  [0.312, -0.038, 2.677]
+x_3 =  [2.319, -2.966, 4.791]
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Consider the matrix <span class="math notranslate nohighlight">\(\mathbf{A} = \begin{pmatrix} \alpha &amp; \beta \\ -\beta &amp; \alpha \end{pmatrix}\)</span>, where you are free to use any values you want for <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>.  Show that the eigenvalues and eigenvectors are the complex conjugates <span class="math notranslate nohighlight">\(x_{1,2}\)</span> and <span class="math notranslate nohighlight">\(\lambda_{1,2}\)</span>, respectively. Note that python uses <span class="math notranslate nohighlight">\(j\)</span> to denote a complex number instead of <span class="math notranslate nohighlight">\(i\)</span>.</p></li>
+</ol>
+<div class="amsmath math notranslate nohighlight" id="equation-13a8735f-abe1-4d28-959c-1a343628c13d">
+<span class="eqno">(7.11)<a class="headerlink" href="#equation-13a8735f-abe1-4d28-959c-1a343628c13d" title="Permalink to this equation">#</a></span>\[\begin{align} 
+x_{1,2} = \frac{1}{\sqrt{2}} \begin{pmatrix} +1 \\ \pm i \end{pmatrix}, &amp;\quad \lambda_{1,2} = \alpha \mp i\beta.
+\end{align}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">eig</span> 
+
+<span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(),</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(),</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">beta</span><span class="p">,</span> <span class="n">alpha</span><span class="p">]])</span>
+<span class="n">Es</span><span class="p">,</span> <span class="n">evectors</span> <span class="o">=</span> <span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;alpha = &quot;</span><span class="p">,</span><span class="n">alpha</span><span class="p">,</span> <span class="s2">&quot; beta = &quot;</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;sqrt(2)*x_</span><span class="si">%i</span><span class="s2"> = &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">evectors</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;lambda_</span><span class="si">%i</span><span class="s2"> = &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">Es</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>alpha =  0.587  beta =  1.321
+sqrt(2)*x_1 =  [1.+0.j 0.+1.j]
+lambda_1 =  (0.587+1.321j)
+sqrt(2)*x_2 =  [1.+0.j 0.-1.j]
+lambda_2 =  (0.587-1.321j)
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="quantum-eigenvalues-in-arbitrary-potential">
 <h2><span class="section-number">7.6. </span>Quantum Eigenvalues in Arbitrary Potential<a class="headerlink" href="#quantum-eigenvalues-in-arbitrary-potential" title="Permalink to this heading">#</a></h2>

@@ -179,6 +179,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../Chapter_4/Integration.html">4. Integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Chapter_5/Differentiation.html">5. Differentiation and Searching</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Chapter_6/ODEs.html">6. Ordinary Differential Equations (ODEs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter_7/Eigenvalues.html">7. Eigenvalue Problems</a></li>
 </ul>
 
     </div>
@@ -530,15 +531,15 @@ document.write(`
 <section id="linear-interpolation">
 <h2><span class="section-number">3.2. </span>Linear Interpolation<a class="headerlink" href="#linear-interpolation" title="Permalink to this heading">#</a></h2>
 <p>The easiest method to <a class="reference external" href="https://en.wikipedia.org/wiki/Interpolation">interpolate</a> data is linearly.  In this section, we will derive the necessary equations and apply them at the end of Section 2.3 to see how a linear interpolation fares.  First, we must recall the equation of a line: <span class="math notranslate nohighlight">\(g(x) = a_o + a_1x\)</span>, which will be applied to two nearby points (<span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(x_{i+1}\)</span>).  As a result, we find the system of linear equations:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8e570268-a31b-4dbd-8f8c-53d87d5ef6f1">
-<span class="eqno">(3.1)<a class="headerlink" href="#equation-8e570268-a31b-4dbd-8f8c-53d87d5ef6f1" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c85b9d2a-8d7f-4450-a880-8fa462799ef3">
+<span class="eqno">(3.1)<a class="headerlink" href="#equation-c85b9d2a-8d7f-4450-a880-8fa462799ef3" title="Permalink to this equation">#</a></span>\[\begin{align}
 g(x) &amp;= a_o + a_1x, \\
 g(x_i) &amp;= a_o + a_1x_i, \\
  g(x_{i+1}) &amp;= a_o + a_1x_{i+1}.
 \end{align}\]</div>
 <p>We can combine all three equations <span class="math notranslate nohighlight">\(\left[ g(x),\ g(x_i),\ g(x_{i+1}) \right]\)</span> and solve them analytically (3 equations and 3 unknowns to eliminate the coefficients).  Here, we know <span class="math notranslate nohighlight">\(g(x_i)\)</span> and <span class="math notranslate nohighlight">\(g(x_{i+1})\)</span> from our table.  Thus, we find:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4f5085b9-b34c-42dd-bf03-12f87451c22f">
-<span class="eqno">(3.2)<a class="headerlink" href="#equation-4f5085b9-b34c-42dd-bf03-12f87451c22f" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a1280bb7-3dca-4fad-a35a-4ebc70adb7c1">
+<span class="eqno">(3.2)<a class="headerlink" href="#equation-a1280bb7-3dca-4fad-a35a-4ebc70adb7c1" title="Permalink to this equation">#</a></span>\[\begin{align}
 g(x) = g(x_i) + \left(\frac{x-x_i}{x_{i+1}-x_i}\right) \left[g(x_{i+1})-g(x_i)\right]
 \end{align}\]</div>
 <p>Now it’s time to code this up as a function for later.</p>
@@ -566,19 +567,19 @@ g(x) = g(x_i) + \left(\frac{x-x_i}{x_{i+1}-x_i}\right) \left[g(x_{i+1})-g(x_i)\r
 <section id="lagrange-interpolation">
 <h2><span class="section-number">3.3. </span>Lagrange Interpolation<a class="headerlink" href="#lagrange-interpolation" title="Permalink to this heading">#</a></h2>
 <p>Consider Table <a class="reference internal" href="#cross-section-table"><span class="std std-numref">3.1</span></a> as ordered data that we wish to interpolate.  The energy <span class="math notranslate nohighlight">\(E_i\)</span> is the independent variable <span class="math notranslate nohighlight">\(x_i\)</span> and the cross section is the dependent variable <span class="math notranslate nohighlight">\(g(x_i)\)</span>.  We assume there exists a reasonable approximation representing <span class="math notranslate nohighlight">\(g(x)\)</span> to model between data points using a <span class="math notranslate nohighlight">\((n-1)\)</span>-degree polynomial over an interval <span class="math notranslate nohighlight">\(i\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b68a3c1b-9f28-4043-bdb5-e15620055cd4">
-<span class="eqno">(3.3)<a class="headerlink" href="#equation-b68a3c1b-9f28-4043-bdb5-e15620055cd4" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-65f8d58a-afcb-446f-9ad8-b1106ed908e8">
+<span class="eqno">(3.3)<a class="headerlink" href="#equation-65f8d58a-afcb-446f-9ad8-b1106ed908e8" title="Permalink to this equation">#</a></span>\[\begin{align}
 g_i(x) \simeq a_0 + a_1 x + a_2 x^2 + \cdot + a_{n-1} x^{n-1},\; (x\simeq x_i).
 \end{align}\]</div>
 <p>Because our fit is local, we do not assume that one <span class="math notranslate nohighlight">\(g(x)\)</span> can fit all the data in the table, where many sets of <span class="math notranslate nohighlight">\(a_i\)</span> exist for each region of the table.  This will include multiple low-degree polynomials that span the entire table.  With some care, the set of polynomials will be well-behaved without introducing unwanted noise or discontinuities.</p>
 <p>Lagrange developed a closed-form interpolation formula that directly fits the <span class="math notranslate nohighlight">\((n-1)\)</span>-order polynomial (<span class="math notranslate nohighlight">\(g_i(x)\)</span>) to <span class="math notranslate nohighlight">\(n\)</span> values.  The formula is written as a sum of polynomials:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c1ffb849-2de7-41c5-a14e-4b44ce17aa33">
-<span class="eqno">(3.4)<a class="headerlink" href="#equation-c1ffb849-2de7-41c5-a14e-4b44ce17aa33" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-6cf4b152-ee32-46a0-b6a9-558d65d3ab99">
+<span class="eqno">(3.4)<a class="headerlink" href="#equation-6cf4b152-ee32-46a0-b6a9-558d65d3ab99" title="Permalink to this equation">#</a></span>\[\begin{align}
 g(x) \simeq g_1\lambda_1(x) + g_2\lambda_2(x) + \cdots + g_n\lambda_n(x),
 \end{align}\]</div>
 <p>where</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6cf722bd-9ae1-4d97-9a45-fa890f7555cc">
-<span class="eqno">(3.5)<a class="headerlink" href="#equation-6cf722bd-9ae1-4d97-9a45-fa890f7555cc" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-44fd0338-e24d-4b69-ad96-8df9d76c4fc1">
+<span class="eqno">(3.5)<a class="headerlink" href="#equation-44fd0338-e24d-4b69-ad96-8df9d76c4fc1" title="Permalink to this equation">#</a></span>\[\begin{align}
 \lambda_i(x) = \displaystyle\prod_{j=1; i \ne j}^n \frac{x-x_j}{x_i-x_j} = \frac{x-x_1}{x_i-x_1}\frac{x-x_2}{x_i-x_2}\cdots \frac{x-x_n}{x_i-x_n}.
 \end{align}\]</div>
 <div align="center">
@@ -603,8 +604,8 @@ g &amp;= (-12,\ -12,\ -24,\ -60),
 \lambda_4(x) &amp;= \frac{(x-0)}{(4-0)}\frac{(x-1)}{(4-1)}\frac{(x-2)}{(4-2)} = \frac{1}{24}x(x-1)(x-2),
 \end{align*}\]</div>
 <p>so that:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c936fdcd-1053-4d90-b06a-70769684888a">
-<span class="eqno">(3.6)<a class="headerlink" href="#equation-c936fdcd-1053-4d90-b06a-70769684888a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5ffb4bcd-ce53-491f-b814-12efde631f71">
+<span class="eqno">(3.6)<a class="headerlink" href="#equation-5ffb4bcd-ce53-491f-b814-12efde631f71" title="Permalink to this equation">#</a></span>\[\begin{align}
 g(x) = x^3 - 9x^2 + 8x -12.
 \end{align}\]</div>
 <p><em>Don’t get tied up in the algebra; this is a computational course.</em></p>
@@ -704,8 +705,8 @@ g(0.5) =  -10.125
 <h2><span class="section-number">3.4. </span>Cubic Splines<a class="headerlink" href="#cubic-splines" title="Permalink to this heading">#</a></h2>
 <p>Recall that the Lagrange Interpolation method produces an (<span class="math notranslate nohighlight">\(n-1\)</span>) polynomial fit, where <span class="math notranslate nohighlight">\(n=4\)</span> produces a cubic polynomial.  Using a cubic polynomial, with additional constraints that the first and second derivatives are continuous between intervals, makes the spline fit particularly eye-pleasing.  If the interpolated function is a <em>potential</em>, you can take the derivative to obtain the force.  The process of matching polynomials and their derivatives leads to many simultaneous equations to be solved.  This is tedious work for humans, yet easy for computers and popular for calculations and graphics.</p>
 <p>The basic approximation of splines is the representation of the function <span class="math notranslate nohighlight">\(g(x)\)</span> in the subinterval <span class="math notranslate nohighlight">\([x_i,\:x_{i+1}]\)</span> with a cubic polynomial:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b49832a4-3b4f-43d3-93ed-3aceae5b4252">
-<span class="eqno">(3.7)<a class="headerlink" href="#equation-b49832a4-3b4f-43d3-93ed-3aceae5b4252" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4278c994-044e-4257-9a71-eaad77d7e229">
+<span class="eqno">(3.7)<a class="headerlink" href="#equation-4278c994-044e-4257-9a71-eaad77d7e229" title="Permalink to this equation">#</a></span>\[\begin{align}
 g(x) &amp;\simeq g_i(x),\ \text{for } x_i \leq x \leq x_{i+1}, \\
 g_i(x) &amp;= g_i + g_i^\prime(x-x_i) + \frac{1}{2}g_i^{\prime\prime}(x-x_i)^2 + \frac{1}{6}g_i^{\prime\prime\prime}(x-x_i)^3.
 \end{align}\]</div>
@@ -713,8 +714,8 @@ g_i(x) &amp;= g_i + g_i^\prime(x-x_i) + \frac{1}{2}g_i^{\prime\prime}(x-x_i)^2 +
 <div class="math notranslate nohighlight">
 \[g_i(x_{i+1}) = g_{i+1}(x_{i+1}),\]</div>
 <p>The <span class="math notranslate nohighlight">\(i{\rm th}\)</span> spline as the end of its interval is equal to the <span class="math notranslate nohighlight">\((i+1){\rm th}\)</span> spline at the beginning of its interval.  For the derivatives, we have</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c40bf51a-392c-4025-a436-1413e99dddf3">
-<span class="eqno">(3.8)<a class="headerlink" href="#equation-c40bf51a-392c-4025-a436-1413e99dddf3" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7613b428-b22f-4458-a11f-58e66e9f8881">
+<span class="eqno">(3.8)<a class="headerlink" href="#equation-7613b428-b22f-4458-a11f-58e66e9f8881" title="Permalink to this equation">#</a></span>\[\begin{align}
 g_{x_i}^\prime(x_i) &amp;= g_i^\prime(x_i),\qquad \text{(first derivatives)} \\
 g_{i-1}^{\prime\prime}(x_i) &amp;= g_i^{\prime\prime}(x_i),\qquad \text{(second derivatives)} \\
 g_i{\prime\prime\prime} &amp;\simeq \frac{g_{i+1}^{\prime\prime}-g_i^{\prime\prime}}{x_{i+1}-x_i}.\qquad \text{(third derivatives)}
@@ -767,14 +768,14 @@ g_i{\prime\prime\prime} &amp;\simeq \frac{g_{i+1}^{\prime\prime}-g_i^{\prime\pri
 <div class="math notranslate nohighlight">
 \[ N(t) = N_o e^{-t/\tau}, \]</div>
 <p>where the parameters are the lifetime <span class="math notranslate nohighlight">\(\tau\)</span> and the initial decay rate <span class="math notranslate nohighlight">\(dN(0)/dt\)</span>.  In general, we indicate this as <span class="math notranslate nohighlight">\(g(x) = g(x; a_m)\)</span>.  We use the chi-square <span class="math notranslate nohighlight">\(\chi^2\)</span> measure as a gauge of how well a model <span class="math notranslate nohighlight">\(g\)</span> reproduces the data:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4092924b-f6d9-4281-ba7d-06334e31a337">
-<span class="eqno">(3.9)<a class="headerlink" href="#equation-4092924b-f6d9-4281-ba7d-06334e31a337" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5c8d99ea-476e-4a58-bb91-2c5605fe3409">
+<span class="eqno">(3.9)<a class="headerlink" href="#equation-5c8d99ea-476e-4a58-bb91-2c5605fe3409" title="Permalink to this equation">#</a></span>\[\begin{align}
 \chi^2 = \sum_{i=1}^N \frac{(y_i-g(x_i; a_m))^2}{\sigma_i^2}, 
 \end{align}\]</div>
 <p>where the sum is over the <span class="math notranslate nohighlight">\(N\)</span> data values.  The definition is such that the minimal <span class="math notranslate nohighlight">\(\chi^2\)</span> (smaller values) are better fits.  Notice also that the 1/<span class="math notranslate nohighlight">\(\sigma_i^2\)</span> weights the measurements with larger errors so they contribute less to <span class="math notranslate nohighlight">\(\chi^2\)</span>.  If the errors are not given in the data set, then you can use the standard error estimate <span class="math notranslate nohighlight">\(\sigma_x = \sigma/\sqrt{N}\)</span> where <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviation.  If you are interested in other methods of error estimation, look at this introductory <a class="reference external" href="https://towardsdatascience.com/an-introduction-to-the-bootstrap-method-58bcb51b4d60">article</a> from <em>towardsdatascience.com</em>.</p>
 <p><strong>Least-squares fitting</strong> refers to adjusting the model parameters until a minimum in <span class="math notranslate nohighlight">\(\chi^2\)</span> is found.  In other words, it is searching for a minimum <em>absolute error</em> <span class="math notranslate nohighlight">\((y_i-g(x_i; a_m))^2\)</span> between the data points <span class="math notranslate nohighlight">\(y_i\)</span> and the model <span class="math notranslate nohighlight">\(g(x_i; a_m)\)</span>.  Recall from <em>Calculus</em> that finding a minimum is taking the derivative and setting it equal to zero.  Therefore, we can express the derivative of <span class="math notranslate nohighlight">\(\chi^2\)</span> with respect to the model parameters <span class="math notranslate nohighlight">\(a_m\)</span> as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-855254f6-d262-4573-b84a-fbe52153d907">
-<span class="eqno">(3.10)<a class="headerlink" href="#equation-855254f6-d262-4573-b84a-fbe52153d907" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-86410b21-5e2b-49c2-bdf1-9bb1831c8420">
+<span class="eqno">(3.10)<a class="headerlink" href="#equation-86410b21-5e2b-49c2-bdf1-9bb1831c8420" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{\partial [\chi^2]}{\partial a_m} = \displaystyle\sum_{i=1}^N\frac{[y_i-g(x_i)]}{\sigma_i^2}\frac{\partial g(x_i)}{\partial a_m} = 0,
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(i\)</span> refers to a loop over the data points and <span class="math notranslate nohighlight">\(a_m\)</span> corresponds to the list of model parameters <span class="math notranslate nohighlight">\(\left(a_1,\cdots,a_{M_p}\right)\)</span>.  Typically this results in a sufficiently complicated dependence on the model parameters <span class="math notranslate nohighlight">\(a_m\)</span> to produce a set of <strong>non-linear</strong> equations.  Thus, solutions are found by a <em>trial-and-error</em> search (i.e., test many possible solutions and use <span class="math notranslate nohighlight">\(\chi^2\)</span> to sort them).</p>
@@ -789,20 +790,20 @@ g_i{\prime\prime\prime} &amp;\simeq \frac{g_{i+1}^{\prime\prime}-g_i^{\prime\pri
 <div class="math notranslate nohighlight">
 \[ g(x; [a_1,a_2]) = a_1 + a_2x. \]</div>
 <p>This is simply <em>linear regression</em>: there are <span class="math notranslate nohighlight">\(M_p = 2\)</span> parameters with a slope <span class="math notranslate nohighlight">\(a_2\)</span> and y-intercept <span class="math notranslate nohighlight">\(a_1\)</span>.  Even though there are only two parameters to determine, there still may be a large number <span class="math notranslate nohighlight">\(N\)</span> of data points.  A unique solution is not possible unless the number of data point is equal equal to or greater than the number of parameters (<span class="math notranslate nohighlight">\(N&gt;M_p\)</span>).  For this linear case, there are just two derivatives,</p>
-<div class="amsmath math notranslate nohighlight" id="equation-54fe09fa-bcdc-4380-9a51-3eb3ef30f3bc">
-<span class="eqno">(3.11)<a class="headerlink" href="#equation-54fe09fa-bcdc-4380-9a51-3eb3ef30f3bc" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-33758a98-afad-4622-b549-9dd0f6d8e80a">
+<span class="eqno">(3.11)<a class="headerlink" href="#equation-33758a98-afad-4622-b549-9dd0f6d8e80a" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{\partial g(x_i)}{\partial a_1} &amp;= 1, \\
 \frac{\partial g(x_i)}{\partial a_2} &amp;= x_i, 
 \end{align}\]</div>
 <p>and after substitution, the <span class="math notranslate nohighlight">\(\chi^2\)</span> minimization equations can be solved:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c3285140-8896-491d-bb2b-559663a7dc61">
-<span class="eqno">(3.12)<a class="headerlink" href="#equation-c3285140-8896-491d-bb2b-559663a7dc61" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-01078dfc-3d2e-4082-81ec-772be5bddd1f">
+<span class="eqno">(3.12)<a class="headerlink" href="#equation-01078dfc-3d2e-4082-81ec-772be5bddd1f" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{\partial[\chi^2]}{\partial a_1} &amp;= \sum_{i=1}^N \frac{[y_i-a_1-a_2x_i]}{\sigma_i^2} = 0, \\ 
 \frac{\partial[\chi^2]}{\partial a_2} &amp;= \displaystyle\sum_{i=1}^N \frac{[y_i-a_1-a_2x_i]}{\sigma_i^2}x_i = 0.
 \end{align}\]</div>
 <p>Let’s solve these equations for <span class="math notranslate nohighlight">\(a_1\)</span> and <span class="math notranslate nohighlight">\(a_2\)</span> using the average values (<span class="math notranslate nohighlight">\(\bar{x}\)</span>, <span class="math notranslate nohighlight">\(\bar{y}\)</span>):</p>
-<div class="amsmath math notranslate nohighlight" id="equation-20722cad-26fa-44e5-bd74-434e036daa89">
-<span class="eqno">(3.13)<a class="headerlink" href="#equation-20722cad-26fa-44e5-bd74-434e036daa89" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4bbeb648-ec0b-482a-b308-10d07765e759">
+<span class="eqno">(3.13)<a class="headerlink" href="#equation-4bbeb648-ec0b-482a-b308-10d07765e759" title="Permalink to this equation">#</a></span>\[\begin{align}
 \bar{y}-a_1-a_2\bar{x} &amp;= 0, \\
 a_1 &amp;= \bar{y} - a_2\bar{x}, \\  
 a_2 &amp;= \frac{\sum_i^N (x_i-\bar{x})(y_i-\bar{y})}{\sum_i^N (x_i-\bar{x})^2}.\quad \text{(best fit slope)}
@@ -965,7 +966,7 @@ N_o = 29258 +/-  66 particles
 lambda = 153.6 +/- 0.3 sec
 </pre></div>
 </div>
-<img alt="../_images/8eb91e50ddf1a681a07a7cf8307d1494b11100e88de8de26f482d66046b74d92.png" src="../_images/8eb91e50ddf1a681a07a7cf8307d1494b11100e88de8de26f482d66046b74d92.png" />
+<img alt="../_images/1255928883b45d133772dd86c71a096bd7808f7d725ee3d822ef4e5d5f8fccca.png" src="../_images/1255928883b45d133772dd86c71a096bd7808f7d725ee3d822ef4e5d5f8fccca.png" />
 </div>
 </div>
 </section>
@@ -1041,187 +1042,352 @@ lambda = 153.6 +/- 0.3 sec
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/saturnaxis/anaconda3/lib/python3.9/site-packages/emcee/moves/red_blue.py:99: RuntimeWarning: invalid value encountered in double_scalars
   lnpdiff = f + nlp - state.log_prob[j]
 
-  2%|█▊                                                                                                                      | 75/5000 [00:00&lt;00:06, 735.58it/s]
+  1%|▉                                                                                                                       | 38/5000 [00:00&lt;00:13, 374.23it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  3%|███▌                                                                                                                   | 149/5000 [00:00&lt;00:06, 693.06it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  2%|█▊                                                                                                                      | 76/5000 [00:00&lt;00:14, 339.52it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  4%|█████▎                                                                                                                 | 225/5000 [00:00&lt;00:06, 719.76it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  2%|██▋                                                                                                                    | 111/5000 [00:00&lt;00:15, 317.44it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  7%|███████▉                                                                                                               | 331/5000 [00:00&lt;00:05, 847.58it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  3%|███▍                                                                                                                   | 145/5000 [00:00&lt;00:15, 321.92it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  9%|██████████▎                                                                                                            | 431/5000 [00:00&lt;00:05, 894.21it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  4%|████▏                                                                                                                  | 178/5000 [00:00&lt;00:18, 260.04it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 10%|████████████▍                                                                                                          | 521/5000 [00:00&lt;00:05, 870.72it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  4%|████▉                                                                                                                  | 206/5000 [00:00&lt;00:19, 249.74it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 12%|██████████████▊                                                                                                        | 623/5000 [00:00&lt;00:04, 917.31it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  5%|██████▍                                                                                                                | 269/5000 [00:00&lt;00:13, 352.78it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 14%|█████████████████▏                                                                                                     | 722/5000 [00:00&lt;00:04, 937.85it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  6%|███████▍                                                                                                               | 310/5000 [00:00&lt;00:12, 365.91it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 16%|███████████████████▍                                                                                                   | 817/5000 [00:00&lt;00:04, 911.59it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  7%|████████▎                                                                                                              | 349/5000 [00:01&lt;00:13, 356.88it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 18%|█████████████████████▋                                                                                                 | 911/5000 [00:01&lt;00:04, 916.66it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  8%|█████████▏                                                                                                             | 387/5000 [00:01&lt;00:13, 340.50it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 20%|███████████████████████▋                                                                                              | 1003/5000 [00:01&lt;00:04, 912.59it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  9%|██████████▏                                                                                                            | 427/5000 [00:01&lt;00:12, 355.98it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 22%|██████████████████████████                                                                                            | 1103/5000 [00:01&lt;00:04, 935.60it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  9%|███████████                                                                                                            | 464/5000 [00:01&lt;00:14, 306.41it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 24%|████████████████████████████▎                                                                                         | 1198/5000 [00:01&lt;00:04, 938.11it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 10%|███████████▊                                                                                                           | 497/5000 [00:01&lt;00:15, 297.41it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 26%|██████████████████████████████▌                                                                                       | 1295/5000 [00:01&lt;00:03, 947.43it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 11%|████████████▌                                                                                                          | 528/5000 [00:01&lt;00:14, 299.98it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 28%|████████████████████████████████▊                                                                                     | 1390/5000 [00:01&lt;00:03, 934.98it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 12%|██████████████                                                                                                         | 590/5000 [00:01&lt;00:11, 385.45it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 30%|███████████████████████████████████                                                                                   | 1484/5000 [00:01&lt;00:03, 888.47it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 13%|███████████████▎                                                                                                       | 644/5000 [00:01&lt;00:10, 427.63it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 31%|█████████████████████████████████████▏                                                                                | 1574/5000 [00:01&lt;00:03, 862.01it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 14%|████████████████▍                                                                                                      | 689/5000 [00:02&lt;00:10, 392.72it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 33%|███████████████████████████████████████▏                                                                              | 1661/5000 [00:01&lt;00:04, 819.84it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 15%|█████████████████▎                                                                                                     | 730/5000 [00:02&lt;00:11, 361.09it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 35%|█████████████████████████████████████████▏                                                                            | 1744/5000 [00:02&lt;00:04, 704.55it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 16%|██████████████████▌                                                                                                    | 782/5000 [00:02&lt;00:10, 402.07it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 36%|██████████████████████████████████████████▉                                                                           | 1818/5000 [00:02&lt;00:04, 697.68it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 17%|████████████████████▌                                                                                                  | 863/5000 [00:02&lt;00:08, 511.39it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 38%|████████████████████████████████████████████▌                                                                         | 1890/5000 [00:02&lt;00:04, 689.62it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 19%|██████████████████████▎                                                                                                | 936/5000 [00:02&lt;00:07, 570.98it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 39%|██████████████████████████████████████████████▎                                                                       | 1961/5000 [00:02&lt;00:06, 502.53it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 20%|███████████████████████▋                                                                                              | 1004/5000 [00:02&lt;00:06, 601.40it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 40%|███████████████████████████████████████████████▋                                                                      | 2019/5000 [00:02&lt;00:05, 505.24it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 21%|█████████████████████████▏                                                                                            | 1066/5000 [00:02&lt;00:07, 543.16it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 42%|████████████████████████████████████████████████▉                                                                     | 2076/5000 [00:02&lt;00:05, 519.34it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 22%|██████████████████████████▌                                                                                           | 1123/5000 [00:02&lt;00:08, 445.82it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 43%|██████████████████████████████████████████████████▎                                                                   | 2133/5000 [00:02&lt;00:06, 463.20it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 23%|███████████████████████████▋                                                                                          | 1172/5000 [00:02&lt;00:08, 439.81it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 44%|███████████████████████████████████████████████████▌                                                                  | 2184/5000 [00:03&lt;00:07, 391.68it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 25%|█████████████████████████████▍                                                                                        | 1247/5000 [00:03&lt;00:07, 514.91it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 45%|████████████████████████████████████████████████████▌                                                                 | 2229/5000 [00:03&lt;00:06, 402.71it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 26%|██████████████████████████████▊                                                                                       | 1304/5000 [00:03&lt;00:07, 527.36it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 45%|█████████████████████████████████████████████████████▋                                                                | 2273/5000 [00:03&lt;00:06, 399.76it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 27%|████████████████████████████████                                                                                      | 1360/5000 [00:03&lt;00:07, 474.06it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 46%|██████████████████████████████████████████████████████▊                                                               | 2322/5000 [00:03&lt;00:06, 421.87it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 28%|█████████████████████████████████▎                                                                                    | 1411/5000 [00:03&lt;00:07, 467.62it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 48%|████████████████████████████████████████████████████████▏                                                             | 2382/5000 [00:03&lt;00:05, 468.21it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 29%|██████████████████████████████████▊                                                                                   | 1474/5000 [00:03&lt;00:06, 508.61it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 49%|█████████████████████████████████████████████████████████▊                                                            | 2451/5000 [00:03&lt;00:04, 527.61it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 31%|████████████████████████████████████                                                                                  | 1527/5000 [00:03&lt;00:07, 473.05it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|███████████████████████████████████████████████████████████▌                                                          | 2523/5000 [00:03&lt;00:04, 577.90it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 32%|█████████████████████████████████████▏                                                                                | 1576/5000 [00:03&lt;00:08, 417.24it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 52%|█████████████████████████████████████████████████████████████▎                                                        | 2596/5000 [00:03&lt;00:03, 620.15it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 32%|██████████████████████████████████████▏                                                                               | 1620/5000 [00:03&lt;00:08, 394.92it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 53%|██████████████████████████████████████████████████████████████▊                                                       | 2660/5000 [00:03&lt;00:03, 603.73it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 33%|███████████████████████████████████████▏                                                                              | 1661/5000 [00:04&lt;00:08, 375.34it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 54%|████████████████████████████████████████████████████████████████▏                                                     | 2722/5000 [00:04&lt;00:04, 558.48it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 34%|████████████████████████████████████████                                                                              | 1700/5000 [00:04&lt;00:09, 358.57it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 56%|█████████████████████████████████████████████████████████████████▌                                                    | 2780/5000 [00:04&lt;00:03, 563.81it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 35%|████████████████████████████████████████▉                                                                             | 1737/5000 [00:04&lt;00:09, 351.39it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 57%|███████████████████████████████████████████████████████████████████                                                   | 2842/5000 [00:04&lt;00:03, 578.59it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 35%|█████████████████████████████████████████▊                                                                            | 1773/5000 [00:04&lt;00:09, 348.63it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 58%|████████████████████████████████████████████████████████████████████▌                                                 | 2905/5000 [00:04&lt;00:03, 592.77it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 36%|██████████████████████████████████████████▋                                                                           | 1809/5000 [00:04&lt;00:09, 347.31it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 59%|█████████████████████████████████████████████████████████████████████▉                                                | 2965/5000 [00:04&lt;00:03, 518.84it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 37%|███████████████████████████████████████████▌                                                                          | 1844/5000 [00:04&lt;00:09, 348.03it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 61%|███████████████████████████████████████████████████████████████████████▌                                              | 3031/5000 [00:04&lt;00:03, 553.73it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 38%|████████████████████████████████████████████▎                                                                         | 1879/5000 [00:04&lt;00:08, 347.39it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 62%|█████████████████████████████████████████████████████████████████████████▌                                            | 3119/5000 [00:04&lt;00:02, 641.91it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 38%|█████████████████████████████████████████████▏                                                                        | 1914/5000 [00:04&lt;00:09, 342.43it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 65%|████████████████████████████████████████████████████████████████████████████▏                                         | 3228/5000 [00:04&lt;00:02, 767.65it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 39%|█████████████████████████████████████████████▉                                                                        | 1949/5000 [00:04&lt;00:08, 339.17it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 67%|██████████████████████████████████████████████████████████████████████████████▋                                       | 3334/5000 [00:04&lt;00:01, 849.28it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 40%|██████████████████████████████████████████████▊                                                                       | 1983/5000 [00:05&lt;00:08, 337.58it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 69%|█████████████████████████████████████████████████████████████████████████████████▎                                    | 3446/5000 [00:04&lt;00:01, 927.18it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 40%|███████████████████████████████████████████████▋                                                                      | 2019/5000 [00:05&lt;00:08, 342.04it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 71%|███████████████████████████████████████████████████████████████████████████████████▉                                  | 3556/5000 [00:05&lt;00:01, 977.59it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 41%|████████████████████████████████████████████████▍                                                                     | 2054/5000 [00:05&lt;00:08, 342.15it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 73%|██████████████████████████████████████████████████████████████████████████████████████▍                               | 3661/5000 [00:05&lt;00:01, 998.53it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 42%|█████████████████████████████████████████████████▎                                                                    | 2089/5000 [00:05&lt;00:08, 340.81it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 75%|████████████████████████████████████████████████████████████████████████████████████████▏                            | 3769/5000 [00:05&lt;00:01, 1020.15it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 42%|██████████████████████████████████████████████████▏                                                                   | 2124/5000 [00:05&lt;00:08, 337.92it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 77%|██████████████████████████████████████████████████████████████████████████████████████████▌                          | 3872/5000 [00:05&lt;00:01, 1007.47it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 43%|██████████████████████████████████████████████████▉                                                                   | 2158/5000 [00:05&lt;00:08, 335.48it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 79%|████████████████████████████████████████████████████████████████████████████████████████████▉                        | 3974/5000 [00:05&lt;00:01, 1006.32it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 44%|███████████████████████████████████████████████████▊                                                                  | 2193/5000 [00:05&lt;00:08, 337.48it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 82%|████████████████████████████████████████████████████████████████████████████████████████████████▏                     | 4075/5000 [00:05&lt;00:01, 834.59it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 45%|████████████████████████████████████████████████████▌                                                                 | 2228/5000 [00:05&lt;00:08, 338.61it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 83%|██████████████████████████████████████████████████████████████████████████████████████████████████▎                   | 4164/5000 [00:05&lt;00:01, 825.51it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 45%|█████████████████████████████████████████████████████▌                                                                | 2269/5000 [00:05&lt;00:07, 357.21it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 85%|████████████████████████████████████████████████████████████████████████████████████████████████████▎                 | 4251/5000 [00:05&lt;00:00, 825.13it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 46%|██████████████████████████████████████████████████████▍                                                               | 2305/5000 [00:05&lt;00:07, 351.70it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 87%|██████████████████████████████████████████████████████████████████████████████████████████████████████▎               | 4336/5000 [00:05&lt;00:00, 825.13it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 47%|███████████████████████████████████████████████████████▏                                                              | 2341/5000 [00:06&lt;00:07, 347.89it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 88%|████████████████████████████████████████████████████████████████████████████████████████████████████████▎             | 4421/5000 [00:06&lt;00:00, 813.01it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 48%|████████████████████████████████████████████████████████                                                              | 2376/5000 [00:06&lt;00:07, 347.52it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 90%|██████████████████████████████████████████████████████████████████████████████████████████████████████████▍           | 4509/5000 [00:06&lt;00:00, 831.60it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 48%|████████████████████████████████████████████████████████▉                                                             | 2411/5000 [00:06&lt;00:07, 342.56it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 92%|████████████████████████████████████████████████████████████████████████████████████████████████████████████▉         | 4617/5000 [00:06&lt;00:00, 900.97it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 49%|█████████████████████████████████████████████████████████▋                                                            | 2446/5000 [00:06&lt;00:07, 342.66it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 94%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████▏      | 4710/5000 [00:06&lt;00:00, 904.50it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|██████████████████████████████████████████████████████████▌                                                           | 2481/5000 [00:06&lt;00:07, 329.08it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 96%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████▎    | 4802/5000 [00:06&lt;00:00, 838.49it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 50%|███████████████████████████████████████████████████████████▎                                                          | 2515/5000 [00:06&lt;00:07, 330.55it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 98%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████▎  | 4888/5000 [00:06&lt;00:00, 752.65it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 51%|████████████████████████████████████████████████████████████▏                                                         | 2549/5000 [00:06&lt;00:07, 326.19it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 99%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▏| 4966/5000 [00:06&lt;00:00, 635.15it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 52%|████████████████████████████████████████████████████████████▉                                                         | 2582/5000 [00:06&lt;00:07, 318.67it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5000/5000 [00:06&lt;00:00, 723.65it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 52%|█████████████████████████████████████████████████████████████▋                                                        | 2616/5000 [00:06&lt;00:07, 324.24it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 53%|██████████████████████████████████████████████████████████████▌                                                       | 2649/5000 [00:07&lt;00:07, 324.93it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 54%|███████████████████████████████████████████████████████████████▎                                                      | 2682/5000 [00:07&lt;00:07, 321.43it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 54%|████████████████████████████████████████████████████████████████                                                      | 2717/5000 [00:07&lt;00:06, 327.88it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 55%|████████████████████████████████████████████████████████████████▉                                                     | 2750/5000 [00:07&lt;00:06, 324.25it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 56%|█████████████████████████████████████████████████████████████████▋                                                    | 2783/5000 [00:07&lt;00:06, 321.06it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 56%|██████████████████████████████████████████████████████████████████▍                                                   | 2817/5000 [00:07&lt;00:06, 324.61it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 57%|███████████████████████████████████████████████████████████████████▎                                                  | 2850/5000 [00:07&lt;00:06, 319.71it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 58%|████████████████████████████████████████████████████████████████████                                                  | 2882/5000 [00:07&lt;00:07, 293.53it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 58%|████████████████████████████████████████████████████████████████████▋                                                 | 2912/5000 [00:07&lt;00:07, 290.60it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 59%|█████████████████████████████████████████████████████████████████████▊                                                | 2959/5000 [00:07&lt;00:06, 338.69it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 60%|██████████████████████████████████████████████████████████████████████▉                                               | 3005/5000 [00:08&lt;00:05, 371.64it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 61%|███████████████████████████████████████████████████████████████████████▊                                              | 3043/5000 [00:08&lt;00:05, 339.66it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 62%|████████████████████████████████████████████████████████████████████████▋                                             | 3078/5000 [00:08&lt;00:06, 317.37it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 63%|██████████████████████████████████████████████████████████████████████████                                            | 3138/5000 [00:08&lt;00:04, 390.99it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 64%|███████████████████████████████████████████████████████████████████████████                                           | 3179/5000 [00:08&lt;00:04, 388.74it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 64%|███████████████████████████████████████████████████████████████████████████▉                                          | 3219/5000 [00:08&lt;00:05, 347.58it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 66%|█████████████████████████████████████████████████████████████████████████████▎                                        | 3278/5000 [00:08&lt;00:04, 410.13it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 67%|███████████████████████████████████████████████████████████████████████████████▏                                      | 3356/5000 [00:08&lt;00:03, 509.59it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 68%|████████████████████████████████████████████████████████████████████████████████▍                                     | 3411/5000 [00:09&lt;00:03, 518.18it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 69%|█████████████████████████████████████████████████████████████████████████████████▊                                    | 3465/5000 [00:09&lt;00:03, 449.14it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 70%|██████████████████████████████████████████████████████████████████████████████████▉                                   | 3513/5000 [00:09&lt;00:03, 405.44it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 71%|███████████████████████████████████████████████████████████████████████████████████▉                                  | 3556/5000 [00:09&lt;00:03, 374.93it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 72%|████████████████████████████████████████████████████████████████████████████████████▊                                 | 3596/5000 [00:09&lt;00:03, 363.06it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 73%|█████████████████████████████████████████████████████████████████████████████████████▊                                | 3634/5000 [00:09&lt;00:03, 360.42it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 73%|██████████████████████████████████████████████████████████████████████████████████████▋                               | 3671/5000 [00:09&lt;00:03, 346.15it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 74%|███████████████████████████████████████████████████████████████████████████████████████▍                              | 3707/5000 [00:09&lt;00:03, 347.77it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 75%|████████████████████████████████████████████████████████████████████████████████████████▎                             | 3744/5000 [00:10&lt;00:03, 351.26it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 76%|█████████████████████████████████████████████████████████████████████████████████████████▏                            | 3780/5000 [00:10&lt;00:03, 352.85it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 76%|██████████████████████████████████████████████████████████████████████████████████████████                            | 3817/5000 [00:10&lt;00:03, 355.66it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 78%|███████████████████████████████████████████████████████████████████████████████████████████▍                          | 3875/5000 [00:10&lt;00:02, 419.95it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 79%|████████████████████████████████████████████████████████████████████████████████████████████▋                         | 3929/5000 [00:10&lt;00:02, 454.25it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 80%|█████████████████████████████████████████████████████████████████████████████████████████████▊                        | 3975/5000 [00:10&lt;00:02, 432.31it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 81%|███████████████████████████████████████████████████████████████████████████████████████████████                       | 4028/5000 [00:10&lt;00:02, 459.70it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 82%|████████████████████████████████████████████████████████████████████████████████████████████████▏                     | 4075/5000 [00:10&lt;00:02, 450.31it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 82%|█████████████████████████████████████████████████████████████████████████████████████████████████▎                    | 4121/5000 [00:10&lt;00:02, 438.95it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 83%|██████████████████████████████████████████████████████████████████████████████████████████████████▎                   | 4166/5000 [00:10&lt;00:01, 420.41it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 84%|███████████████████████████████████████████████████████████████████████████████████████████████████▎                  | 4209/5000 [00:11&lt;00:01, 411.56it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 85%|████████████████████████████████████████████████████████████████████████████████████████████████████▎                 | 4251/5000 [00:11&lt;00:01, 396.04it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 86%|█████████████████████████████████████████████████████████████████████████████████████████████████████▎                | 4291/5000 [00:11&lt;00:01, 396.72it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 87%|██████████████████████████████████████████████████████████████████████████████████████████████████████▊               | 4358/5000 [00:11&lt;00:01, 472.28it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 88%|███████████████████████████████████████████████████████████████████████████████████████████████████████▉              | 4406/5000 [00:11&lt;00:01, 440.45it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 89%|█████████████████████████████████████████████████████████████████████████████████████████████████████████             | 4451/5000 [00:11&lt;00:01, 422.57it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 90%|██████████████████████████████████████████████████████████████████████████████████████████████████████████            | 4494/5000 [00:11&lt;00:01, 402.50it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 91%|███████████████████████████████████████████████████████████████████████████████████████████████████████████           | 4535/5000 [00:11&lt;00:01, 393.46it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 92%|███████████████████████████████████████████████████████████████████████████████████████████████████████████▉          | 4575/5000 [00:11&lt;00:01, 393.58it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 92%|████████████████████████████████████████████████████████████████████████████████████████████████████████████▉         | 4615/5000 [00:12&lt;00:00, 386.21it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 93%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████▊        | 4655/5000 [00:12&lt;00:00, 389.50it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 94%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████▊       | 4696/5000 [00:12&lt;00:00, 395.10it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 95%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████▊      | 4736/5000 [00:12&lt;00:00, 387.34it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 96%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████▋     | 4777/5000 [00:12&lt;00:00, 392.77it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 96%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████▋    | 4819/5000 [00:12&lt;00:00, 399.99it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 98%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████▏  | 4879/5000 [00:12&lt;00:00, 456.61it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 99%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▌ | 4938/5000 [00:12&lt;00:00, 493.56it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▋| 4988/5000 [00:12&lt;00:00, 453.46it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5000/5000 [00:12&lt;00:00, 385.34it/s]
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -1241,7 +1407,7 @@ lambda = 153.6 +/- 0.3 sec
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/84ec5c0b035011be8fc6b7446996d0133904f76da19064e1e100f40b55d8503a.png" src="../_images/84ec5c0b035011be8fc6b7446996d0133904f76da19064e1e100f40b55d8503a.png" />
+<img alt="../_images/bc51120e9536710dee2e5c2402afe7aab375771625bc3443aca2ac95b71d99c8.png" src="../_images/bc51120e9536710dee2e5c2402afe7aab375771625bc3443aca2ac95b71d99c8.png" />
 </div>
 </div>
 <p>In the above figure (created with <a class="reference external" href="https://corner.readthedocs.io/en/latest/index.html">corner</a>), we recover a result that is consistent with the Least-Squares approach (i.e., overlapping within the 1-sigma errors).  <strong>Note that this result is the raw output and you need to report values with the correct number of significant digits.</strong></p>
