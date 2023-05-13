@@ -452,35 +452,49 @@ document.write(`
 <div class="math notranslate nohighlight" id="equation-linear-eqn">
 <span class="eqno">(7.1)<a class="headerlink" href="#equation-linear-eqn" title="Permalink to this equation">#</a></span>\[\mathbf{A}\mathbf{x} = \mathbf{b},\]</div>
 <p>which is defined by a known <span class="math notranslate nohighlight">\(N\times N\)</span> matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, an unknown vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> of length <span class="math notranslate nohighlight">\(N\)</span>, and a known vector <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> of length <span class="math notranslate nohighlight">\(N\)</span>.  The obvious way to solve this equation is to determine the inverse of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> (i.e., <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span>) and then multiply both sides to get:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-08a5cf90-07ef-4438-9170-34f2e83f989a">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-08a5cf90-07ef-4438-9170-34f2e83f989a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-04ab5f10-645b-469e-a9b6-5b932b555dba">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-04ab5f10-645b-469e-a9b6-5b932b555dba" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{A}^{-1}\mathbf{A} &amp;=  I_N,\qquad \text{(Identity property)}\\
 \mathbf{A}^{-1}\mathbf{A}\mathbf{x} &amp;= \mathbf{A}^{-1}\mathbf{b}, \\
 \mathbf{x} &amp;= \mathbf{A}^{-1}\mathbf{b}.
 \end{align}\]</div>
 <p>Both the direct solution of Eq. <a class="reference internal" href="#equation-linear-eqn">(7.1)</a> and the process of matrix inversion are standard in a matrix subroutine library.</p>
+<div align="center">
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/uQhTuRlWMxw"
+frameborder="0" 
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>A more efficient way to solve Eq. <a class="reference internal" href="#equation-linear-eqn">(7.1)</a> is by Gaussian elimination or lower-upper (LU) decomposition because it yields the vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> without explicitly calculating <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span>.  Sometimes, you may want the inverse for other purposes, such that the method of multiplying by the inverse is preferred.</p>
+<p>A more efficient way to solve Eq. <a class="reference internal" href="#equation-linear-eqn">(7.1)</a> is by Gaussian elimination or <a class="reference external" href="https://www.quantstart.com/articles/LU-Decomposition-in-Python-and-NumPy/">lower-upper (LU) decomposition</a> because it yields the vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> without explicitly calculating <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span>.  Sometimes, you may want the inverse for other purposes, such that the method of multiplying by the inverse is preferred.</p>
+</div>
+<div align="center">
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/ZDxONtacA_4"
+frameborder="0" 
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
 </div>
 <p>Other matrix problems are of the following form:</p>
 <div class="math notranslate nohighlight" id="equation-eigenvalue-eqn">
 <span class="eqno">(7.3)<a class="headerlink" href="#equation-eigenvalue-eqn" title="Permalink to this equation">#</a></span>\[\mathbf{A}\mathbf{x} = \lambda \mathbf{x},\]</div>
 <p>which is similar to Eq. <a class="reference internal" href="#equation-linear-eqn">(7.1)</a>, but with an unknown parameter <span class="math notranslate nohighlight">\(\lambda\)</span>.  This form is called the <em>eigenvalue</em> problem.  It is harder to solve because solutions exist for only certain (if any) values of <span class="math notranslate nohighlight">\(\lambda\)</span>.  To find a solution, we use the identity matrix to rewrite it as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-380d4d95-3e44-4e54-96c4-9f7ff7374361">
-<span class="eqno">(7.4)<a class="headerlink" href="#equation-380d4d95-3e44-4e54-96c4-9f7ff7374361" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2223bff5-da19-4a91-85d3-8dd1c8ebc93b">
+<span class="eqno">(7.4)<a class="headerlink" href="#equation-2223bff5-da19-4a91-85d3-8dd1c8ebc93b" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{A}x - \lambda\mathbf{x} = 0, \\
 [\mathbf{A}-\lambda I_N ]\mathbf{x} = 0.
 \end{align}\]</div>
 <p>Multiplying by <span class="math notranslate nohighlight">\([\mathbf{A}-\lambda I_N ]^{-1}\)</span> yields the <em>trivial</em> solution <span class="math notranslate nohighlight">\(\mathbf{x} = 0\)</span>.  A more interesting solution implies the nonexistence of the inverse.  The inverse fails to exist when the determinant is zero, or</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c336d8db-457e-4e62-9fd6-50a10b107d6d">
-<span class="eqno">(7.5)<a class="headerlink" href="#equation-c336d8db-457e-4e62-9fd6-50a10b107d6d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f3f35f5e-6e66-4342-81a1-c4b1add820f1">
+<span class="eqno">(7.5)<a class="headerlink" href="#equation-f3f35f5e-6e66-4342-81a1-c4b1add820f1" title="Permalink to this equation">#</a></span>\[\begin{align}
 \det{[\mathbf{A}-\lambda I_N]} = 0.
 \end{align}\]</div>
 <p>The values of <span class="math notranslate nohighlight">\(\lambda\)</span> that satisfy this <em>secular</em> equation are the eigenvalues of Eq. <a class="reference internal" href="#equation-eigenvalue-eqn">(7.3)</a>.  To solve this equation, you need a subroutine to calculate the determinant of a matrix, and then a search routine to find the zero (root).</p>
 <p>The traditional way to solve Eq. <a class="reference internal" href="#equation-eigenvalue-eqn">(7.3)</a> for both eigenvalues and eigenvectors is by <em>diagonalization</em>.  This is a process where a sequence of transformations (using a matrix <span class="math notranslate nohighlight">\(\mathbf{U}\)</span>) are continually operating on the original equation until one is found so that <span class="math notranslate nohighlight">\(\mathbf{U}\mathbf{A}\mathbf{U}^{-1} = \lambda I_N\)</span>.  Mathematically, this is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4f94cce0-7cc6-425a-8bc7-c45d67774094">
-<span class="eqno">(7.6)<a class="headerlink" href="#equation-4f94cce0-7cc6-425a-8bc7-c45d67774094" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-78cf258e-4a30-4c7b-8cd9-298f9164e8e1">
+<span class="eqno">(7.6)<a class="headerlink" href="#equation-78cf258e-4a30-4c7b-8cd9-298f9164e8e1" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{U}\mathbf{A}(\mathbf{U}^{-1}\mathbf{U})\mathbf{x} &amp;= \lambda \mathbf{U}\mathbf{x},\\
 (\mathbf{U}\mathbf{A}\mathbf{U}^{-1})(\mathbf{U}\mathbf{x}) &amp;= \lambda \mathbf{U}\mathbf{x}, \\
 \mathbf{U}\mathbf{A}\mathbf{U}^{-1} &amp;= \begin{pmatrix}
@@ -491,12 +505,18 @@ document.write(`
 \end{pmatrix}.
 \end{align}\]</div>
 <p>The diagonal values of <span class="math notranslate nohighlight">\(\mathbf{U}\mathbf{A}\mathbf{U}^{-1}\)</span> are the eigenvalues with the eigenvectors</p>
-<div class="amsmath math notranslate nohighlight" id="equation-46dfa12a-7603-4afb-8429-5296d292620a">
-<span class="eqno">(7.7)<a class="headerlink" href="#equation-46dfa12a-7603-4afb-8429-5296d292620a" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4d1684af-7c01-4df2-85c4-4555b59dccc9">
+<span class="eqno">(7.7)<a class="headerlink" href="#equation-4d1684af-7c01-4df2-85c4-4555b59dccc9" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{x}_i = \mathbf{U}^{-1}\hat{e}_i.
 \end{align}\]</div>
 <p>The eigenvectors are just the columns of the matrix <span class="math notranslate nohighlight">\(\mathbf{U}^{-1}\)</span>, where there are a number of routines of this type found in subroutine libraries.</p>
-</section>
+<div align="center">
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/PFDu9oVAE-g"
+frameborder="0" 
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
+</div></section>
 <section id="practical-matrix-computing">
 <h2><span class="section-number">7.3. </span>Practical Matrix Computing<a class="headerlink" href="#practical-matrix-computing" title="Permalink to this heading">#</a></h2>
 <p>Many scientific programming bugs arise from the improper use of arrays (e.g., <code class="docutils literal notranslate"><span class="pre">IndexError</span></code>).  Matrices are extensively used in scientific computing, where it can be difficult to keep track of maximum index or matrix dimensions.  Here are some things to consider:</p>
@@ -594,13 +614,13 @@ x =  [-1.4057971  -0.1884058   0.92753623]
 </div>
 <p>We tested that <code class="docutils literal notranslate"><span class="pre">inv(A)</span></code> was true through the identity property, where <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\mathbf{A} = I_3\)</span>.  The result was accurate for the diagonal elements and near machine precision for the off-diagonal elements.  Then we used the inverse to solve the matrix equation directly, and found the same answer as before, within machine precision.</p>
 <p>Now, consider solving the eigenvalue equation (Eq. <a class="reference internal" href="#equation-eigenvalue-eqn">(7.3)</a>) as the principal-axes system for a cube (i.e., rotational motion).  This requires us to determine a coordinate system in which the <strong>inertia tensor</strong> is diagonal, or</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f5071178-4691-47c7-9bc5-ffeb2802e9e7">
-<span class="eqno">(7.8)<a class="headerlink" href="#equation-f5071178-4691-47c7-9bc5-ffeb2802e9e7" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9b0f70a3-1022-42d0-b0f6-1d335e29ac99">
+<span class="eqno">(7.8)<a class="headerlink" href="#equation-9b0f70a3-1022-42d0-b0f6-1d335e29ac99" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{I}\omega = \lambda \omega,
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> represents the inertia matrix, <span class="math notranslate nohighlight">\(\omega\)</span> is an eigenvector, and <span class="math notranslate nohighlight">\(\lambda\)</span> is an eigenvalue.  This can be solved using the <code class="docutils literal notranslate"><span class="pre">eig</span></code> function from <code class="docutils literal notranslate"><span class="pre">numpy.linalg</span></code> given the inertia matrix as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-238e96e1-98bf-4bd2-aeb5-fe14ff479c71">
-<span class="eqno">(7.9)<a class="headerlink" href="#equation-238e96e1-98bf-4bd2-aeb5-fe14ff479c71" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-86723974-6542-4e30-b845-deeac1ed94f8">
+<span class="eqno">(7.9)<a class="headerlink" href="#equation-86723974-6542-4e30-b845-deeac1ed94f8" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{I} = \begin{pmatrix}
 \frac{2}{3} &amp; -\frac{1}{4} &amp; -\frac{1}{4} \\
 -\frac{1}{4} &amp; \frac{2}{3} &amp; -\frac{1}{4} \\
@@ -713,8 +733,8 @@ error in A^{-1} using analytical result =  [[ 0.00000000e+00  0.00000000e+00 -6.
 </div>
 <ol class="arabic" start="2">
 <li><p>Consider the same matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> as before, but now used to describe three simultaneous linear equations, <span class="math notranslate nohighlight">\(\mathbf{A}\mathbf{x} = \mathbf{b}\)</span>.  Here, <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is known and has three component vectors:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0ddae0a6-c828-48b4-8818-76603dce5e65">
-<span class="eqno">(7.10)<a class="headerlink" href="#equation-0ddae0a6-c828-48b4-8818-76603dce5e65" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a41f430e-c079-47ae-b7ed-49286ee2931c">
+<span class="eqno">(7.10)<a class="headerlink" href="#equation-a41f430e-c079-47ae-b7ed-49286ee2931c" title="Permalink to this equation">#</a></span>\[\begin{align}
    b_1 = \begin{pmatrix} 12 \\ 4 \\ 20 \end{pmatrix} &amp;\quad b_2 = \begin{pmatrix} -25 \\ -10 \\ -30 \end{pmatrix} &amp; b_3 = \begin{pmatrix} 32 \\ 22 \\ 40 \end{pmatrix}.
    \end{align}\]</div>
 <p>Determine the three different <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> vectors for each component vector in <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
@@ -748,8 +768,8 @@ x_3 =  [2.319, -2.966, 4.791]
 <ol class="arabic simple" start="3">
 <li><p>Consider the matrix <span class="math notranslate nohighlight">\(\mathbf{A} = \begin{pmatrix} \alpha &amp; \beta \\ -\beta &amp; \alpha \end{pmatrix}\)</span>, where you are free to use any values you want for <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>.  Show that the eigenvalues and eigenvectors are the complex conjugates <span class="math notranslate nohighlight">\(x_{1,2}\)</span> and <span class="math notranslate nohighlight">\(\lambda_{1,2}\)</span>, respectively. Note that python uses <span class="math notranslate nohighlight">\(j\)</span> to denote a complex number instead of <span class="math notranslate nohighlight">\(i\)</span>.</p></li>
 </ol>
-<div class="amsmath math notranslate nohighlight" id="equation-13a8735f-abe1-4d28-959c-1a343628c13d">
-<span class="eqno">(7.11)<a class="headerlink" href="#equation-13a8735f-abe1-4d28-959c-1a343628c13d" title="Permalink to this equation">#</a></span>\[\begin{align} 
+<div class="amsmath math notranslate nohighlight" id="equation-ae05fc5d-33a1-46cf-99e9-e4d0b7ed0283">
+<span class="eqno">(7.11)<a class="headerlink" href="#equation-ae05fc5d-33a1-46cf-99e9-e4d0b7ed0283" title="Permalink to this equation">#</a></span>\[\begin{align} 
 x_{1,2} = \frac{1}{\sqrt{2}} \begin{pmatrix} +1 \\ \pm i \end{pmatrix}, &amp;\quad \lambda_{1,2} = \alpha \mp i\beta.
 \end{align}\]</div>
 <div class="cell docutils container">
