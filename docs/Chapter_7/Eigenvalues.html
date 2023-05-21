@@ -412,10 +412,13 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-matrix-computing">7.3. Practical Matrix Computing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-algebra-in-numpy">7.4. Linear Algebra in <code class="docutils literal notranslate"><span class="pre">numpy</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-matrix-programs">7.5. Testing Matrix Programs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-eigenvalues-in-arbitrary-potential">7.6. Quantum Eigenvalues in Arbitrary Potential</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nucleon-in-a-box">7.7. Nucleon in a box</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalues-via-ode-sovler-search">7.8. Eigenvalues via ODE Sovler + Search</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerov-algorithm-for-schodinger-ode">7.9. Numerov Algorithm for Schödinger ODE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-eigenvalues-in-an-arbitrary-potential">7.6. Quantum Eigenvalues in an Arbitrary Potential</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nucleon-in-a-box">7.7. Nucleon in a box</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalues-via-central-finite-difference">7.7.1. Eigenvalues via Central Finite Difference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalues-via-ode-sovler-search">7.7.2. Eigenvalues via ODE Sovler + Search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numerov-algorithm-for-a-schrodinger-ode">7.7.3. Numerov Algorithm for a Schrödinger ODE</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -452,8 +455,8 @@ document.write(`
 <div class="math notranslate nohighlight" id="equation-linear-eqn">
 <span class="eqno">(7.1)<a class="headerlink" href="#equation-linear-eqn" title="Permalink to this equation">#</a></span>\[\mathbf{A}\mathbf{x} = \mathbf{b},\]</div>
 <p>which is defined by a known <span class="math notranslate nohighlight">\(N\times N\)</span> matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, an unknown vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> of length <span class="math notranslate nohighlight">\(N\)</span>, and a known vector <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> of length <span class="math notranslate nohighlight">\(N\)</span>.  The obvious way to solve this equation is to determine the inverse of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> (i.e., <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span>) and then multiply both sides to get:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-04ab5f10-645b-469e-a9b6-5b932b555dba">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-04ab5f10-645b-469e-a9b6-5b932b555dba" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d5ec7b9b-2de3-4077-a7fc-813c3360ce78">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-d5ec7b9b-2de3-4077-a7fc-813c3360ce78" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{A}^{-1}\mathbf{A} &amp;=  I_N,\qquad \text{(Identity property)}\\
 \mathbf{A}^{-1}\mathbf{A}\mathbf{x} &amp;= \mathbf{A}^{-1}\mathbf{b}, \\
 \mathbf{x} &amp;= \mathbf{A}^{-1}\mathbf{b}.
@@ -481,20 +484,20 @@ allowfullscreen></iframe>
 <div class="math notranslate nohighlight" id="equation-eigenvalue-eqn">
 <span class="eqno">(7.3)<a class="headerlink" href="#equation-eigenvalue-eqn" title="Permalink to this equation">#</a></span>\[\mathbf{A}\mathbf{x} = \lambda \mathbf{x},\]</div>
 <p>which is similar to Eq. <a class="reference internal" href="#equation-linear-eqn">(7.1)</a>, but with an unknown parameter <span class="math notranslate nohighlight">\(\lambda\)</span>.  This form is called the <em>eigenvalue</em> problem.  It is harder to solve because solutions exist for only certain (if any) values of <span class="math notranslate nohighlight">\(\lambda\)</span>.  To find a solution, we use the identity matrix to rewrite it as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2223bff5-da19-4a91-85d3-8dd1c8ebc93b">
-<span class="eqno">(7.4)<a class="headerlink" href="#equation-2223bff5-da19-4a91-85d3-8dd1c8ebc93b" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7d591d05-d408-44e8-9b23-1732c3374967">
+<span class="eqno">(7.4)<a class="headerlink" href="#equation-7d591d05-d408-44e8-9b23-1732c3374967" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{A}x - \lambda\mathbf{x} = 0, \\
 [\mathbf{A}-\lambda I_N ]\mathbf{x} = 0.
 \end{align}\]</div>
 <p>Multiplying by <span class="math notranslate nohighlight">\([\mathbf{A}-\lambda I_N ]^{-1}\)</span> yields the <em>trivial</em> solution <span class="math notranslate nohighlight">\(\mathbf{x} = 0\)</span>.  A more interesting solution implies the nonexistence of the inverse.  The inverse fails to exist when the determinant is zero, or</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f3f35f5e-6e66-4342-81a1-c4b1add820f1">
-<span class="eqno">(7.5)<a class="headerlink" href="#equation-f3f35f5e-6e66-4342-81a1-c4b1add820f1" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-76c252c9-cf14-46a2-8bb1-36eb0417c242">
+<span class="eqno">(7.5)<a class="headerlink" href="#equation-76c252c9-cf14-46a2-8bb1-36eb0417c242" title="Permalink to this equation">#</a></span>\[\begin{align}
 \det{[\mathbf{A}-\lambda I_N]} = 0.
 \end{align}\]</div>
 <p>The values of <span class="math notranslate nohighlight">\(\lambda\)</span> that satisfy this <em>secular</em> equation are the eigenvalues of Eq. <a class="reference internal" href="#equation-eigenvalue-eqn">(7.3)</a>.  To solve this equation, you need a subroutine to calculate the determinant of a matrix, and then a search routine to find the zero (root).</p>
 <p>The traditional way to solve Eq. <a class="reference internal" href="#equation-eigenvalue-eqn">(7.3)</a> for both eigenvalues and eigenvectors is by <em>diagonalization</em>.  This is a process where a sequence of transformations (using a matrix <span class="math notranslate nohighlight">\(\mathbf{U}\)</span>) are continually operating on the original equation until one is found so that <span class="math notranslate nohighlight">\(\mathbf{U}\mathbf{A}\mathbf{U}^{-1} = \lambda I_N\)</span>.  Mathematically, this is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-78cf258e-4a30-4c7b-8cd9-298f9164e8e1">
-<span class="eqno">(7.6)<a class="headerlink" href="#equation-78cf258e-4a30-4c7b-8cd9-298f9164e8e1" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4234a0f2-be45-415e-8bbb-f16b8754d821">
+<span class="eqno">(7.6)<a class="headerlink" href="#equation-4234a0f2-be45-415e-8bbb-f16b8754d821" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{U}\mathbf{A}(\mathbf{U}^{-1}\mathbf{U})\mathbf{x} &amp;= \lambda \mathbf{U}\mathbf{x},\\
 (\mathbf{U}\mathbf{A}\mathbf{U}^{-1})(\mathbf{U}\mathbf{x}) &amp;= \lambda \mathbf{U}\mathbf{x}, \\
 \mathbf{U}\mathbf{A}\mathbf{U}^{-1} &amp;= \begin{pmatrix}
@@ -505,8 +508,8 @@ allowfullscreen></iframe>
 \end{pmatrix}.
 \end{align}\]</div>
 <p>The diagonal values of <span class="math notranslate nohighlight">\(\mathbf{U}\mathbf{A}\mathbf{U}^{-1}\)</span> are the eigenvalues with the eigenvectors</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4d1684af-7c01-4df2-85c4-4555b59dccc9">
-<span class="eqno">(7.7)<a class="headerlink" href="#equation-4d1684af-7c01-4df2-85c4-4555b59dccc9" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ae4c75bc-35a4-47ba-b237-21d231c4f368">
+<span class="eqno">(7.7)<a class="headerlink" href="#equation-ae4c75bc-35a4-47ba-b237-21d231c4f368" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{x}_i = \mathbf{U}^{-1}\hat{e}_i.
 \end{align}\]</div>
 <p>The eigenvectors are just the columns of the matrix <span class="math notranslate nohighlight">\(\mathbf{U}^{-1}\)</span>, where there are a number of routines of this type found in subroutine libraries.</p>
@@ -614,19 +617,19 @@ x =  [-1.4057971  -0.1884058   0.92753623]
 </div>
 <p>We tested that <code class="docutils literal notranslate"><span class="pre">inv(A)</span></code> was true through the identity property, where <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\mathbf{A} = I_3\)</span>.  The result was accurate for the diagonal elements and near machine precision for the off-diagonal elements.  Then we used the inverse to solve the matrix equation directly, and found the same answer as before, within machine precision.</p>
 <p>Now, consider solving the eigenvalue equation (Eq. <a class="reference internal" href="#equation-eigenvalue-eqn">(7.3)</a>) as the principal-axes system for a cube (i.e., rotational motion).  This requires us to determine a coordinate system in which the <strong>inertia tensor</strong> is diagonal, or</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9b0f70a3-1022-42d0-b0f6-1d335e29ac99">
-<span class="eqno">(7.8)<a class="headerlink" href="#equation-9b0f70a3-1022-42d0-b0f6-1d335e29ac99" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-f6506678-9e5f-4ec1-aa71-6105b502cd5f">
+<span class="eqno">(7.8)<a class="headerlink" href="#equation-f6506678-9e5f-4ec1-aa71-6105b502cd5f" title="Permalink to this equation">#</a></span>\[\begin{align}
 \mathbf{I}\omega = \lambda \omega,
 \end{align}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> represents the inertia matrix, <span class="math notranslate nohighlight">\(\omega\)</span> is an eigenvector, and <span class="math notranslate nohighlight">\(\lambda\)</span> is an eigenvalue.  This can be solved using the <code class="docutils literal notranslate"><span class="pre">eig</span></code> function from <code class="docutils literal notranslate"><span class="pre">numpy.linalg</span></code> given the inertia matrix as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-86723974-6542-4e30-b845-deeac1ed94f8">
-<span class="eqno">(7.9)<a class="headerlink" href="#equation-86723974-6542-4e30-b845-deeac1ed94f8" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
 \mathbf{I} = \begin{pmatrix}
 \frac{2}{3} &amp; -\frac{1}{4} &amp; -\frac{1}{4} \\
 -\frac{1}{4} &amp; \frac{2}{3} &amp; -\frac{1}{4} \\
 -\frac{1}{4} &amp; -\frac{1}{4} &amp; \frac{2}{3}
 \end{pmatrix}.
-\end{align}\]</div>
+\end{align*}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -733,10 +736,10 @@ error in A^{-1} using analytical result =  [[ 0.00000000e+00  0.00000000e+00 -6.
 </div>
 <ol class="arabic" start="2">
 <li><p>Consider the same matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> as before, but now used to describe three simultaneous linear equations, <span class="math notranslate nohighlight">\(\mathbf{A}\mathbf{x} = \mathbf{b}\)</span>.  Here, <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is known and has three component vectors:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a41f430e-c079-47ae-b7ed-49286ee2931c">
-<span class="eqno">(7.10)<a class="headerlink" href="#equation-a41f430e-c079-47ae-b7ed-49286ee2931c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
    b_1 = \begin{pmatrix} 12 \\ 4 \\ 20 \end{pmatrix} &amp;\quad b_2 = \begin{pmatrix} -25 \\ -10 \\ -30 \end{pmatrix} &amp; b_3 = \begin{pmatrix} 32 \\ 22 \\ 40 \end{pmatrix}.
-   \end{align}\]</div>
+   \end{align*}\]</div>
 <p>Determine the three different <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> vectors for each component vector in <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
 </li>
 </ol>
@@ -768,10 +771,10 @@ x_3 =  [2.319, -2.966, 4.791]
 <ol class="arabic simple" start="3">
 <li><p>Consider the matrix <span class="math notranslate nohighlight">\(\mathbf{A} = \begin{pmatrix} \alpha &amp; \beta \\ -\beta &amp; \alpha \end{pmatrix}\)</span>, where you are free to use any values you want for <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>.  Show that the eigenvalues and eigenvectors are the complex conjugates <span class="math notranslate nohighlight">\(x_{1,2}\)</span> and <span class="math notranslate nohighlight">\(\lambda_{1,2}\)</span>, respectively. Note that python uses <span class="math notranslate nohighlight">\(j\)</span> to denote a complex number instead of <span class="math notranslate nohighlight">\(i\)</span>.</p></li>
 </ol>
-<div class="amsmath math notranslate nohighlight" id="equation-ae05fc5d-33a1-46cf-99e9-e4d0b7ed0283">
-<span class="eqno">(7.11)<a class="headerlink" href="#equation-ae05fc5d-33a1-46cf-99e9-e4d0b7ed0283" title="Permalink to this equation">#</a></span>\[\begin{align} 
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*} 
 x_{1,2} = \frac{1}{\sqrt{2}} \begin{pmatrix} +1 \\ \pm i \end{pmatrix}, &amp;\quad \lambda_{1,2} = \alpha \mp i\beta.
-\end{align}\]</div>
+\end{align*}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
@@ -790,27 +793,460 @@ x_{1,2} = \frac{1}{\sqrt{2}} \begin{pmatrix} +1 \\ \pm i \end{pmatrix}, &amp;\qu
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>alpha =  0.587  beta =  1.321
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>alpha =  0.1738  beta =  4.5440000000000005
 sqrt(2)*x_1 =  [1.+0.j 0.+1.j]
-lambda_1 =  (0.587+1.321j)
+lambda_1 =  (0.1738+4.544j)
 sqrt(2)*x_2 =  [1.+0.j 0.-1.j]
-lambda_2 =  (0.587-1.321j)
+lambda_2 =  (0.1738-4.544j)
 </pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="quantum-eigenvalues-in-arbitrary-potential">
-<h2><span class="section-number">7.6. </span>Quantum Eigenvalues in Arbitrary Potential<a class="headerlink" href="#quantum-eigenvalues-in-arbitrary-potential" title="Permalink to this heading">#</a></h2>
+<section id="quantum-eigenvalues-in-an-arbitrary-potential">
+<h2><span class="section-number">7.6. </span>Quantum Eigenvalues in an Arbitrary Potential<a class="headerlink" href="#quantum-eigenvalues-in-an-arbitrary-potential" title="Permalink to this heading">#</a></h2>
+<p>Quantum mechanics describes phenomena that occur on very small scales (e.g., atomic and subatomic), where particles exist with some probability <span class="math notranslate nohighlight">\(\mathcal{P}\)</span>.  The probability is not single-valued, but depends on the a particular region <span class="math notranslate nohighlight">\(dx\)</span> for which we seek to locate the particle.  The probability is defined by the particle’s <em>wave function</em> <span class="math notranslate nohighlight">\(\psi(x)\)</span>, which is a representation of all the possible locations where a particle <em>could</em> exist.  Formally, the probability is given as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-91974fc4-cf18-4417-8921-732377b9b803">
+<span class="eqno">(7.9)<a class="headerlink" href="#equation-91974fc4-cf18-4417-8921-732377b9b803" title="Permalink to this equation">#</a></span>\[\begin{align}
+\mathcal{P} = |\psi(x)|^2 dx = \psi^\star(x)\psi(x) dx,
+\end{align}\]</div>
+<p>which depends on the inner (conjugate) product of the wave function.  The wave function can be a complex function (i.e., explicitly defined with the imaginary number <span class="math notranslate nohighlight">\(i=\sqrt{-1}\)</span>), and the conjugate operation <span class="math notranslate nohighlight">\(^\star\)</span> simply changes <span class="math notranslate nohighlight">\(i\)</span> to <span class="math notranslate nohighlight">\(-i\)</span> (i.e., sign flip).</p>
+<p>If a particle of definite energy <span class="math notranslate nohighlight">\(E\)</span> moving in one dimension (from left to right or right to left) experiences a potential <span class="math notranslate nohighlight">\(V(x)\)</span>, its wave funciton is determined by an ordinary differential equation ODE (or a partial differential equation PDE when generalized) known as the time-independent <a class="reference external" href="https://en.wikipedia.org/wiki/Schr%C3%B6dinger_equation">Schrödinger equation</a>:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-f8c60d9a-8cf5-4c10-be26-a0fbaa3a188b">
+<span class="eqno">(7.10)<a class="headerlink" href="#equation-f8c60d9a-8cf5-4c10-be26-a0fbaa3a188b" title="Permalink to this equation">#</a></span>\[\begin{align}
+\frac{-\hbar^2}{2m} \frac{d^2\psi(x)}{dx^2} + V(x)\psi(x) &amp;= E\psi(x), \\
+\left[\frac{-\hbar^2}{2m} \frac{d^2}{dx^2} + V(x)\right] \psi(x) &amp;= E\psi(x), \\
+\hat{H}\psi(x) &amp;= E \psi(x).
+\end{align}\]</div>
+<p>The energy <span class="math notranslate nohighlight">\(E\)</span> is the ultimate quantity for which we want to know.  But to get there in practice, we solve for the wave vector <span class="math notranslate nohighlight">\(\kappa\)</span> instead because the two are related for bound states by:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-c5074106-1abf-49fb-80be-ad1f302b53e8">
+<span class="eqno">(7.11)<a class="headerlink" href="#equation-c5074106-1abf-49fb-80be-ad1f302b53e8" title="Permalink to this equation">#</a></span>\[\begin{align}
+\kappa^2 = - \frac{2m}{\hbar^2}E = \frac{2m}{\hbar^2}|E|.
+\end{align}\]</div>
+<p>As a result, the Schrödinger equation can take the form:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-69f59d33-aac7-4765-8ffd-b9e20c212284">
+<span class="eqno">(7.12)<a class="headerlink" href="#equation-69f59d33-aac7-4765-8ffd-b9e20c212284" title="Permalink to this equation">#</a></span>\[\begin{align}
+\frac{d^2\psi(x)}{dx^2} - \frac{2m}{\hbar^2}V(x)\psi(x) &amp;= -\frac{2m}{\hbar^2}E\psi(x), \\
+\frac{d^2\psi(x)}{dx^2} - \frac{2m}{\hbar^2}V(x)\psi(x) &amp;= \kappa^2 \psi(x).
+\end{align}\]</div>
+<p>A <em>bound</em> particle is confined to some finite region of space, which implies that <span class="math notranslate nohighlight">\(\psi(x)\)</span> is normalizable (i.e., <span class="math notranslate nohighlight">\(\int_a^b \psi^\star(x)\psi(x) dx = 1\)</span>).  The only way for that to happen is if <span class="math notranslate nohighlight">\(\psi(x)\)</span> <em>decays</em> exponentially as <span class="math notranslate nohighlight">\(x \rightarrow \pm \infty\)</span> (where the potential vanishes):</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2c39b99a-cd6a-42d6-9774-25374b9c565f">
+<span class="eqno">(7.13)<a class="headerlink" href="#equation-2c39b99a-cd6a-42d6-9774-25374b9c565f" title="Permalink to this equation">#</a></span>\[\begin{align}
+\psi(x) &amp;= \begin{cases}
+e^{-\kappa x}, &amp;\text{for } x\rightarrow \infty \\
+e^{\kappa x}. &amp;\text{for } x\rightarrow -\infty
+\end{cases}
+\end{align}\]</div>
+<p>To solve the Schrödinger equation, we must require tha the solution <span class="math notranslate nohighlight">\(\psi(x)\)</span> simulaneously satisfies the boundary conditions as <span class="math notranslate nohighlight">\(x \rightarrow \pm \infty\)</span>.  This condition turns the ODE problem into an <em>eigenvalue</em> problem that has solutions (<em>eigenvalues</em>) for only certain values of the energy <span class="math notranslate nohighlight">\(E\)</span>, or equivalently <span class="math notranslate nohighlight">\(\kappa\)</span>.</p>
+<ul class="simple">
+<li><p>The ground-state energy corresponds to the smallest (i.e., most negative) eigenvalue.</p></li>
+<li><p>The ground-state wave function (eigenfunction) must be nodeless and even (i.e., symmetric) about <span class="math notranslate nohighlight">\(x = 0\)</span> (or any constant).</p></li>
+<li><p>The excited states have higher (less negative) energies and wavefunctions that may be odd (i.e., antisymmetric).</p></li>
+</ul>
 </section>
 <section id="nucleon-in-a-box">
 <h2><span class="section-number">7.7. </span>Nucleon in a box<a class="headerlink" href="#nucleon-in-a-box" title="Permalink to this heading">#</a></h2>
+<p>The nucleon-in-a-box problem is a standard textbook case for which we already know an analytical solution.  This is advantageous for when we want to check whether a code produces the expected result.  The simple model in which the potential <span class="math notranslate nohighlight">\(V(x)\)</span> describes a <em>finite</em> square well is:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0c6d7154-c9d3-47c4-9b12-a71ce7ade7fb">
+<span class="eqno">(7.14)<a class="headerlink" href="#equation-0c6d7154-c9d3-47c4-9b12-a71ce7ade7fb" title="Permalink to this equation">#</a></span>\[\begin{align}
+V(x) &amp;= \begin{cases}
+-V_o, &amp;\text{for } |x| \leq a \\
+0, &amp;\text{for } |x| &gt; a
+\end{cases}
+\end{align}\]</div>
+<p>where the well depth <span class="math notranslate nohighlight">\(V_o = 83\ {\rm MeV}\)</span> and well radius <span class="math notranslate nohighlight">\(a = 2\ {\rm fm}\)</span>.  These values are typical for nuclei.  Using this potential, the Schrödinger equation becomes</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0ff15940-5014-4cfd-8819-c774126edd25">
+<span class="eqno">(7.15)<a class="headerlink" href="#equation-0ff15940-5014-4cfd-8819-c774126edd25" title="Permalink to this equation">#</a></span>\[\begin{align}
+\frac{d^2\psi(x)}{dx^2} + \frac{2m}{\hbar^2}V_o\psi(x) &amp;= \kappa^2 \psi(x), &amp;\text{for } |x| \leq a \\
+\frac{d^2\psi(x)}{dx^2} &amp;= \kappa^2 \psi(x). &amp;\text{for } |x| &gt; a
+\end{align}\]</div>
+<p>To evaluate the differential equation, we can combine the constants and identify some familiar values.  Start by inserting <span class="math notranslate nohighlight">\(c^2\)</span> into the numerator (and denominator), and using the mass of the proton to get</p>
+<div class="math notranslate nohighlight">
+\[ \frac{2m}{\hbar^2} = \frac{2mc^2}{(\hbar c)^2} \simeq \frac{2\times 940\ {\rm MeV}}{(197.32\ {\rm Mev^{-1}\ fm})^2} = 0.0483\ {\rm MeV^{-1}\ fm^{-2}}. \]</div>
+<section id="eigenvalues-via-central-finite-difference">
+<h3><span class="section-number">7.7.1. </span>Eigenvalues via Central Finite Difference<a class="headerlink" href="#eigenvalues-via-central-finite-difference" title="Permalink to this heading">#</a></h3>
+<p>The finite difference method represents the wave function <span class="math notranslate nohighlight">\(\psi(x)\)</span> as an array composed of <span class="math notranslate nohighlight">\(N\)</span> equally spaced points <span class="math notranslate nohighlight">\((x_1,\ x_2,\ \ldots,\ x_N)\)</span>.  Mathematically, this is</p>
+<div class="amsmath math notranslate nohighlight" id="equation-7acd3500-55d1-4edd-bb6f-c1d484d86e83">
+<span class="eqno">(7.16)<a class="headerlink" href="#equation-7acd3500-55d1-4edd-bb6f-c1d484d86e83" title="Permalink to this equation">#</a></span>\[\begin{align}
+\psi(x) &amp;= \begin{pmatrix} 
+    x_1 \\ 
+    x_2 \\ 
+    \vdots \\ 
+    x_N \end{pmatrix}.
+\end{align}\]</div>
+<p>Now, we need to find the second derivative given a set of points.  Recall that this is a problem of <a class="reference external" href="https://saturnaxis.github.io/CompPhysics/Chapter_5/Differentiation.html">numerical differentiation</a> for which we already have some tools available.  In the central difference method, the derivative is approximated by taking a half-step <span class="math notranslate nohighlight">\((h/2)\)</span> forward and backwards <span class="math notranslate nohighlight">\([\psi(x_{i+1/2})\)</span> and <span class="math notranslate nohighlight">\(\psi(x_{i-1/2})]\)</span>, divided by the step size <span class="math notranslate nohighlight">\(h\)</span>.  Additionally, the <a class="reference external" href="https://saturnaxis.github.io/CompPhysics/Chapter_5/Differentiation.html#second-derivatives">second derivative</a> can be approximated as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-e03fae4d-2f08-4901-808e-13f181ca2b69">
+<span class="eqno">(7.17)<a class="headerlink" href="#equation-e03fae4d-2f08-4901-808e-13f181ca2b69" title="Permalink to this equation">#</a></span>\[\begin{align}
+\frac{d^2 \psi(x_i)}{dx^2} = \frac{\psi(x_{i+1}) - 2\psi(x_{i}) + \psi(x_{i-1})}{\ell^2},
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\ell\)</span> is the distance between points <span class="math notranslate nohighlight">\((\ell = x_{i+1} - x_i)\)</span>.  Written in matrix form, we get</p>
+<div class="amsmath math notranslate nohighlight" id="equation-62af6efc-c934-499e-abfe-9b4950b18bdd">
+<span class="eqno">(7.18)<a class="headerlink" href="#equation-62af6efc-c934-499e-abfe-9b4950b18bdd" title="Permalink to this equation">#</a></span>\[\begin{align}
+\frac{d^2 \psi(x_i)}{dx^2} = \frac{1}{\ell^2} \begin{pmatrix} 
+-2 &amp; 1 &amp; 0 &amp; \ldots &amp; \ldots &amp; 0 \\ 
+1 &amp; -2 &amp; 1 &amp; \ldots &amp; \ldots &amp; 0 \\ 
+0 &amp; 1 &amp; -2 &amp; 1 &amp; \ldots &amp; 0 \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; &amp; 0 \\
+\vdots &amp; \vdots &amp; \vdots &amp;  &amp; \ddots &amp; 1 \\
+0 &amp; 0 &amp; 0 &amp; \dots &amp; 1 &amp; -2 
+\end{pmatrix},
+\end{align}\]</div>
+<p>where the <span class="math notranslate nohighlight">\(\ell^2\)</span> is factored out, the <span class="math notranslate nohighlight">\(i{\rm th}\)</span> point is represented along the diagonal, and off-diagonal points correspond to the <span class="math notranslate nohighlight">\(i+1\)</span> and <span class="math notranslate nohighlight">\(i-1\)</span> points.  The potential <span class="math notranslate nohighlight">\(V_(x)\)</span> is represented using the identity matrix <span class="math notranslate nohighlight">\(I_N\)</span></p>
+<div class="amsmath math notranslate nohighlight" id="equation-20d4447d-e1b2-4b0a-82d3-16ad8f036797">
+<span class="eqno">(7.19)<a class="headerlink" href="#equation-20d4447d-e1b2-4b0a-82d3-16ad8f036797" title="Permalink to this equation">#</a></span>\[\begin{align}
+V(x) = -V_o I_N.
+\end{align}\]</div>
+<p>The Hamiltonian matrix can then be constructed as <span class="math notranslate nohighlight">\(\hat{H} = \frac{d^2 \psi(x_i)}{dx^2} - \frac{2m}{\hbar^2}V(x)\)</span>.  Now we have a standard eigenvalue equation <span class="math notranslate nohighlight">\((\hat{H}\psi(x) = E\psi(x))\)</span> that we can solve using a standard libarary.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">eigh</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.constants</span> <span class="kn">import</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">m_p</span><span class="p">,</span> <span class="n">eV</span>
+
+
+<span class="n">fm</span> <span class="o">=</span> <span class="mf">1e-15</span>
+<span class="n">const</span> <span class="o">=</span> <span class="n">hbar</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">m_p</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">eV</span><span class="o">*</span><span class="mf">1e6</span><span class="o">*</span><span class="n">fm</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1">#2*m_p/hbar**2 converted to MeV fm**2 units</span>
+<span class="n">V_o</span> <span class="o">=</span> <span class="o">-</span><span class="mi">83</span>
+
+<span class="n">well_width</span> <span class="o">=</span> <span class="mf">2.</span>
+<span class="n">well_left</span><span class="p">,</span> <span class="n">well_right</span> <span class="o">=</span> <span class="o">-</span><span class="n">well_width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">well_width</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="n">x_left</span><span class="p">,</span> <span class="n">x_right</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">4.</span>
+<span class="n">n_steps</span> <span class="o">=</span> <span class="mi">401</span>
+<span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_right</span><span class="o">-</span><span class="n">x_left</span><span class="p">)</span><span class="o">/</span><span class="n">n_steps</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_left</span><span class="p">,</span><span class="n">x_right</span><span class="o">+</span><span class="n">h</span><span class="p">,</span><span class="n">h</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">left_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_left</span><span class="o">-</span><span class="n">well_left</span><span class="p">)</span><span class="o">/</span><span class="n">h</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+<span class="n">right_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_left</span><span class="o">-</span><span class="n">well_right</span><span class="p">)</span><span class="o">/</span><span class="n">h</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+<span class="n">width_idx</span> <span class="o">=</span> <span class="n">right_idx</span> <span class="o">-</span> <span class="n">left_idx</span>
+
+<span class="c1">#Construct the Hamiltonian</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">),</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+<span class="n">V</span><span class="p">[</span><span class="n">left_idx</span><span class="p">:</span><span class="n">right_idx</span><span class="p">,</span><span class="n">left_idx</span><span class="p">:</span><span class="n">right_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diagflat</span><span class="p">(</span><span class="n">V_o</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">width_idx</span><span class="p">))</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">const</span><span class="o">*</span><span class="n">K</span><span class="o">/</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">V</span>
+
+<span class="n">Es</span><span class="p">,</span> <span class="n">evectors</span> <span class="o">=</span> <span class="n">eigh</span><span class="p">(</span><span class="n">H</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">Es</span><span class="p">)</span>
+<span class="n">evectors</span> <span class="o">=</span> <span class="n">evectors</span><span class="p">[</span><span class="n">z</span><span class="p">]</span>
+<span class="n">Es</span> <span class="o">=</span> <span class="n">Es</span><span class="p">[</span><span class="n">z</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Es</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="c1"># normalize the eigenvectors:</span>
+        <span class="n">evectors</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">evectors</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">evectors</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="n">evectors</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span><span class="n">x</span><span class="p">))</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">311</span><span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">)</span>
+<span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">)</span>
+<span class="n">ax_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">]</span>
+
+<span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">]</span>
+<span class="n">well_sides</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">61</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.6</span><span class="p">,</span> <span class="mi">18</span><span class="p">],[</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.2</span><span class="p">,</span> <span class="mi">19</span><span class="p">]])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax_list</span><span class="p">[</span><span class="mi">2</span><span class="o">-</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">wavefunction</span> <span class="o">=</span> <span class="o">-</span><span class="n">evectors</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">Es</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">wavefunction</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">Es</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">),</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1">#ax.set_ylim(-83,-60)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+    <span class="k">if</span> <span class="n">well_sides</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="n">left_idx</span><span class="p">],</span><span class="n">well_sides</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">],</span><span class="n">well_sides</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">right_idx</span><span class="p">:],</span><span class="n">well_sides</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">],</span><span class="n">well_sides</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">],</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">well_sides</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">],</span><span class="n">well_sides</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Energy (MeV)&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x (fm)&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-60.92478383  -7.87018386  18.30728443]
+</pre></div>
+</div>
+<img alt="../_images/04541c429e24e0064d197c662f9146c4c8d6522b1b5d2c6215e75c489269dbef.png" src="../_images/04541c429e24e0064d197c662f9146c4c8d6522b1b5d2c6215e75c489269dbef.png" />
+</div>
+</div>
 </section>
 <section id="eigenvalues-via-ode-sovler-search">
-<h2><span class="section-number">7.8. </span>Eigenvalues via ODE Sovler + Search<a class="headerlink" href="#eigenvalues-via-ode-sovler-search" title="Permalink to this heading">#</a></h2>
+<h3><span class="section-number">7.7.2. </span>Eigenvalues via ODE Sovler + Search<a class="headerlink" href="#eigenvalues-via-ode-sovler-search" title="Permalink to this heading">#</a></h3>
+<p>An alternative solution to the eigenvalue problem combines the numerical solution of the ODE with a trial-and-error search for a wave function that satisfies the boundary condition (exponential decay at <span class="math notranslate nohighlight">\(\pm \infty\)</span>).  The basic algorithm is as follows:</p>
+<ol class="arabic">
+<li><p>Start on the very far <em>left</em> at <span class="math notranslate nohighlight">\(x = -X_{\rm max}\)</span>, where <span class="math notranslate nohighlight">\(X_{max} \gg a\)</span>.  Since the potential is zero (<span class="math notranslate nohighlight">\(V=0\)</span>) in this region, the analytic solution is <span class="math notranslate nohighlight">\(e^{\kappa x}\)</span>.  Therefore we can define a leftmost wave function:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-246eb981-c7af-4128-89fd-da3ec292fd9a">
+<span class="eqno">(7.20)<a class="headerlink" href="#equation-246eb981-c7af-4128-89fd-da3ec292fd9a" title="Permalink to this equation">#</a></span>\[\begin{align} \psi_L(-X_{\rm max}) = e^{-\kappa X_{\rm max}}. \end{align}\]</div>
+</li>
+<li><p>User your favorite ODE solver (e.g., rk4, <code class="docutils literal notranslate"><span class="pre">scipy.solve_ivp</span></code>, etc.) to step <span class="math notranslate nohighlight">\(\psi_L(x)\)</span> towards the origin (i.e., rightwards) until you reach the <em>matching radius</em> <span class="math notranslate nohighlight">\(x_{\rm match}\)</span>.  An obvious choice is <span class="math notranslate nohighlight">\(x_{\rm match}=-a\)</span> (i.e., the left edge of the potential well), but our final solution is actually independent of the choice for <span class="math notranslate nohighlight">\(x_{\rm match}\)</span>.</p></li>
+<li><p>Start on the very far <em>right</em> at <span class="math notranslate nohighlight">\(x = +X_{\rm max}\)</span>, with a rightmost wave function:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-d5b6efda-f0bb-45eb-b47e-c55d6f5a89b0">
+<span class="eqno">(7.21)<a class="headerlink" href="#equation-d5b6efda-f0bb-45eb-b47e-c55d6f5a89b0" title="Permalink to this equation">#</a></span>\[\begin{align} \psi_R(X_{\rm max}) = e^{-\kappa X_{\rm max}}. \end{align}\]</div>
+</li>
+<li><p>Use your favorite ODE solver again to step <span class="math notranslate nohighlight">\(\psi_R(x)\)</span> leftwards to the origin until you reach the matching radius <span class="math notranslate nohighlight">\(x_{\rm match}\)</span>.  This means that we have stepped through the potential well.</p></li>
+<li><p>To satisfy the boundary condition, the wave function solution <span class="math notranslate nohighlight">\(\psi(x)\)</span> and its derivative <span class="math notranslate nohighlight">\(\psi^\prime(x)\)</span> must be continuous at <span class="math notranslate nohighlight">\(x=x_{\rm match}\)</span>.  Requiring the <em>logarithmic derivative</em> <span class="math notranslate nohighlight">\(\psi^\prime(x)/\psi(x)\)</span> to be continuous encapsulates both continuity conditions into a single condition and is independent of the normalization of <span class="math notranslate nohighlight">\(\psi\)</span>.</p></li>
+<li><p>Start the solution with a <em>guess</em> for the energy.  A good guess is a value higher up from the bottom of the well, <span class="math notranslate nohighlight">\(E&gt;-V_o\)</span>.</p></li>
+<li><p>Use the amount of mismatch to improve the next guess for the energy.  We measure how well the wave functions match by calculating the difference:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-a21003e3-f478-4fb4-85c9-8ead1cf3c80a">
+<span class="eqno">(7.22)<a class="headerlink" href="#equation-a21003e3-f478-4fb4-85c9-8ead1cf3c80a" title="Permalink to this equation">#</a></span>\[\begin{align}
+    \Delta (E,x) = \frac{\psi^\prime_L(x)/\psi_L(x) - \psi^\prime_R(x)/\psi_R(x)}{\psi^\prime_L(x)/\psi_L(x) + \psi^\prime_R(x)/\psi_R(x)} \biggr \vert_{x=x{\rm match}},
+    \end{align}\]</div>
+<p>where the denominator is used to avoid overly large or small numbers.  Use how much <span class="math notranslate nohighlight">\(\Delta (E)\)</span> has changed from our last guess and use this to deduce an intelligent guess at the next energy.  The search continues until both logarithmic wave functions match within some tolerance <span class="math notranslate nohighlight">\(\epsilon\)</span> (i.e., <span class="math notranslate nohighlight">\(\Delta (E) \ll \epsilon\)</span>).</p>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">solve_ivp</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.constants</span> <span class="kn">import</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">m_p</span><span class="p">,</span> <span class="n">eV</span>
+
+<span class="n">fm</span> <span class="o">=</span> <span class="mf">1e-15</span>
+<span class="n">const</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">m_p</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">hbar</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">eV</span><span class="o">*</span><span class="mf">1e6</span><span class="o">*</span><span class="n">fm</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1">#2*m_p/hbar**2 converted to MeV fm**2 units</span>
+<span class="n">V_o</span> <span class="o">=</span> <span class="o">-</span><span class="mf">83.</span>
+
+<span class="n">eps</span> <span class="o">=</span> <span class="mf">0.001</span>
+<span class="n">x_left</span><span class="p">,</span> <span class="n">x_right</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">4.</span>
+<span class="n">n_steps</span> <span class="o">=</span> <span class="mi">4001</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="n">x_right</span><span class="o">-</span><span class="n">x_left</span><span class="p">)</span><span class="o">/</span><span class="n">n_steps</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">x_rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_left</span><span class="p">,</span><span class="n">x_right</span><span class="o">+</span><span class="n">h</span><span class="p">,</span><span class="n">h</span><span class="p">)</span>
+
+<span class="n">well_width</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="n">well_left</span><span class="p">,</span> <span class="n">well_right</span> <span class="o">=</span> <span class="o">-</span><span class="n">well_width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">well_width</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">i_match</span> <span class="o">=</span>  <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_left</span><span class="o">+</span><span class="n">well_width</span><span class="p">)</span><span class="o">/</span><span class="n">h</span><span class="p">)</span>
+<span class="n">nL</span> <span class="o">=</span> <span class="n">i_match</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="n">E</span> <span class="o">=</span> <span class="o">-</span><span class="mi">65</span> <span class="c1">#initial guess</span>
+<span class="n">count_max</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">Emax</span><span class="p">,</span> <span class="n">Emin</span> <span class="o">=</span> <span class="mf">1.1</span><span class="o">*</span><span class="n">E</span><span class="p">,</span> <span class="n">E</span><span class="o">/</span><span class="mf">1.1</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">psi_x</span><span class="p">,</span><span class="n">psi_y</span><span class="p">,</span><span class="n">psi_E</span><span class="p">):</span>
+    <span class="c1">#psi_x = position along wave function</span>
+    <span class="c1">#y = [psi(x), dpsi(x)/dx]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">psi_y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">const</span><span class="o">*</span><span class="p">(</span><span class="n">psi_E</span><span class="o">-</span><span class="n">V</span><span class="p">(</span><span class="n">psi_x</span><span class="p">))</span><span class="o">*</span><span class="n">psi_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+<span class="k">def</span> <span class="nf">V</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="c1">#potential at a given x</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">well_width</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">V_o</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span> 
+
+<span class="k">def</span> <span class="nf">diff</span><span class="p">(</span><span class="n">psi_E</span><span class="p">,</span><span class="n">return_wf</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">kappa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">psi_E</span><span class="p">)</span><span class="o">*</span><span class="n">const</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">psi0</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">kappa</span><span class="o">*</span><span class="n">x_rng</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">psi0</span><span class="p">,</span> <span class="n">kappa</span><span class="o">*</span><span class="n">psi0</span><span class="p">])</span>  <span class="c1"># Initial left wf</span>
+    <span class="n">x_eval</span> <span class="o">=</span> <span class="n">x_rng</span><span class="p">[:</span><span class="n">nL</span><span class="p">]</span>
+    <span class="n">sol</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span><span class="n">func</span><span class="p">,(</span><span class="n">x_eval</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">x_eval</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span><span class="n">y0</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">psi_E</span><span class="p">,),</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;RK45&#39;</span><span class="p">,</span><span class="n">t_eval</span><span class="o">=</span><span class="n">x_eval</span><span class="p">,</span><span class="n">first_step</span> <span class="o">=</span> <span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">y_L</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span>
+    
+    <span class="n">psi0</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">kappa</span><span class="o">*</span><span class="n">x_rng</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">psi0</span><span class="p">,</span> <span class="o">-</span><span class="n">kappa</span><span class="o">*</span><span class="n">psi0</span><span class="p">])</span>  <span class="c1"># Initial right wf</span>
+    <span class="n">x_eval</span> <span class="o">=</span> <span class="n">x_rng</span><span class="p">[</span><span class="n">nL</span><span class="p">:]</span>
+    <span class="n">sol</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span><span class="n">func</span><span class="p">,(</span><span class="n">x_eval</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">x_eval</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="n">y0</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">psi_E</span><span class="p">,),</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;RK45&#39;</span><span class="p">,</span><span class="n">t_eval</span><span class="o">=</span><span class="n">x_eval</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">first_step</span><span class="o">=</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">y_R</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,:][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">return_wf</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">left</span> <span class="o">-</span> <span class="n">right</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">),</span> <span class="n">y_L</span><span class="p">,</span> <span class="n">y_R</span> <span class="c1">#logarithmic derivative, left soln, right soln</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">left</span> <span class="o">-</span> <span class="n">right</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">count_max</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">Emax</span> <span class="o">+</span> <span class="n">Emin</span><span class="p">)</span>
+    <span class="n">Diff_E</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
+    <span class="n">Dmax</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">Emax</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">Dmax</span><span class="o">*</span><span class="n">Diff_E</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">Emax</span> <span class="o">=</span> <span class="n">E</span> 
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">Emin</span> <span class="o">=</span> <span class="n">E</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Diff_E</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">eps</span><span class="p">:</span>
+        <span class="n">Diff_E</span><span class="p">,</span><span class="n">y_L</span><span class="p">,</span><span class="n">y_R</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">break</span> <span class="c1">#tolerance met stop iterating</span>
+    <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="n">count_max</span><span class="p">:</span>
+        <span class="n">Diff_E</span><span class="p">,</span><span class="n">y_L</span><span class="p">,</span><span class="n">y_R</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;count max reached&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Final eigenvalue E = &quot;</span><span class="p">,</span> <span class="n">E</span><span class="p">)</span>
+
+<span class="n">norm</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x_rng</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nL</span><span class="p">:</span>
+        <span class="n">norm</span> <span class="o">+=</span> <span class="n">y_L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">y_L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">h</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">norm</span> <span class="o">+=</span> <span class="n">y_R</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">nL</span><span class="p">]</span><span class="o">*</span><span class="n">y_R</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">nL</span><span class="p">]</span><span class="o">*</span><span class="n">h</span>
+<span class="n">norm</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">norm</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_rng</span><span class="p">[:</span><span class="n">nL</span><span class="p">],</span><span class="n">norm</span><span class="o">*</span><span class="n">y_L</span><span class="o">+</span><span class="n">E</span><span class="p">,</span><span class="s1">&#39;b-&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_rng</span><span class="p">[</span><span class="n">nL</span><span class="p">:],</span><span class="n">norm</span><span class="o">*</span><span class="n">y_R</span><span class="o">+</span><span class="n">E</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_rng</span><span class="p">[:</span><span class="n">i_match</span><span class="p">],</span><span class="o">-</span><span class="mf">61.5</span><span class="p">,</span><span class="o">-</span><span class="mf">60.2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_rng</span><span class="p">[</span><span class="n">n_steps</span><span class="o">-</span><span class="n">i_match</span><span class="p">:],</span><span class="o">-</span><span class="mf">61.5</span><span class="p">,</span><span class="o">-</span><span class="mf">60.2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">61.2</span><span class="p">,</span><span class="o">-</span><span class="mf">60.2</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Final eigenvalue E =  -61.07830255681819
+</pre></div>
+</div>
+<img alt="../_images/c9e17fc258c202ac6743f0b9c05d948ca9c39314ca850100ddc2f8511452af8f.png" src="../_images/c9e17fc258c202ac6743f0b9c05d948ca9c39314ca850100ddc2f8511452af8f.png" />
+</div>
+</div>
 </section>
-<section id="numerov-algorithm-for-schodinger-ode">
-<h2><span class="section-number">7.9. </span>Numerov Algorithm for Schödinger ODE<a class="headerlink" href="#numerov-algorithm-for-schodinger-ode" title="Permalink to this heading">#</a></h2>
+<section id="numerov-algorithm-for-a-schrodinger-ode">
+<h3><span class="section-number">7.7.3. </span>Numerov Algorithm for a Schrödinger ODE<a class="headerlink" href="#numerov-algorithm-for-a-schrodinger-ode" title="Permalink to this heading">#</a></h3>
+<p>An alternative to the general ODE method is to use the Numerov method, which is an algorithm that is specialized for ODEs without any first derivatives (e.g., our Schrödinger equation).  This algorithm is <span class="math notranslate nohighlight">\(O(h^6)\)</span>, which means that is speeds up the calculation by providing additional precision.  For this algorithm, we star by rewriting the Schrödinger equation in the generic form:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-fe0d33a3-d42a-40fb-838f-1c346c867d82">
+<span class="eqno">(7.23)<a class="headerlink" href="#equation-fe0d33a3-d42a-40fb-838f-1c346c867d82" title="Permalink to this equation">#</a></span>\[\begin{align}
+\frac{d^2 \psi}{dx^2} + k^2(x)\psi &amp;= 0, \\
+k^2(x) &amp;= \frac{2m}{\hbar^2} \begin{cases}
+E+V_o, &amp;\text{for } |x|&lt;a \\
+E, &amp;\text{for } |x|&gt;a
+\end{cases}
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(k^2 = -\kappa^2\)</span> for bound states.  The trick in the Numerov method is to get extra precision in the second derivative by eliminating the odd power derivatives the Taylor expansion (i.e., no first derivative).  We star with the general Taylor expansion of the wave functions:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-5296755b-1a66-4eae-9748-81954d097ab2">
+<span class="eqno">(7.24)<a class="headerlink" href="#equation-5296755b-1a66-4eae-9748-81954d097ab2" title="Permalink to this equation">#</a></span>\[\begin{align}
+\psi(x+h) &amp;\simeq \psi(x) + h\psi(x)^{\prime} + \frac{h^2}{2}\psi(x)^{\prime\prime} + \frac{h^3}{3!}\psi(x)^{\prime\prime\prime} + \frac{h^4}{4!}\psi(x)^{\prime\prime\prime\prime} + \cdots, \\
+\psi(x-h) &amp;\simeq \psi(x) - h\psi(x)^{\prime} + \frac{h^2}{2}\psi(x)^{\prime\prime} - \frac{h^3}{3!}\psi(x)^{\prime\prime\prime} + \frac{h^4}{4!}\psi(x)^{\prime\prime\prime\prime} + \cdots.
+\end{align}\]</div>
+<p>Because the expansion of <span class="math notranslate nohighlight">\(\psi(x-h)\)</span> has odd powers of <span class="math notranslate nohighlight">\(h\)</span> appearing with negative signs, all odd power derivatives cancel when we add:</p>
+<div class="math notranslate nohighlight" id="equation-psi-2nd-deriv">
+<span class="eqno">(7.25)<a class="headerlink" href="#equation-psi-2nd-deriv" title="Permalink to this equation">#</a></span>\[\begin{split}\psi(x+h) - \psi(x-h) &amp;\simeq 2\psi(x) + h^2\psi(x)^{\prime\prime} + \frac{h^4}{12}\psi(x)^{\prime\prime\prime\prime} + O(h^6), \\
+\psi(x)^{\prime\prime} &amp;\simeq \frac{1}{h^2}\left[\psi(x+h) - \psi(x-h) - 2\psi(x) \right] - \frac{h^2}{12}\psi(x)^{\prime\prime\prime\prime} + O(h^4).\end{split}\]</div>
+<p>We can eliminate the <span class="math notranslate nohighlight">\(\psi(x)^{\prime\prime\prime\prime}\)</span> term by applying the operator <span class="math notranslate nohighlight">\(1 + \frac{h^2}{12}\frac{d^2}{dx^2}\)</span> to the Schrödinger equation:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-fc2b3a8f-09a9-41ac-a1cc-40ad6e3392d3">
+<span class="eqno">(7.26)<a class="headerlink" href="#equation-fc2b3a8f-09a9-41ac-a1cc-40ad6e3392d3" title="Permalink to this equation">#</a></span>\[\begin{align}
+\left[1 + \frac{h^2}{12}\frac{d^2}{dx^2}\right] \left[\frac{d^2 \psi}{dx^2} + k^2(x)\psi \right] &amp;= 0, \\
+\frac{d^2 \psi}{dx^2} + k^2(x)\psi + \frac{h^2}{12}\frac{d^4 \psi}{dx^4} + \frac{h^2}{12}\frac{d^2}{dx^2}\left[k^2(x)\psi\right] &amp;= 0, \\
+\psi(x)^{\prime\prime} +\frac{h^2}{12}\psi(x)^{\prime\prime\prime\prime} + k^2(x)\psi + \frac{h^2}{12}\frac{d^2}{dx^2}\left[k^2(x)\psi\right] &amp;= 0.
+\end{align}\]</div>
+<p>Then we can substitute our derived expression from Eq. {eq}{psi_2nd_deriv} to cancel the <span class="math notranslate nohighlight">\(\psi(x)^{\prime\prime\prime\prime}\)</span> term to get:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-1a783cba-06c2-4f5d-8a53-e819182261bf">
+<span class="eqno">(7.27)<a class="headerlink" href="#equation-1a783cba-06c2-4f5d-8a53-e819182261bf" title="Permalink to this equation">#</a></span>\[\begin{align}
+\frac{1}{h^2}\left[\psi(x+h) - \psi(x-h) - 2\psi(x) \right] + k^2(x)\psi + \frac{h^2}{12}\frac{d^2}{dx^2}\left[k^2(x)\psi\right] &amp;\simeq 0.
+\end{align}\]</div>
+<p>The central-difference approximation for the second derivative of <span class="math notranslate nohighlight">\(k^2(x)\psi\)</span> is:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-e63ae823-c7fc-421a-a06b-4c9a3bf63750">
+<span class="eqno">(7.28)<a class="headerlink" href="#equation-e63ae823-c7fc-421a-a06b-4c9a3bf63750" title="Permalink to this equation">#</a></span>\[\begin{align}
+\frac{d^2}{dx^2}\left[k^2(x)\psi\right] &amp;\simeq  \frac{(k^2\psi)_{x+h} + (k^2\psi)_{x-h} -2 (k^2\psi)_x }{h^2}, \\
+&amp;\simeq  \frac{k^2(x+h)\psi(x+h) + k^2(x-h)\psi(x-h) -2 k^2(x)\psi(x)}{h^2}.
+\end{align}\]</div>
+<p>After this substitution, we obtain the Numerov algorithm:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-86049dab-e08d-4082-8726-36a74c3460a9">
+<span class="eqno">(7.29)<a class="headerlink" href="#equation-86049dab-e08d-4082-8726-36a74c3460a9" title="Permalink to this equation">#</a></span>\[\begin{align}
+\psi(x+h) \simeq \frac{12}{1+h^2k^2(x+h)}\left(\left[1-\frac{5}{12}h^2k^2(x)\right]\psi(x) - \left[1+\frac{1}{12}h^2k^2(x-h)\right]\psi(x-h) \right).
+\end{align}\]</div>
+<p>The Numerov algorithm uses the values of <span class="math notranslate nohighlight">\(\psi\)</span> at the two steps (<span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(x-h\)</span>) to move <span class="math notranslate nohighlight">\(\psi\)</span> forward to <span class="math notranslate nohighlight">\(x+h\)</span>.  To step backward in <span class="math notranslate nohighlight">\(x\)</span>, we need only to reverse the sign of <span class="math notranslate nohighlight">\(h\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">dl</span> <span class="o">=</span> <span class="mf">1e-6</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">4001</span>
+<span class="n">ul</span><span class="p">,</span> <span class="n">ur</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">ul</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ur</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e-15</span><span class="p">,</span><span class="o">-</span><span class="mf">1e-15</span>
+
+<span class="n">left_x</span><span class="p">,</span> <span class="n">right_x</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">4.</span>
+<span class="n">well_width</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">right_x</span><span class="o">-</span><span class="n">left_x</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">i_left</span> <span class="o">=</span>  <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_left</span><span class="o">+</span><span class="n">well_width</span><span class="p">)</span><span class="o">/</span><span class="n">h</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mf">12.</span>
+<span class="n">Emin</span><span class="p">,</span> <span class="n">Emax</span> <span class="o">=</span> <span class="o">-</span><span class="mi">65</span><span class="p">,</span> <span class="o">-</span><span class="mi">55</span> <span class="c1">#root limits</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">Emin</span> <span class="c1">#initial E guess</span>
+<span class="n">dE</span> <span class="o">=</span> <span class="mf">0.001</span>
+<span class="n">V_o</span> <span class="o">=</span> <span class="o">-</span><span class="mf">83.</span>
+<span class="n">const</span> <span class="o">=</span> <span class="mf">0.04829</span>
+
+<span class="n">xl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">left_x</span><span class="p">,</span><span class="n">right_x</span><span class="p">,</span><span class="n">h</span><span class="p">)</span>
+<span class="n">xr</span> <span class="o">=</span> <span class="n">xl</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">V</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">pot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">well_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">&lt;=</span><span class="n">well_width</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">pot</span><span class="p">[</span><span class="n">well_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">V_o</span>
+    <span class="k">return</span> <span class="n">pot</span>
+
+<span class="k">def</span> <span class="nf">numerov</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">k2</span><span class="p">,</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">5</span><span class="o">*</span><span class="n">b</span><span class="o">*</span><span class="n">k2</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">k2</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">k2</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="n">Esum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">im</span><span class="p">:</span>
+            <span class="n">ul</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ur</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">Esum</span> <span class="o">+=</span> <span class="n">ul</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">Esum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">h</span><span class="o">*</span><span class="n">Esum</span><span class="p">)</span>
+    <span class="n">u</span> <span class="o">/=</span> <span class="n">Esum</span> 
+
+<span class="n">k2l</span> <span class="o">=</span> <span class="n">const</span><span class="o">*</span><span class="p">(</span><span class="n">E</span><span class="o">-</span><span class="n">V</span><span class="p">(</span><span class="n">xl</span><span class="p">))</span>
+<span class="n">k2r</span> <span class="o">=</span> <span class="n">const</span><span class="o">*</span><span class="p">(</span><span class="n">E</span><span class="o">-</span><span class="n">V</span><span class="p">(</span><span class="n">xr</span><span class="p">))</span>
+
+<span class="n">im</span> <span class="o">=</span> <span class="n">n</span> <span class="o">//</span> <span class="mi">3</span> <span class="c1">#match point</span>
+<span class="n">nl</span><span class="p">,</span> <span class="n">nr</span> <span class="o">=</span> <span class="n">im</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="n">im</span><span class="o">+</span><span class="mi">1</span>
+<span class="n">istep</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">imax</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">numerov</span><span class="p">(</span><span class="n">nl</span><span class="p">,</span><span class="n">k2l</span><span class="p">,</span><span class="n">ul</span><span class="p">)</span>
+<span class="n">numerov</span><span class="p">(</span><span class="n">nr</span><span class="p">,</span><span class="n">k2r</span><span class="p">,</span><span class="n">ur</span><span class="p">)</span>
+<span class="n">ul</span> <span class="o">*=</span> <span class="n">ur</span><span class="p">[</span><span class="n">nr</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">ul</span><span class="p">[</span><span class="n">im</span><span class="p">]</span>
+<span class="n">f0</span> <span class="o">=</span> <span class="p">(</span><span class="n">ur</span><span class="p">[</span><span class="n">nr</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">ul</span><span class="p">[</span><span class="n">nl</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">ur</span><span class="p">[</span><span class="n">nr</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">ul</span><span class="p">[</span><span class="n">nl</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">h</span><span class="o">*</span><span class="n">ur</span><span class="p">[</span><span class="n">nr</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># log derivative</span>
+
+<span class="k">while</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dE</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">dl</span> <span class="ow">and</span> <span class="n">istep</span> <span class="o">&lt;</span> <span class="n">imax</span><span class="p">:</span>
+    <span class="n">e1</span> <span class="o">=</span> <span class="n">E</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="p">(</span><span class="n">Emin</span> <span class="o">+</span> <span class="n">Emax</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span>
+    <span class="n">k2l</span> <span class="o">+=</span> <span class="n">const</span><span class="o">*</span><span class="p">(</span><span class="n">E</span><span class="o">-</span><span class="n">e1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">k2r</span> <span class="o">+=</span> <span class="n">const</span><span class="o">*</span><span class="p">(</span><span class="n">E</span><span class="o">-</span><span class="n">e1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">numerov</span><span class="p">(</span><span class="n">nl</span><span class="p">,</span><span class="n">k2l</span><span class="p">,</span><span class="n">ul</span><span class="p">)</span>
+    <span class="n">numerov</span><span class="p">(</span><span class="n">nr</span><span class="p">,</span><span class="n">k2r</span><span class="p">,</span><span class="n">ur</span><span class="p">)</span>
+    <span class="n">ul</span> <span class="o">*=</span> <span class="n">ur</span><span class="p">[</span><span class="n">nr</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">ul</span><span class="p">[</span><span class="n">im</span><span class="p">]</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="p">(</span><span class="n">ur</span><span class="p">[</span><span class="n">nr</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">ul</span><span class="p">[</span><span class="n">nl</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">ur</span><span class="p">[</span><span class="n">nr</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">ul</span><span class="p">[</span><span class="n">nl</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">h</span><span class="o">*</span><span class="n">ur</span><span class="p">[</span><span class="n">nr</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># log derivative</span>
+    <span class="k">if</span> <span class="n">f0</span><span class="o">*</span><span class="n">f1</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">Emax</span> <span class="o">=</span> <span class="n">E</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">Emin</span> <span class="o">=</span> <span class="n">E</span>
+        <span class="n">f0</span> <span class="o">=</span> <span class="n">f1</span>
+    <span class="n">dE</span> <span class="o">=</span> <span class="n">Emax</span> <span class="o">-</span> <span class="n">Emin</span> 
+    <span class="n">istep</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">normalize</span><span class="p">(</span><span class="n">ul</span><span class="p">)</span>
+<span class="n">normalize</span><span class="p">(</span><span class="n">ur</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Energy E = &quot;</span><span class="p">,</span> <span class="n">E</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xl</span><span class="p">[:</span><span class="n">nl</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">ul</span><span class="p">[:</span><span class="n">nl</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">E</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xr</span><span class="p">[:</span><span class="n">nr</span><span class="p">],</span><span class="n">ur</span><span class="p">[:</span><span class="n">nr</span><span class="p">]</span><span class="o">+</span><span class="n">E</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">E</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_rng</span><span class="p">[:</span><span class="n">i_left</span><span class="p">],</span><span class="o">-</span><span class="mf">61.5</span><span class="p">,</span><span class="o">-</span><span class="mf">60.2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_rng</span><span class="p">[</span><span class="n">n_steps</span><span class="o">-</span><span class="n">i_left</span><span class="p">:],</span><span class="o">-</span><span class="mf">61.5</span><span class="p">,</span><span class="o">-</span><span class="mf">60.2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">61.2</span><span class="p">,</span><span class="o">-</span><span class="mf">60.2</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Energy E =  -61.019243597984314
+</pre></div>
+</div>
+<img alt="../_images/69d03654a0963865dda6679443cc2b9a47c57ee645ce8fe7bbad05daba995748.png" src="../_images/69d03654a0963865dda6679443cc2b9a47c57ee645ce8fe7bbad05daba995748.png" />
+</div>
+</div>
+</section>
 </section>
 </section>
 
@@ -877,10 +1313,13 @@ lambda_2 =  (0.587-1.321j)
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-matrix-computing">7.3. Practical Matrix Computing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-algebra-in-numpy">7.4. Linear Algebra in <code class="docutils literal notranslate"><span class="pre">numpy</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-matrix-programs">7.5. Testing Matrix Programs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-eigenvalues-in-arbitrary-potential">7.6. Quantum Eigenvalues in Arbitrary Potential</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nucleon-in-a-box">7.7. Nucleon in a box</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalues-via-ode-sovler-search">7.8. Eigenvalues via ODE Sovler + Search</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerov-algorithm-for-schodinger-ode">7.9. Numerov Algorithm for Schödinger ODE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantum-eigenvalues-in-an-arbitrary-potential">7.6. Quantum Eigenvalues in an Arbitrary Potential</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nucleon-in-a-box">7.7. Nucleon in a box</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalues-via-central-finite-difference">7.7.1. Eigenvalues via Central Finite Difference</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalues-via-ode-sovler-search">7.7.2. Eigenvalues via ODE Sovler + Search</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numerov-algorithm-for-a-schrodinger-ode">7.7.3. Numerov Algorithm for a Schrödinger ODE</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
