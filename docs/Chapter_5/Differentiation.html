@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>5. Differentiation and Searching &#8212; PHYS3820 Computational Physics</title>
   
@@ -39,7 +39,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mycss.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
@@ -50,6 +50,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
@@ -442,31 +443,31 @@ allowfullscreen></iframe>
 <section id="numerical-differentiation">
 <h2><span class="section-number">5.1. </span>Numerical differentiation<a class="headerlink" href="#numerical-differentiation" title="Permalink to this heading">#</a></h2>
 <p>Before implementing a numerical method for differentiation, let’s review some basics from Introductory Calculus.  The elementary definition was</p>
-<div class="amsmath math notranslate nohighlight" id="equation-52e7ad7d-a135-4830-8620-0afc04424416">
-<span class="eqno">(5.1)<a class="headerlink" href="#equation-52e7ad7d-a135-4830-8620-0afc04424416" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c71a1d22-c699-46c4-b5b2-61e821ae0b60">
+<span class="eqno">(5.1)<a class="headerlink" href="#equation-c71a1d22-c699-46c4-b5b2-61e821ae0b60" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{dy(t)}{dt} = \displaystyle \lim_{h\rightarrow 0}\frac{y(t+h)-y(t)}{h},
 \end{align}\]</div>
 <p>but this is impractical to implement in a computer.  The denominator is approaching zero and the finite machine precision causes oscillations in the solution.  Therefore we implement a series of approximations to obtain a practical solution.</p>
 <section id="forward-difference">
 <h3><span class="section-number">5.1.1. </span>Forward difference<a class="headerlink" href="#forward-difference" title="Permalink to this heading">#</a></h3>
 <p>The most direct method for numerical differentiation starts by expanding a function in a Taylor series to obtain its value a small step <em>h</em> away:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-37af0273-bdca-42c6-b6a9-906ee8bbd18c">
-<span class="eqno">(5.2)<a class="headerlink" href="#equation-37af0273-bdca-42c6-b6a9-906ee8bbd18c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c144a869-7111-4735-aa5f-cdabca6231df">
+<span class="eqno">(5.2)<a class="headerlink" href="#equation-c144a869-7111-4735-aa5f-cdabca6231df" title="Permalink to this equation">#</a></span>\[\begin{align}
 y(t+h) = y(t) + h\frac{dy(t)}{dt} + \frac{h^2}{2!}\frac{d^2y(t)}{dt^2} + \frac{h^3}{3!}\frac{d^3y(t)}{dt^3} + \cdots.
 \end{align}\]</div>
 <p>We obtain a <em>forward-difference</em> derivative by using the approximation in the elementary definition for <span class="math notranslate nohighlight">\(y^\prime(t)\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-09baa6df-c33b-47ec-b1e7-1937fa4dae95">
-<span class="eqno">(5.3)<a class="headerlink" href="#equation-09baa6df-c33b-47ec-b1e7-1937fa4dae95" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-7e9ea915-e17a-4339-bd3e-6a0e29ca5d17">
+<span class="eqno">(5.3)<a class="headerlink" href="#equation-7e9ea915-e17a-4339-bd3e-6a0e29ca5d17" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{dy(t)}{dt}\biggr\rvert_{fd} = \frac{y(t+h)-y(t)}{h}.
 \end{align}\]</div>
 <p>An approximation for the error follows from substituting the Taylor series:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c33302e1-30e9-49c3-9d59-f159cc2083b6">
-<span class="eqno">(5.4)<a class="headerlink" href="#equation-c33302e1-30e9-49c3-9d59-f159cc2083b6" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-6d8da77a-1fe9-463a-b4c8-dd4fb9847f29">
+<span class="eqno">(5.4)<a class="headerlink" href="#equation-6d8da77a-1fe9-463a-b4c8-dd4fb9847f29" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{dy(t)}{dt}\biggr\rvert_{fd} \simeq \frac{dy(t)}{dt} + \frac{h}{2}\frac{d^2y(t)}{dt^2} + \cdots.
 \end{align}\]</div>
 <p>You can think of this approximation as using two points to represent the function by a straight line between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(x+h\)</span>.  The approximation has an error proportional to <span class="math notranslate nohighlight">\(h\)</span> (the slope of the line).  Therefore, we can make the approximation error smaller by taking smaller steps (decreasing <span class="math notranslate nohighlight">\(h\)</span>), yet there will be some round-off error that is present from the subtraction in the <em>forward-difference</em> derivative.  To see how this algorithm works, let <span class="math notranslate nohighlight">\(y(t) = a + bt^2\)</span>, where the exact derivative is <span class="math notranslate nohighlight">\(y^\prime = 2bt\)</span> and the computed derivative is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0646dd15-d32c-454e-8387-39b0423568e3">
-<span class="eqno">(5.5)<a class="headerlink" href="#equation-0646dd15-d32c-454e-8387-39b0423568e3" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-13b35104-4e5d-4bc3-a79b-2364792a5078">
+<span class="eqno">(5.5)<a class="headerlink" href="#equation-13b35104-4e5d-4bc3-a79b-2364792a5078" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{dy(t)}{dt}\biggr\rvert_{fd} &amp;\simeq \frac{y(t+h)-y(t)}{h}, \\
 &amp;= \frac{a+b(t+h)^2 - a - bt^2}{h}, \\
 &amp;= \frac{2bth + bh^2}{h}, \\
@@ -477,29 +478,29 @@ y(t+h) = y(t) + h\frac{dy(t)}{dt} + \frac{h^2}{2!}\frac{d^2y(t)}{dt^2} + \frac{h
 <section id="central-difference">
 <h3><span class="section-number">5.1.2. </span>Central difference<a class="headerlink" href="#central-difference" title="Permalink to this heading">#</a></h3>
 <p>An improved approximation uses the principles from the Taylor series (i.e., expand relative to a central point).  Now, rather than making a single step of <em>h</em> forward, we form a <em>central difference</em> by stepping forward a half-step and backward a half-step:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-639ac682-0240-4a36-9b18-083d4abc0714">
-<span class="eqno">(5.6)<a class="headerlink" href="#equation-639ac682-0240-4a36-9b18-083d4abc0714" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d8be47bb-adb3-42e4-87bd-524391024a63">
+<span class="eqno">(5.6)<a class="headerlink" href="#equation-d8be47bb-adb3-42e4-87bd-524391024a63" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{dy(t)}{dt}\biggr\rvert_{cd} = \frac{y(t+h/2)-y(t-h/2)}{h}.
 \end{align}\]</div>
 <p>We estimate the error by substituting the Taylor series for <span class="math notranslate nohighlight">\(y(t\pm h/2)\)</span>.  <strong>Do you think this will result in a better approximation? Why?</strong></p>
 <p>By substitution, we find:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3fb61cac-2a67-43e0-a962-5e769590f9eb">
-<span class="eqno">(5.7)<a class="headerlink" href="#equation-3fb61cac-2a67-43e0-a962-5e769590f9eb" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9925954e-ce38-49d3-96a9-2cd1e6166252">
+<span class="eqno">(5.7)<a class="headerlink" href="#equation-9925954e-ce38-49d3-96a9-2cd1e6166252" title="Permalink to this equation">#</a></span>\[\begin{align}
 y(t+\frac{h}{2})-y(t-\frac{h}{2}) \simeq \left[y(t) + \frac{h}{2}y^\prime(t) + \frac{h^2}{8}y^{\prime\prime}(t) + \frac{h^3}{48}y^{\prime\prime\prime}(t) + O(h^4)\right] - \left[y(t) - \frac{h}{2}y^\prime(t) + \frac{h^2}{8}y^{\prime\prime}(t) - \frac{h^3}{48}y^{\prime\prime\prime}(t) + O(h^4)\right]
 \end{align}\]</div>
 <p>and through many cancellations, we find:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4353fe21-120b-475d-b87f-0f9058514ac0">
-<span class="eqno">(5.8)<a class="headerlink" href="#equation-4353fe21-120b-475d-b87f-0f9058514ac0" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b4d7bf3c-4a8a-4ab4-9413-0978dffa30e9">
+<span class="eqno">(5.8)<a class="headerlink" href="#equation-b4d7bf3c-4a8a-4ab4-9413-0978dffa30e9" title="Permalink to this equation">#</a></span>\[\begin{align}
 y(t+\frac{h}{2})-y(t-\frac{h}{2}) \simeq hy^\prime(t) + \frac{h^3}{24}y^{\prime\prime\prime}(t) + O(h^5),
 \end{align}\]</div>
 <p>and the <em>central-difference</em> derivative is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0d81c5fb-ac5f-4050-90ec-598977cbf9dd">
-<span class="eqno">(5.9)<a class="headerlink" href="#equation-0d81c5fb-ac5f-4050-90ec-598977cbf9dd" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-91ca0e52-21ca-4c93-8019-7b768cb643ea">
+<span class="eqno">(5.9)<a class="headerlink" href="#equation-91ca0e52-21ca-4c93-8019-7b768cb643ea" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{dy(t)}{dt}\biggr\rvert_{cd} = y^\prime(t) + \frac{h^2}{24}y^{\prime\prime\prime}(t) + O(h^4).
 \end{align}\]</div>
 <p>The important difference between the <em>forward-difference</em> and <em>central-difference</em> algorithms is that the <em>central-difference</em> algorithm cancels the terms with an even power of <em>h</em> from each of terms in the Taylor series.  This makes the leading-order error of <em>central-difference</em> accurate to <span class="math notranslate nohighlight">\(h^2\)</span>, while the <em>forward-difference</em> is only accurate to order <em>h</em>.  Returning to our parabola example (<span class="math notranslate nohighlight">\(y(t) = a + bt^2\)</span>), we see that the <em>central-difference</em> gives the exact derivative independent of <span class="math notranslate nohighlight">\(h\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-18f83597-83d7-43b2-a785-a26d230edd0d">
-<span class="eqno">(5.10)<a class="headerlink" href="#equation-18f83597-83d7-43b2-a785-a26d230edd0d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-3e07193e-f9f0-4c35-99a5-ac3662ddee8d">
+<span class="eqno">(5.10)<a class="headerlink" href="#equation-3e07193e-f9f0-4c35-99a5-ac3662ddee8d" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{dy(t)}{dt}\biggr\rvert_{cd} &amp;\simeq \frac{y(t+h/2)-y(t-h/2)}{h}, \\
 &amp; = \frac{a+b(t+h/2)^2 - a - b(t-h/2)^2}{h}, \\
 &amp;= \frac{2bth}{h}, \\
@@ -510,19 +511,19 @@ y(t+\frac{h}{2})-y(t-\frac{h}{2}) \simeq hy^\prime(t) + \frac{h^3}{24}y^{\prime\
 <section id="extrapolated-difference">
 <h3><span class="section-number">5.1.3. </span>Extrapolated difference<a class="headerlink" href="#extrapolated-difference" title="Permalink to this heading">#</a></h3>
 <p>You may have noticed that different differentiation rules will keep a different number of terms in a Taylor series expansion, which also provides an expression for the error.  We can reduce the error further by combining several algorithms together so that the summed errors extrapolate to zero.  For example, we could employ two <em>central-difference</em> algorithms as a linear combination, where the first algorithm takes half-steps and the second takes quarter-steps.  Let’s look at the quarter-step approximation (<span class="math notranslate nohighlight">\(h\rightarrow h/2\)</span>):</p>
-<div class="amsmath math notranslate nohighlight" id="equation-292905ff-fe9c-476c-804d-03dfb066ea10">
-<span class="eqno">(5.11)<a class="headerlink" href="#equation-292905ff-fe9c-476c-804d-03dfb066ea10" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4be16bde-49be-4e5c-8f56-f5e0c9ec2433">
+<span class="eqno">(5.11)<a class="headerlink" href="#equation-4be16bde-49be-4e5c-8f56-f5e0c9ec2433" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{dy(t)}{dt}\biggr\rvert_{cd}^{h/4} &amp;= \frac{y(t+h/4)-y(t-h/4)}{h/2}, \\
 &amp; = y^\prime(t) + \frac{h^2}{96}y^{\prime\prime\prime}(t) + O(h^4).
 \end{align}\]</div>
 <p>The quarter-step derivative produces a factor of 1/96 instead of the 1/24 on the second order term.  If we want to cancel this term, we realize that <span class="math notranslate nohighlight">\(96 = 4*24\)</span> and so we perform the following subtraction to get:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-eccd1e1b-9769-472e-affc-0187a323c67c">
-<span class="eqno">(5.12)<a class="headerlink" href="#equation-eccd1e1b-9769-472e-affc-0187a323c67c" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d5644531-1384-4b0e-b6c0-8c6f14d57925">
+<span class="eqno">(5.12)<a class="headerlink" href="#equation-d5644531-1384-4b0e-b6c0-8c6f14d57925" title="Permalink to this equation">#</a></span>\[\begin{align}
 4\frac{dy(t)}{dt}\biggr\rvert_{cd}^{h/4} - \frac{dy(t)}{dt}\biggr\rvert_{cd}^{h/2} = 4y^\prime(t) + \frac{h^2}{24}y^{\prime\prime\prime}(t) - y^\prime(t) - \frac{h^2}{24}y^{\prime\prime\prime}(t) = 3 y^\prime(t) + O(h^4).
 \end{align}\]</div>
 <p>Thus, we find for the <em>extrapolated-difference</em> the following:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-404e1805-4b94-4169-8429-e8071685b4fa">
-<span class="eqno">(5.13)<a class="headerlink" href="#equation-404e1805-4b94-4169-8429-e8071685b4fa" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4d5ddb74-1982-4411-a60c-ab84730e77f1">
+<span class="eqno">(5.13)<a class="headerlink" href="#equation-4d5ddb74-1982-4411-a60c-ab84730e77f1" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{dy(t)}{dt}\biggr\rvert_{ed} &amp;= \frac{4}{3}\frac{dy(t)}{dt}\biggr\rvert_{cd}^{h/4} - \frac{1}{3}\frac{dy(t)}{dt}\biggr\rvert_{cd}^{h/2}, \\
 &amp;\simeq y^\prime(t) + O(h^4).
 \end{align}\]</div>
@@ -534,13 +535,13 @@ y(t+\frac{h}{2})-y(t-\frac{h}{2}) \simeq hy^\prime(t) + \frac{h^3}{24}y^{\prime\
 <div class="math notranslate nohighlight">
 \[F = ma = m\frac{d^2y}{dt^2}, \]</div>
 <p>where <span class="math notranslate nohighlight">\(m\)</span> is a particle’s mass and the acceleration can be expressed as the second derivative of a function <span class="math notranslate nohighlight">\(y(t)\)</span>.  If we can determine the acceleration, then we can determine the force.  Using the <em>central-difference</em> method for the first derivative, we have:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-d8fe3df4-331f-4186-8f14-efd7e0c686ab">
-<span class="eqno">(5.14)<a class="headerlink" href="#equation-d8fe3df4-331f-4186-8f14-efd7e0c686ab" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-a6c386cd-b351-4e98-b5ad-dd372452138f">
+<span class="eqno">(5.14)<a class="headerlink" href="#equation-a6c386cd-b351-4e98-b5ad-dd372452138f" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{dy(t)}{dt} \simeq \frac{y(t+h/2)-y(t-h/2)}{h},
 \end{align}\]</div>
 <p>which gives the derivative at t by moving forward and backward from t by a half-step <span class="math notranslate nohighlight">\(h/2\)</span>.  We take the second derivative by applying the same operation again as follows:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9e531a27-27ec-4a31-86f6-371355e7478e">
-<span class="eqno">(5.15)<a class="headerlink" href="#equation-9e531a27-27ec-4a31-86f6-371355e7478e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-eb16a843-cc41-4f45-afa1-fe9f790f1616">
+<span class="eqno">(5.15)<a class="headerlink" href="#equation-eb16a843-cc41-4f45-afa1-fe9f790f1616" title="Permalink to this equation">#</a></span>\[\begin{align}
 \frac{d^2y(t)}{dt^2} &amp;\simeq \frac{y^\prime(t+h/2)-y^\prime(t-h/2)}{h}, \\
 &amp;\simeq \frac{[y(t+h)-y(t)]-[y(t)-y(t-h)]}{h^2}, \\
 &amp;= \frac{y(t+h)-2y(t)+y(t-h)}{h^2}.
@@ -579,7 +580,7 @@ allowfullscreen></iframe>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bisection</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">N</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;Approximate solution of f(x)=0 on interval [a,b] by bisection method.</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Approximate solution of f(x)=0 on interval [a,b] by bisection method.</span>
 <span class="sd">    f : function</span>
 <span class="sd">    a,b : The interval in which to search for a solution. </span>
 <span class="sd">    N : The number of iterations to implement.&#39;&#39;&#39;</span>
@@ -655,21 +656,21 @@ allowfullscreen></iframe>
 scipy method =  8.592785275230199
 </pre></div>
 </div>
-<img alt="../_images/71c6e469cf618f48d5844302301efb1a98de43f7ceeea61752d9f15f9f127810.png" src="../_images/71c6e469cf618f48d5844302301efb1a98de43f7ceeea61752d9f15f9f127810.png" />
+<img alt="../_images/d67f19d2a828dc768d3c35ea03192c5f523ba99f57b4dadf8af91a420ba13074.png" src="../_images/d67f19d2a828dc768d3c35ea03192c5f523ba99f57b4dadf8af91a420ba13074.png" />
 </div>
 </div>
 </section>
 <section id="newton-raphson-searching">
 <h2><span class="section-number">5.4. </span>Newton-Raphson searching<a class="headerlink" href="#newton-raphson-searching" title="Permalink to this heading">#</a></h2>
 <p>The Newton-Raphson (NR) algorithm is another way to find roots, but it is much quicker than the bisection method.  The NR method is equivalent to drawing a straight line <span class="math notranslate nohighlight">\(f(x)\simeq mx + b\)</span> to a curve at an <span class="math notranslate nohighlight">\(x\)</span> value for which <span class="math notranslate nohighlight">\(f(x) \simeq 0\)</span>.  Then it uses the intercept of the line with the <span class="math notranslate nohighlight">\(x\)</span> axis at <span class="math notranslate nohighlight">\(-b/m\)</span> as an improved guess for the root.  If the “curve” were a straight line, then the answer would be exact.  Otherwise, it is a good approximation if the guess is close enough to the root for $f(x) to be nearly linear.</p>
-<p>As an <a class="reference external" href="https://personal.math.ubc.ca/~pwalls/math-python/roots-optimization/newton/">iteration</a> scheme, we need to start with a guess <span class="math notranslate nohighlight">\(x_o\)</span>, then find a correction to the guess <span class="math notranslate nohighlight">\(\Delta x\)</span>, and finally formulate a new guess <span class="math notranslate nohighlight">\(x = x_o + \Delta x\)</span>.  Recall that the equation of a line can be formulated in terms of a Taylor series, keeping on the first two terms:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3c5796f4-9602-4106-b451-bb4c876e5190">
-<span class="eqno">(5.16)<a class="headerlink" href="#equation-3c5796f4-9602-4106-b451-bb4c876e5190" title="Permalink to this equation">#</a></span>\[\begin{align}
+<p>As an <a class="reference external" href="https://pythonnumericalmethods.berkeley.edu/notebooks/chapter19.04-Newton-Raphson-Method.html">iteration</a> scheme, we need to start with a guess <span class="math notranslate nohighlight">\(x_o\)</span>, then find a correction to the guess <span class="math notranslate nohighlight">\(\Delta x\)</span>, and finally formulate a new guess <span class="math notranslate nohighlight">\(x = x_o + \Delta x\)</span>.  Recall that the equation of a line can be formulated in terms of a Taylor series, keeping on the first two terms:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-ff94473b-0c5e-4041-ab84-83a130e037c8">
+<span class="eqno">(5.16)<a class="headerlink" href="#equation-ff94473b-0c5e-4041-ab84-83a130e037c8" title="Permalink to this equation">#</a></span>\[\begin{align}
 f(x) \simeq f(x_o) + \frac{df}{dx}\biggr\rvert_{x_o}\Delta x.
 \end{align}\]</div>
 <p>We then determine the correction <span class="math notranslate nohighlight">\(\Delta x\)</span> by calculating the point at which this linear approximation to <span class="math notranslate nohighlight">\(f(x)\)</span> would cross the <span class="math notranslate nohighlight">\(x\)</span> axis:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a5756863-361f-43fa-bff7-711d5636531e">
-<span class="eqno">(5.17)<a class="headerlink" href="#equation-a5756863-361f-43fa-bff7-711d5636531e" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-e144a6bc-adb6-45e7-bf93-bf4702ec1173">
+<span class="eqno">(5.17)<a class="headerlink" href="#equation-e144a6bc-adb6-45e7-bf93-bf4702ec1173" title="Permalink to this equation">#</a></span>\[\begin{align}
 f(x_o) + \frac{df}{dx}\biggr\rvert_{x_o}\Delta x &amp;= 0, \\
 \Delta x &amp;= -\frac{f(x_o)}{df/dx\rvert_{x_o}}.
 \end{align}\]</div>

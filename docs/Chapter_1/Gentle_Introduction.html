@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>1. Useful Introduction to Python, GitHub, and LaTex &#8212; PHYS3820 Computational Physics</title>
   
@@ -39,7 +39,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mycss.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
@@ -50,6 +50,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
@@ -594,7 +595,7 @@ allowfullscreen></iframe>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a8400e5714e916b530c83eb68e2c7e145d96e51d9ba3dd3208e610625b95ab73.png" src="../_images/a8400e5714e916b530c83eb68e2c7e145d96e51d9ba3dd3208e610625b95ab73.png" />
+<img alt="../_images/c99cf2fb2fa6e4bb936585e6a61a4031c4437726139e46ccb54becba634b0d9f.png" src="../_images/c99cf2fb2fa6e4bb936585e6a61a4031c4437726139e46ccb54becba634b0d9f.png" />
 </div>
 </div>
 <p>However, we may want to make a lot of plots and do not want to copy/paste a bunch of times.  To reuse our commands, we define a custom function <code class="docutils literal notranslate"><span class="pre">create_plot</span></code> that takes the parameters we may want to vary as input (e.g., x-values, y-values, marker color, marker type, and marker size).</p>
@@ -617,7 +618,7 @@ allowfullscreen></iframe>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/a989eb4530f5731b773ae60090013b108d84e907be448a697390d9ddbade68e0.png" src="../_images/a989eb4530f5731b773ae60090013b108d84e907be448a697390d9ddbade68e0.png" />
+<img alt="../_images/95ca86a2cd134c7c69b6641b67da17340f3efb14b187012d8221e5e102415760.png" src="../_images/95ca86a2cd134c7c69b6641b67da17340f3efb14b187012d8221e5e102415760.png" />
 </div>
 </div>
 <p>We can even change the x,y values to something more complicated.</p>
@@ -630,7 +631,7 @@ allowfullscreen></iframe>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/b858a7a35902c89810e810cdca639a144ed899999e48085d89ea6d1b3414379d.png" src="../_images/b858a7a35902c89810e810cdca639a144ed899999e48085d89ea6d1b3414379d.png" />
+<img alt="../_images/4e2f539dfdfabd922d3d1d99a81970241110a94c0c36930e2960d5579e12d1fc.png" src="../_images/4e2f539dfdfabd922d3d1d99a81970241110a94c0c36930e2960d5579e12d1fc.png" />
 </div>
 </div>
 <p>There are many options within matplotlib, where you will find some more useful than others over time.  If in doubt, you can always check the <a class="reference external" href="https://matplotlib.org/stable/gallery/index.html"><strong>matplotlib gallery</strong></a> or <a class="reference external" href="https://stackexchange.com/">stackexchange</a>.  It is likely that someone has already run into your problem/customization and other people have provided a ‘possible’ solution (<em>not all solutions are good!</em>).  The last bit of customization for this section is to:</p>
@@ -681,7 +682,7 @@ allowfullscreen></iframe>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/9bcd1ac9a1df26734b80cfb66ad17addf851828f1a8efafbbb2a861660b8c53e.png" src="../_images/9bcd1ac9a1df26734b80cfb66ad17addf851828f1a8efafbbb2a861660b8c53e.png" />
+<img alt="../_images/18ed45a6fd7aab5077aaccfa9a402ee6d4ab3ed60ab7eb2ac52833397167e3e0.png" src="../_images/18ed45a6fd7aab5077aaccfa9a402ee6d4ab3ed60ab7eb2ac52833397167e3e0.png" />
 </div>
 </div>
 <p>Figures can be saved to file using the <code class="docutils literal notranslate"><span class="pre">savefig</span></code> function, which takes the filename as an argument.  Additional keyword arguments (kwargs) can be applied that alter the display of the figure (e.g., <code class="docutils literal notranslate"><span class="pre">dpi</span> <span class="pre">=</span> <span class="pre">300</span></code> sets the dots per inch to 300).</p>
@@ -707,7 +708,7 @@ allowfullscreen></iframe>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.4599573113547991
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3796961310824255
 </pre></div>
 </div>
 </div>
@@ -838,7 +839,7 @@ I_C \\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/77743aad31606d5b030dc45c4e60679db7d672e428a77bbc854a3385eee3127c.png" src="../_images/77743aad31606d5b030dc45c4e60679db7d672e428a77bbc854a3385eee3127c.png" />
+<img alt="../_images/ca9c819ec6b2c97cda426df1f8ad7ab63c06b9b9396d8f640a656f1714b92f18.png" src="../_images/ca9c819ec6b2c97cda426df1f8ad7ab63c06b9b9396d8f640a656f1714b92f18.png" />
 </div>
 </div>
 </section>

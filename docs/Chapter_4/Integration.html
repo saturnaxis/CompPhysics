@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>4. Integration &#8212; PHYS3820 Computational Physics</title>
   
@@ -39,7 +39,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mycss.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
@@ -50,6 +50,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
@@ -441,8 +442,8 @@ allowfullscreen></iframe>
 <h2><span class="section-number">4.1. </span>Quadrature as box counting<a class="headerlink" href="#quadrature-as-box-counting" title="Permalink to this heading">#</a></h2>
 <p>The integration of a function usually requires some trickery, where you have to know which variable transformation to apply and when to apply it.  Due to the precise repetitiveness of a computer, an integral can be evaluated in a straightforward manner.  You may recall that you first performed integration by counting the number of boxes (or quadrilaterals) that you could place beneath a curve.  As a result, numerical integration is also called <em>quadrature</em> even when it comes to more complex methods.</p>
 <p>We’ll start our review with the Riemann definition of an integral, which is given as the limit of the sum over boxes of width <em>h</em>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7e9b0846-2df7-404a-8d35-7d25e4ecdaca">
-<span class="eqno">(4.1)<a class="headerlink" href="#equation-7e9b0846-2df7-404a-8d35-7d25e4ecdaca" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8e8af4f7-a1be-47cd-9d69-10833e8311b4">
+<span class="eqno">(4.1)<a class="headerlink" href="#equation-8e8af4f7-a1be-47cd-9d69-10833e8311b4" title="Permalink to this equation">#</a></span>\[\begin{align}
 \int_a^b f(x)dx = \lim_{h\rightarrow 0} \left[h \sum_{i=1}^{(b-a)/h} f(x_i) \right].
 \end{align}\]</div>
 <figure class="align-default" id="basic-integral-fig">
@@ -461,8 +462,8 @@ allowfullscreen></iframe>
 </ol>
 <p>Eventually we have to truncate the sum to get the “best” approximation, and we have to remember that we are making a tradeoff.</p>
 <p>Something that you should <strong>never</strong> do is to attempt a numerical integration when the integrand contains a singularity <strong>without</strong> first removing the singularity by hand.  Some ways to remove the singularity is to assign intervals so that the singularity lies at an endpoints or by a change of variable:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-3a6cca66-05d2-4565-a7be-01def2728aa1">
-<span class="eqno">(4.3)<a class="headerlink" href="#equation-3a6cca66-05d2-4565-a7be-01def2728aa1" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-9008ded4-4908-4883-9456-5e4a965cb2d3">
+<span class="eqno">(4.3)<a class="headerlink" href="#equation-9008ded4-4908-4883-9456-5e4a965cb2d3" title="Permalink to this equation">#</a></span>\[\begin{align}
 \int_{-1}^1 |x|f(x)dx &amp;= \int_{-1}^0 f(-x)dx + \int_0^1 f(x)dx, \\
 \int_0^1 x^{1/3}dx &amp;= \int_0^1 3y^3,\;\; (y=x^{1/3}).
 \end{align}\]</div>
@@ -476,13 +477,13 @@ allowfullscreen></iframe>
 <section id="trapezoidal-rule">
 <h2><span class="section-number">4.2. </span>Trapezoidal Rule<a class="headerlink" href="#trapezoidal-rule" title="Permalink to this heading">#</a></h2>
 <p>The trapezoid integration rule uses <span class="math notranslate nohighlight">\(f(x)\)</span> at <em>evenly</em> spaced values of <span class="math notranslate nohighlight">\(x\)</span>, with <span class="math notranslate nohighlight">\(N\)</span> points.  The first point <span class="math notranslate nohighlight">\(x_1\)</span> locates the left-side boundary and <span class="math notranslate nohighlight">\(x_N\)</span> locates the right-side boundary to form the integration region [<span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_N\)</span>] or [a,b].  The brackets indicate that the endpoints are included and then we can divide up the integration region into <span class="math notranslate nohighlight">\(N-1\)</span> intervals or chunks.  The interval width is defined as <span class="math notranslate nohighlight">\(h\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-35b7ff55-95bf-4490-a865-a8a6691d71dd">
-<span class="eqno">(4.4)<a class="headerlink" href="#equation-35b7ff55-95bf-4490-a865-a8a6691d71dd" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ae59238b-6b81-4db7-ba3b-5d07eea59201">
+<span class="eqno">(4.4)<a class="headerlink" href="#equation-ae59238b-6b81-4db7-ba3b-5d07eea59201" title="Permalink to this equation">#</a></span>\[\begin{align}
 h = \frac{b-a}{N-1}
 \end{align}\]</div>
 <p>and the location of each point along the interval is defined linearly because each interval has a fixed width.  Thus, we write the iterative formula for <span class="math notranslate nohighlight">\(x_i\)</span> as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-baf5579e-9125-4cb3-b25b-7dd40088b860">
-<span class="eqno">(4.5)<a class="headerlink" href="#equation-baf5579e-9125-4cb3-b25b-7dd40088b860" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d4d839de-624f-4a5f-a299-58de2585a8e8">
+<span class="eqno">(4.5)<a class="headerlink" href="#equation-d4d839de-624f-4a5f-a299-58de2585a8e8" title="Permalink to this equation">#</a></span>\[\begin{align}
 x_i = a + (i-1)h,
 \end{align}\]</div>
 <p>where we start our counting at <span class="math notranslate nohighlight">\(i=1\)</span>.  <strong>Does this equation return the left boundary when applying <span class="math notranslate nohighlight">\(i=1\)</span>?  What about the right boundary when <span class="math notranslate nohighlight">\(i=N\)</span>?</strong></p>
@@ -500,18 +501,18 @@ allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
 allowfullscreen></iframe>
 </div>
 <p>The trapezoid rule takes each integration interval and constructs a trapezoid of width <span class="math notranslate nohighlight">\(h\)</span>.  Recall the area of a trapezoid is the average height of the two (long) parallel sides multiplied by the width.  To define the height for each side, we evaluate the function <span class="math notranslate nohighlight">\(f(x)\)</span> at boundary points for the given interval, <span class="math notranslate nohighlight">\(f(x_i)\)</span> and <span class="math notranslate nohighlight">\(f(x_{i+1})\)</span>.  The area of each such trapezoid is:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-115534f6-c45f-4059-9150-435948083f9d">
-<span class="eqno">(4.6)<a class="headerlink" href="#equation-115534f6-c45f-4059-9150-435948083f9d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-e3a5fe4b-e139-48a5-a29d-31fd4df293cf">
+<span class="eqno">(4.6)<a class="headerlink" href="#equation-e3a5fe4b-e139-48a5-a29d-31fd4df293cf" title="Permalink to this equation">#</a></span>\[\begin{align}
 \int_{x_i}^{x_{i+1}} f(x)dx \simeq \frac{f(x_i)+f(x_{i+1})}{2}h.
 \end{align}\]</div>
 <p>In terms of our standard integration formula (Eq. <a class="reference internal" href="#equation-integral-form">(4.2)</a>), the weights <span class="math notranslate nohighlight">\(w_i = 1/2\)</span>.  To apply the trapezoidal rule to the entire integration region [a,b], we simply add the contributions from each interval:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-7dd5965d-b028-4b06-995e-e2cde63656ef">
-<span class="eqno">(4.7)<a class="headerlink" href="#equation-7dd5965d-b028-4b06-995e-e2cde63656ef" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-1fac0640-ebb6-45da-aad1-48b1ad5b4cca">
+<span class="eqno">(4.7)<a class="headerlink" href="#equation-1fac0640-ebb6-45da-aad1-48b1ad5b4cca" title="Permalink to this equation">#</a></span>\[\begin{align}
 \int_a^b f(x)dx \simeq \left[\frac{h}{2}a + \frac{h}{2}f(x_2)\right] + \left[\frac{h}{2}f(x_2) + \frac{h}{2}f(x_3)\right] + \cdots + \left[\frac{h}{2}f(x_{N-1}) + \frac{h}{2}b\right].
 \end{align}\]</div>
 <p>You will notice that some interval points are counted twice as the end of one interval and as the beginning of the next, whereas the endpoints are just counted once.  We could now define all the weights for our standard function as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f0454e0f-a0cd-4f89-be2c-257fee0f9303">
-<span class="eqno">(4.8)<a class="headerlink" href="#equation-f0454e0f-a0cd-4f89-be2c-257fee0f9303" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ad42a966-d3bb-4b9b-bd62-028b2c6d958f">
+<span class="eqno">(4.8)<a class="headerlink" href="#equation-ad42a966-d3bb-4b9b-bd62-028b2c6d958f" title="Permalink to this equation">#</a></span>\[\begin{align}
 w_i = \left[\frac{h}{2},h,\cdots,h,\frac{h}{2} \right].
 \end{align}\]</div>
 <p>These weights combine the double counted intervals (<span class="math notranslate nohighlight">\(h/2 + h/2 = h\)</span>).  Now let’s turn this mathematical rule into code.</p>
@@ -566,13 +567,13 @@ w_i = \left[\frac{h}{2},h,\cdots,h,\frac{h}{2} \right].
 <section id="simpson-s-rule">
 <h2><span class="section-number">4.3. </span>Simpson’s Rule<a class="headerlink" href="#simpson-s-rule" title="Permalink to this heading">#</a></h2>
 <p>Simpson’s integration rule approximates the integrand <span class="math notranslate nohighlight">\(f(x)\)</span> by a parabola instead of a trapezoid:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-de5e1ee1-1fbe-4b6e-a3ce-f2748dafbcb4">
-<span class="eqno">(4.9)<a class="headerlink" href="#equation-de5e1ee1-1fbe-4b6e-a3ce-f2748dafbcb4" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-c40f1287-f3ef-4397-af49-9b28a580cd00">
+<span class="eqno">(4.9)<a class="headerlink" href="#equation-c40f1287-f3ef-4397-af49-9b28a580cd00" title="Permalink to this equation">#</a></span>\[\begin{align}
 f(x) \simeq \alpha x^2 + \beta x + \gamma,
 \end{align}\]</div>
 <p>with equally spaced intervals, where weights are <span class="math notranslate nohighlight">\(\alpha,\ \beta,\)</span> and  <span class="math notranslate nohighlight">\(\gamma\)</span>.  We can calculate the area under the parabola for each interval as:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-258b075c-b9cf-4c86-96eb-b528c111ef52">
-<span class="eqno">(4.10)<a class="headerlink" href="#equation-258b075c-b9cf-4c86-96eb-b528c111ef52" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-3291b9fd-d044-4ac0-91fa-1d9988e4275e">
+<span class="eqno">(4.10)<a class="headerlink" href="#equation-3291b9fd-d044-4ac0-91fa-1d9988e4275e" title="Permalink to this equation">#</a></span>\[\begin{align}
 \int_{x_i}^{x_i+h} (\alpha x^2 + \beta x + \gamma)dx = \frac{\alpha x^3}{3} + \frac{\beta x^2}{2} + \gamma x \biggr\rvert_{x_i}^{x_i+h}.
 \end{align}\]</div>
 <figure class="align-default" id="simp-rule-fig">
@@ -592,38 +593,38 @@ f(1) &amp;= \alpha + \beta + \gamma, \\
 f(-1) &amp;= \alpha - \beta + \gamma. 
 \end{align*}\]</div>
 <p>The weight <span class="math notranslate nohighlight">\(\alpha\)</span> can be determined by <span class="math notranslate nohighlight">\(f(1) + f(-1)\)</span> because the <span class="math notranslate nohighlight">\(\beta\)</span> cancels and <span class="math notranslate nohighlight">\(\gamma\)</span> is known directly.  The weight <span class="math notranslate nohighlight">\(\beta\)</span> can be determined in a similar manner but through the difference to get the <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\gamma\)</span> to cancel.  Thus, we find:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e44f9f43-1ec1-4a38-a97a-d9a9155a4f12">
-<span class="eqno">(4.12)<a class="headerlink" href="#equation-e44f9f43-1ec1-4a38-a97a-d9a9155a4f12" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-ce59c19c-62a1-4a33-8cf4-2c67d0cf98ce">
+<span class="eqno">(4.12)<a class="headerlink" href="#equation-ce59c19c-62a1-4a33-8cf4-2c67d0cf98ce" title="Permalink to this equation">#</a></span>\[\begin{align}
 \alpha &amp;= \frac{f(1) + f(-1)}{2} - \gamma, \\
 \beta &amp;= \frac{f(1) - f(-1)}{2}, \\
 \gamma &amp;= f(0).
 \end{align}\]</div>
 <p>Now, we can substitute the values for the weights into Eq. <a class="reference internal" href="#equation-simpson-int">(4.11)</a>, but in terms of function evaluations over three points:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-62f4adf2-472b-48a3-8485-8a1fdc0df111">
-<span class="eqno">(4.13)<a class="headerlink" href="#equation-62f4adf2-472b-48a3-8485-8a1fdc0df111" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8e874baf-607f-4647-a780-bc84114e6774">
+<span class="eqno">(4.13)<a class="headerlink" href="#equation-8e874baf-607f-4647-a780-bc84114e6774" title="Permalink to this equation">#</a></span>\[\begin{align}
 \int_{-1}^1 (\alpha x^2 + \beta x + \gamma)dx = \frac{f(1)}{3}  + \frac{4f(0)}{3} + \frac{f(-1)}{3}.
 \end{align}\]</div>
 <p>Since three points were required, we generalize this solution to include the two endpoints of a given interval and the midpoint (which lies at <span class="math notranslate nohighlight">\(x_i + h/2\)</span>).  This can be written ast the following integral:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-eee5f007-0c15-439d-b416-6b166258eca6">
-<span class="eqno">(4.14)<a class="headerlink" href="#equation-eee5f007-0c15-439d-b416-6b166258eca6" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-3008602c-08a7-4f21-b83c-3d90d41f232e">
+<span class="eqno">(4.14)<a class="headerlink" href="#equation-3008602c-08a7-4f21-b83c-3d90d41f232e" title="Permalink to this equation">#</a></span>\[\begin{align}
 \int_{x_i-h}^{x_i + h} f(x)dx &amp;= \int_{x_i}^{x_i+h/2} f(x) dx + \int_{x_i+h/2}^{x_i+h} f(x) dx, \\
 &amp;= \frac{\alpha x^3}{3} + \frac{\beta x^2}{2} + \gamma x \biggr\rvert_{x_i}^{x_i+h/2} + \frac{\alpha x^3}{3} + \frac{\beta x^2}{2} + \gamma x \biggr\rvert_{x_i+h/2}^{x_i+h},
 \end{align}\]</div>
 <p>or</p>
-<div class="amsmath math notranslate nohighlight" id="equation-adb19a66-65f8-493b-b762-8f599f7c1521">
-<span class="eqno">(4.15)<a class="headerlink" href="#equation-adb19a66-65f8-493b-b762-8f599f7c1521" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-6147644b-e91c-44ba-88da-2bd2ac78982c">
+<span class="eqno">(4.15)<a class="headerlink" href="#equation-6147644b-e91c-44ba-88da-2bd2ac78982c" title="Permalink to this equation">#</a></span>\[\begin{align}
 \int_{x_i-h}^{x_i + h} f(x)dx \simeq \frac{h}{6}f(x_{i}) + \frac{4h}{6}f(x_{i}+h/2) + \frac{h}{6}f(x_{i+1}),
 \end{align}\]</div>
 <p>where the first point <span class="math notranslate nohighlight">\(x_{i}\)</span> takes the place of <span class="math notranslate nohighlight">\(-1\)</span> and the next point <span class="math notranslate nohighlight">\(x_{i+1}\)</span> takes the place of the <span class="math notranslate nohighlight">\(+1\)</span>.</p>
 <p>Simpson’s rule requires the integration to be over <em>pairs of intervals</em> because it uses 3 points.  This implies that the <em>total number of points <span class="math notranslate nohighlight">\(N\)</span> be odd</em> and the <em>total number of intervals <span class="math notranslate nohighlight">\(N-1\)</span> is even</em>.  To apply Simpson’s rule over the entire integration region, we just add up all of the intervals.</p>
 <p>Here, the points (<span class="math notranslate nohighlight">\(f(x_1)\)</span> and <span class="math notranslate nohighlight">\(f(x_N)\)</span>) are counted once, the points in between <span class="math notranslate nohighlight">\((f(x_2),\ldots,f(x_{N-1})\)</span> are counted twice, and the midpoints <span class="math notranslate nohighlight">\(f((x_i + x_{i+1})/2)\)</span> are counted once to get:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-428ba558-54a9-4717-9ea2-23ab52762096">
-<span class="eqno">(4.16)<a class="headerlink" href="#equation-428ba558-54a9-4717-9ea2-23ab52762096" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-579f6710-692e-4e92-8b30-3a04e2f82f1c">
+<span class="eqno">(4.16)<a class="headerlink" href="#equation-579f6710-692e-4e92-8b30-3a04e2f82f1c" title="Permalink to this equation">#</a></span>\[\begin{align}
 \int_a^b f(x)dx \simeq \left[ \frac{h}{6}f(x_{1}) + \frac{4h}{6}f\left(\frac{x_1+x_2}{2}\right) + \frac{h}{6}f(x_{2})\right] + \left[ \frac{h}{6}f(x_{2}) + \frac{4h}{6}f\left(\frac{x_2+x_3}{2}\right) + \frac{h}{6}f(x_{3})\right]  + \cdots + \left[ \frac{h}{6}f(x_{N-1}) +\frac{4h}{6}f\left(\frac{x_{N-1}+x_N}{2}\right)+ \frac{h}{6}f(x_{N})\right]
 \end{align}\]</div>
 <p>or</p>
-<div class="amsmath math notranslate nohighlight" id="equation-9e45cc44-23c1-4702-8529-70c66d7a7375">
-<span class="eqno">(4.17)<a class="headerlink" href="#equation-9e45cc44-23c1-4702-8529-70c66d7a7375" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2cabc62a-a22b-4bd2-8392-0aabfc7a68e3">
+<span class="eqno">(4.17)<a class="headerlink" href="#equation-2cabc62a-a22b-4bd2-8392-0aabfc7a68e3" title="Permalink to this equation">#</a></span>\[\begin{align}
 \int_a^b f(x)dx \simeq \frac{1}{2}\sum_{i=1}^{N-1} \frac{h}{3}\left[ f(x_{i}) + 4f\left(\frac{x_i+x_{i+1}}{2}\right) + f(x_{i+1})\right].
 \end{align}\]</div>
 <div align="center">
@@ -679,13 +680,13 @@ allowfullscreen></iframe>
 <li><p>the error is reduced because the approximation is more exact.</p></li>
 </ul>
 <p>Let’s start with an example.  We want to select points and weights using only 2 points within the integration region.  From this goal, we write:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6bbf30a1-a51b-407c-ac4c-4db33e25732d">
-<span class="eqno">(4.18)<a class="headerlink" href="#equation-6bbf30a1-a51b-407c-ac4c-4db33e25732d" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-de4b7992-796e-413c-a731-a41f61c36b2f">
+<span class="eqno">(4.18)<a class="headerlink" href="#equation-de4b7992-796e-413c-a731-a41f61c36b2f" title="Permalink to this equation">#</a></span>\[\begin{align}
 \int_{-1}^1 f(x)dx = w_1f(x_1) + w_2f(x_2),
 \end{align}\]</div>
 <p>where there will be some number of polynomials of degree <span class="math notranslate nohighlight">\((2n+1)\)</span> and <span class="math notranslate nohighlight">\(n=1\)</span>.  We set up equations for all polynomials from degree <span class="math notranslate nohighlight">\(0\)</span> to <span class="math notranslate nohighlight">\((2n + 1)\)</span></p>
-<div class="amsmath math notranslate nohighlight" id="equation-6a0efbd6-35d9-422b-9cc0-a96e27aebab5">
-<span class="eqno">(4.19)<a class="headerlink" href="#equation-6a0efbd6-35d9-422b-9cc0-a96e27aebab5" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-266a0f90-7ac4-4ef7-b780-03f98194b05b">
+<span class="eqno">(4.19)<a class="headerlink" href="#equation-266a0f90-7ac4-4ef7-b780-03f98194b05b" title="Permalink to this equation">#</a></span>\[\begin{align}
 \text{degree 0:} &amp;\quad f(x) = 1;&amp;  w_1 + w_2 = \int_{-1}^{1} 1dx = 2, \\
 \text{degree 1:} &amp;\quad f(x) = x;&amp;  w_1x_1 + w_2x_2 = \int_{-1}^{1} xdx = 0, \\
 \text{degree 2:} &amp;\quad f(x) = x^2;&amp; w_1x_1^2 + w_2x_2^2 = \int_{-1}^{1} x^2dx = 2/3, \\
@@ -698,8 +699,8 @@ allowfullscreen></iframe>
 <li><p><span class="math notranslate nohighlight">\(x_2 = 1/\sqrt{3}\)</span> (from degree 2; other root)</p></li>
 </ul>
 <p>This is the beginning of a known procedure using <a class="reference external" href="https://mathworld.wolfram.com/Legendre-GaussQuadrature.html">Legendre polynomials</a>. Now we have to apply a mapping.  The easiest map is from [-1,1]–&gt;[a,b] uniformly, which uses the midpoint = <span class="math notranslate nohighlight">\((a+b)/2\)</span>.  Thus, we can get the mapped points <span class="math notranslate nohighlight">\(x_i^\prime\)</span>, <span class="math notranslate nohighlight">\(w_i^\prime\)</span> through a linear transformation:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4d58b412-6d13-45f4-8117-789ab0c3dc80">
-<span class="eqno">(4.20)<a class="headerlink" href="#equation-4d58b412-6d13-45f4-8117-789ab0c3dc80" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-d8b0528b-23d6-45a7-a5d3-58d240511fb0">
+<span class="eqno">(4.20)<a class="headerlink" href="#equation-d8b0528b-23d6-45a7-a5d3-58d240511fb0" title="Permalink to this equation">#</a></span>\[\begin{align}
 x_i^\prime &amp;= \frac{b+a}{2} + \frac{b-a}{2}x_i, \\
 w_i^\prime &amp;= \frac{b-a}{2}w_i.
 \end{align}\]</div>
@@ -774,14 +775,14 @@ allowfullscreen></iframe>
 <section id="integration-error">
 <h2><span class="section-number">4.5. </span>Integration Error<a class="headerlink" href="#integration-error" title="Permalink to this heading">#</a></h2>
 <p>If you value your own time, then you should choose an integration rule that gives an accurate answer using the least number of integration points.  Simply, fewer integration steps implies that less work needs to be done by the computer and you obtain your result faster.  Additionally, you want an accurate answer and you must realize that we are obtaining estimates of the true answer.  Computers are able to store a finite set of numbers and this results in <em>errors</em>.  We obtain a crude estimate of the <em>approximation</em> or <em>algorithmic error <span class="math notranslate nohighlight">\(\varepsilon\)</span></em> and the <em>relative error <span class="math notranslate nohighlight">\(\epsilon\)</span></em> by expanding <span class="math notranslate nohighlight">\(f(x)\)</span> in a Taylor series around the midpoint of the integration interval.  The error is multiplied by the number of intervals for the entire integration region [a,b].  This is straightforward for the <a class="reference external" href="https://en.wikipedia.org/wiki/Trapezoidal_rule">Trapezoid</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Simpson%27s_rule">Simpson</a> rules because use equidistant intervals.  This process yields:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1910cc83-7659-46ee-bf67-1b5264328e1b">
-<span class="eqno">(4.21)<a class="headerlink" href="#equation-1910cc83-7659-46ee-bf67-1b5264328e1b" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-4ff0d337-3d94-4dfd-b741-a39282d53693">
+<span class="eqno">(4.21)<a class="headerlink" href="#equation-4ff0d337-3d94-4dfd-b741-a39282d53693" title="Permalink to this equation">#</a></span>\[\begin{align}
 \varepsilon_{\rm Trap} &amp;= O\left(\frac{[b-a]^3}{12N^2}\right)f^{\prime\prime},\qquad \text{(Trapezoidal Rule)} \\
 \varepsilon_{\rm Simp} &amp;\sim O\left(\frac{[b-a]^5}{N^4}\right)f^{\prime\prime\prime\prime}. \qquad \text{(Simpsons Rule)}
 \end{align}\]</div>
 <p>for the approximation errors and the relative error is simply:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2d1fae4c-0aef-4999-86f0-c02c253ebeb2">
-<span class="eqno">(4.22)<a class="headerlink" href="#equation-2d1fae4c-0aef-4999-86f0-c02c253ebeb2" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-930ac843-3f8c-4b59-a40b-4bb31551f28c">
+<span class="eqno">(4.22)<a class="headerlink" href="#equation-930ac843-3f8c-4b59-a40b-4bb31551f28c" title="Permalink to this equation">#</a></span>\[\begin{align}
 \epsilon_{\rm Trap} &amp;= \varepsilon_{\rm Trap}/f^\prime, \\
 \epsilon_{\rm Simp} &amp;= \varepsilon_{\rm Simp}/f^\prime.
 \end{align}\]</div>
@@ -822,8 +823,8 @@ allowfullscreen></iframe>
 <li><p>Assuming that you threw the pebbles randomly enough, the number of pebbles falling into the pond should be proportional to the area of the pond <span class="math notranslate nohighlight">\(A_{\rm pond}\)</span>.</p></li>
 </ol>
 <p>The fraction of pebbles that splash in the pond relative to the total number of pebbles tells you the area within a unit box.  Multiplying by the area of the box <span class="math notranslate nohighlight">\(A_{\rm box}\)</span> in the natural units, then allows you to find the area of the pond:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b04b753b-6f63-4b89-b241-ddb3a3e63749">
-<span class="eqno">(4.23)<a class="headerlink" href="#equation-b04b753b-6f63-4b89-b241-ddb3a3e63749" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-aa635f0b-8d47-454c-bfa6-30b9790263cb">
+<span class="eqno">(4.23)<a class="headerlink" href="#equation-aa635f0b-8d47-454c-bfa6-30b9790263cb" title="Permalink to this equation">#</a></span>\[\begin{align}
 A_{\rm pond} = \frac{N_{\rm pond}}{N_{\rm pond}+N_{\rm box}}A_{\rm box}.
 \end{align}\]</div>
 <p>Let’s use the sampling technique to perform a 2D integration to determine <span class="math notranslate nohighlight">\(\pi\)</span> (in code!) assuming a circular pond.</p>
@@ -885,8 +886,8 @@ A_{\rm pond} = \frac{N_{\rm pond}}{N_{\rm pond}+N_{\rm box}}A_{\rm box}.
 <section id="integrating-by-mean-value">
 <h2><span class="section-number">4.7. </span>Integrating by Mean Value<a class="headerlink" href="#integrating-by-mean-value" title="Permalink to this heading">#</a></h2>
 <p>In the previous section, we integrated using random values.  You might be thinking, how did that even work?  It is the standard Monte Carlo (random value) technique, which is based on the <em>mean value theorem</em> from Calculus.  Here’s the equation in case you’ve forgotten:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-069ae412-652d-41f0-b98e-222e7d5273f5">
-<span class="eqno">(4.24)<a class="headerlink" href="#equation-069ae412-652d-41f0-b98e-222e7d5273f5" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-8001fbcd-9baa-49eb-8472-31432f86c33c">
+<span class="eqno">(4.24)<a class="headerlink" href="#equation-8001fbcd-9baa-49eb-8472-31432f86c33c" title="Permalink to this equation">#</a></span>\[\begin{align}
 I = \int_a^b f(x)dx = (b-a)\left&lt;f\right&gt;.
 \end{align}\]</div>
 <p>The theorem states: the value of the integral of some function <span class="math notranslate nohighlight">\(f(x)\)</span> over the interval from <span class="math notranslate nohighlight">\(a\)</span> to <span class="math notranslate nohighlight">\(b\)</span> equals the length of the interval <span class="math notranslate nohighlight">\((b-a)\)</span> multiplied by the mean value of the function <span class="math notranslate nohighlight">\(\left&lt;f\right&gt;\)</span> over that interval.  More simply, it states that the same area can exist under a complicated curve and within the simplest curve (a horizontal line).</p>
@@ -897,13 +898,13 @@ I = \int_a^b f(x)dx = (b-a)\left&lt;f\right&gt;.
 </figcaption>
 </figure>
 <p>The integration algorithm uses Monte Carlo techniques to evaluate the mean, which can be written as a summation by:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1dbac62b-98a5-4633-a670-f2087e6de85b">
-<span class="eqno">(4.25)<a class="headerlink" href="#equation-1dbac62b-98a5-4633-a670-f2087e6de85b" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-b665a45a-7b0a-4cc7-92f1-1face3074369">
+<span class="eqno">(4.25)<a class="headerlink" href="#equation-b665a45a-7b0a-4cc7-92f1-1face3074369" title="Permalink to this equation">#</a></span>\[\begin{align}
 \left&lt;f\right&gt; \simeq \frac{1}{N} \sum_{i=1}^N f(x_i).
 \end{align}\]</div>
 <p>This gives the very simple integration rule:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b0a1aa05-91bc-4cc2-b493-1eddb2457ec3">
-<span class="eqno">(4.26)<a class="headerlink" href="#equation-b0a1aa05-91bc-4cc2-b493-1eddb2457ec3" title="Permalink to this equation">#</a></span>\[\begin{align} 
+<div class="amsmath math notranslate nohighlight" id="equation-a2095508-1df1-4f9f-b95a-251b1db33535">
+<span class="eqno">(4.26)<a class="headerlink" href="#equation-a2095508-1df1-4f9f-b95a-251b1db33535" title="Permalink to this equation">#</a></span>\[\begin{align} 
 \int_a^b f(x)dx \simeq \frac{b-a}{N} \sum_{i=1}^N f(x_i) = (b-a)\left&lt;f\right&gt;.
 \end{align}\]</div>
 <p>This looks like our standard algorithm <span class="math notranslate nohighlight">\((\sum_i f(x_i)w_i)\)</span>, where the points are chosen randomly and with uniform weights <span class="math notranslate nohighlight">\(w_i = (b-a)/N\)</span>.  This method is not very efficient (i.e., it can take a large N to converge), but it is simple.</p>
