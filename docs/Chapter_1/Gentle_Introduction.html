@@ -7,7 +7,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>1. Useful Introduction to Python, GitHub, and LaTex &#8212; PHYS3820 Computational Physics</title>
   
@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,18 +39,18 @@
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mycss.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
@@ -92,6 +92,15 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -152,13 +161,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     
     
       
     
     
-    <img src="../_static/Comp_Physics_diagram.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/Comp_Physics_diagram.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/Comp_Physics_diagram.png" class="logo__image only-light" alt="PHYS3820 Computational Physics - Home"/>
+    <script>document.write(`<img src="../_static/Comp_Physics_diagram.png" class="logo__image only-dark" alt="PHYS3820 Computational Physics - Home"/>`);</script>
   
   
 </a></div>
@@ -371,10 +381,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -382,7 +392,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -475,7 +485,7 @@ allowfullscreen></iframe>
 </div>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Colossus_computer"><strong>Colossus</strong></a> was the world’s first electronic digital programmable computer, where it used a large number of valves (vacuum tubes). It had paper-tape input and was capable of being configured to perform a variety of boolean logical operations on its data.  The <a class="reference external" href="https://en.wikipedia.org/wiki/ENIAC"><strong>ENIAC</strong></a> (Electronic Numerical Integrator and Computer) was the first electronic programmable computer built in the United States. Like the Colossus, a “program” on the ENIAC was defined by the states of its patch cables and switches. Once a program was written, it had to be mechanically set into the machine with the manual resetting of plugs and switches.</p>
 <figure class="align-default" id="eniac-fig">
-<a class="reference internal image-reference" href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Eniac.jpg/1280px-Eniac.jpg"><img alt="eniac" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Eniac.jpg/1280px-Eniac.jpg" style="width: 400px;" /></a>
+<a class="reference internal image-reference" href="https://en.wikipedia.org/wiki/ENIAC#/media/File:Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg"><img alt="eniac" src="https://en.wikipedia.org/wiki/ENIAC#/media/File:Glen_Beck_and_Betty_Snyder_program_the_ENIAC_in_building_328_at_the_Ballistic_Research_Laboratory.jpg" style="width: 400px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 1.2 </span><span class="caption-text">ENIAC was the first electronic device in the U.S. and performed ballistics trajectory calculations for the United States Army. Image Credit: <a class="reference external" href="https://en.wikipedia.org/wiki/ENIAC">Wikipedia:ENIAC</a>.</span><a class="headerlink" href="#eniac-fig" title="Permalink to this image">#</a></p>
 </figcaption>
@@ -595,7 +605,7 @@ allowfullscreen></iframe>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c99cf2fb2fa6e4bb936585e6a61a4031c4437726139e46ccb54becba634b0d9f.png" src="../_images/c99cf2fb2fa6e4bb936585e6a61a4031c4437726139e46ccb54becba634b0d9f.png" />
+<img alt="../_images/01f3bb242d9c6d99e6309ee080cb14c0a7cf79f75a327aeae839db06da171826.png" src="../_images/01f3bb242d9c6d99e6309ee080cb14c0a7cf79f75a327aeae839db06da171826.png" />
 </div>
 </div>
 <p>However, we may want to make a lot of plots and do not want to copy/paste a bunch of times.  To reuse our commands, we define a custom function <code class="docutils literal notranslate"><span class="pre">create_plot</span></code> that takes the parameters we may want to vary as input (e.g., x-values, y-values, marker color, marker type, and marker size).</p>
@@ -618,7 +628,7 @@ allowfullscreen></iframe>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/95ca86a2cd134c7c69b6641b67da17340f3efb14b187012d8221e5e102415760.png" src="../_images/95ca86a2cd134c7c69b6641b67da17340f3efb14b187012d8221e5e102415760.png" />
+<img alt="../_images/d5f368aa48fe92ac2279533a81bc03e8a87e207e746ff5e9b155d74bda048e8c.png" src="../_images/d5f368aa48fe92ac2279533a81bc03e8a87e207e746ff5e9b155d74bda048e8c.png" />
 </div>
 </div>
 <p>We can even change the x,y values to something more complicated.</p>
@@ -631,7 +641,7 @@ allowfullscreen></iframe>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4e2f539dfdfabd922d3d1d99a81970241110a94c0c36930e2960d5579e12d1fc.png" src="../_images/4e2f539dfdfabd922d3d1d99a81970241110a94c0c36930e2960d5579e12d1fc.png" />
+<img alt="../_images/5c8c629cd6bb0211b404e0169392829b1e90b63b1c4031d3c14028574054fe46.png" src="../_images/5c8c629cd6bb0211b404e0169392829b1e90b63b1c4031d3c14028574054fe46.png" />
 </div>
 </div>
 <p>There are many options within matplotlib, where you will find some more useful than others over time.  If in doubt, you can always check the <a class="reference external" href="https://matplotlib.org/stable/gallery/index.html"><strong>matplotlib gallery</strong></a> or <a class="reference external" href="https://stackexchange.com/">stackexchange</a>.  It is likely that someone has already run into your problem/customization and other people have provided a ‘possible’ solution (<em>not all solutions are good!</em>).  The last bit of customization for this section is to:</p>
@@ -682,7 +692,7 @@ allowfullscreen></iframe>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/18ed45a6fd7aab5077aaccfa9a402ee6d4ab3ed60ab7eb2ac52833397167e3e0.png" src="../_images/18ed45a6fd7aab5077aaccfa9a402ee6d4ab3ed60ab7eb2ac52833397167e3e0.png" />
+<img alt="../_images/9b49512b71062cd85cb8d26a9fbfae01f2a7aa555728f31873816a5bdb95022d.png" src="../_images/9b49512b71062cd85cb8d26a9fbfae01f2a7aa555728f31873816a5bdb95022d.png" />
 </div>
 </div>
 <p>Figures can be saved to file using the <code class="docutils literal notranslate"><span class="pre">savefig</span></code> function, which takes the filename as an argument.  Additional keyword arguments (kwargs) can be applied that alter the display of the figure (e.g., <code class="docutils literal notranslate"><span class="pre">dpi</span> <span class="pre">=</span> <span class="pre">300</span></code> sets the dots per inch to 300).</p>
@@ -708,7 +718,7 @@ allowfullscreen></iframe>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3796961310824255
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.27955420361104766
 </pre></div>
 </div>
 </div>
@@ -758,10 +768,10 @@ I_C \\
 <h3><span class="section-number">1.3.3. </span>Reading and writing data from a file<a class="headerlink" href="#reading-and-writing-data-from-a-file" title="Permalink to this heading">#</a></h3>
 <p>Python allows for many forms of input.  There are commands to request user input manually via the terminal window, where this can be a direct request or by command line arguments.  For computational physics, it is likely that you want to know how the output of a program changes with slightly different inputs or to visualize a data set.  At this point manual input is impractical and cumbersome.  In this section, you will learn how to read and write to data files so that you can save your work for later or prepare it for others to use.</p>
 <p>Files are created using the open() function that takes a filename and a mode as input.  Here’s a table detailing the different modes available to the open() function.</p>
-<table class="table">
+<table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Character</p></th>
-<th class="head text-center"><p>Meaning</p></th>
+<th class="text-center head"><p>Meaning</p></th>
 </tr>
 </thead>
 <tbody>
@@ -839,7 +849,7 @@ I_C \\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ca9c819ec6b2c97cda426df1f8ad7ab63c06b9b9396d8f640a656f1714b92f18.png" src="../_images/ca9c819ec6b2c97cda426df1f8ad7ab63c06b9b9396d8f640a656f1714b92f18.png" />
+<img alt="../_images/790649761466d7a38b866d56fe077c6ef16fae2fe72356a46211b4208d3eddde.png" src="../_images/790649761466d7a38b866d56fe077c6ef16fae2fe72356a46211b4208d3eddde.png" />
 </div>
 </div>
 </section>
@@ -1150,11 +1160,10 @@ caption<span class="nb">{</span>This is a table caption, which describes the bas
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="../home.html"
@@ -1174,10 +1183,7 @@ caption<span class="nb">{</span>This is a table caption, which describes the bas
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1265,8 +1271,8 @@ By Billy Quarles
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>
